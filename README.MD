@@ -1,3 +1,5 @@
+English | [Русский](README.ru.MD)
+
 [About](#about)  
 [Functions and their possible use](#functions-and-their-possible-use)  
 [Input-Output functions](#input-output-functions)  
@@ -333,8 +335,9 @@ Note that the required substrings may have length <= StrShort.length+D and >=
 StrShort.length-D because gap penalty = 1.
 3. If such maximal possible length meets this condition, let a string TempS be
 a substring of StrLong of this length (TempS starts from relevant start position
-in StrLong).
-4. And then let's do Edit Distance Alignment between TempS and StrShort in order
+in StrLong).  
+
+And then let's do Edit Distance Alignment between TempS and StrShort in order
 to find prefixes of TempS, that require the statement of problem to be solved
 here.
 ***
@@ -682,7 +685,7 @@ Visited): 0 = unvisited (white), 1 = visited, but not still finished yet (grey),
 Bool "weighted" should be set as "true" for weighted graph, "false" for
 unweighted.
 
-If the graph contains cycle - returns 1 and empty "order".16
+If the graph contains cycle - returns 1 and empty "order".
 ***
 `int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> &
 order, std::vector <int> & Isolated, const bool weighted, const bool OnlyTS =
@@ -810,20 +813,20 @@ Returns -1 if NLines or NColumns <=0
 = 0)`
 
 Returns index in vector (int) of the first element = a. Search starts from
-index "start" with step = "step". If no such element found the function returns 0.
+index "start" with step = "step". If no such element found the function returns -1.
 ***
 `int FindIn (std::vector <long long int> &D, long long int a, unsigned int step =
 1, unsigned int start = 0)`
 
 Returns index in vector (long long int) of the first element = a. Search starts
 from index "start" with step = "step". If no such element found the function
-returns 0.
+returns -1.
 ***
 `int FindIn (std::vector <double> &D, double a, unsigned int step = 1, unsigned int
 start = 0)`
 
 Returns index in vector (double) of the first element = a. Search starts from
-index "start" with step = "step". If no such element found the function returns 0.
+index "start" with step = "step". If no such element found the function returns -1.
 
 Yes, operation like (a==b) may be not correct for doubles. But this function
 may be considered as an useful one in some cases.
@@ -838,14 +841,14 @@ Returns index in vector (double) of the first element, that differs from "a"
 less than nonnegative double "d".
 
 Search starts from index "start" with step = "step". If no such element found
-the function returns 0.
+the function returns -1.
 ***
 `int FindIn (std::vector <long double> &D, long double a, unsigned int step = 1,
 unsigned int start = 0)`
 
 Returns index in vector (long double) of the first element = a. Search starts
 from index "start" with step = "step". If no such element found the function
-returns 0.
+returns -1.
 
 Yes, operation like (a==b) may be not correct for doubles. But this function
 may be considered as an useful one in some cases. The following version of the
@@ -858,13 +861,13 @@ Returns index in vector (long double) of the first element, that differs from
 "a" less than nonnegative long double "d".
 
 Search starts from index "start" with step = "step". If no such element found
-the function returns 0.
+the function returns -1.
 ***
 `int FindIn (std::vector <string> &D, std::string a, unsigned int step = 1,
 unsigned int start = 0)`
 
 Returns index in vector (string) of the first element = a. Search starts from
-index "start" with step = "step". If no such element found the function returns 0.
+index "start" with step = "step". If no such element found the function returns -1.
 ***
 `int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)`
 
