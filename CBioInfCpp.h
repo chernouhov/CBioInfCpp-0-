@@ -645,12 +645,13 @@ int MatrixFout (std::vector <std::vector <long long int>> & B, std::ofstream & f
 }
 
 
-int FindIn (std::vector <int> &D, int a, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <int> &D, int a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1.
-// Returns index in vector (int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Возвращает индекс первого найденного элемента (int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// Returns index in vector (int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
 
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if (D[y] == a) return y;
@@ -659,12 +660,12 @@ int FindIn (std::vector <int> &D, int a, unsigned int step = 1, unsigned int sta
 }
 
 
-int FindIn (std::vector <long long int> &D, long long int a, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <long long int> &D, long long int a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (long long int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1.
-// Returns index in vector (long long int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Возвращает индекс первого найденного элемента (long long int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// Returns index in vector (long long int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
-
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if (D[y] == a) return y;
@@ -673,16 +674,16 @@ int FindIn (std::vector <long long int> &D, long long int a, unsigned int step =
 }
 
 
-int FindIn (std::vector <double> &D, double a, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <double> &D, double a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1.
+// Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Да, прямое сравнение чисел double не совсем корректно и это нужно принимать во внимание, но в ряде случаев функция может быть полезна.
 // Для сравнения с заданной точностью см. вариант функции ниже.
-// Returns index in vector (double) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Returns index in vector (double) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 // Yes, operation like (a==b) may be not correct for doubles. But this function may be considered as an useful one in some cases.
 //  The following version of the function finds the first element, that differs from "a" less than "d".
 
-
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if ((D[y]-a)==0.0) return y;
@@ -692,13 +693,13 @@ int FindIn (std::vector <double> &D, double a, unsigned int step = 1, unsigned i
 
 
 
-int FindIn (std::vector <double> &D, double a, double d, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <double> &D, double a, double d, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1.
+// Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (double) of the first element, that differs from "a" less than nonnegative double "d".
-// Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
-
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if ( (std::abs(D[y] - a))<d) return y;
@@ -707,14 +708,14 @@ int FindIn (std::vector <double> &D, double a, double d, unsigned int step = 1, 
 }
 
 
-int FindIn (std::vector <long double> &D, long double a, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <long double> &D, long double a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1.
+// Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Да, прямое сравнение чисел long double не совсем корректно и это нужно принимать во внимание, но в ряде случаев функция может быть полезна. Для сравнения с заданной точностью см. вариант функции ниже.
-// Returns index in vector (long double) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Returns index in vector (long double) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 // Yes, operation like (a==b) may be not correct for doubles. But this function may be considered as an useful one in some cases. The following version of the function finds the first element, that differs from "a" less than "d".
 
-
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if ((D[y]-a)==0.0) return y;
@@ -723,12 +724,13 @@ int FindIn (std::vector <long double> &D, long double a, unsigned int step = 1, 
 }
 
 
-int FindIn (std::vector <long double> &D, long double a, long double d, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <long double> &D, long double a, long double d, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1.
+// Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (long double) of the first element, that differs from "a" less than nonnegative long double "d".
-// Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if ( (std::abs(D[y] - a))<d) return y;
@@ -738,12 +740,12 @@ int FindIn (std::vector <long double> &D, long double a, long double d, unsigned
 
 
 
-int FindIn (std::vector <std::string> &D, std::string a, unsigned int step = 1, unsigned int start = 0)
+int FindIn (std::vector <std::string> &D, std::string a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (string), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1.
-// Returns index in vector (string) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0.
+// Возвращает индекс первого найденного элемента (string), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// Returns index in vector (string) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
-
+    if (step <1) step = 1; if (start <0) start = 0;
     for (unsigned int y = start; y<D.size(); y=y+step)
     {
         if (D[y] == a) return y;
@@ -971,7 +973,7 @@ int VectorFout (const std::vector <std::string> & P, std::ofstream &fout)
 
 
 
-int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4)
+int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, bool scientifique = false)
 // Модификация функции VectorCout (см. выше).
 // Modification of the function VectorCout (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
@@ -983,6 +985,9 @@ int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P
     if ((P.first).size()==0) return -1;
     if ((P.second).size()==0) return -1;
     if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+    if (!scientifique)
+    {
     std::cout.precision(prec);
 
     for (int i=0; i<(P.second).size();i++)
@@ -994,10 +999,32 @@ int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P
     }
     std::cout<< std::endl;
 
+    }
+
+    if (scientifique)
+        {
+
+                for (int i=0; i<(P.second).size();i++)
+                {
+                    std::cout<< (P.first)[2*i]<<" ";
+                    std::cout<< (P.first)[2*i+1]<<" ";
+                    std::cout<< std::scientific<<(P.second)[i]<<" ";
+                    std::cout.unsetf(std::ios::scientific);
+
+                }
+
+
+                std::cout<< std::endl;
+
+
+        }
+
+
+
     return 0;
 }
 
-int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4)
+int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
 // Модификация функции VectorFout (см. выше).
 // Modification of the function VectorFout (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
@@ -1008,6 +1035,9 @@ int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P
     if ((P.first).size()==0) return -1;
     if ((P.second).size()==0) return -1;
     if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+    if (!scientifique)
+    {
     fout.precision(prec);
 
     for (int i=0; i<(P.second).size();i++)
@@ -1019,8 +1049,179 @@ int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P
     }
     fout<< std::endl;
 
+    }
+
+    if (scientifique)
+        {
+
+                for (int i=0; i<(P.second).size();i++)
+                {
+                    fout<< (P.first)[2*i]<<" ";
+                    fout<< (P.first)[2*i+1]<<" ";
+                    fout<< std::scientific<<(P.second)[i]<<" ";
+                    fout.unsetf(std::ios::scientific);
+
+                }
+
+
+                fout<< std::endl;
+
+
+        }
+
+
+
     return 0;
 }
+
+
+
+
+int GraphCout (const std::vector <int> &P, const bool weighted)
+// Вывод графа, заданного вектором смежности, на экран: каждое ребро выводится в новой строке. Граф - невзвешенный, либо веса ребер целочисленны.
+// "Couts" a graph that is set by Adjacency vector A to screen: one edge in one line. Parameter "weighted" sets if the graph A is weighted or no.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+
+{
+
+    if (P.size()==0) return -1; // checking for input data correctness
+    if ( (P.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    for (int i=0; i<P.size();i=i+2)
+        std::cout<< P[i]<<' '<<P[i+1]<<std::endl;
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+
+int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &fout)
+// Вывод графа, заданного вектором смежности, в файл: каждое ребро выводится в новой строке. Граф - невзвешенный, либо веса ребер целочисленны.
+// "Fouts" a graph that is set by Adjacency vector A to file: one edge in one line. Parameter "weighted" sets if the graph A is weighted or no.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+
+{
+
+    if ( (P.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    if (P.size()==0) return -1;  // checking for input data correctness
+
+    for (int i=0; i<P.size();i=i+2)
+        fout<< P[i]<<' '<<P[i+1]<<std::endl;
+    fout<< std::endl;
+
+    return 0;
+}
+
+
+
+int GraphCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphCout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+// Modification of the function GraphCout (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+{
+
+    if ((P.first).size()==0) return -1;
+    if ((P.second).size()==0) return -1;
+    if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+    if (!scientifique)
+    {
+    std::cout.precision(prec);
+
+    for (int i=0; i<(P.second).size();i++)
+    {
+        std::cout<< (P.first)[2*i]<<" ";
+        std::cout<< (P.first)[2*i+1]<<" ";
+        std::cout<< std::fixed<<(P.second)[i]<<" ";
+        std::cout<< std::endl;
+    }
+    std::cout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (int i=0; i<(P.second).size();i++)
+                {
+                    std::cout<< (P.first)[2*i]<<" ";
+                    std::cout<< (P.first)[2*i+1]<<" ";
+                    std::cout<< std::scientific<<(P.second)[i]<<" ";
+                    std::cout.unsetf(std::ios::scientific);
+                    std::cout<< std::endl;
+                }
+
+
+                std::cout<< std::endl;
+
+
+        }
+
+
+
+    return 0;
+}
+
+
+int GraphFout (const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphFout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+// Modification of the function GraphFout (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+{
+
+    if ((P.first).size()==0) return -1;
+    if ((P.second).size()==0) return -1;
+    if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+    if (!scientifique)
+    {
+    fout.precision(prec);
+
+    for (int i=0; i<(P.second).size();i++)
+    {
+        fout<< (P.first)[2*i]<<" ";
+        fout<< (P.first)[2*i+1]<<" ";
+        fout<< std::fixed<<(P.second)[i]<<" ";
+        fout<< std::endl;
+    }
+    fout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (int i=0; i<(P.second).size();i++)
+                {
+                    fout<< (P.first)[2*i]<<" ";
+                    fout<< (P.first)[2*i+1]<<" ";
+                    fout<< std::scientific<<(P.second)[i]<<" ";
+                    fout.unsetf(std::ios::scientific);
+                    fout<< std::endl;
+                }
+
+
+                fout<< std::endl;
+
+
+        }
+
+
+
+    return 0;
+}
+
+
+
+
+
 
 
 
@@ -1287,6 +1488,270 @@ std::string DNAg (const std::string &s)
 
 return sr;
 }
+
+
+
+std::string StrToCircular (const std::string& s, int tail = INT_MAX)
+// Находит и возвращает кратчайшую "круговую" ("скрученную в кольцо") строку для заданной (т.е. с максимальным "нахлестом" конца строки на начало).
+// Для строк длиной менее 3 символов возвращает ее же (считается, что в этом случае "нахлест" невозможен.
+// Возможно задать параметр tail - величнину максимального "нахлеста". Значения tail<=0 в расчет не принимаются.
+
+//  Returns a circular string of minimal length of a string s; if length of s <3 returns s itself.
+//  One may set "tail" i.e. maximal overlap "tail-to-beginning" of the string s (nonpositive values of "tail" will be ignored).
+
+
+{
+    if (s.length()<3) return s;
+    if (tail<=0) tail = INT_MAX;
+
+    int N = s.length()/2;
+    if (tail<s.length()/2) N=tail;
+
+    std::string sr = s;
+    for (int i = N; i>0; i--)
+        if (s.substr(0, i) == s.substr(s.length() - i, i))
+        {
+            sr = s.substr(0, s.length() - i);
+            break;
+        }
+
+    return sr;
+}
+
+
+
+int TandemRepeatsFinding (const std::string &s, std::vector <int> &Result, int MaxWordLength = 4, int limit = 5)
+
+// Функция находит все тандемные повторы в строке s, сформированные j-мерами длинной от 1 по MaxWordLength символов и имеющие длину не менее limit
+// MaxWordLength должно быть в границах от 2 по 6. limit должен быть больше MaxWordLength (иначе limit будет присвоено значение MaxWordLength+1).
+// Результат возвращается в векторе Result, где на четных позициях, отсчитываемых с нуля - позиции начала тандемного повтора в s (символы в s также нумеруются с нуля), а на нечетных - длина повтора
+// Возвращает 0 в случае успеха. В случае некорректных данных (длина s < MaxWordLength, MaxWordLength не в диапазоне [2; 6]) возвращает пустой Result и -1.
+
+// Finds all tandem repeats in the string s as follows:
+// the repeat has its lenght >= limits, the repeat should be formed by j-mers: j in [1; MaxWordLength], MaxWordLength in [2; 6]
+// limit should be more than MaxWordLength (if no the limit's value will be set as MaxWordLength+1)
+// Returns 0 and vector Result: every even position of Result contains the starting position of tandem repeat in the s (0-based indexing)
+// and every odd position of Result contain the lenghts of the repeat that have its starting position as previous element in the Result.
+// Returns -1 and empty Result if input data is incorrect.
+
+
+{
+    Result.clear();
+    if (limit <= MaxWordLength ) limit = MaxWordLength+1;
+    if ((MaxWordLength <2) || (MaxWordLength >6) ) return -1;
+    if (s.length()<MaxWordLength) return -1;
+
+
+    std::string Alph = "ACGT";
+    int WordLenght;
+    int AlphLenght = Alph.length();
+
+    std::string SA = "A";
+    std::string SC = "C";
+    std::string SG = "G";
+    std::string ST = "T";
+
+    for (int q=0; q<MaxWordLength; q++)
+    {
+        SA = SA + "A";
+        SC = SC + "C";
+        ST = ST + "T";
+        SG = SG + "G";
+    }
+
+    std::string TempS;
+
+    char out [10];   // an auxiliary array to make j-mers
+
+    std::vector <int> l; // an auxiliary array to form j-mers (to do so let's do 4-digit numbers: one digit corresponds to one and only one symbol from the string Alph)
+
+    std::vector <int> P; // an auxiliary array to contain starting positions of j-mers in the string s
+    int y, t;
+    int f=-1;
+    int count;
+    int b, e;
+
+
+
+
+    // First of all lets see all j-mers: j in [2; MaxWordLength], but except those are formed by only one and the same symbol (i.e. except those like "AAAA", "TTT", etc)
+
+    for (int j=MaxWordLength; j>1; j--)  // let's generate j-mers: j in [2; MaxWordLength]
+    {
+
+        SA.pop_back(); // j-mers that are formed
+        SC.pop_back();  // by only one repeating symbol
+        SG.pop_back();  // (i.e. j-mers like "AAAA", "CC", "TTT, etc)
+        ST.pop_back(); // will be ignored here.
+
+
+        WordLenght = j;
+        long long int nn = (long long int) (pow (double(AlphLenght), WordLenght)); //nn - total number of j-mers
+
+        l.clear();
+        l.resize(j, 0);
+
+        for (int g=0; g<WordLenght; g++)
+        {
+
+            out [g] = Alph [0];  // setting starting j-mer
+
+        }
+
+
+        for (long long int ii=0; ii<nn; ii++)
+        {
+             TempS = "";
+
+
+            for (int u=0; u< WordLenght; u++)
+            {
+
+                TempS= TempS + out [u]; //forming the next j-mer
+            }
+
+            // we have TempS as j-mer now
+
+
+            if ((TempS==SA) || (TempS==SC) || (TempS==SG) || (TempS==ST) ) goto label1;  // if j-mer is formed by only one repeating symbol - it is not for working with it here
+
+            P.clear();
+            y=s.find(TempS, 0);
+            while (y!=-1) // We' ll write to P every starting positions of the j-mer as a substring of the string s
+            {
+                P.push_back(y);
+                y = s.find(TempS, y+1);
+
+            }
+
+
+            count = WordLenght; //count will contain the lenght of tandem repeat
+            for (int q=1; q<P.size(); q++)
+            {
+                if (P[q]-P[q-1]==WordLenght)  //if so - the tandem repeat continues
+                {
+                    count = count + WordLenght;
+                    t=P[q];
+                    continue;
+                }
+
+                if (count>= limit) // if the tandem repeat has its lenght >= limit (as limits is the minimal lenght of repeats to be found)
+                {
+                    b = t+WordLenght-count; //the starting position in the string s of the repeat
+                    e = count; // and its lenght
+
+                    // cheking if the repeat is contained in any already found or it contains any of them itself
+                    f=1;
+                    for (int w=0; w<Result.size(); w=w+2)
+                    {
+                        if ( (Result[w]<=b)&& ((Result[w]+Result[w+1])>=(e+b))  )
+                        {f=-1; break;} // it is contained in some one found before
+
+                        if ( (Result[w]>=b)&& ((Result[w]+Result[w+1])<=(e+b))  ) // in this case we eliminate the one contained in the new found repeat
+                        {Result.erase(Result.begin()+w); Result.erase(Result.begin()+w);}
+
+                    }
+
+                    if (f==1)
+                    {
+                    Result.push_back(t+WordLenght-count); // writing to P the starting pos
+                    Result.push_back(count); // and the lenght of the new repeat found
+                    }
+
+
+
+                }
+
+                count = WordLenght;
+            }
+
+            if (count>= limit) // another iteration for the last repeat in the s
+            {
+                b = t+WordLenght-count;
+                e = count;
+                f=1;
+                for (int w=0; w<Result.size(); w=w+2)
+                {
+                    if ( (Result[w]<=b)&& ((Result[w]+Result[w+1])>=(e+b))  )
+                    {f=-1; break;}
+
+                    if ( (Result[w]>=b)&& ((Result[w]+Result[w+1])<=(e+b))  )
+                    {Result.erase(Result.begin()+w); Result.erase(Result.begin()+w);}
+
+                }
+
+
+
+                if (f==1)
+                {
+                Result.push_back(t+WordLenght-count);
+                Result.push_back(count);
+                }
+            }
+
+
+
+
+    label1: ;
+        l [WordLenght-1]++;  //увеличение на 1 кода последней буквы // the digit that corresponds to the last symbol of j-mer is to be increased
+
+        if (l [WordLenght-1] == AlphLenght) // if so - we must recalculate the senior digits too
+         {
+           int r = WordLenght-1;
+
+           while (r>0)
+             {l [r] = 0;
+              r--;
+              l [r] ++;
+              if (l[r] < AlphLenght) break;
+             }
+         }
+
+        for (int t = 0; t<WordLenght; t++)
+              out [t] = Alph [(l[t])];
+
+
+        }
+
+    }  // End of observing all j-mers: j in [2; MaxWordLength], but except those are formed by only one and the same symbol (i.e. except those like "AAAA", "TTT", etc)
+
+
+    // Now lets find substrings formed by only one repeating symbol and that have their lenght not less than "limits"
+    // The algorithm is like above, but we are looking for substrings formed by by only one repeating symbol.
+    //In doing so we count their lenght in the "count" and if (count>= limit) - we have found another one repeat
+
+
+    count =1;
+
+    for (int q=1; q<s.length(); q++)
+    {
+
+        if (s[q]==s[q-1])
+        {
+            count++;
+            t=q;
+            continue;
+        }
+
+        if (count>= limit)
+        {
+            Result.push_back(t+1-count);
+            Result.push_back(count);
+        }
+
+    count=1;
+    }
+
+    if (count>= limit)
+    {
+        Result.push_back(t+WordLenght-count);
+        Result.push_back(count);
+    }
+
+    return 0;
+}
+
+
 
 
 void GMapCodonRNA (std::map <std::string, std::string> & MapCodon)
@@ -2680,6 +3145,153 @@ int AdjMatrix2AdjVector (std::pair < std::vector<int>, std::vector<double>> & A,
 
 
 
+int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted)
+// Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
+// Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+// Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. Для невзвешенного графа считаем вес всех ребер = 1.
+// Возвращает -1 в случае некорректности исходных данных.
+// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+
+
+{
+    G2.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    std::pair < int, int> C;
+    std::pair < std::pair < int, int>, int> D;
+
+    if (weighted)
+    {
+    for (int i=0; i<A.size(); i=i+3)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+        D = std::make_pair(C, A[i+2]);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+A[i+2]; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); continue;}
+
+
+    }
+
+    }
+
+    if (!weighted)
+    {
+    for (int i=0; i<A.size(); i=i+2)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+        D = std::make_pair(C, 1);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+1; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); continue;}
+
+    }
+
+    }
+
+    return 0;
+
+}
+
+
+
+
+int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)
+// Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+// Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом.
+// Возвращает -1 в случае некорректности исходных данных.
+
+{
+    G2.clear();
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+
+    std::pair < int, int> C;
+    std::pair < std::pair < int, int>, double> D;
+
+
+    for (int i=0; i<(A.second).size(); i++)
+    {
+        C = std::make_pair((A.first)[i*2], (A.first)[2*i+1]);
+        D = std::make_pair(C, (A.second)[i]);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+(A.second)[i]; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); continue;}
+
+    }
+
+
+
+    return 0;
+
+}
+
+
+
+int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , int> &G1)
+// Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are integers.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+// Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса целочисленны).
+// Возвращает -1 в случае некорректности исходных данных.
+
+
+
+{
+    A.clear();
+    if (G1.size()==0) return -1;
+    for (auto it =G1.begin(); it!=G1.end(); it++)
+    {
+        A.push_back(  (it->first).first);
+        A.push_back(  (it->first).second);
+        A.push_back  (it->second);
+
+    }
+
+    return 0;
+}
+
+
+
+int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , double> &G1)
+// Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are double.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+// Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса имеют тип double).
+// Возвращает -1 в случае некорректности исходных данных.
+
+
+{
+    (A.first).clear();
+    (A.second).clear();
+    if (G1.size()==0) return -1;
+    for (auto it =G1.begin(); it!=G1.end(); it++)
+    {
+        (A.first).push_back(  (it->first).first);
+        (A.first).push_back(  (it->first).second);
+        (A.second).push_back  (it->second);
+
+    }
+
+    return 0;
+}
+
+
+
+
 
 int CheckUnvisit (std::vector <int> & Visited) // Вспомогательная функция для поиска первой непомеченной вершины в графе
 // An auxiliary function that finds the first unmarked vertex in the graph (0 means unmarked)
@@ -3195,6 +3807,7 @@ int TSortHP (std::pair < std::vector<int>, std::vector<double>> & A, std::vector
 
 
 
+
 int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
 {
 
@@ -3444,6 +4057,290 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
 
 
 
+long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int e, std::vector <std::vector<int> >&Paths, std::vector <int> &Flows, std::vector < std::pair < int, int> > &MinCut)
+// Функция для поиска максимального потока в графе из вершины b в вершину e; граф задается вектором смежности А;
+// параметр weighted определяет, является ли граф взвешенным (если взвешенный - "Истина", при этом веса ребер здесь могут быть лишь целыми положительными).
+// Может работать с множественными ребрами (рассматриваются как одно "объединенное" ребро с суммарным весом) и с множественными петлями (петли игнорируются).
+// Вершины графа должны быть неотрицательны, веса ребер - только положительны
+// Возвращает: (1) величину максимального потока, (2) заполненный вектор путей Paths, слагающих максимальный поток (один из возможных вариантов построения Paths, если их может быть несколько),
+// (3) соответствующие этим путям значения потоков в векторе Flows, (4) перечень ребер минимального разреза графа в векторе MinCut (каждое ребро задано парой вершин).
+//  В случае некорректных исходных данных или отсутствия пути из b в e возвращает -1 и пустые Paths, Flows, MinCut.
+
+
+// Finds maximal flow from vertex b to vertex e in the graph A (set by Adjacency vector A).
+// Parameter "weighted" sets if A is a weighted graph or no. All vertices of A should have only non-negative marks.
+// For a weighted graph edges should have only positive values.
+// Graph A may have multiple edges (multiple edges will be considered as one joined edge that have its weight = sum of the weights of all joined edges) and multiple loops (loops will be ignored).
+// Returnes: maximal flow value and 3 vectors: vector Paths (contains all the paths of the maximal flow network (one of the possible solutions if >1 solutions exist))
+// vector Flows (contains values of a flow for a index-relevant Path (i.e. Flows[0] for Paths [0], etc)),
+// vector MinCut (contains the max-flow min-cut as an array of edges: every edge is set as a pair of its vertices).
+// If input data is incorrect or there are no path from b to e returns -1 and empty Paths and Flows.
+
+
+
+{
+
+    long long int Result=0;// здесь будет результат // Here a result will be
+    Paths.clear(); // здесь будут пути, слагающие макспоток
+    Flows.clear(); // а здесь  - соответствующие им величины подпотоков, слагающие общий поток из b в е
+    MinCut.clear(); // А здесь будет минимальный разрез
+
+    if (A.size()==0) return -1;
+
+    if ((b<0) || (e<0))  return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    int mn, mx;
+    RangeVGraph (A, mx, mn, false, true);
+    if (mn<0) return -1; // все вершины и веса д.б. неотрицательны // all vertices should have non-negative marks. All weights shouldn't be negative too.
+
+
+
+    if (FindIn(A, b, (2+weighted), 0) == -1) return -1; // Проверка что вершины b (как исток) и e (как сток) есть в графе
+    if (FindIn(A, e, (2+weighted), 1) == -1) return -1; // Checking for vertex b (as source) and vertex e (as sink) both are in the graph
+
+    if (weighted)
+        if (FindIn(A, 0, (2+weighted), 2) != -1) return -1; // weighted graph should not have zero-valued edges
+
+
+
+    std::map <std::pair < int, int> , int> G2;
+    G2.clear();
+
+
+    if (AdjVectorToAdjMap (A, G2, weighted)==-1) return -1;
+
+
+    int l=INT_MAX;
+    int x;
+    std::pair < int, int> C;
+
+
+    std::vector <long long int> D; D.clear();
+    std::vector <int> Prev; Prev.clear();
+    std::vector <int> Path; Path.clear();
+
+    int d = DistanceBFA (A, D, b, Prev, weighted);
+    if (D[e]==LLONG_MAX) return -1; // в этом случае е недостижима из b // In this case we have no path from b to e.
+
+
+    while (d!=-1)
+    {
+        if (D[e]==LLONG_MAX) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+
+        // строим путь из b в е
+        // Let's build path from b to e.
+
+        Path.clear();
+        x = e;
+
+
+        while (x!=-1)
+        {
+            Path.push_back(x);
+            if (x==b)
+            {
+
+                break;
+            }
+
+            x = Prev[x];
+
+        }
+
+        std::reverse(std::begin(Path), std::end(Path));
+
+        // построили путь из b в е
+        // We have a path from b to e.
+
+        l=INT_MAX;
+        for (int q=0; q<Path.size()-1; q++)  // ищем ребро с самой низкой пропускной способностью и записываем пропускную способноость в l
+        {                                    // looking for an edge with the minimal non-zero weight in the Path
+            C = std::make_pair(Path[q], Path[q+1]);
+            if ((l>G2[C])&&(G2[C]>0))
+            {l = G2[C]; }
+
+        }
+
+
+
+
+
+        for (int q=0; q<Path.size()-1; q++)  // Вычитаем l по всему найденному пути // recalculating weights of all edges of the Path
+        {
+           C = std::make_pair(Path[q], Path[q+1]);
+            G2[C] = G2[C]-l;
+            if (G2[C]==0)
+            {
+                G2.erase(G2.find(C));
+                MinCut.push_back(C);
+            }
+
+        }
+
+
+        Result=Result+l;
+        Flows.push_back(l);
+        Paths.push_back(Path);
+
+        AdjMapToAdjVector (A, G2);
+
+
+        d = DistanceBFA (A, D, b, Prev, weighted);
+    }
+
+
+
+for (int y=0; y<MinCut.size(); y++)
+{
+
+    if (D[(MinCut[y].first)]==LLONG_MAX) {MinCut.erase(MinCut.begin()+y); y--; }
+
+}
+
+
+    return Result;
+}
+
+
+long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, int b, int e, std::vector <std::vector<int> >&Paths, std::vector <double> &Flows, std::vector < std::pair < int, int> > &MinCut)
+// Модификация функции MaxFlowGraph (см. выше) для случая нецелочисленных весов ребер (double).
+// Modification of the function MaxFlowGraph (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+
+{
+
+    long double Result=0.0;// здесь будет результат  // Here a result will be
+    Paths.clear(); // здесь будут пути, слагающие макспоток
+    Flows.clear(); // а здесь  - соответствующие им величины подпотоков, слагающие общий поток из b в е
+    MinCut.clear(); // А здесь будет минимальный разрез
+    if ((b<0) || (e<0))  return -1;
+
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+
+    int mn, mx;
+    RangeVGraph (A.first, mx, mn, false, true);
+    if (mn<0) return -1; // все вершины д.б. неотрицательны  // all vertices should have non-negative marks.
+
+
+
+    if (FindIn(A.first, b, 2, 0) == -1) return -1; // Проверка что вершины b (как исток) и e (как сток) есть в графе
+    if (FindIn(A.first, e, 2, 1) == -1) return -1; // Checking for vertex b (as source) and vertex e (as sink) both are in the graph
+
+
+    for (unsigned int q=0; q<A.second.size(); q++)
+        if (A.second[q]<=0.0) return -1; // weighted graph should not have subzero-valued edges
+
+
+
+
+    std::map <std::pair < int, int> , double> G2;
+    G2.clear();
+
+
+    if (AdjVectorToAdjMap (A, G2)==-1) return -1;
+
+
+    double l=INFINITY;
+    int x;
+    std::pair < int, int> C;
+
+
+    std::vector <long double> D; D.clear();
+    std::vector <int> Prev; Prev.clear();
+    std::vector <int> Path; Path.clear();
+
+    int d = DistanceBFA (A, D, b, Prev);
+    if (D[e]==INFINITY) return -1; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+
+
+    while (d!=-1)
+    {
+        if (D[e]==INFINITY) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+
+        // строим путь из b в е
+        // Let's build path from b to e.
+
+        Path.clear();
+        x = e;
+
+
+        while (x!=-1)
+        {
+            Path.push_back(x);
+            if (x==b)
+            {
+
+                break;
+            }
+
+            x = Prev[x];
+
+        }
+        // построили путь из b в е
+         // We have a path from b to e.
+
+        std::reverse(std::begin(Path), std::end(Path));
+
+
+
+
+
+        l=INFINITY;
+        for (int q=0; q<Path.size()-1; q++)  // ищем ребро с самой низкой пропускной способностью и записываем пропускную способноость в l
+        {                                    // looking for an edge with the minimal non-zero weight in the Path
+            C = std::make_pair(Path[q], Path[q+1]);
+            if ((l>G2[C])&&(G2[C]>0.0))
+            {l = G2[C]; }
+
+        }
+
+
+
+
+
+        for (int q=0; q<Path.size()-1; q++)  // Вычитаем l по всему найденному пути  // recalculating weights of all edges of the Path
+        {
+           C = std::make_pair(Path[q], Path[q+1]);
+            G2[C] = G2[C]-l;
+            if (G2[C]==0.0)
+
+            {
+                G2.erase(G2.find(C));
+                MinCut.push_back(C);
+            }
+
+        }
+
+
+        Result=Result+l;
+        Flows.push_back(l);
+        Paths.push_back(Path);
+
+        AdjMapToAdjVector (A, G2);
+
+
+        d = DistanceBFA (A, D, b, Prev);
+    }
+
+
+
+    for (int y=0; y<MinCut.size(); y++)
+    {
+
+        if (D[(MinCut[y].first)]==INFINITY) {MinCut.erase(MinCut.begin()+y); y--; }
+
+    }
+
+    return Result;
+}
 
 
 int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
