@@ -1,6 +1,6 @@
-Документы CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf (все указанные файлы размещены в настоящем каталоге) составляют собой одно произведение, которое распространяется на условиях лицензии Creative Commons Attribution 4.0 International Public License (сокращенно - CC BY, гиперссылка на текст лицензии: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
+Р”РѕРєСѓРјРµРЅС‚С‹ CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf (РІСЃРµ СѓРєР°Р·Р°РЅРЅС‹Рµ С„Р°Р№Р»С‹ СЂР°Р·РјРµС‰РµРЅС‹ РІ РЅР°СЃС‚РѕСЏС‰РµРј РєР°С‚Р°Р»РѕРіРµ) СЃРѕСЃС‚Р°РІР»СЏСЋС‚ СЃРѕР±РѕР№ РѕРґРЅРѕ РїСЂРѕРёР·РІРµРґРµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ СЂР°СЃРїСЂРѕСЃС‚СЂР°РЅСЏРµС‚СЃСЏ РЅР° СѓСЃР»РѕРІРёСЏС… Р»РёС†РµРЅР·РёРё Creative Commons Attribution 4.0 International Public License (СЃРѕРєСЂР°С‰РµРЅРЅРѕ - CC BY, РіРёРїРµСЂСЃСЃС‹Р»РєР° РЅР° С‚РµРєСЃС‚ Р»РёС†РµРЅР·РёРё: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
-Автор CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf – Черноухов Сергей (chernouhov@rambler.ru)
+РђРІС‚РѕСЂ CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf вЂ“ Р§РµСЂРЅРѕСѓС…РѕРІ РЎРµСЂРіРµР№ (chernouhov@rambler.ru)
 
 
 The documents About_CBioInfCpp.pdf, CBioInfCpp.h, About_CBioInfCpp.rtf (all of them are placed in this directory) constitute a single Work (i.e. this Work is divided into these 3 files), and this Work is distributed under Creative Commons Attribution 4.0 International Public License (CC BY) (hyperlink to the License: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
