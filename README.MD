@@ -189,8 +189,8 @@ if **bool scientifique == true**, scientific notation will be applied.
 
 "Fouts" vector (string) to file. Returns -1 if the vector is empty
 ***
-`int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P,
-unsigned int prec = 4)`
+`int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, 
+unsigned int prec = 4, bool scientifique = false)`
 
 Modification of the function VectorCout (see it above) for not-integer (double)
 weights of edges of a graph.
@@ -201,8 +201,8 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
 ***
-`int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P,
-std::ofstream &fout, unsigned int prec = 4)`
+`int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P, 
+std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
 
 Modification of the function VectorFout (see it above) for not-integer (double)
 weights of edges of a graph.
@@ -212,6 +212,36 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
+***
+`int GraphCout (const std::vector <int> &P, const bool weighted)`
+
+"Couts" a graph that is set by Adjacency vector A to screen: one edge in one line. 
+Parameter "weighted" sets if the graph A is weighted or no. 
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &fout)`
+
+"Fouts" a graph that is set by Adjacency vector A to file: one edge in one line. 
+Parameter "weighted" sets if the graph A is weighted or no. 
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int GraphCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, 
+bool scientifique = false)`
+
+Modification of the function GraphCout (see it above) for not-integer (double) weights of edges of a graph. 
+Parameter "weighted" sets if the graph A is weighted or no. 
+Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. 
+But weights are set in the second one. So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 
+in the first vector has its weight set as i-th element in the second one.
+***
+`int GraphFout const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
+
+Modification of the function GraphFout (see it above) for not-integer (double) weights of edges of a graph. 
+Parameter "weighted" sets if the graph A is weighted or no. 
+Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. 
+But weights are set in the second one. So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 
+in the first vector has its weight set as i-th element in the second one.
+***
 
 # Working with strings
 `int HmDist (const std::string &s1, const std::string &s2)`
@@ -260,7 +290,25 @@ Generates RNA from DNA without any checking of input data correctness
 ***
 `std::string DNAg (const std::string &s)`
 
-Generates RNA from DNA without checking of data correctness
+Generates DNA from RNA without checking of data correctness
+***
+`std::string StrToCircular (const std::string& s, int tail = INT_MAX)`
+
+Returns a circular string of minimal length of a string s; if length of s <3 returns s itself.
+One may set "tail" i.e. maximal overlap "tail-to-beginning" of the string s 
+(nonpositive values of "tail" will be ignored).
+***
+`int TandemRepeatsFinding (const std::string &s, std::vector <int> &Result, int MaxWordLength = 4, int limit = 5)`
+
+Finds all tandem repeats in the string s as follows:
+ - the repeat has its lenght >= limits, 
+ - the repeat should be formed by j-mers: j in [1; MaxWordLength], MaxWordLength in [2; 6] 
+ - limit should be more than MaxWordLength (if no the limit's value will be set as MaxWordLength+1).
+
+Returns 0 and vector Result: every even position of Result contains the starting position of tandem repeat in the s 
+(0-based indexing) and every odd position of Result contain the lenghts of the repeat that have its starting position 
+as previous element in the Result.
+Returns -1 and empty Result if input data is incorrect.
 ***
 `void GMapCodonRNA (std::map < std::string, std::string> & MapCodon)`
 
@@ -434,7 +482,12 @@ numbers here. In order to implement some function vertices may be renumbered to
 get started from "0" or "1"; in doing so, the vertices will be assigned their
 original numbers before the function is complete.
 
-Also any graph may have multiple edges and multiple loops.
+*Also any graph may have multiple edges and multiple loops.*
+
+Since Summer of 2019 CBioInfCpp also have a modification of Adjacency vector - Adjacency map. Adjacency map allows to have
+quicker access to edge’s weight (the key is a pair of vertices numbers (int), weight may be int or double). 
+But Adjacency map can’t work with multiple edges so Adjacency vector is used most often here.
+
 
 ***  
 `int UWGraphRead (std::ifstream & fin, std::vector <int> & A)`
@@ -578,6 +631,32 @@ first vector has its weight set as i-th element in the second one.
 
 For an undirected graph the data that is lower than the Main diagonal of the
 matrix B is ignored
+***
+`int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted)`
+
+Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together. 
+Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. 
+If A is unweighted we consider that every edge have its weight = 1. 
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)`
+
+Modification of the function AdjVectorToAdjMap (see it above) for not-integer
+(double) weights of edges of a graph.
+Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together. 
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , int> &G1)`
+
+Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are integers. 
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , double> &G1)`
+
+Modification of the function AdjMapToAdjVector (see it above) for not-integer
+(double) weights of edges of a graph.
+Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are double. 
+Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int CheckUnvisit (vector <int> & Visited)`
 
@@ -740,6 +819,30 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
 ***
+`long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int e, 
+std::vector <std::vector<int> >&Paths, std::vector <int> &Flows, std::vector < std::pair < int, int> > &MinCut)`
+
+Finds maximal flow from vertex b to vertex e in the graph A (set by Adjacency vector A).
+Parameter "weighted" sets if A is a weighted graph or no. All vertices of A should have only non-negative marks.
+For a weighted graph edges should have only positive values.
+Graph A may have multiple edges (multiple edges will be considered as one joined edge that have its weight = sum of 
+the weights of all joined edges) and multiple loops (loops will be ignored).
+Returnes: 
+- maximal flow value and 3 vectors: vector Paths (contains all the paths of the maximal flow network 
+(one of the possible solutions if >1 solutions exist))
+- vector Flows (contains values of a flow for a index-relevant Path (i.e. Flows[0] for Paths [0], etc)),
+- vector MinCut (contains the max-flow min-cut as an array of edges: every edge is set as a pair of its vertices).
+
+If input data is incorrect or there are no path from b to e or there are no such vertices (b or e) in the graph returns -1 and empty Paths, Flows, MinCut.
+***
+`long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, int b, int e, 
+std::vector <std::vector<int> >&Paths, std::vector <double> &Flows, std::vector < std::pair < int, int> > &MinCut)`
+
+Modification of the function MaxFlowGraph (see it above) for not-integer (double) weights of edges of a graph.
+Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. 
+But weights are set in the second one.
+So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 
@@ -809,24 +912,26 @@ const int NColumns, const long long int i)`
 Sets (resets) matrix NLines x NColumns filled value "i" (long long int).
 Returns -1 if NLines or NColumns <=0
 ***
-`int FindIn (std::vector <int> &D, int a, unsigned int step = 1, unsigned int start
+`int FindIn (std::vector <int> &D, int a, int step = 1, int start
 = 0)`
 
 Returns index in vector (int) of the first element = a. Search starts from
-index "start" with step = "step". If no such element found the function returns -1.
+index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
-`int FindIn (std::vector <long long int> &D, long long int a, unsigned int step =
-1, unsigned int start = 0)`
+`int FindIn (std::vector <long long int> &D, long long int a, int step =
+1, int start = 0)`
 
 Returns index in vector (long long int) of the first element = a. Search starts
-from index "start" with step = "step". If no such element found the function
-returns -1.
+from index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
-`int FindIn (std::vector <double> &D, double a, unsigned int step = 1, unsigned int
+`int FindIn (std::vector <double> &D, double a, int step = 1, int
 start = 0)`
 
 Returns index in vector (double) of the first element = a. Search starts from
-index "start" with step = "step". If no such element found the function returns -1.
+index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 
 Yes, operation like (a==b) may be not correct for doubles. But this function
 may be considered as an useful one in some cases.
@@ -834,40 +939,41 @@ may be considered as an useful one in some cases.
 The following version of the function finds the first element, that differs
 from "a" less than "d".
 ***
-`int FindIn (std::vector <double> &D, double a, double d, unsigned int step = 1,
-unsigned int start = 0)`
+`int FindIn (std::vector <double> &D, double a, double d, int step = 1,
+int start = 0)`
 
 Returns index in vector (double) of the first element, that differs from "a"
 less than nonnegative double "d".
 
-Search starts from index "start" with step = "step". If no such element found
-the function returns -1.
+Search starts from index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
-`int FindIn (std::vector <long double> &D, long double a, unsigned int step = 1,
-unsigned int start = 0)`
+`int FindIn (std::vector <long double> &D, long double a, int step = 1,
+int start = 0)`
 
 Returns index in vector (long double) of the first element = a. Search starts
-from index "start" with step = "step". If no such element found the function
-returns -1.
+from index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 
 Yes, operation like (a==b) may be not correct for doubles. But this function
 may be considered as an useful one in some cases. The following version of the
 function finds the first element, that differs from "a" less than "d".
 ***
-`int FindIn (std::vector <long double> &D, long double a, long double d, unsigned
-int step = 1, unsigned int start = 0)`
+`int FindIn (std::vector <long double> &D, long double a, long double d, 
+int step = 1, int start = 0)`
 
 Returns index in vector (long double) of the first element, that differs from
 "a" less than nonnegative long double "d".
 
-Search starts from index "start" with step = "step". If no such element found
-the function returns -1.
+Search starts from index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
-`int FindIn (std::vector <string> &D, std::string a, unsigned int step = 1,
-unsigned int start = 0)`
+`int FindIn (std::vector <string> &D, std::string a, int step = 1,
+int start = 0)`
 
 Returns index in vector (string) of the first element = a. Search starts from
-index "start" with step = "step". If no such element found the function returns -1.
+index "start" with step = "step". If step<1 step will be set as 1. 
+If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
 `int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)`
 
