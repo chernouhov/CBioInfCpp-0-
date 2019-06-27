@@ -202,15 +202,35 @@ int prec = 4, bool scientifique = false)`
 
 Вывод вектора (string) через Enter в файл. Возвращает -1, если вектор - пустой.
 ***
-`int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P,
-unsigned int prec = 4)`
+`int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, 
+unsigned int prec = 4, bool scientifique = false)`
 
-Модификация функции VectorCout (см. выше).
+Модификация функции VectorCout (см. выше) для случая нецелочисленных длин ребер в графе.
 ***
-`int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P,
-std::ofstream &fout, unsigned int prec = 4)`
+`int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P, 
+std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
 
-Модификация функции VectorFout (см. выше).
+Модификация функции VectorFout (см. выше) для случая нецелочисленных длин ребер в графе.
+***
+`int GraphCout (const std::vector <int> &P, const bool weighted)`
+
+Вывод графа, заданного вектором смежности, на экран: каждое ребро выводится в новой строке. 
+Граф - невзвешенный либо веса его ребер целочисленны.
+***
+`int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &fout)`
+
+Вывод графа, заданного вектором смежности, в файл: каждое ребро выводится в новой строке. 
+Граф - невзвешенный либо веса его ребер целочисленны.
+***
+`int GraphCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, bool scientifique = false)`
+
+Модификация функции GraphCout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+***
+`int GraphFout (const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, 
+unsigned int prec = 4, bool scientifique = false)`
+
+Модификация функции GraphFout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+***
 
 # Функции работы со строками 
 `int HmDist (const std::string &s1, const std::string &s2)`
@@ -258,7 +278,24 @@ Generates RNA from DNA without any checking of input data correctness
 ***
 `std::string DNAg (const std::string &s)`
 
-Generates RNA from DNA without checking of data correctness
+Generates DNA from RNA without checking of data correctness
+***
+`std::string StrToCircular (const std::string& s, int tail = INT_MAX)`
+
+Находит и возвращает кратчайшую "круговую" ("скрученную в кольцо") строку для заданной 
+(т.е. с максимальным "нахлестом" конца строки на начало).
+Для строк длиной менее 3 символов возвращает ее же (считается, что в этом случае "нахлест" невозможен.
+Возможно задать параметр tail - величину максимального "нахлеста". Значения tail<=0 в расчет не принимаются.
+***
+`int TandemRepeatsFinding (const std::string &s, std::vector <int> &Result, int MaxWordLength = 4, int limit = 5)`
+
+Функция находит все тандемные повторы в строке s, сформированные j-мерами длиной от 1 до MaxWordLength символов включительно 
+и имеющие длину не менее limit.
+MaxWordLength должно быть в границах от 2 по 6. 
+limit должен быть больше MaxWordLength (иначе limit будет присвоено значение MaxWordLength+1).
+Результат возвращается в векторе Result, где на четных позициях, отсчитываемых с нуля - позиции начала тандемного повтора
+в s (символы в s также нумеруются с нуля), а на нечетных - длина повтора
+Возвращает 0 в случае успеха. В случае некорректных данных (длина s < MaxWordLength, MaxWordLength не в диапазоне [2; 6]) возвращает пустой Result и -1.
 ***
 `void GMapCodonRNA (std::map < std::string, std::string> & MapCodon)`
 
@@ -298,8 +335,7 @@ Counts p-distance without checking of the input data correctness
 <double>> & B)`
 
 Генерирует матрицу расстояний "B" по набору исходных строк s; 
-в случае если в наборе менее 2х строк или они имеют неодинаковую длину 
-- возвращается -1 (в случае успеха - 0).
+в случае если в наборе менее 2х строк или они имеют неодинаковую длину, то возвращается -1 (в случае успеха - 0).
 ***
 `int EditDist (const std::string &s1, const std::string &s2)`
 
@@ -434,6 +470,12 @@ std::vector<double>>) где первый вектор является вект
 положительным при реализации функции (ответ же выдается в исходных, неприведенных 
 номерах вершин). 
 - Графы могут содержать множественные ребра и множественные петли. 
+
+Дополнение. Для обеспечения более быстрого доступа к значению веса ребра в графе, с лета 2019 года в CBioInfCpp также
+используется модификация Вектора смежности – Ассоциативный массив смежности, реализованный на базе контейнера Map. 
+При этом ключом является пара целых чисел int, задающими номера вершин, а значением – вес ребра между ними: int либо double. 
+Однако минусом здесь является невозможность хранения множественных ребер, поэтому чаще используется Вектор смежности.
+
 ***  
 `int UWGraphRead (std::ifstream & fin, std::vector <int> & A)`
 
@@ -573,6 +615,29 @@ first vector has its weight set as i-th element in the second one.
 For an undirected graph the data that is lower than the Main diagonal of the
 matrix B is ignored
 ***
+`int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted)`
+
+Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. 
+Для невзвешенного графа считаем вес всех ребер = 1.
+Возвращает -1 в случае некорректности исходных данных.
+Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+***
+`int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)`
+
+Модификация функции AdjVectorToAdjMap (см. выше) для случая нецелочисленных значений ребер.
+Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. 
+Возвращает -1 в случае некорректности исходных данных.
+***
+`int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , int> &G1)`
+
+Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса целочисленны).
+Возвращает -1 в случае некорректности исходных данных.
+***
+`int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , double> &G1)`
+
+Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса имеют тип double).
+Возвращает -1 в случае некорректности исходных данных.
+***
 `int CheckUnvisit (vector <int> & Visited)`
 
 Вспомогательная функция для поиска первой непомеченной вершины в графе.
@@ -707,6 +772,26 @@ OnlyTS = false)`
 
 Модификация функции TSortHP (см. выше) для случая нецелочисленных весов ребер (double). 
 ***
+`long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int e, std::vector <std::vector<int> >&Paths, std::vector <int> &Flows, std::vector < std::pair < int, int> > &MinCut)`
+
+Функция для поиска максимального потока в графе из вершины b в вершину e; граф задается вектором смежности А;
+Параметр weighted определяет, является ли граф взвешенным (если взвешенный - "Истина", при этом веса ребер здесь могут быть лишь
+целыми положительными).
+
+Может работать с множественными ребрами (рассматриваются как одно "объединенное" ребро с суммарным весом) и с множественными
+петлями (петли игнорируются).
+Вершины графа должны быть неотрицательны, веса ребер - только положительны
+
+Возвращает: (1) величину максимального потока, (2) заполненный вектор путей Paths, слагающих максимальный поток 
+(один из возможных вариантов построения Paths, если их может быть несколько),
+(3) соответствующие этим путям значения потоков в векторе Flows, 
+(4) перечень ребер минимального разреза графа в векторе MinCut (каждое ребро задано парой вершин).
+В случае некорректных исходных данных или отсутствия пути из b в e или же отсутствия любой из этих вершин в графе возвращает -1 и пустые Paths, Flows, MinCut.
+***
+`long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, int b, int e, std::vector <std::vector<int> >&Paths, std::vector <double> &Flows, std::vector < std::pair < int, int> > &MinCut)`
+
+Модификация функции MaxFlowGraph (см. выше) для случая нецелочисленных весов ребер (double). 
+***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 
@@ -770,62 +855,74 @@ const int NColumns, const long long int i)`
 Создает матрицу NLines х NColumns и заполняет значением i (long long int). 
 Возвращает -1 если число строк или столбцов неположительно. 
 ***
-`int FindIn (std::vector <int> &D, int a, unsigned int step = 1, unsigned int start
+`int FindIn (std::vector <int> &D, int a, int step = 1, int start
 = 0)`
 
 Возвращает индекс первого найденного элемента (int), совпадающего с искомым (a), 
-поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента 
-- возвращаем -1.
+поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента, то возвращаем -1.
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 ***
-`int FindIn (std::vector <long long int> &D, long long int a, unsigned int step =
-1, unsigned int start = 0)`
+`int FindIn (std::vector <long long int> &D, long long int a, int step =
+1, int start = 0)`
 
 Возвращает индекс первого найденного элемента (long long int), совпадающего с искомым (a), 
-поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента 
-- возвращаем -1. 
+поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента, то возвращаем -1. 
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 ***
-`int FindIn (std::vector <double> &D, double a, unsigned int step = 1, unsigned int
+`int FindIn (std::vector <double> &D, double a, int step = 1, int
 start = 0)`
 
 Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a), 
 поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - 
 возвращаем -1. 
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 
 Да, прямое сравнение чисел double не совсем корректно и это нужно принимать во 
 внимание, но в ряде случаев функция может быть полезна.  
  
 Для сравнения с заданной точностью см. вариант функции ниже. 
 ***
-`int FindIn (std::vector <double> &D, double a, double d, unsigned int step = 1,
-unsigned int start = 0)`
+`int FindIn (std::vector <double> &D, double a, double d, int step = 1,
+int start = 0)`
 
 Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a) 
 с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли 
 такого элемента - возвращает -1.
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 ***
-`int FindIn (std::vector <long double> &D, long double a, unsigned int step = 1,
-unsigned int start = 0)`
+`int FindIn (std::vector <long double> &D, long double a, int step = 1,
+int start = 0)`
 
 Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a), 
 поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - 
 возвращает -1. 
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 
 Да, прямое сравнение чисел long double не совсем корректно и это нужно принимать
 во внимание, но в ряде случаев функция может быть полезна. 
 Для сравнения с заданной точностью см. вариант функции ниже.
 ***
-`int FindIn (std::vector <long double> &D, long double a, long double d, unsigned
-int step = 1, unsigned int start = 0)`
+`int FindIn (std::vector <long double> &D, long double a, long double d, 
+int step = 1, int start = 0)`
 
 Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a) 
 с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не 
 нашли такого элемента - возвращаем -1. 
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 ***
-`int FindIn (std::vector <string> &D, std::string a, unsigned int step = 1,
-unsigned int start = 0)`
+`int FindIn (std::vector <string> &D, std::string a, int step = 1,
+int start = 0)`
 
 Возвращает индекс первого найденного элемента (string), совпадающего с искомым (a), 
 поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. 
+Если переданное значение step <1, то step присваивается значение 1. 
+Если переданное значение start <0, то start присваивается значение 0.
 ***
 `int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)`
 
