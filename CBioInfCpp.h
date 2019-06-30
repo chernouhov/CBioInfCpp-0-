@@ -1087,8 +1087,12 @@ int GraphCout (const std::vector <int> &P, const bool weighted)
     if (P.size()==0) return -1; // checking for input data correctness
     if ( (P.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
 
-    for (int i=0; i<P.size();i=i+2)
-        std::cout<< P[i]<<' '<<P[i+1]<<std::endl;
+    for (int i=0; i<P.size();i=i+2+weighted)
+    {
+        std::cout<< P[i]<<' '<<P[i+1];
+        if (weighted) std::cout<<' '<<P[i+2];
+        std::cout<<std::endl;
+    }
     std::cout<< std::endl;
 
     return 0;
@@ -1106,8 +1110,12 @@ int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &f
 
     if (P.size()==0) return -1;  // checking for input data correctness
 
-    for (int i=0; i<P.size();i=i+2)
-        fout<< P[i]<<' '<<P[i+1]<<std::endl;
+    for (int i=0; i<P.size();i=i+2+weighted)
+    {
+        fout<< P[i]<<' '<<P[i+1];
+        if (weighted) fout<<' '<<P[i+2];
+        fout<< std::endl;
+    }
     fout<< std::endl;
 
     return 0;
@@ -4127,6 +4135,7 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
     while (d!=-1)
     {
         if (D[e]==LLONG_MAX) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+        if (D.size()<=e) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
 
         // строим путь из b в е
         // Let's build path from b to e.
@@ -4194,7 +4203,7 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
 for (int y=0; y<MinCut.size(); y++)
 {
 
-    if (D[(MinCut[y].first)]==LLONG_MAX) {MinCut.erase(MinCut.begin()+y); y--; }
+    if ((D[(MinCut[y].first)]==LLONG_MAX) || (MinCut[y].first>=D.size())) {MinCut.erase(MinCut.begin()+y); y--; }
 
 }
 
@@ -4264,6 +4273,7 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
     while (d!=-1)
     {
         if (D[e]==INFINITY) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+        if (D.size()<=e) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
 
         // строим путь из b в е
         // Let's build path from b to e.
@@ -4335,7 +4345,8 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
     for (int y=0; y<MinCut.size(); y++)
     {
 
-        if (D[(MinCut[y].first)]==INFINITY) {MinCut.erase(MinCut.begin()+y); y--; }
+
+        if ((D[(MinCut[y].first)]==INFINITY) || (MinCut[y].first>=D.size())) {MinCut.erase(MinCut.begin()+y); y--; }
 
     }
 
