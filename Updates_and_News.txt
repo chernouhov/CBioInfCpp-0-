@@ -1,27 +1,27 @@
 23.06.2019:
 
-- Доработаны функции семейства FindIn,
-- Доработаны функции PairVectorCout, PairVectorFout.
-- Добавлено семейство функций GraphCout и GraphFout: теперь можно выводить графы пореберно: каждое ребро в отдельной строке.
-- Добавлена функция StrToCircular для нахождения кратчайшей "круговой" ("скрученной в кольцо") строки для заданной.
-- Добавлено семество функций MaxFlowGraph для поиска максимального потока в графе, минимального разреза и нахождения одного из вариантов "сети путей", обеспечивающих максимальный поток.
-- Для обеспечения более быстрого доступа к значению веса ребра в графе добавлена структура данных хранения графов - Ассоциативный массив смежности как вариант ранее предложенной и реализованной структуры Вектор смежности.
-- Добавлены функции конвертации Вектора смежности в Ассоциативный массив смежности и назад. Важно: при конвертировании Векстора смежности в Ассоциативный массив смежности множественные ребра объединяются с суммированием весов.
-- Добавлена TandemRepeatsFinding для поиска тандемных повторов в заданной строке, что может быть полезно в решениях задач в области Microsatellite Instability.
+- Р”РѕСЂР°Р±РѕС‚Р°РЅС‹ С„СѓРЅРєС†РёРё СЃРµРјРµР№СЃС‚РІР° FindIn,
+- Р”РѕСЂР°Р±РѕС‚Р°РЅС‹ С„СѓРЅРєС†РёРё PairVectorCout, PairVectorFout.
+- Р”РѕР±Р°РІР»РµРЅРѕ СЃРµРјРµР№СЃС‚РІРѕ С„СѓРЅРєС†РёР№ GraphCout Рё GraphFout: С‚РµРїРµСЂСЊ РјРѕР¶РЅРѕ РІС‹РІРѕРґРёС‚СЊ РіСЂР°С„С‹ РїРѕСЂРµР±РµСЂРЅРѕ: РєР°Р¶РґРѕРµ СЂРµР±СЂРѕ РІ РѕС‚РґРµР»СЊРЅРѕР№ СЃС‚СЂРѕРєРµ.
+- Р”РѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ StrToCircular РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ РєСЂР°С‚С‡Р°Р№С€РµР№ "РєСЂСѓРіРѕРІРѕР№" ("СЃРєСЂСѓС‡РµРЅРЅРѕР№ РІ РєРѕР»СЊС†Рѕ") СЃС‚СЂРѕРєРё РґР»СЏ Р·Р°РґР°РЅРЅРѕР№.
+- Р”РѕР±Р°РІР»РµРЅРѕ СЃРµРјРµСЃС‚РІРѕ С„СѓРЅРєС†РёР№ MaxFlowGraph РґР»СЏ РїРѕРёСЃРєР° РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ РїРѕС‚РѕРєР° РІ РіСЂР°С„Рµ, РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЂР°Р·СЂРµР·Р° Рё РЅР°С…РѕР¶РґРµРЅРёСЏ РѕРґРЅРѕРіРѕ РёР· РІР°СЂРёР°РЅС‚РѕРІ "СЃРµС‚Рё РїСѓС‚РµР№", РѕР±РµСЃРїРµС‡РёРІР°СЋС‰РёС… РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РїРѕС‚РѕРє.
+- Р”Р»СЏ РѕР±РµСЃРїРµС‡РµРЅРёСЏ Р±РѕР»РµРµ Р±С‹СЃС‚СЂРѕРіРѕ РґРѕСЃС‚СѓРїР° Рє Р·РЅР°С‡РµРЅРёСЋ РІРµСЃР° СЂРµР±СЂР° РІ РіСЂР°С„Рµ РґРѕР±Р°РІР»РµРЅР° СЃС‚СЂСѓРєС‚СѓСЂР° РґР°РЅРЅС‹С… С…СЂР°РЅРµРЅРёСЏ РіСЂР°С„РѕРІ - РђСЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ СЃРјРµР¶РЅРѕСЃС‚Рё РєР°Рє РІР°СЂРёР°РЅС‚ СЂР°РЅРµРµ РїСЂРµРґР»РѕР¶РµРЅРЅРѕР№ Рё СЂРµР°Р»РёР·РѕРІР°РЅРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ Р’РµРєС‚РѕСЂ СЃРјРµР¶РЅРѕСЃС‚Рё.
+- Р”РѕР±Р°РІР»РµРЅС‹ С„СѓРЅРєС†РёРё РєРѕРЅРІРµСЂС‚Р°С†РёРё Р’РµРєС‚РѕСЂР° СЃРјРµР¶РЅРѕСЃС‚Рё РІ РђСЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ СЃРјРµР¶РЅРѕСЃС‚Рё Рё РЅР°Р·Р°Рґ. Р’Р°Р¶РЅРѕ: РїСЂРё РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРё Р’РµРєСЃС‚РѕСЂР° СЃРјРµР¶РЅРѕСЃС‚Рё РІ РђСЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ СЃРјРµР¶РЅРѕСЃС‚Рё РјРЅРѕР¶РµСЃС‚РІРµРЅРЅС‹Рµ СЂРµР±СЂР° РѕР±СЉРµРґРёРЅСЏСЋС‚СЃСЏ СЃ СЃСѓРјРјРёСЂРѕРІР°РЅРёРµРј РІРµСЃРѕРІ.
+- Р”РѕР±Р°РІР»РµРЅР° TandemRepeatsFinding РґР»СЏ РїРѕРёСЃРєР° С‚Р°РЅРґРµРјРЅС‹С… РїРѕРІС‚РѕСЂРѕРІ РІ Р·Р°РґР°РЅРЅРѕР№ СЃС‚СЂРѕРєРµ, С‡С‚Рѕ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРѕР»РµР·РЅРѕ РІ СЂРµС€РµРЅРёСЏС… Р·Р°РґР°С‡ РІ РѕР±Р»Р°СЃС‚Рё Microsatellite Instability.
 
 - Group of function "FindIn" has been updated.
 - Functions PairVectorCout, PairVectorFout has been updated.
 - Group of function "GraphCout" and "GraphFout" has been added. So nowadays one may "cout/ fout" a graph that is set by Adjacency vector to screen/ to file line by line: one edge in one line. 
 - Function "StrToCircular" added for finding the circular string of minimal length of the given one.
 - Group of function MaxFlowGraph" has been added to help find Maximal Flow, the paths of the maximal flow network and max-flow min-cut in a graph.
-- A data structure "Adjacency map" (a modification of data structure for containing graphs "Adjacency vector") has been added. Adjacency map allows to have quicker access to edge’s weight, but it can’t work with multiple edges. 
+- A data structure "Adjacency map" (a modification of data structure for containing graphs "Adjacency vector") has been added. Adjacency map allows to have quicker access to edgeвЂ™s weight, but it canвЂ™t work with multiple edges. 
 - Functions for converting Adjacency vector to Adjacency map and conversely AdjVectorToAdjMap and AdjMapToAdjVector have been added. Note that Multiple edges will be joined together.
 - Function TandemRepeatsFinding has been added. It is intended for finding tandem repeats in the given string that may be useful for solving problems related to Microsatellite Instability etc.
 
 14.07.2019:
-- Добавлена функция CIGAR1: Формирует строку CIGAR по результату "прикладывания" одной строки к другой с заданной позиции.
-- Расширено семейство функций GraphCout и GraphFout: теперь можно выводить и графы, заданные ассоциативным массивом смежности.
-- Добавлена функция EditDistA как расширенная версия функции EditDist: помимо редакционного расстояния возвращает также и один из возможных вариантов выравнивания строк.
+- Р”РѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ CIGAR1: Р¤РѕСЂРјРёСЂСѓРµС‚ СЃС‚СЂРѕРєСѓ CIGAR РїРѕ СЂРµР·СѓР»СЊС‚Р°С‚Сѓ "РїСЂРёРєР»Р°РґС‹РІР°РЅРёСЏ" РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё Рє РґСЂСѓРіРѕР№ СЃ Р·Р°РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРё.
+- Р Р°СЃС€РёСЂРµРЅРѕ СЃРµРјРµР№СЃС‚РІРѕ С„СѓРЅРєС†РёР№ GraphCout Рё GraphFout: С‚РµРїРµСЂСЊ РјРѕР¶РЅРѕ РІС‹РІРѕРґРёС‚СЊ Рё РіСЂР°С„С‹, Р·Р°РґР°РЅРЅС‹Рµ Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Рј РјР°СЃСЃРёРІРѕРј СЃРјРµР¶РЅРѕСЃС‚Рё.
+- Р”РѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ EditDistA РєР°Рє СЂР°СЃС€РёСЂРµРЅРЅР°СЏ РІРµСЂСЃРёСЏ С„СѓРЅРєС†РёРё EditDist: РїРѕРјРёРјРѕ СЂРµРґР°РєС†РёРѕРЅРЅРѕРіРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ С‚Р°РєР¶Рµ Рё РѕРґРёРЅ РёР· РІРѕР·РјРѕР¶РЅС‹С… РІР°СЂРёР°РЅС‚РѕРІ РІС‹СЂР°РІРЅРёРІР°РЅРёСЏ СЃС‚СЂРѕРє.
 
 - Function CIGAR1 has been added.
 - Group of function "GraphCout" and "GraphFout" has been updated (so nowadays one may "cout/ fout" a graph that is set by both Adjacency vector and Adjacency vector to screen/ to file line by line: one edge in one line).
