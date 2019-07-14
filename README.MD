@@ -242,6 +242,24 @@ Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency
 But weights are set in the second one. So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 
 in the first vector has its weight set as i-th element in the second one.
 ***
+`int GraphCout (const std::map <std::pair < int, int> , int> &P)`
+
+"Couts" a graph that is set by Adjacency map P to screen: one edge in one line.
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int GraphFout (const std::map <std::pair < int, int> , int> &P, std::ofstream &fout)`
+
+"Fouts" a graph that is set by Adjacency map P to file: one edge in one line.
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int GraphCout (const std::map <std::pair < int, int> , double> &P, unsigned int prec = 4, bool scientifique = false)`
+
+Modification of the function GraphCout for Adjacency map (see it above) for not-integer (double) weights of edges.
+***
+`int GraphFout (const std::map <std::pair < int, int> , double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
+
+Modification of the function GraphFout for Adjacency map (see it above) for not-integer (double) weights of edges.
+***
 
 # Working with strings
 `int HmDist (const std::string &s1, const std::string &s2)`
@@ -351,6 +369,11 @@ items or strings have not equal length returns -1 and empty B.
 
 Computes Edit Distance (Levenshtein distance) between two strings (strings may
 be empty too).
+***
+`int EditDistA (const std::string &s1, const std::string &s2, std::string &sr1, std::string &sr2)`
+
+Extended version of the function EditDist (see it above). 
+Returns also Edit Distance Alignment of s1 and s2 as sr1 and sr2 (one possible version if many exists).
 ***
 `void EDistForFindMR (const std::string &s1, const std::string &s2, const int D,
 const int L, int l, int b, std::set <std::pair <int, int>> &Result)`
@@ -1000,6 +1023,11 @@ vector's range or vector is empty
 
 Swaps 2 elements in vector (string). Returns -1 if some index out of vector's
 range or if the vector is empty
+***
+`std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0)`
+
+Generates CIGAR-string as a result of "fitting" of the string S2 to s0 (starting position == npos). 
+If any data is incorrect returns empty string.
 ***
 `int PartitionOfNumber (std::vector <std::vector <int>> &B, int n)`
 
