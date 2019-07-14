@@ -24,5 +24,5 @@
 - Добавлена функция EditDistA как расширенная версия функции EditDist: помимо редакционного расстояния возвращает также и один из возможных вариантов выравнивания строк.
 
 - Function CIGAR1 has been added.
-- Group of function "GraphCout" and "GraphFout" has been updated (so nowadays one may "cout/ fout" a graph that is set by both Adjacency vector and Adjacency vector to screen/ to file line by line: one edge in one line).
+- Group of function "GraphCout" and "GraphFout" has been updated (so nowadays one may "cout/ fout" a graph that is set by both Adjacency vector and Adjacency map to screen/ to file line by line: one edge in one line).
 - Function EditDistA as an extended version of the function EditDist has been added (returns not only the value of Edit Distance between 2 strings but also one possible version of the alignment itself).
