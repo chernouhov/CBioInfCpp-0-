@@ -231,6 +231,25 @@ unsigned int prec = 4, bool scientifique = false)`
 
 Модификация функции GraphFout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
 ***
+`int GraphCout (const std::map <std::pair < int, int> , int> &P)`
+
+Вывод графа, заданного ассоциативным массивом смежности, на экран: каждое ребро выводится в новой строке. 
+Веса ребер целочисленны.
+***
+`int GraphFout (const std::map <std::pair < int, int> , int> &P, std::ofstream &fout)`
+
+Вывод графа, заданного ассоциативным массивом смежности, в файл: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+***
+`int GraphCout (const std::map <std::pair < int, int> , double> &P, unsigned int prec = 4, bool scientifique = false)`
+
+Модификация функции GraphCout для заданного ассоциативным массивом смежности графа (см. выше) 
+для случая нецелочисленных весов ребер.
+***
+`int GraphFout (const std::map <std::pair < int, int> , double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
+
+Модификация функции GraphFout для заданного ассоциативным массивом смежности графа (см. выше) 
+для случая нецелочисленных весов ребер.
+***
 
 # Функции работы со строками 
 `int HmDist (const std::string &s1, const std::string &s2)`
@@ -341,6 +360,12 @@ Counts p-distance without checking of the input data correctness
 
 Рассчитывает редакционное расстояние (расстояние Левенштейна) 
 между строками, принимает на вход даже пустые. Цена каждой операции = 1.
+***
+`int EditDistA (const std::string &s1, const std::string &s2, std::string &sr1, std::string &sr2)`
+
+Расширенная версия функции EditDist (см. выше). 
+Возвращает также Edit Distance Alignment строк s1 и s2 как строки sr1 и sr2 
+(если несколько вариантов возможны - один из возможных).
 ***
 `void EDistForFindMR (const std::string &s1, const std::string &s2, const int D,
 const int L, int l, int b, std::set <std::pair <int, int>> &Result)`
@@ -949,6 +974,13 @@ l)`
 
 Замена элементов в векторе (string), возвращает -1 если хоть один из запрашиваемых 
 индексов выходит за размер вектора либо если вектор пустой.
+***
+`std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0)`
+
+Формирует строку CIGAR по результату "прикладывания" строки S2 к строке S0 с позиции npos;
+в случае некорректных данных (длина какой-либо строки равна 0, начальная позиция отрицательна 
+или приложенная S2 "выезжает" за границу S0 - возвращает пустую строку
+
 ***
 `int PartitionOfNumber (std::vector <std::vector <int>> &B, int n)`
 
