@@ -1228,6 +1228,126 @@ int GraphFout (const std::pair < std::vector<int>, std::vector<double>> & P, std
 
 
 
+int GraphCout (const std::map <std::pair < int, int> , int> &P)
+// Вывод графа, заданного ассоциативным массивом смежности, на экран: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+// "Couts" a graph that is set by Adjacency map P to screen: one edge in one line.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+
+{
+
+    if (P.size()==0) return -1;
+    for (auto it =P.begin(); it!=P.end(); it++)
+    {
+        std::cout<<(it->first).first<< " "<<(it->first).second<<" "<< it->second<< std::endl;
+
+    }
+
+
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+int GraphFout (const std::map <std::pair < int, int> , int> &P, std::ofstream &fout)
+// Вывод графа, заданного ассоциативным массивом смежности, в файл: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+// "Couts" a graph that is set by Adjacency map P to file: one edge in one line.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+
+{
+    if (P.size()==0) return -1;
+    for (auto it =P.begin(); it!=P.end(); it++)
+    {
+        fout<<(it->first).first<< " "<<(it->first).second<<" "<< it->second<< std::endl;
+
+    }
+
+    fout<< std::endl;
+
+    return 0;
+}
+
+
+
+
+int GraphCout (const std::map <std::pair < int, int> , double> &P, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphCout для заданного ассоциативным массивом смежности графа (см. выше) для случая нецелочисленных весов ребер.
+// Modification of the function GraphCout for Adjacency map (see it above) for not-integer (double) weights of edges.
+
+
+{
+
+if (P.size()==0) return -1;
+
+    if (!scientifique)
+    {
+    std::cout.precision(prec);
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+    {
+        std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+        std::cout<< std::fixed<<it->second;
+        std::cout<< std::endl;
+    }
+    std::cout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (auto it =P.begin(); it!=P.end(); it++)
+                {
+                    std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+                    std::cout<< std::scientific<<it->second;
+                    std::cout.unsetf(std::ios::scientific);
+                    std::cout<< std::endl;
+                }
+                std::cout<< std::endl;
+        }
+
+    return 0;
+}
+
+
+int GraphFout (const std::map <std::pair < int, int> , double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphFout для заданного ассоциативным массивом смежности графа (см. выше) для случая нецелочисленных весов ребер.
+// Modification of the function GraphFout for Adjacency map (see it above) for not-integer (double) weights of edges.
+
+
+{
+
+if (P.size()==0) return -1;
+
+    if (!scientifique)
+    {
+    fout.precision(prec);
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+    {
+        fout<<(it->first).first<< " "<<(it->first).second<<" ";
+        fout<< std::fixed<<it->second;
+        fout<< std::endl;
+    }
+    fout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (auto it =P.begin(); it!=P.end(); it++)
+                {
+                    fout<<(it->first).first<< " "<<(it->first).second<<" ";
+                    fout<< std::scientific<<it->second;
+                    fout.unsetf(std::ios::scientific);
+                    fout<< std::endl;
+                }
+                fout<< std::endl;
+        }
+
+    return 0;
+}
+
 
 
 
@@ -1485,7 +1605,7 @@ return sr;
 
 std::string DNAg (const std::string &s)
 {
-// generates RNA from DNA without checking of data correctness
+// generates DNA from RNA without checking of data correctness
 
     std::string sr = s;
     for (int i = 0; i<s.length(); i++)
@@ -2070,6 +2190,177 @@ return B[n-1][m-1];
 
 }
 
+
+int EditDistA (const std::string &s1, const std::string &s2, std::string &sr1, std::string &sr2)
+// Расширенная версия функции EditDist (см. выше). Возвращает также Edit Distance Alignment строк s1 и s2 как строки sr1 и sr2 (если несколько вариантов возможны - один из возможных).
+// Extended version of the function EditDist (see it above). Returns also Edit Distance Alignment of s1 and s2 as sr1 and sr2 (one possible version if many exists).
+
+{
+
+    sr1.clear();
+    sr2.clear();
+
+int n = s1.length()+1;
+int m = s2.length()+1;
+
+if ((n==1)&&(m==1)) return 0;
+
+if (n==1) return (m-1);
+if (m==1) return (n-1);
+
+std::vector <std::vector <int>> B (n);  // Generating pre-matrix for computing distance filled by zeros.
+for (unsigned int row = 0; (row< n); row++)
+{
+    B [row].resize(m);
+    for (unsigned int column = 0; (column < m); column++)
+    {
+        B [row] [column] = 0;
+
+    }
+
+}
+
+
+
+// Filling the matrix
+int w=1;
+for (unsigned int i = 0; (i< n); i++)
+    for (unsigned int j = 0; (j< m); j++)
+        if (j==0) B[i][j] = i;
+        else if (i==0) B[i][j] = j;
+        else
+        {
+            w = 1;
+            if (s1[i-1] == s2[j-1])   // нужны элементы строк i, j по порядку, но т.к. нумеруем с нуля символы строк - поправка на -1
+            //Note that symbols of strings have 0-based indexing. So we have "-1 - correction" here.
+                w = 0;
+            B[i][j] = std::min (1+B[i-1][j], 1+B[i][j-1]);
+            if ((w+B[i-1][j-1]) < B[i][j]) B[i][j] = (w+B[i-1][j-1]);
+        }
+
+
+
+// построение результата
+// let' s construct sr1 and sr2
+
+
+int count0 = n-1;
+int count1 = m-1;
+
+int t, t0, t1,t2;
+
+while ((count0>0) && (count1>0) )
+{
+    t = B[count0][count1];
+    t2 = B[count0-1][count1-1];
+    t0 = B[count0-1][count1];
+    t1 = B[count0][count1-1];
+
+    if ((t2<=t1) && (t2<=t0))
+    {
+        sr1 = s1[count0-1] + sr1;
+        sr2 = s2[count1-1] + sr2;
+        count0--;
+        count1--;
+        continue;
+    }
+
+    if ((t1<=t0) && (t1<=t2))
+    {
+        sr1 = "-" + sr1;
+        sr2 = s2[count1-1] + sr2;
+        count1--;
+        continue;
+    }
+
+    if ((t0<=t2) && (t0<=t1))
+    {
+        sr2 = "-" + sr2;
+        sr1 = s1[count0-1] + sr1;
+        count0--;
+        continue;
+    }
+
+}
+
+while (count0>0)
+{
+    sr2 = "-" + sr2;
+    sr1 = s1[count0-1] + sr1;
+    count0--;
+}
+
+while (count1>0)
+{
+    sr1 = "-" + sr1;
+    sr2 = s2[count1-1] + sr2;
+    count1--;
+}
+
+
+
+return B[n-1][m-1];
+
+}
+
+
+std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0)
+// Формирует строку CIGAR по результату "прикладывания" строки S2 к строке S0 с позиции npos;
+// в случае некорректных данных (длина какой-л. строки равна 0, начальная позиция отрицательна или приложенная S2 "выезжает" за границу S0 - возвращает пустую строку
+// Generates CIGAR-string as a result of "fitting" of the string S2 to s0 (strarting position == npos).
+// If any data is incorrect returns empty string.
+
+
+
+{
+
+    std::string Result ="";
+
+    std::string r ="";
+
+    if (npos <0) return Result;
+    if (S0.length()==0) return Result;
+    if (S2.length()==0) return Result;
+
+    if ((npos + S2.length())>S0.length()) return Result;
+
+    std::string S1 = S0.substr(npos, S2.length());
+
+
+
+
+        for (int y=0;y<S1.length();y++)
+      {
+            if (S1[y]==S2[y])
+            {r = r+"M";continue;}
+
+            if (S1[y]=='-')
+            {r = r+"I";
+                continue;}
+            if (S2[y]=='-')
+            {r = r+"D"; continue;}
+
+            if (S1[y]!=S2[y])
+                r = r+"X";
+      }
+
+
+
+    int c;
+    for (int i=0; i<r.size();i++)
+    {
+        c=0;
+        for (int j = i;j<r.size(); j++)
+        {
+            if (r[j]!=r[i]) break;
+            c++;
+        }
+        Result = Result + std::to_string(c) + r[i];
+        i = i+c-1;
+    }
+
+    return Result;
+}
 
 
 
