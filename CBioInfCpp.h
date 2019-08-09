@@ -2364,6 +2364,367 @@ std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0
 
 
 
+int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)
+// Generates a consensus string upon std::vector <std::string> DataS as an input collection of strings and QDataS as their quality.
+// The result will be as TempS as consensus string and QTempS as its quality string.
+// If multiply consensus strings exist returns the one of them.
+// The parameter "Alph" set an alphabet, by default Alph = "ACGT" (other symbols are not considered for forming the consensus string).
+// The parameter "Phred" sets the quality scale (by default as Phred33).
+// There are 4 methods to construct the consensus string (set by the parameter "method"):
+// 0 - default - the symbol that has the maximal average probability (quality) for a given position in consensus string will be chosen. It will have the same quality.
+// 1 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the quality = sum of probability (quality) of this char / number of times that the char occurs at given position.
+// 2 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the max quality (probability) of this char at given position.
+// 3 - the symbol that has the maximal probability (quality) for a given position in consensus string will be chosen. It will have the same quality.
+// One may set QDataS as empty: in this case quality will considered as "some equal" for every symbol at every position.
+// So in order to find a consensus string upon a given collection without quality one may choose method №1 or №2 and empty QDataS.
+// If no symbol of the Alph has been found at a given position - the ' ' will be set there both in the consensus string TempS and in quality string QTempS.
+// If any input data is incorrect returns -1 and empty TempS and QTempS, otherwise returns 0.
+
+// Формирует консенсусную строку (если возможно несколько вариантов такой строки - то один из них) согласно набру строк DataS с соотвествующим качеством (строки, задающие качество даны в QDataS на соотвествующих позициях).
+// Результат - консенсусная строка TempS и соотвествующая ей строка качества QTempS. В случае успеха возвращается 0, в случае некорректных вводных данных - -1 и пустые указанные строки.
+// Параметр "Alph" задает алфавит: только эти символы учитываются при формировании консенсуса.
+// Параметр "Phred" задает шкалу качества (по умолчанию - Phred33).
+// Предусмотрены 4 метода формирования консенсусной строки:
+// 0 - по умолчанию - символы на каждой данной позиции выбираются согласно максимальной средней вероятности (качеству), качество присваивается то же.
+// 1 - символы на каждой данной позиции выбираются согласно максимальной суммарной вероятности (качеству), качество присваивается как среднее по данному символу.
+// 2 - то же, но качество присваивается как максимальное по данному символу на данной позиции.
+// 4 - выбор символа (и присвоение ему качества) осуществляется исходя из максимального качества (вероятности) символа на данной позиции.
+// Если передать пустой QDataS, то предполагается, что качество везде "какое-то одинаковое", строка QTempS возвращается пустой. Т.обр., для определения консенсусной строки согласно лишь частоте
+// появления символов достаточно выбрать метод = 1 или 2 и пустой QTempS.
+// Если ни одного символа из алфавита на данной позиции не найдено - ставится ' ' и качество по данной позиции задается как ' '.
+
+
+
+
+{
+
+
+    TempS = "";
+    QTempS = "";
+
+    if (DataS.size()==0) return -1;
+
+    if (Phred<33) return -1;
+    if (method<0) return -1;
+    if (method>3) return -1;
+    if (Alph.length()<2) return -1;
+
+    int lstring = DataS[0].length();
+    int lvector = DataS.size();
+    int f=0;
+
+        if (QDataS.size()==0)
+        {
+            for (int i=0; i<DataS[0].size(); i++)
+                TempS = TempS + '^';
+            f=1;
+            for (int i=0; i<DataS.size(); i++)
+                QDataS.push_back(TempS);
+
+        }
+
+    TempS.clear();
+
+    for (int i=0; i<DataS.size(); i++)
+    {
+        if (DataS[i].length()!=DataS[0].length())
+        {
+
+            if (TempS.length()>0) QDataS.clear();
+            return -1;
+        }
+        if (QDataS[i].length()!=DataS[0].length())
+        {
+
+            if (TempS.length()>0) QDataS.clear();
+            return -1;
+        }
+    }
+
+
+
+
+
+    std::vector <std::vector <long double>> B;
+    B.clear();
+    std::vector <std::vector <long double>> M;
+    M.clear();
+    std::vector <std::vector <int>> C;
+    C.clear();
+
+    char t;
+    long double qt, qt1, qt2;
+
+
+
+    MatrixSet (B, Alph.length(), lstring, 0.0);
+    MatrixSet (C, Alph.length(), lstring, 0);
+    MatrixSet (M, Alph.length(), lstring, 0.0);
+
+    for (int ii = 0; ii<lstring; ii++)
+    {
+    for (int j = 0; j<lvector; j++)
+    {
+        for  (int c=0; c<Alph.length(); c++)
+             if (((DataS[j])[ii]) == Alph[c])
+             {
+
+                 B[c][ii]=B[c][ii]+ 1.0-pow (10.0, -0.1*((int)(QDataS[j][ii])-Phred)  );
+                 C[c][ii]++;
+                 if (M[c][ii]<1.0-pow (10.0, -0.1*((int)(QDataS[j][ii])-Phred)  ) ) M[c][ii] = 1.0-pow (10.0, -0.1*((int)(QDataS[j][ii])-Phred)  );
+             }
+
+    }
+
+    }
+
+    if (method == 0)
+    {
+    for (int c = 0; c<Alph.length(); c++)
+    {
+        for (int ii = 0; ii<lstring; ii++)
+        {
+            if (C[c][ii]!=0) B[c][ii] = B[c][ii] / C[c][ii];
+
+        }
+    }
+    }
+
+
+    if (method == 3)
+    {
+    for (int c = 0; c<Alph.length(); c++)
+    {
+        for (int ii = 0; ii<lstring; ii++)
+        {
+            B[c][ii] = M[c][ii];
+
+        }
+    }
+    }
+
+
+    TempS = "";
+    QTempS = "";
+
+
+
+    for (int ii = 0; ii<lstring; ii++)
+    {
+        t = Alph[0];
+        qt=B[0][ii];
+
+        qt1=0.0;
+        qt2 = M[0][ii];
+        if (C[0][ii]!=0) qt1 = B[0][ii]/C[0][ii];
+
+         if (C[0][ii]==0) t = ' ';
+
+        for (int c = 1; c<Alph.length(); c++)
+            if (B[c][ii]>qt)
+            {
+                qt = B[c][ii];
+                qt2 = M[c][ii];
+                if (C[c][ii]!=0) qt1 = B[c][ii]/C[c][ii];
+                t = Alph[c];
+            }
+        TempS.push_back(t);
+
+       if (method==1) qt = qt1;
+        if (method==2) qt = qt2;
+
+        if (t!=' ') QTempS.push_back((char)(Phred-10*log10(1.0-qt)));
+        if (t==' ') QTempS.push_back(' ');
+
+
+    }
+
+    if (f==1) {QDataS.clear(); QTempS.clear();}
+    return 0;
+    }
+
+
+int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)
+// Модификация функции ConsStringQ1 (см. выше) для целей учета всех вариантов консенсусной строки.
+// В консенсусной строке позиции разделяются символом tr (по умолчанию = '^'), при этом на каждой позиции может быть несколько символов из алфавита, если с т.зр. критерия выбора они равновероятны.
+// Modification of ConsStringQ1 (see it above) for all the version of consensus string. For that every position may have >= 1 symbols (if different symbols may be chosen for this position).
+// The positions are separated by the symbol tr (by default is set as '^').
+
+{
+    TempS = "";
+    QTempS = "";
+
+    if (DataS.size()==0) return -1;
+
+    if (Phred<33) return -1;
+    if (method<0) return -1;
+    if (method>3) return -1;
+    if (Alph.length()<2) return -1;
+    if (Alph.find(tr)!=-1) return -1;
+
+
+    int lstring = DataS[0].length();
+    int lvector = DataS.size();
+    int f=0;
+
+        if (QDataS.size()==0)
+        {
+            for (int i=0; i<DataS[0].size(); i++)
+                TempS = TempS + '^';
+            f=1;
+            for (int i=0; i<DataS.size(); i++)
+                QDataS.push_back(TempS);
+
+        }
+
+    TempS.clear();
+
+    for (int i=0; i<DataS.size(); i++)
+    {
+        if (DataS[i].length()!=DataS[0].length())
+        {
+
+            if (TempS.length()>0) QDataS.clear();
+            return -1;
+        }
+        if (QDataS[i].length()!=DataS[0].length())
+        {
+
+            if (TempS.length()>0) QDataS.clear();
+            return -1;
+        }
+    }
+
+
+
+
+
+    std::vector <std::vector <long double>> B;
+    B.clear();
+    std::vector <std::vector <long double>> M;
+    M.clear();
+    std::vector <std::vector <int>> C;
+    C.clear();
+
+    char t;
+    long double qt, qt1, qt2;
+
+
+
+    MatrixSet (B, Alph.length(), lstring, 0.0);
+    MatrixSet (C, Alph.length(), lstring, 0);
+    MatrixSet (M, Alph.length(), lstring, 0.0);
+
+    for (int ii = 0; ii<lstring; ii++)
+    {
+        for (int j = 0; j<lvector; j++)
+        {
+            for  (int c=0; c<Alph.length(); c++)
+                 if (((DataS[j])[ii]) == Alph[c])
+                 {
+
+                     B[c][ii]=B[c][ii]+ 1.0-pow (10.0, -0.1*((int)(QDataS[j][ii])-Phred)  );
+                     C[c][ii]++;
+                     if (M[c][ii]<1.0-pow (10.0, -0.1*((int)(QDataS[j][ii])-Phred)  ) ) M[c][ii] = 1.0-pow (10.0, -0.1*((int)(QDataS[j][ii])-Phred)  );
+                 }
+
+        }
+
+    }
+
+    if (method == 0)
+    {
+    for (int c = 0; c<Alph.length(); c++)
+    {
+        for (int ii = 0; ii<lstring; ii++)
+        {
+            if (C[c][ii]!=0) B[c][ii] = B[c][ii] / C[c][ii];
+
+        }
+    }
+    }
+
+
+
+    if (method == 3)
+    {
+    for (int c = 0; c<Alph.length(); c++)
+    {
+        for (int ii = 0; ii<lstring; ii++)
+        {
+            B[c][ii] = M[c][ii];
+
+        }
+    }
+    }
+
+    TempS = "";
+    QTempS = "";
+
+
+
+    std::vector <long double> P (lstring, 0);
+
+
+
+    for (int ii = 0; ii<lstring; ii++)
+    {
+
+        for (int c = 0; c<Alph.length(); c++)
+            if (B[c][ii]>P[ii])
+            {
+                P[ii]=B[c][ii];
+
+            }
+
+
+
+    }
+
+
+    for (int ii = 0; ii<lstring; ii++)
+    {
+        TempS.push_back(tr);
+        QTempS.push_back(tr);
+
+        if (P[ii]==0.0) {TempS.push_back(' ');QTempS.push_back(' '); continue;}
+
+
+        for (int c = 0; c<Alph.length(); c++)
+            if (P[ii]==B[c][ii])
+            {
+
+
+                qt = B[c][ii];
+                qt2 = M[c][ii];
+                if (C[c][ii]!=0) qt1 = B[c][ii]/C[c][ii];
+                t = Alph[c];
+
+                if (method==1) qt = qt1;
+                 if (method==2) qt = qt2;
+
+
+
+                 TempS.push_back(t);
+
+                 QTempS.push_back((char)(Phred-10*log10(1.0-qt)));
+
+
+            }
+
+
+
+    }
+
+    TempS.push_back(tr);
+    QTempS.push_back(tr);
+
+    if (f==1) {QDataS.clear(); QTempS.clear();}
+    return 0;
+    }
+
+
+
 void EDistForFindMR (const std::string &s1, const std::string &s2, const int D, const int L, int l, int b, std::set <std::pair <int, int>> &Result)
 
 // Вспомогательная функция для FindMutatedRepeatsED (см. ниже, приводится следующей).
@@ -3234,6 +3595,7 @@ int RenumVGraph (std::vector <int> & A, const int d, const bool weighted, bool I
 
     return 0;
 }
+
 
 
 
@@ -4353,6 +4715,354 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
     return 0;
 }
 
+
+int DFS_for_NBPaths (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path)
+// An auxiliary function for NBPaths (see it below): DFS for finding isolated cycles
+// Вспомогательная функция для NBPaths (см. ниже): обход в глубину графа для поиска изолированных циклов
+
+
+{
+    int f = -1;  // f==-1 means that we have no cycle // флаг что нету цикла
+    Visited [b] = 1;
+
+
+   for (unsigned int r = 0; r<=A.size(); r=r+2+w)
+    {
+
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 1) && ((A[r+1])==bconst)  )  // если нашли посещенную, и это - исходная (bconst)
+        {                                                                       // if we have found the initial vertex (labeled as "bconst")
+           f = 1;  // we have a cycle
+           Path.push_back(A[r+1]);
+           break;
+        }
+
+
+
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // нашли непосещенную? непосещенная = 0, идем глубже
+        {                                                // if we have found an unvisited vertex - let's go deeper
+           Visited[(A[r+1])] = 1;
+           Path.push_back(A[r+1]);
+           f = DFS_for_NBPaths (A, w, (A[r+1]), bconst, Visited, Path);
+           if (f==1) break; // если снизу передан успех - его передать наверх  // if we have found a cycle at any step - let's
+
+        }
+
+
+
+    }
+
+
+    return f; //возвращается, что есть цикл, если он обнаружен
+}
+
+
+
+void Circuit_for_NBPaths (const std::vector <int> & A, const bool w, int V, std::vector <std::vector<int> >&Paths, std::vector <int> & Visited)
+// An auxiliary function for NBPaths (see it below): finding isolated cycles
+// Вспомогательная функция для NBPaths (см. ниже) для поиска изолированных циклов
+
+{
+
+
+std::vector <int> Path;
+Path.clear();
+int t;
+
+
+    Path.clear();
+    Path.push_back(V);
+
+    t=DFS_for_NBPaths (A, w, V, V, Visited, Path); // Let's look for a cycle for the vertice V
+    if (t==1)
+    {
+                Paths.push_back(Path);
+    }
+
+
+
+}
+
+
+int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Paths, bool directed = true)
+// Finds all maximal non-branching Paths in a graph, that is set by Adjacency vector A.
+// Parameter "w" sets if A is a weighted graph or no. Parameter "directed" sets if A is a weighted graph or no.
+// The result will be in std::vector <std::vector<int> > Paths. If input data is incorrect returns -1 and empty Paths. If input data is correct returns 0.
+// Vertices may be numbered in different ways (they may be marked by both negative and non-negative integers). In order to implement the function vertices may be renumbered to get started from "1"; after search is completed, the vertices will be assigned their original numbers.
+// The input graph A may have multiple edges (multiple edges will be considered as non branching paths) and multiple loops (any loop will considered as a non branching path).
+
+// Функция для поиска всех максимально длинных неразветвляющихся путей в графе, заданном вектором смежности А. Параметр w задает, является ли граф взвешенным, или нет.
+// Параметр directed - является ли граф ориентированным.
+// Результат возвращается в std::vector <std::vector<int> > Paths.
+// Возвращает -1 и пустой Paths в случае некорректности исходных данных. В случае успеха вернет 0.
+// Может работать с графами, вершины которых заданы любыми целыми числами, в т.ч. - отрицательными.
+// Может работать с графами множественными ребрами и множественными петлями (каждое множественное ребро и каждая петля рассматриваются как отдельный путь).
+
+
+{
+    Paths.clear();
+    if (A.size()==0) return -1;
+
+
+    if ( (A.size())%(2+w)!=0 ) return -1; // checking for input data correctness
+
+    int mn, mx;
+    RangeVGraph (A, mx, mn, w);
+
+    if (mn<1)  // Приведение вектора к нумерованию вершин с 1 // renumbering vertices to start from 1.
+    {
+        RenumVGraph (A, (1-mn), w);
+
+    }
+
+
+
+
+
+    int m = -1; //здесь будет номер максимальной вершины, число вершин  // The maximal vertex number will be set as "m".
+    for (int a = 0; a<A.size(); a=(a+2+w))
+    {
+        if (A[a]>m) m=A[a];
+        if (A[a+1]>m) m=A[a+1];
+    }
+
+    std::vector <int> Leafs; // Здесь будут вершины разветвления
+    Leafs.clear();           // Here the branching vertices will be
+
+    std::vector <int> Vin(m+1, 0); //для подсчета входящих и исходящих в вершину, чтобы определить листья и вершины разветвения.
+    std::vector <int> Vout (m+1, 0); // Let's count in and out edges for every vertex in order to find branching vertices
+
+    std::vector <int> EdgeVisited (A.size()/(2+w), -1);
+
+
+
+    for (int a = 0; a<A.size(); a=(a+2+w))
+    {
+
+        Vin[(A[a+1])]++;
+        Vout[(A[a])]++;
+
+
+
+    }
+
+
+
+    for (int q = 1; q<=m; q++)  // searching for branching vertices
+        if ((Vin[q]!=1) || (Vout[q]!=1))
+    {        Leafs.push_back(q); // вставляем номер
+
+    }
+
+
+
+
+
+
+
+    std::vector <int> Path;
+    Path.clear();
+    int u;
+
+    for (int i = 0; i<Leafs.size(); i++)
+    {
+         l1: u = Leafs[i];
+        Path.clear();
+        Path.push_back(u);
+
+        l2: for (int j = 0; j<A.size(); j=j+2+w)
+        {
+
+
+
+            if ((EdgeVisited[j/(2+w)]==-1) && (A[j]==u)) // нашли непосещенное ребро, начинающееся с вершины u
+                                                        // if we have found an another unvisited edge starting frov the vertex u
+
+            {
+                EdgeVisited[j/(2+w)]=1;//теперь оно посещенное  // now this edge is visited
+
+
+
+                Path.push_back(A[j+1]); // в путь - следующую вершину // adding to Path another vertex
+                if (FindIn(Leafs, A[j+1])!=-1)  // и если это - вершина разветвления - вывести путь, и наверх - дальше искать пути из вершины u
+                {                               // And if it is a branching vertex - ths path is built, let's find another one starting from the vertex u
+
+                    Paths.push_back(Path);
+
+                    goto l1;
+                }
+
+                 if (FindIn(Leafs, A[j+1])==-1) // а иначе - ищем дальше с найденой вершины неразветвления // and if no - lets continue path building from the non-branching vertex we have found
+                 {
+                     u = A[j+1];
+                     goto l2;
+                 }
+
+            }
+
+
+
+        }
+
+    }
+
+
+
+    std::vector <int> Visited (m+1, 0);
+
+
+    for (int i=0; i<EdgeVisited.size(); i++)
+    {
+        if (EdgeVisited[i]== 1)
+        {
+            Visited[(A[i*(2+w)])]=1;
+            Visited[(A[i*(2+w)+1])]=1;
+        }
+    }
+
+
+
+
+
+    int m1 = FindIn(Visited, 0, 1, 1);
+    while (m1!=-1)
+    {
+    Circuit_for_NBPaths(A, w, m1, Paths, Visited); // а теперь - изолированные циклы; // now let's find isolated cycles
+    m1 = FindIn(Visited, 0, 1, 1);
+    }
+
+
+    if ((!directed) && (Paths.size()>1)) // if the Graph is undirected - let's glue together paths that have the same begin-vertex and/ or end-vertex and if such vertices are not branching ones
+    {
+
+
+        int f1, f2, l1, l2;
+
+        for (int i=0; i<Paths.size()-1;i++)
+        {
+            if (Paths[i].size()<2) continue;
+            if (Paths[i][0]==Paths[i][Paths[i].size()-1]) continue;
+
+            for (int j=1+i; j<Paths.size();j++)
+                {
+
+                    if (Paths[j].size()<2) continue;
+
+                    if (Paths[j][0]==Paths[j][Paths[j].size()-1]) continue;
+
+
+
+                    f1 = Paths[i][0];
+
+                    f2 = Paths[j][0];
+
+                    l1 = Paths[i][Paths[i].size()-1];
+
+                    l2 = Paths[j][Paths[j].size()-1];
+
+
+                    if ((l1 == f2) && (Vin[l1]+Vout[l1]==2))
+                    {
+                        for (int x=1; x<Paths[j].size(); x++)
+                            Paths[i].push_back(Paths[j][x]);
+                        Paths[j].clear();
+                        j=i;
+                        continue;
+                    }
+
+                    if ((l1 == l2)&&(Vin[l1]+Vout[l1]==2))
+                    {
+                        system ("pause");
+                        reverse(Paths[j].begin(), Paths[j].end());
+                        for (int x=1; x<Paths[j].size(); x++)
+                            Paths[i].push_back(Paths[j][x]);
+                        Paths[j].clear();
+                        j=i;
+                        continue;
+                    }
+
+
+                    if ((l2 == f1)&&(Vin[l2]+Vout[l2]==2))
+                    {
+                       reverse(Paths[i].begin(), Paths[i].end());
+                       reverse(Paths[j].begin(), Paths[j].end());
+
+                       for (int x=1; x<Paths[j].size(); x++)
+                           Paths[i].push_back(Paths[j][x]);
+                       Paths[j].clear();
+                       j=i;
+                       continue;
+                    }
+
+
+
+                    if ((f2 == f1)&&(Vin[f1]+Vout[f1]==2))
+                    {
+                        reverse(Paths[i].begin(), Paths[i].end());
+
+                        for (int x=1; x<Paths[j].size(); x++)
+                            Paths[i].push_back(Paths[j][x]);
+                        Paths[j].clear();
+                        j=i;
+                        continue;
+                    }
+
+                }
+            }
+
+
+
+
+        for (int i=0; i<Paths.size();i++)
+        {
+            if (Paths[i].size()==0)
+            {
+                Paths.erase(Paths.begin()+i);
+                i--;
+            }
+        }
+
+
+    }
+
+
+
+    if (mn<1)  // Приведение вектора к нумерованию вершин с 1 // renumbering vertices to start from 1.
+    {
+        RenumVGraph (A, (mn-1), w);
+        for (int i = 0; i<Paths.size(); i++)
+            RenumVGraph (Paths[i], (mn-1), w, true);
+
+    }
+
+
+
+return 0;
+
+
+}
+
+
+
+int NBPaths (std::pair < std::vector<int>, std::vector<double>> & P, std::vector <std::vector<int> >&Paths, bool directed = true)
+// Модификация функции NBPaths (см. выше) для случая нецелочисленного веса ребер.
+// Modification of the function NBPaths (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+
+
+{
+    Paths.clear();
+    if ((P.first).size()==0) return -1;
+    if ((P.second).size()==0) return -1;
+    if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+
+
+    return NBPaths (P.first, false, Paths, directed);
+
+}
 
 
 
