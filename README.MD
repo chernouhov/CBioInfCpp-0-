@@ -365,6 +365,30 @@ Counts p-distance without checking of the input data correctness
 Generates DistanceMatrix "B" upon array of strings s; if s contains 1 or 0
 items or strings have not equal length returns -1 and empty B.
 ***
+`int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, 
+std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)`
+
+Generates a consensus string upon std::vector <std::string> DataS as an input collection of strings and QDataS as their quality. 
+The result will be as TempS as consensus string and QTempS as its quality string.
+If multiply consensus strings exist returns the one of them.
+The parameter "Alph" set an alphabet, by default Alph = "ACGT" (other symbols are not considered for forming the consensus string).
+The parameter "Phred" sets the quality scale (by default as Phred33).
+There are 4 methods to construct the consensus string (set by the parameter "method"):
+0 - default - the symbol that has the maximal average probability (quality) for a given position in consensus string will be chosen. It will have the same quality.
+1 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the quality = sum of probability (quality) of this char / number of times that the char occurs at given position. 
+2 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the max quality (probability) of this char at given position. 
+3 - the symbol that has the maximal probability (quality) for a given position in consensus string will be chosen. It will have the same quality. 
+One may set QDataS as empty: in this case quality will considered as "some equal" for every symbol at every position.
+So in order to find a consensus string upon a given collection without quality one may choose method №1 or №2 and empty QDataS.
+If no symbol of the Alph has been found at a given position - the ' ' will be set there both in the consensus string TempS and in quality string QTempS.
+If any input data is incorrect returns -1 and empty TempS and QTempS, otherwise returns 0.
+***
+`int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS,
+const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)`
+
+Modification of ConsStringQ1 (see it above) for all the version of consensus string. For that every position may have >= 1 symbols (if different symbols may be chosen for this position). 
+The positions are separated by the symbol tr (by default is set as '^').
+***
 `int EditDist (const std::string &s1, const std::string &s2)`
 
 Computes Edit Distance (Levenshtein distance) between two strings (strings may
@@ -841,6 +865,27 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
+***
+`int DFS_for_NBPaths (const std::vector <int> & A, const bool w, const int b, 
+const int bconst, std::vector <int> & Visited, std::vector <int> & Path)`
+
+An auxiliary function for NBPaths (see it below): DFS for finding isolated cycles
+***
+`void Circuit_for_NBPaths (const std::vector <int> & A, const bool w, int V, std::vector <std::vector<int> >&Paths, 
+std::vector <int> & Visited)`
+
+An auxiliary function for NBPaths (see it below): finding isolated cycles
+***
+`int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Paths, bool directed = true)`
+
+Finds all maximal non-branching Paths in a graph, that is set by Adjacency vector A.
+Parameter "w" sets if A is a weighted graph or no. Parameter "directed" sets if A is a weighted graph or no.
+The result will be in std::vector <std::vector<int> > Paths. If input data is incorrect returns -1 and empty Paths. 
+ If input data is correct returns 0.
+Vertices may be numbered in different ways (they may be marked by both negative and non-negative integers). 
+ In order to implement the function vertices may be renumbered to get started from "1"; after search is completed, the vertices will be assigned their original numbers.
+The input graph A may have multiple edges (multiple edges will be considered as non branching paths) and multiple loops 
+ (any loop will considered as a non branching path).
 ***
 `long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int e, 
 std::vector <std::vector<int> >&Paths, std::vector <int> &Flows, std::vector < std::pair < int, int> > &MinCut)`
