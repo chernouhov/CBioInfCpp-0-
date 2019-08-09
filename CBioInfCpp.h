@@ -4971,7 +4971,7 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
 
                     if ((l1 == l2)&&(Vin[l1]+Vout[l1]==2))
                     {
-                        system ("pause");
+
                         reverse(Paths[j].begin(), Paths[j].end());
                         for (int x=1; x<Paths[j].size(); x++)
                             Paths[i].push_back(Paths[j][x]);
