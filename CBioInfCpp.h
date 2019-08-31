@@ -21,6 +21,8 @@
 #include <stack>
 #include <limits.h>
 #include <float.h>
+#include <cstdlib>
+#include <ctime>
 
 
 int FastaRead (std::ifstream & fin, std::vector <std::string> & IndexS, std::vector <std::string> & DataS)
@@ -4206,6 +4208,403 @@ int EPathDGraph (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
     return EPathDGraph (A.first, R, false, Isolated);
 
 }
+
+
+
+
+int GenRandomUWGraph (std::vector <int> &P, int v, int e, int b=0)
+// Вспомогательная функция для генерации случайного невзвешенного графа в векторе смежности P
+// An auxiliary function that generates a random unweighted graph P (set by Adjacency vector P)
+// e means the number of edges, v means the number of vertices, b means the minimal number to be assigned to vertex
+
+{
+    P.clear();
+    if ((v<=0) || (e<=0) || (b<0) ) return -1;
+
+    srand(time(0));
+
+    for (unsigned int i=0; i<2*e; i++)
+    {
+        P.push_back(b+rand() % v);
+
+    }
+
+    return 0;
+}
+
+
+
+int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, bool directed = true)
+// Counts multiplicity of edges of a graph that is set by Adjacency vector A.
+// Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+// Parameter "directed" sets if the graph A is directed or no.
+// For a DIRECTED graph the result will be formed in the map G2 as follows:
+// key is the pair of integers corresponding to the source and the sink vertices of an edge, and the value is its multiplicity.
+// For example "G2[std::pair <int, int>(1, 2)] = 3" means that directed edge 1->2 has its multiplicity = 3.
+// For UNDIRECTED graph G2 will contain edge multiplicity for both keys std::pair <int, int> (vertex1, vertex 2) and std::pair <int, int> (vertex2, vertex 1).
+// For example for undirected graph will be so: "G2[std::pair <int, int>(1, 2)] = G2[std::pair <int, int>(2, 1)] = 3".
+// Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
+// Возвращает кратность ребер графа, заданного вектором смежности А, в ассоциативном массиве смежности G2.
+// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+// Параметр directed задает, является ли граф ориентированным (Истина) или нет.
+// К примеру, для ориентированного графа "G2[std::pair <int, int>(1, 2)] = 3" означает, что направленное ребро 1->2 имеет кратность = 3.
+// Для неориентированного будут храниться одинаковые значения для пар вершин (vertex1, vertex 2) и (vertex2, vertex 1).
+// Т.е. для неориентированного графа будет верной подобная запись: G2[std::pair <int, int>(1, 2)] = G2[std::pair <int, int>(2, 1)] = 3
+// Возвращает -1 и пустой G2 в случае некорректности исходных данных. Если успех - вернет 0.
+
+
+
+{
+    G2.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    std::pair < int, int> C;
+    std::pair < std::pair < int, int>, int> D;
+
+
+    std::pair < int, int> C1;
+    std::pair < std::pair < int, int>, int> D1;
+
+    if (directed)
+    {
+    for (int i=0; i<A.size(); i=i+2+weighted)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+        D = std::make_pair(C, 1);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+1; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); continue;}
+
+    }
+    }
+
+    if (!directed)
+    {
+    for (int i=0; i<A.size(); i=i+2+weighted)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+        D = std::make_pair(C, 1);
+
+        C1 = std::make_pair(A[i+1], A[i]);
+        D1 = std::make_pair(C1, 1);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+1; G2[C1] = G2[C1]+1; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); G2.insert(D1); continue;}
+
+    }
+    }
+
+
+    return 0;
+
+}
+
+
+
+int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , int> &G2, bool directed = true)
+// Modification of the function AdjVectorEdgesMultiplicity (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+// Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
+// Модификация AdjVectorEdgesMultiplicity (см. выше) для случая графа с нецелочисленными весами ребер.
+
+{
+    G2.clear();
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+    return AdjVectorEdgesMultiplicity (A.first, G2, false, directed);
+
+}
+
+
+int DFSSCC1 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order, const bool weighted)
+
+//Вспомогательная функция для упорядочивания вершин орграфа для поиска сильносвязных его компонент
+// An auxiliary function to order vertices of a graph for the function SCCGraph_Vertices
+
+
+
+{
+
+    Visited [b] = 1;  // b - the vertex to start with. Vertex is to become grey when starting working with it
+    int f;
+
+
+    for (unsigned int r = 0; r<A.size(); r=r+2+weighted)
+    {
+
+
+        if ( (A[r+1]==b) && (A[r]==b) ) continue; // Если петля - идем дальше //if a loop found - let's continue, loop will be ignored
+
+
+
+
+        if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0) )  // нашли непосещенную? непосещенная = 0  //found a non-visited vertex
+        {
+           Visited[(A[r])] = 1;
+
+
+           f=DFSSCC1 (A, (A[r]), Visited, order, weighted);
+
+
+        }
+
+
+    }
+
+    order.push_back(b);
+    Visited [b] = 2;  // отработали и перекрасили в черный (=2) // now the vertex is to become black (=2)
+
+return 0;
+}
+
+
+int DFSSCC2 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order,std::set <int> & R, const bool weighted)
+
+//Вспомогательная функция для поиска вершин очередной сильно связной компоненты для SCCGraph_Vertices
+// An auxiliary function to find vertices of a graph for a strongly connected component (for the function SCCGraph_Vertices).
+
+{
+
+    Visited [b] = 1;  // b - the vertex to start with. Vertex is to become grey when starting working with it
+    int f;
+
+    R.insert(b);
+
+    for (unsigned int r = 0; r<A.size(); r=r+2+weighted)
+    {
+
+
+        if ( (A[r]==b) && (A[r+1]==b) ) continue; // Если петля - идем дальше //if a loop found - let's continue, loop will be ignored
+
+
+
+
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // нашли непосещенную? непосещенная = 0  //found a non-visited vertex
+        {
+           Visited[(A[r])] = 1;
+
+
+           f=DFSSCC2 (A, (A[r+1]), Visited, order, R, weighted);
+
+
+        }
+
+
+    }
+
+
+    Visited [b] = 2;  // отработали и перекрасили в черный (=2) // now the vertex is to become black (=2)
+
+return 0;
+}
+
+
+int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)
+// Функция для нахождения наборов вершин по всем компонентам сильной связности (области сильной связности) ориентированного графа, заданного вектором смежности А. Параметр weighted задает, является ли граф взвешенным.
+// Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах) и номер минимальной вершины (по умолчанию = 0).
+// В случае успеха возвращает число сильно связанных компонент. Возвращает и заполненный вектор G, каждый элемент которого - набор вершин очередной компоненты связности.
+// В случае некорректных входных данных возвращает -1 и пустой G.
+
+// The function finds collection of vertices for each strongly connected component of the directed graph, that is set by an Adjacency vector A.
+// These collections are to be contained in vector G, i.e. G[i] contains a collection of vertices of the i-th strongly connected component.
+// Input data: Adjacency vector A, the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A),
+// the minimum vertex number mn (== 0 by default), bool weighted, that sets if the graph is weighted.
+// If input data is incorrect the function returns "-1" and empty G.
+
+{
+    G.clear();
+
+    if (A.size()==0) return -1;
+    if (mn<0) return -1;
+    if ((V<0)&&(V != INT_MIN)) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+
+    int mn1, mx;
+    RangeVGraph (A, mx, mn1, weighted);
+
+
+    if ( (mn1<0) || (mn1<mn) )  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+
+
+    std::vector <int> order;
+    order.clear();
+
+    std::set <int> R;
+    R.clear();
+
+
+    std::vector <int> Visited (V+1, 0); // to mark visited vertices
+
+    for (int y=0; y<mn; y++) // to mark the nummrers that are less than mn
+        Visited[y] = 1;
+
+
+
+    int b=CheckUnvisit(Visited);  // вершина откуда идет поиск  // let's start from here
+
+    int f;
+
+    while (CheckUnvisit(Visited)!=-1)
+    {
+        b=CheckUnvisit(Visited);  // берем первую же непосещенную вершину  // vertex not visited yet
+        f=DFSSCC1 (A, b, Visited, order, weighted);
+    }
+
+  std::reverse (order.begin(),order.end());
+
+
+
+    for (int i=mn; i<Visited.size(); i++)
+        Visited[i] = 0;
+
+
+
+
+    for (int y=0; y<order.size(); y++)
+    {
+        if (Visited[order[y]]!=0) continue;
+        b=order[y];
+        R.clear();
+        DFSSCC2 (A, b, Visited, order, R, weighted);
+
+        //if (R.size()>1)
+            G.push_back(R);
+    }
+
+
+  return G.size();
+
+
+}
+
+
+int CCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & R, const bool weighted, int mn = 0, int V = INT_MIN)
+// Функция для нахождения наборов вершин по всем компонентам связности неориентированного (области связности) графа, заданного вектором смежности А. Параметр weighted задает, является ли граф взвешенным.
+// Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах) и номер минимальной вершины (по умолчанию = 0).
+// В случае успеха возвращает число связанных компонент. Возвращает и заполненный вектор R, каждый элемент которого - набор вершин очередной компоненты связности.
+// В случае некорректных входных данных возвращает -1 и пустой R.
+
+// The function finds collection of vertices for each connected component of the undirected graph, that is set by an Adjacency vector A.
+// These collections are to be contained in vector R, i.e. R[i] contains a collection of vertices of the i-th connected component.
+// Input data: Adjacency vector A, the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A),
+// the minimum vertex number mn (== 0 by default), bool weighted, that sets if the graph is weighted.
+// If input data is incorrect the function returns "-1" and empty R.
+
+
+{
+    R.clear();
+
+    if (A.size()==0) return -1;
+    if (mn<0) return -1;
+    if ((V<0)&&(V != INT_MIN)) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+
+    int mn1, mx;
+    RangeVGraph (A, mx, mn1, weighted);
+
+
+    if ( (mn1<0) || (mn1<mn) )  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+
+    std::set <int> G; // temp set to contain another component found
+    G.clear();
+
+
+    std::vector <int> Visited (V+1, 0); // to mark visited vertices
+
+    for (int y=0; y<mn; y++) // to mark the nummrers that are less than mn
+        Visited[y] = 1;
+
+
+    int b=CheckUnvisit(Visited);  // вершина откуда идет поиск // let's start from the vertex b
+
+    std::stack <int> Q;
+
+while (CheckUnvisit(Visited)!=-1)
+{
+    b=CheckUnvisit(Visited);  // let's found an unvisited vertex
+    G.clear();
+    G.insert(b);
+    Q.push(b);  // This vertex -> to stack
+
+
+
+    while (!Q.empty())
+    {
+        b= Q.top();  // берем последнюю вершину из очереди
+        Q.pop();  // убрать ее из очереди
+        Visited[b] = 1;  // она посещена  // now the vertex is ti be marked as "visited"
+
+
+        for (unsigned int r = 0; r<A.size(); r=r+2+weighted)
+        {
+            if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // 2-way checking for every edge as the graph A is undirected
+            {
+                Q.push(A[r+1]);
+               Visited[(A[r+1])] = 1;
+               G.insert(A[r+1]);
+
+
+            }
+
+            if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0) )  // 2 проверки т.к. ребра двусторонние
+            {
+                Q.push(A[r]);
+                Visited[(A[r])] = 1;
+
+                G.insert(A[r]);
+
+            }
+
+
+
+
+        }
+
+
+
+    }
+
+    R.push_back(G);
+    G.clear();
+
+
+}
+
+
+return R.size();
+
+}
+
+
+
+
 
 
 
