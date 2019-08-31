@@ -33,3 +33,12 @@
 
 - Group of function "NBPaths" (for finding maximal non-branching paths in a graph, both weighted or no, direcyed or no) has been added.
 - Functions ConsStringQ1 and ConsStringQ2 for building consensus string upon a given collection of strings according to their quality has been added. Note that due to little data for testing errors may be found here (please notify if you found any).
+
+31.08.2019
+- Добавлена функция GenRandomUWGraph для генерации случайного невзвешенного графа в виде вектора смежности.
+- Добавлено семейство функций для нахождения областей связности неориентированного графа и областей сильной связности для ориентированного.
+- Добавлено семейство функций для подсчета кратности ребер графов, заданных вектором смежности.
+
+- Function GenRandomUWGraph that generates a random unweighted graph (as its "Adjacency vector") has been added.
+- Group of function intended to find collection of vertices for each strongly connected component of directed graph and to find collection of vertices for each connected component of undirected graph has been added.
+- Group of function for counting edges multiplicity of a graph that is set by Adjacency vector has been added.
