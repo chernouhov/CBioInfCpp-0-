@@ -953,6 +953,49 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
+***
+`int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, bool directed = true)`
+
+Counts multiplicity of edges of a graph that is set by Adjacency vector A.
+Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+Parameter "directed" sets if the graph A is directed or no.
+For a DIRECTED graph the result will be formed in the map G2 as follows:
+key is the pair of integers corresponding to the source and the sink vertices of an edge, and the value is its multiplicity.
+For example "G2[std::pair <int, int>(1, 2)] = 3" means that directed edge 1->2 has its multiplicity = 3.
+For UNDIRECTED graph G2 will contain edge multiplicity for both keys std::pair <int, int> (vertex1, vertex 2) and std::pair <int, int> (vertex2, vertex 1).
+For example for undirected graph will be so: "G2 [std::pair <int, int>(1, 2)] = G2 [std::pair <int, int>(2, 1)] = 3".
+Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
+***
+`int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , int> &G2, bool directed = true)`
+
+Modification of the function AdjVectorEdgesMultiplicity (see it above) for not-integer (double) weights of edges of a graph.
+Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+ Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
+***
+`int DFSSCC1 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order, const bool weighted)`
+
+An auxiliary function to order vertices of a graph for the function SCCGraph_Vertices
+***
+`int DFSSCC2 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order,std::set <int> & R, const bool weighted)`
+
+An auxiliary function to find vertices of a graph for a strongly connected component (for the function SCCGraph_Vertices).
+***
+`int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)`
+
+The function finds collection of vertices for each strongly connected component of the directed graph, that is set by an Adjacency vector A.
+These collections are to be contained in vector G, i.e. G[i] contains a collection of vertices of the i-th strongly connected component.
+Input data: Adjacency vector A, the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A),
+the minimum vertex number mn (== 0 by default), bool weighted, that sets if the graph is weighted.
+If input data is incorrect the function returns "-1" and empty G.
+***
+`int CCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & R, const bool weighted, int mn = 0, int V = INT_MIN)`
+
+The function finds collection of vertices for each connected component of the undirected graph, that is set by an Adjacency vector A.
+These collections are to be contained in vector R, i.e. R[i] contains a collection of vertices of the i-th connected component.
+Input data: Adjacency vector A, the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A),
+the minimum vertex number mn (== 0 by default), bool weighted, that sets if the graph is weighted.
+If input data is incorrect the function returns "-1" and empty R.
 
 # Auxiliary functions
 
@@ -1073,6 +1116,11 @@ range or if the vector is empty
 
 Generates CIGAR-string as a result of "fitting" of the string S2 to s0 (starting position == npos). 
 If any data is incorrect returns empty string.
+***
+`int GenRandomUWGraph (std::vector <int> &P, int v, int e, int b=0)`
+
+An auxiliary function that generates a random unweighted graph P (set by Adjacency vector P).
+e means the number of edges, v means the number of vertices, b means the minimal number to be assigned to vertex
 ***
 `int PartitionOfNumber (std::vector <std::vector <int>> &B, int n)`
 
