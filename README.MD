@@ -216,13 +216,17 @@ first vector has its weight set as i-th element in the second one.
 `int GraphCout (const std::vector <int> &P, const bool weighted)`
 
 "Couts" a graph that is set by Adjacency vector A to screen: one edge in one line. 
+
 Parameter "weighted" sets if the graph A is weighted or no. 
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &fout)`
 
 "Fouts" a graph that is set by Adjacency vector A to file: one edge in one line. 
+
 Parameter "weighted" sets if the graph A is weighted or no. 
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int GraphCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, 
@@ -230,21 +234,27 @@ bool scientifique = false)`
 
 Modification of the function GraphCout (see it above) for not-integer (double) weights of edges of a graph. 
 Parameter "weighted" sets if the graph A is weighted or no. 
+
 Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. 
+
 But weights are set in the second one. So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 
 in the first vector has its weight set as i-th element in the second one.
 ***
 `int GraphFout const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
 
 Modification of the function GraphFout (see it above) for not-integer (double) weights of edges of a graph. 
+
 Parameter "weighted" sets if the graph A is weighted or no. 
+
 Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. 
+
 But weights are set in the second one. So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 
 in the first vector has its weight set as i-th element in the second one.
 ***
 `int GraphCout (const std::map <std::pair < int, int> , int> &P)`
 
 "Couts" a graph that is set by Adjacency map P to screen: one edge in one line.
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int GraphFout (const std::map <std::pair < int, int> , int> &P, std::ofstream &fout)`
@@ -326,6 +336,7 @@ Finds all tandem repeats in the string s as follows:
 Returns 0 and vector Result: every even position of Result contains the starting position of tandem repeat in the s 
 (0-based indexing) and every odd position of Result contain the lenghts of the repeat that have its starting position 
 as previous element in the Result.
+
 Returns -1 and empty Result if input data is incorrect.
 ***
 `void GMapCodonRNA (std::map < std::string, std::string> & MapCodon)`
@@ -369,24 +380,33 @@ items or strings have not equal length returns -1 and empty B.
 std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)`
 
 Generates a consensus string upon std::vector <std::string> DataS as an input collection of strings and QDataS as their quality. 
+
 The result will be as TempS as consensus string and QTempS as its quality string.
+
 If multiply consensus strings exist returns the one of them.
 The parameter "Alph" set an alphabet, by default Alph = "ACGT" (other symbols are not considered for forming the consensus string).
+
 The parameter "Phred" sets the quality scale (by default as Phred33).
+
 There are 4 methods to construct the consensus string (set by the parameter "method"):
 0 - default - the symbol that has the maximal average probability (quality) for a given position in consensus string will be chosen. It will have the same quality.
 1 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the quality = sum of probability (quality) of this char / number of times that the char occurs at given position. 
 2 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the max quality (probability) of this char at given position. 
 3 - the symbol that has the maximal probability (quality) for a given position in consensus string will be chosen. It will have the same quality. 
+
 One may set QDataS as empty: in this case quality will considered as "some equal" for every symbol at every position.
+
 So in order to find a consensus string upon a given collection without quality one may choose method №1 or №2 and empty QDataS.
+
 If no symbol of the Alph has been found at a given position - the ' ' will be set there both in the consensus string TempS and in quality string QTempS.
+
 If any input data is incorrect returns -1 and empty TempS and QTempS, otherwise returns 0.
 ***
 `int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS,
 const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)`
 
 Modification of ConsStringQ1 (see it above) for all the version of consensus string. For that every position may have >= 1 symbols (if different symbols may be chosen for this position). 
+
 The positions are separated by the symbol tr (by default is set as '^').
 ***
 `int EditDist (const std::string &s1, const std::string &s2)`
@@ -683,26 +703,33 @@ matrix B is ignored
 
 Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together. 
 Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. 
+
 If A is unweighted we consider that every edge have its weight = 1. 
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)`
 
 Modification of the function AdjVectorToAdjMap (see it above) for not-integer
 (double) weights of edges of a graph.
+
 Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together. 
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , int> &G1)`
 
 Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are integers. 
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , double> &G1)`
 
 Modification of the function AdjMapToAdjVector (see it above) for not-integer
 (double) weights of edges of a graph.
+
 Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are double. 
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int CheckUnvisit (vector <int> & Visited)`
@@ -879,11 +906,17 @@ An auxiliary function for NBPaths (see it below): finding isolated cycles
 `int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Paths, bool directed = true)`
 
 Finds all maximal non-branching Paths in a graph, that is set by Adjacency vector A.
+
 Parameter "w" sets if A is a weighted graph or no. Parameter "directed" sets if A is a weighted graph or no.
+
 The result will be in std::vector <std::vector<int> > Paths. If input data is incorrect returns -1 and empty Paths. 
- If input data is correct returns 0.
+
+If input data is correct returns 0.
+
 Vertices may be numbered in different ways (they may be marked by both negative and non-negative integers). 
- In order to implement the function vertices may be renumbered to get started from "1"; after search is completed, the vertices will be assigned their original numbers.
+
+In order to implement the function vertices may be renumbered to get started from "1"; after search is completed, the vertices will be assigned their original numbers.
+
 The input graph A may have multiple edges (multiple edges will be considered as non branching paths) and multiple loops 
  (any loop will considered as a non branching path).
 ***
@@ -891,10 +924,13 @@ The input graph A may have multiple edges (multiple edges will be considered as 
 std::vector <std::vector<int> >&Paths, std::vector <int> &Flows, std::vector < std::pair < int, int> > &MinCut)`
 
 Finds maximal flow from vertex b to vertex e in the graph A (set by Adjacency vector A).
+
 Parameter "weighted" sets if A is a weighted graph or no. All vertices of A should have only non-negative marks.
+
 For a weighted graph edges should have only positive values.
 Graph A may have multiple edges (multiple edges will be considered as one joined edge that have its weight = sum of 
 the weights of all joined edges) and multiple loops (loops will be ignored).
+
 Returnes: 
 - maximal flow value and 3 vectors: vector Paths (contains all the paths of the maximal flow network 
 (one of the possible solutions if >1 solutions exist))
@@ -907,8 +943,10 @@ If input data is incorrect or there are no path from b to e or there are no such
 std::vector <std::vector<int> >&Paths, std::vector <double> &Flows, std::vector < std::pair < int, int> > &MinCut)`
 
 Modification of the function MaxFlowGraph (see it above) for not-integer (double) weights of edges of a graph.
+
 Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. 
 But weights are set in the second one.
+
 So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 ***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
@@ -957,21 +995,29 @@ first vector has its weight set as i-th element in the second one.
 `int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, bool directed = true)`
 
 Counts multiplicity of edges of a graph that is set by Adjacency vector A.
+
 Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+
 Parameter "directed" sets if the graph A is directed or no.
+
 For a DIRECTED graph the result will be formed in the map G2 as follows:
 key is the pair of integers corresponding to the source and the sink vertices of an edge, and the value is its multiplicity.
 For example "G2[std::pair <int, int>(1, 2)] = 3" means that directed edge 1->2 has its multiplicity = 3.
+
 For UNDIRECTED graph G2 will contain edge multiplicity for both keys std::pair <int, int> (vertex1, vertex 2) and std::pair <int, int> (vertex2, vertex 1).
+
 For example for undirected graph will be so: "G2 [std::pair <int, int>(1, 2)] = G2 [std::pair <int, int>(2, 1)] = 3".
+
 Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
 ***
 `int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , int> &G2, bool directed = true)`
 
 Modification of the function AdjVectorEdgesMultiplicity (see it above) for not-integer (double) weights of edges of a graph.
 Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+
 So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
- Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
+
+Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
 ***
 `int DFSSCC1 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order, const bool weighted)`
 
@@ -984,17 +1030,23 @@ An auxiliary function to find vertices of a graph for a strongly connected compo
 `int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)`
 
 The function finds collection of vertices for each strongly connected component of the directed graph, that is set by an Adjacency vector A.
+
 These collections are to be contained in vector G, i.e. G[i] contains a collection of vertices of the i-th strongly connected component.
+
 Input data: Adjacency vector A, the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A),
 the minimum vertex number mn (== 0 by default), bool weighted, that sets if the graph is weighted.
+
 If input data is incorrect the function returns "-1" and empty G.
 ***
 `int CCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & R, const bool weighted, int mn = 0, int V = INT_MIN)`
 
 The function finds collection of vertices for each connected component of the undirected graph, that is set by an Adjacency vector A.
+
 These collections are to be contained in vector R, i.e. R[i] contains a collection of vertices of the i-th connected component.
+
 Input data: Adjacency vector A, the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A),
 the minimum vertex number mn (== 0 by default), bool weighted, that sets if the graph is weighted.
+
 If input data is incorrect the function returns "-1" and empty R.
 
 # Auxiliary functions
