@@ -1,4 +1,4 @@
-23.06.2019:
+﻿23.06.2019:
 
 - Доработаны функции семейства FindIn,
 - Доработаны функции PairVectorCout, PairVectorFout.
@@ -31,7 +31,7 @@
 - Добавлено семейство функций NBPaths для поиска максимально длинных неразветвляющихся путей в графе (взвешенном, невзвешенном, ориентированном, неориентированном).
 - Добавлены функции ConsStringQ1 и ConsStringQ2 для определения консенсусной строки с учетом качества символов в строках исходной коллекции. Ввиду малого объема данных для тестирования могут быть ошибки.
 
-- Group of function "NBPaths" (for finding maximal non-branching paths in a graph, both weighted or no, direcyed or no) has been added.
+- Group of function "NBPaths" (for finding maximal branching paths in a graph, both weighted or no, direcyed or no) has been added.
 - Functions ConsStringQ1 and ConsStringQ2 for building consensus string upon a given collection of strings according to their quality has been added. Note that due to little data for testing errors may be found here (please notify if you found any).
 
 31.08.2019
@@ -42,3 +42,8 @@
 - Function GenRandomUWGraph that generates a random unweighted graph (as its "Adjacency vector") has been added.
 - Group of function intended to find collection of vertices for each strongly connected component of directed graph and to find collection of vertices for each connected component of undirected graph has been added.
 - Group of function for counting edges multiplicity of a graph that is set by Adjacency vector has been added.
+
+19.10.2019
+- Добавлены функции перекодирования Вектора смежности в/ из расширенного Ассоциативного массива смежности (AdjVectorToAdjMegaMap, AdjMegaMapToAdjVector) и расширено семейство функций вывода в файл и на экран графов, заданных расширенным Ассоциативным массивом смежности (GraphCout, GraphFout).
+- Added group of functions AdjVectorToAdjMegaMap, AdjMegaMapToAdjVector to convert Adjacency vector to/ from Adjacency mega-map (i.e. extended version of Adjacency map to contain graphs having different multiply edges).
+- Updated Group of function GraphCout and GraphFout to deal with mega-maps.

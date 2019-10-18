@@ -1353,6 +1353,258 @@ if (P.size()==0) return -1;
 
 
 
+int GraphCout (const std::map <std::pair < int, int> , std::vector<int> > &P, bool in_line=false)
+// Вывод графа, заданного "мега-мапом", на экран: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+// Параметр in_line задает, выводить ли все значения вектора-значения в 1 строку после ключа, или же каждое значение вектора выводится после ключа в новой строке.
+// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
+// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
+// "Couts" a graph that is set by Adjacency mega-map P to screen: one edge in one line.
+// Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+// In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+
+{
+
+    if (P.size()==0) return -1;
+    for (auto it =P.begin(); it!=P.end(); it++)
+        if ((it->second).size()==0) return -1;
+
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+    {
+        if (!in_line)
+            for (int j=0; j<(it->second).size(); j++)
+            {
+                std::cout<<(it->first).first<< " "<<(it->first).second<<" "<< it->second[j]<< std::endl;
+
+            }
+        if (in_line)
+
+            {
+                std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+                for (int j=0; j<(it->second).size(); j++)
+                     std::cout<< it->second[j]<<" ";
+                std::cout<< std::endl;
+
+            }
+    }
+
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+int GraphFout (const std::map <std::pair < int, int> , std::vector<int> > &P, std::ofstream &fout, bool in_line=false)
+// Вывод графа, заданного "мега-мапом", в файл: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+// Параметр in_line задает, выводить ли все значения вектора-значения в 1 строку после ключа, или же каждое значение из вектора выводится после ключа в новой строке.
+// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
+// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
+// "Fouts" a graph that is set by Adjacency mega-map P to file: one edge in one line.
+// Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+// In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+
+{
+    if (P.size()==0) return -1;
+    for (auto it =P.begin(); it!=P.end(); it++)
+        if ((it->second).size()==0) return -1;
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+    {
+        if (!in_line)
+            for (int j=0; j<(it->second).size(); j++)
+            {
+                fout<<(it->first).first<< " "<<(it->first).second<<" "<< it->second[j]<< std::endl;
+
+            }
+        if (in_line)
+
+            {
+                fout<<(it->first).first<< " "<<(it->first).second<<" ";
+                for (int j=0; j<(it->second).size(); j++)
+                     fout<< it->second[j]<<" ";
+                fout<< std::endl;
+
+            }
+    }
+
+    fout<< std::endl;
+
+    return 0;
+}
+
+
+
+
+int GraphCout (const std::map <std::pair < int, int> , std::vector<double> > &P, bool in_line=false, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphCout для заданного "мега-мапом" (см. выше) для случая нецелочисленных весов ребер.
+// Modification of the function GraphCout for mega-map (see it above) for not-integer (double) weights of edges.
+
+
+{
+
+if (P.size()==0) return -1;
+
+for (auto it =P.begin(); it!=P.end(); it++)
+    if ((it->second).size()==0) return -1;
+
+if (!in_line)
+{
+
+    if (!scientifique)
+    {
+    std::cout.precision(prec);
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+        for (int j=0; j<(it->second).size(); j++)
+    {
+        std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+        std::cout<< std::fixed<<it->second[j];
+        std::cout<< std::endl;
+    }
+    std::cout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (auto it =P.begin(); it!=P.end(); it++)
+                    for (int j=0; j<(it->second).size(); j++)
+                {
+                    std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+                    std::cout<< std::scientific<<it->second[j];
+                    std::cout.unsetf(std::ios::scientific);
+                    std::cout<< std::endl;
+                }
+                std::cout<< std::endl;
+        }
+}
+
+
+if (in_line)
+{
+
+    if (!scientifique)
+    {
+    std::cout.precision(prec);
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+
+    {
+        std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+        for (int j=0; j<(it->second).size(); j++)
+            std::cout<< std::fixed<<it->second[j]<< " ";
+        std::cout<< std::endl;
+    }
+    std::cout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (auto it =P.begin(); it!=P.end(); it++)
+
+                {
+                    std::cout<<(it->first).first<< " "<<(it->first).second<<" ";
+                    for (int j=0; j<(it->second).size(); j++)
+                        std::cout<< std::scientific<<it->second[j]<< " ";
+                    std::cout.unsetf(std::ios::scientific);
+                    std::cout<< std::endl;
+                }
+                std::cout<< std::endl;
+        }
+}
+
+    return 0;
+}
+
+
+int GraphFout (const std::map <std::pair < int, int> , std::vector <double> > &P, std::ofstream &fout, bool in_line=false, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphFout для заданного "мега-мапом" (см. выше) для случая нецелочисленных весов ребер.
+// Modification of the function GraphFout for mega-map (see it above) for not-integer (double) weights of edges.
+
+
+{
+
+if (P.size()==0) return -1;
+
+for (auto it =P.begin(); it!=P.end(); it++)
+    if ((it->second).size()==0) return -1;
+
+if (!in_line)
+{
+
+    if (!scientifique)
+    {
+    fout.precision(prec);
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+        for (int j=0; j<(it->second).size(); j++)
+    {
+        fout<<(it->first).first<< " "<<(it->first).second<<" ";
+        fout<< std::fixed<<it->second[j];
+        fout<< std::endl;
+    }
+    fout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (auto it =P.begin(); it!=P.end(); it++)
+                    for (int j=0; j<(it->second).size(); j++)
+                {
+                    fout<<(it->first).first<< " "<<(it->first).second<<" ";
+                    fout<< std::scientific<<it->second[j];
+                    fout.unsetf(std::ios::scientific);
+                    fout<< std::endl;
+                }
+                fout<< std::endl;
+        }
+}
+
+
+if (in_line)
+{
+
+    if (!scientifique)
+    {
+    fout.precision(prec);
+
+    for (auto it =P.begin(); it!=P.end(); it++)
+
+    {
+        fout<<(it->first).first<< " "<<(it->first).second<<" ";
+        for (int j=0; j<(it->second).size(); j++)
+            fout<< std::fixed<<it->second[j]<< " ";
+        fout<< std::endl;
+    }
+    fout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (auto it =P.begin(); it!=P.end(); it++)
+
+                {
+                    fout<<(it->first).first<< " "<<(it->first).second<<" ";
+                    for (int j=0; j<(it->second).size(); j++)
+                        fout<< std::scientific<<it->second[j]<< " ";
+                    fout.unsetf(std::ios::scientific);
+                    fout<< std::endl;
+                }
+                fout<< std::endl;
+        }
+}
+return 0;
+}
+
+
 
 
 
@@ -3953,6 +4205,169 @@ int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, c
 }
 
 
+int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted)
+// Converts Adjacency vector A to Adjacency mega-map G2.
+// Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+// In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+// Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+// Конвертирует Вектор смежности A в ассоциативный "мега-мап" G2. Для невзвешенного графа считаем вес всех ребер = 1.
+// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
+// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
+// Возвращает -1 в случае некорректности исходных данных.
+// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+
+
+{
+    G2.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    std::pair < int, int> C;
+    std::vector <int> D;
+    D.clear();
+
+    if (weighted)
+    {
+    for (int i=0; i<A.size(); i=i+3)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+
+
+        if (G2.find(C)!=G2.end())
+        {G2[C].push_back(A[i+2]); continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(std::make_pair(C, D)); G2[C].push_back(A[i+2]); continue;}
+
+
+    }
+
+    }
+
+    if (!weighted)
+    {
+    for (int i=0; i<A.size(); i=i+2)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+
+
+        if (G2.find(C)!=G2.end())
+        {G2[C].push_back(1); continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(std::make_pair(C, D)); G2[C].push_back(1); continue;}
+
+    }
+
+    }
+
+    return 0;
+
+}
+
+
+
+
+int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2)
+// Модификация функции AdjVectorToAdjMegaMap (см. выше) для случая нецелочисленных весов ребер графа.
+// Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+{
+    G2.clear();
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+
+    std::pair < int, int> C;
+    std::vector <double> D;
+    D.clear();
+
+
+    for (int i=0; i<(A.second).size(); i++)
+    {
+        C = std::make_pair((A.first)[i*2], (A.first)[2*i+1]);
+
+
+        if (G2.find(C)!=G2.end())
+        {G2[C].push_back((A.second)[i]); continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(std::make_pair(C, D)); G2[C].push_back((A.second)[i]); continue;}
+
+    }
+
+
+
+    return 0;
+
+}
+
+
+
+int AdjMegaMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , std::vector <int> > &G1)
+// Converts Adjacency mega-map G1 to Adjacency vector A. A is considered as weighted, all weights are integers.
+// Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+// In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+// Returns -1 if input data is not correct. Otherwise returns 0.
+// Конвертирует "мега-мап" G1 в вектор смежности А (только во взвешенный, веса целочисленны).
+// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
+// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
+// Возвращает -1 в случае некорректности исходных данных.
+
+
+
+{
+    A.clear();
+    if (G1.size()==0) return -1;
+    for (auto it =G1.begin(); it!=G1.end(); it++)
+        if ((it->second).size()==0) return -1;
+
+    for (auto it =G1.begin(); it!=G1.end(); it++)
+        for (int j=0; j<(it->second).size(); j++)
+    {
+        A.push_back(  (it->first).first);
+        A.push_back(  (it->first).second);
+        A.push_back  ((it->second)[j]);
+
+    }
+
+    return 0;
+}
+
+
+
+int AdjMegaMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , std::vector<double> > &G1)
+// Модификация функции AdjMegaMapToAdjVector (см. выше) для случая нецелочисленных весов ребер графа.
+// Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+{
+    (A.first).clear();
+    (A.second).clear();
+    if (G1.size()==0) return -1;
+
+    for (auto it =G1.begin(); it!=G1.end(); it++)
+        if ((it->second).size()==0) return -1;
+
+    for (auto it =G1.begin(); it!=G1.end(); it++)
+        for (int j=0; j<(it->second).size(); j++)
+    {
+        (A.first).push_back(  (it->first).first);
+        (A.first).push_back(  (it->first).second);
+        (A.second).push_back  ((it->second)[j]);
+
+    }
+
+    return 0;
+}
 
 
 
