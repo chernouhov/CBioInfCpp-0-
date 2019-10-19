@@ -581,8 +581,8 @@ original numbers before the function is complete.
 
 *Also any graph may have multiple edges and multiple loops.*
 
-Since Summer of 2019 CBioInfCpp also have a modification of Adjacency vector - Adjacency map. Adjacency map allows to have quicker access to edge’s weight (the key is a pair of vertices numbers (int), mapped value, i.e. weight, may be int or double). 
-As Adjacency map can’t deal with multiple edges, its extended version i.e. Adjacency mega-map may be used in such cases. In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights (int or double) of all edges between these vertices.
+Since Summer of 2019 CBioInfCpp also have a modification of Adjacency vector - **Adjacency map**. Adjacency map allows to have quicker access to edge’s weight (the key is a pair of vertices numbers (int), mapped value, i.e. weight, may be int or double). 
+As Adjacency map can’t deal with multiple edges, its extended version i.e. **Adjacency mega-map** may be used in such cases. In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights (int or double) of all edges between these vertices.
 
 
 ***  
