@@ -26,15 +26,17 @@ CBioInfCpp.h contains a number of functions that may be used as in bioinformatic
 as well as in other fields related to working with graphs and strings.
 
 All the function are defined in the only file CBioInfCpp.h. Also the libraries
-iostream, fstream, string, vector, set, algorithm, queue, map, cmath, stack,
-limits.h, float.h are included. Yes, this way may be considered as “not the only
-best”, but it allows to start immediately by writing “include CBioInfCpp.h” at the
-program beginning.
-The data structure "Adjacency vector" to represent a graph is used in the
-CBioInfCpp (see the section “Working with graphs”).
+iostream, fstream, string, vector, set, algorithm, queue, map, cmath, stack, limits.h, float.h are included. 
+Yes, this way may be considered as “not the only best”, but it allows to start immediately 
+by writing “include CBioInfCpp.h” at the program beginning.
+
+The data structures "Adjacency vector" and "Adjacency map" to represent a graph are used in the CBioInfCpp (see the section “Working with graphs”).
 
 PS The current version of CBioInfCpp.h contains not so many functions. But it would be nice if this
 library grows up.
+
+PPS Note that the current version of CBioInfCpp.h has 866-encoding. So Russian symbols may be viewed not correctly here.
+But when downloaded and opened in the proper encoding it will be viewed good.
 
 # Input-Output functions
 
@@ -269,6 +271,34 @@ Modification of the function GraphCout for Adjacency map (see it above) for not-
 `int GraphFout (const std::map <std::pair < int, int> , double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)`
 
 Modification of the function GraphFout for Adjacency map (see it above) for not-integer (double) weights of edges.
+***
+`int GraphCout (const std::map <std::pair < int, int> , std::vector<int> > &P, bool in_line=false)`
+
+"Couts" a graph that is set by Adjacency mega-map P to screen: one edge in one line.
+
+Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+
+In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int GraphFout (const std::map <std::pair < int, int> , std::vector<int> > &P, std::ofstream &fout, bool in_line=false)`
+
+"Fouts" a graph that is set by Adjacency mega-map P to file: one edge in one line.
+
+Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+
+In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int GraphCout (const std::map <std::pair < int, int> , std::vector<double> > &P, bool in_line=false, unsigned int prec = 4, bool scientifique = false)`
+
+Modification of the function GraphCout for mega-map (see it above) for not-integer (double) weights of edges.
+***
+`int GraphFout (const std::map <std::pair < int, int> , std::vector <double> > &P, std::ofstream &fout, bool in_line=false, unsigned int prec = 4, bool scientifique = false)`
+
+Modification of the function GraphFout for mega-map (see it above) for not-integer (double) weights of edges.
 ***
 
 # Working with strings
@@ -551,9 +581,8 @@ original numbers before the function is complete.
 
 *Also any graph may have multiple edges and multiple loops.*
 
-Since Summer of 2019 CBioInfCpp also have a modification of Adjacency vector - Adjacency map. Adjacency map allows to have
-quicker access to edge’s weight (the key is a pair of vertices numbers (int), weight may be int or double). 
-But Adjacency map can’t work with multiple edges so Adjacency vector is used most often here.
+Since Summer of 2019 CBioInfCpp also have a modification of Adjacency vector - Adjacency map. Adjacency map allows to have quicker access to edge’s weight (the key is a pair of vertices numbers (int), mapped value, i.e. weight, may be int or double). 
+As Adjacency map can’t deal with multiple edges, its extended version i.e. Adjacency mega-map may be used in such cases. In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights (int or double) of all edges between these vertices.
 
 
 ***  
@@ -731,6 +760,36 @@ Modification of the function AdjMapToAdjVector (see it above) for not-integer
 Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are double. 
 
 Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted)`
+
+Converts Adjacency vector A to Adjacency mega-map G2.
+
+Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+
+In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+
+Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2)`
+
+Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
+***
+`int AdjMegaMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , std::vector <int> > &G1)`
+
+Converts Adjacency mega-map G1 to Adjacency vector A. A is considered as weighted, all weights are integers.
+
+Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
+
+In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+
+Returns -1 if input data is not correct. Otherwise returns 0.
+***
+`int AdjMegaMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , std::vector<double> > &G1)`
+
+Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
 ***
 `int CheckUnvisit (vector <int> & Visited)`
 
