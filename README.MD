@@ -274,21 +274,25 @@ Modification of the function GraphFout for Adjacency map (see it above) for not-
 ***
 `int GraphCout (const std::map <std::pair < int, int> , std::vector<int> > &P, bool in_line=false)`
 
-"Couts" a graph that is set by Adjacency mega-map P to screen: one edge in one line.
+"Couts" a graph that is set by Adjacency mega-map P to screen.
 
 Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
 
 In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+
+Parameter "in_line" sets how to print mapped value of the edges: all values of the mapped vector in one line or key value + every value of the mapped vector as separate line. 
 
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
 `int GraphFout (const std::map <std::pair < int, int> , std::vector<int> > &P, std::ofstream &fout, bool in_line=false)`
 
-"Fouts" a graph that is set by Adjacency mega-map P to file: one edge in one line.
+"Fouts" a graph that is set by Adjacency mega-map P to file.
 
 Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
 
 In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
+
+Parameter "in_line" sets how to print mapped value of the edges: all values of the mapped vector in one line or key value + every value of the mapped vector as separate line. 
 
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
