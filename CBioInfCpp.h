@@ -1,6 +1,6 @@
-// Документы CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf (все указанные файлы размещены в настоящем каталоге) составляют собой одно произведение, которое распространяется на условиях лицензии Creative Commons Attribution 4.0 International Public License (сокращенно - CC BY, гиперссылка на текст лицензии: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
+// ╨Ф╨╛╨║╤Г╨╝╨╡╨╜╤В╤Л CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf (╨▓╤Б╨╡ ╤Г╨║╨░╨╖╨░╨╜╨╜╤Л╨╡ ╤Д╨░╨╣╨╗╤Л ╤А╨░╨╖╨╝╨╡╤Й╨╡╨╜╤Л ╨▓ ╨╜╨░╤Б╤В╨╛╤П╤Й╨╡╨╝ ╨║╨░╤В╨░╨╗╨╛╨│╨╡) ╤Б╨╛╤Б╤В╨░╨▓╨╗╤П╤О╤В ╤Б╨╛╨▒╨╛╨╣ ╨╛╨┤╨╜╨╛ ╨┐╤А╨╛╨╕╨╖╨▓╨╡╨┤╨╡╨╜╨╕╨╡, ╨║╨╛╤В╨╛╤А╨╛╨╡ ╤А╨░╤Б╨┐╤А╨╛╤Б╤В╤А╨░╨╜╤П╨╡╤В╤Б╤П ╨╜╨░ ╤Г╤Б╨╗╨╛╨▓╨╕╤П╤Е ╨╗╨╕╤Ж╨╡╨╜╨╖╨╕╨╕ Creative Commons Attribution 4.0 International Public License (╤Б╨╛╨║╤А╨░╤Й╨╡╨╜╨╜╨╛ - CC BY, ╨│╨╕╨┐╨╡╤А╤Б╤Б╤Л╨╗╨║╨░ ╨╜╨░ ╤В╨╡╨║╤Б╤В ╨╗╨╕╤Ж╨╡╨╜╨╖╨╕╨╕: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
-// Автор CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf - Черноухов Сергей (chernouhov@rambler.ru)
+// ╨Р╨▓╤В╨╛╤А CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf - ╨з╨╡╤А╨╜╨╛╤Г╤Е╨╛╨▓ ╨б╨╡╤А╨│╨╡╨╣ (chernouhov@rambler.ru)
 
 // The documents About_CBioInfCpp.pdf, CBioInfCpp.h, About_CBioInfCpp.rtf (all of them are placed in this directory) constitute a single Work (i.e. this Work is divided into these 3 files), and this Work is distributed under Creative Commons Attribution 4.0 International Public License (CC BY) (hyperlink to the License: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
@@ -27,18 +27,18 @@
 
 int FastaRead (std::ifstream & fin, std::vector <std::string> & IndexS, std::vector <std::string> & DataS)
 
-// Чтение строк FASTA из файла. Возвращает 0, если кол-во индексов строк равно кол-ву самих строк, самая первая строка является индексом (не начинается с ">") и в процессе считывания не встретились 2 индекса подряд. Иначе вернет -1.
+// ╨з╤В╨╡╨╜╨╕╨╡ ╤Б╤В╤А╨╛╨║ FASTA ╨╕╨╖ ╤Д╨░╨╣╨╗╨░. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 0, ╨╡╤Б╨╗╨╕ ╨║╨╛╨╗-╨▓╨╛ ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╤Б╤В╤А╨╛╨║ ╤А╨░╨▓╨╜╨╛ ╨║╨╛╨╗-╨▓╤Г ╤Б╨░╨╝╨╕╤Е ╤Б╤В╤А╨╛╨║, ╤Б╨░╨╝╨░╤П ╨┐╨╡╤А╨▓╨░╤П ╤Б╤В╤А╨╛╨║╨░ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨╝ (╨╜╨╡ ╨╜╨░╤З╨╕╨╜╨░╨╡╤В╤Б╤П ╤Б ">") ╨╕ ╨▓ ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╡ ╤Б╤З╨╕╤В╤Л╨▓╨░╨╜╨╕╤П ╨╜╨╡ ╨▓╤Б╤В╤А╨╡╤В╨╕╨╗╨╕╤Б╤М 2 ╨╕╨╜╨┤╨╡╨║╤Б╨░ ╨┐╨╛╨┤╤А╤П╨┤. ╨Ш╨╜╨░╤З╨╡ ╨▓╨╡╤А╨╜╨╡╤В -1.
 
 // Reads FASTA dataset from file. Returns 0 if the number of indexes of strings = number of strings, the first string in dataset is index (starts with ">") and in dataset there is no 2 indexes one-by-one without a data string in between. Otherwise returns -1.
 
 
 {
 IndexS.clear();
-// Сюда будут записываться индексы (обозначения) строк
+// ╨б╤О╨┤╨░ ╨▒╤Г╨┤╤Г╤В ╨╖╨░╨┐╨╕╤Б╤Л╨▓╨░╤В╤М╤Б╤П ╨╕╨╜╨┤╨╡╨║╤Б╤Л (╨╛╨▒╨╛╨╖╨╜╨░╤З╨╡╨╜╨╕╤П) ╤Б╤В╤А╨╛╨║
 // Here indexes of strings will be contained
 
 DataS.clear();
-// Сюда будут записываться сами строки
+// ╨б╤О╨┤╨░ ╨▒╤Г╨┤╤Г╤В ╨╖╨░╨┐╨╕╤Б╤Л╨▓╨░╤В╤М╤Б╤П ╤Б╨░╨╝╨╕ ╤Б╤В╤А╨╛╨║╨╕
 // Here data strings will be contained
 
 std::string TempS = "";
@@ -46,7 +46,7 @@ std::string TempS = "";
 int q = -1;
 
 char f = 'd';
-// флаг f = 'd'(data) или 'i' (индекс) - для исключения ситуации когда подряд идут 2 индекса
+// ╤Д╨╗╨░╨│ f = 'd'(data) ╨╕╨╗╨╕ 'i' (╨╕╨╜╨┤╨╡╨║╤Б) - ╨┤╨╗╤П ╨╕╤Б╨║╨╗╤О╤З╨╡╨╜╨╕╤П ╤Б╨╕╤В╤Г╨░╤Ж╨╕╨╕ ╨║╨╛╨│╨┤╨░ ╨┐╨╛╨┤╤А╤П╨┤ ╨╕╨┤╤Г╤В 2 ╨╕╨╜╨┤╨╡╨║╤Б╨░
 // flag f may be set as 'd' (data) or 'i' (index) - to prevent code-after-code situation.
 
 
@@ -60,7 +60,7 @@ while (!fin.eof())
            q++;
            f = 'i';
            DataS.push_back("");
-           TempS.erase(0,1); // Вырезание начального символа ">"  cutting symbol ">" from string's code
+           TempS.erase(0,1); // ╨Т╤Л╤А╨╡╨╖╨░╨╜╨╕╨╡ ╨╜╨░╤З╨░╨╗╤М╨╜╨╛╨│╨╛ ╤Б╨╕╨╝╨▓╨╛╨╗╨░ ">"  cutting symbol ">" from string's code
            IndexS.push_back(TempS);
         }
         else
@@ -90,7 +90,7 @@ void StringsRead (std::ifstream & fin, std::vector <std::string> & DataS) // rea
 }
 
 int MatrixSet (std::vector <std::vector <double>> & B, const int NLines, const int NColumns, const double i)
-// Создает матрицу NLines х NColumns и заполняет значением i (double). Возвращает -1 если число строк или столбцов неположительно
+// ╨б╨╛╨╖╨┤╨░╨╡╤В ╨╝╨░╤В╤А╨╕╤Ж╤Г NLines ╤Е NColumns ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ i (double). ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╨╕╨╗╨╕ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓ ╨╜╨╡╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╨╛
 // Sets (resets) matrix NLines x NColumns filled value "i" (double). Returns -1 if NLines or NColumns <=0
 
 {
@@ -112,7 +112,7 @@ int MatrixSet (std::vector <std::vector <double>> & B, const int NLines, const i
 
 
 int MatrixSet (std::vector <std::vector <int>> & B, const int NLines, const int NColumns, const int i)
-// Создает матрицу NLines х NColumns и заполняет значением i (int). Возвращает -1 если число строк или столбцов неположительно
+// ╨б╨╛╨╖╨┤╨░╨╡╤В ╨╝╨░╤В╤А╨╕╤Ж╤Г NLines ╤Е NColumns ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ i (int). ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╨╕╨╗╨╕ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓ ╨╜╨╡╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╨╛
 // Sets (resets) matrix NLines x NColumns filled value "i" (int). Returns -1 if NLines or NColumns <=0
 
 {
@@ -134,7 +134,7 @@ int MatrixSet (std::vector <std::vector <int>> & B, const int NLines, const int 
 
 
 int MatrixSet (std::vector <std::vector <long long int>> & B, const int NLines, const int NColumns, const long long int i)
-// Создает матрицу NLines х NColumns и заполняет значением i (long long int). Возвращает -1 если число строк или столбцов неположительно
+// ╨б╨╛╨╖╨┤╨░╨╡╤В ╨╝╨░╤В╤А╨╕╤Ж╤Г NLines ╤Е NColumns ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ i (long long int). ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╨╕╨╗╨╕ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓ ╨╜╨╡╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╨╛
 // Sets (resets) matrix NLines x NColumns filled value "i" (long long int). Returns -1 if NLines or NColumns <=0
 
 {
@@ -157,7 +157,7 @@ int MatrixSet (std::vector <std::vector <long long int>> & B, const int NLines, 
 
 
 int MatrixSet (std::vector <std::vector <long double>> & B, const int NLines, const int NColumns, const long double i)
-// Создает матрицу NLines х NColumns и заполняет значением i (long double). Возвращает -1 если число строк или столбцов неположительно
+// ╨б╨╛╨╖╨┤╨░╨╡╤В ╨╝╨░╤В╤А╨╕╤Ж╤Г NLines ╤Е NColumns ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ i (long double). ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║ ╨╕╨╗╨╕ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓ ╨╜╨╡╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╨╛
 // Sets (resets) matrix NLines x NColumns filled value "i" (long double). Returns -1 if NLines or NColumns <=0
 
 {
@@ -181,8 +181,8 @@ int MatrixSet (std::vector <std::vector <long double>> & B, const int NLines, co
 
 
 int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
-// Вывод матрицы (int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (int) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
 // "Couts" Matrix (int) to screen. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 
@@ -223,8 +223,8 @@ int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
 
 
 int MatrixCout (std::vector <std::vector <long long int>> & B, char g = ' ')
-// Вывод матрицы (long long int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (long long int) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
 // "Couts" Matrix (long long int) to screen. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 
@@ -264,9 +264,9 @@ int MatrixCout (std::vector <std::vector <long long int>> & B, char g = ' ')
 
 
 int MatrixCout (std::vector <std::vector <double>> & B, unsigned int prec = 4, char g = ' ', bool scientifique = false)
-// Вывод матрицы (double) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (double) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Couts" Matrix (double) to screen. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
@@ -340,9 +340,9 @@ int MatrixCout (std::vector <std::vector <double>> & B, unsigned int prec = 4, c
 
 
 int MatrixCout (std::vector <std::vector <long double>> & B, unsigned int prec = 4, char g = ' ', bool scientifique = false)
-// Вывод матрицы (long double) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (long double) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Couts" Matrix (long double) to screen. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
@@ -416,9 +416,9 @@ int MatrixCout (std::vector <std::vector <long double>> & B, unsigned int prec =
 
 
 int MatrixFout (std::vector <std::vector <double>> & B, std::ofstream & fout, unsigned int prec = 4, char g = ' ', bool scientifique = false)
-// Вывод матрицы (double) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (double) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Fouts" Matrix (double) to file. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
@@ -492,9 +492,9 @@ int MatrixFout (std::vector <std::vector <double>> & B, std::ofstream & fout, un
 
 
 int MatrixFout (std::vector <std::vector <long double>> & B, std::ofstream & fout, unsigned int prec = 4, char g = ' ', bool scientifique = false)
-// Вывод матрицы (long double) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (long double) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Fouts" Matrix (long double) to file. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
@@ -569,8 +569,8 @@ int MatrixFout (std::vector <std::vector <long double>> & B, std::ofstream & fou
 
 
 int MatrixFout (std::vector <std::vector <int>> & B, std::ofstream & fout, char g = ' ')
-// Вывод матрицы (int) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (int) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
 // "Fouts" Matrix (int) to file. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 {
@@ -609,8 +609,8 @@ int MatrixFout (std::vector <std::vector <int>> & B, std::ofstream & fout, char 
 
 
 int MatrixFout (std::vector <std::vector <long long int>> & B, std::ofstream & fout, char g = ' ')
-// Вывод матрицы (long long int) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// ╨Т╤Л╨▓╨╛╨┤ ╨╝╨░╤В╤А╨╕╤Ж╤Л (long long int) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╤В╤А╨╛╨║/ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓
+// ╨Х╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л, ╤В╨╛ "╨╛╤Б╤В╨░╤В╨║╨╕" ╨┤╨╗╨╕╨╜╤Л ╨┤╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨┐╤А╨╕ ╨▓╤Л╨▓╨╛╨┤╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ g
 // "Fouts" Matrix (long long int) to file. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 {
@@ -649,7 +649,7 @@ int MatrixFout (std::vector <std::vector <long long int>> & B, std::ofstream & f
 
 int FindIn (std::vector <int> &D, int a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (int), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a), ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝ -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
 // Returns index in vector (int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
 
@@ -664,7 +664,7 @@ int FindIn (std::vector <int> &D, int a, int step = 1, int start = 0)
 
 int FindIn (std::vector <long long int> &D, long long int a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (long long int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (long long int), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a), ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝ -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
 // Returns index in vector (long long int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
     if (step <1) step = 1; if (start <0) start = 0;
@@ -678,9 +678,9 @@ int FindIn (std::vector <long long int> &D, long long int a, int step = 1, int s
 
 int FindIn (std::vector <double> &D, double a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
-// Да, прямое сравнение чисел double не совсем корректно и это нужно принимать во внимание, но в ряде случаев функция может быть полезна.
-// Для сравнения с заданной точностью см. вариант функции ниже.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (double), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a), ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝ -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
+// ╨Ф╨░, ╨┐╤А╤П╨╝╨╛╨╡ ╤Б╤А╨░╨▓╨╜╨╡╨╜╨╕╨╡ ╤З╨╕╤Б╨╡╨╗ double ╨╜╨╡ ╤Б╨╛╨▓╤Б╨╡╨╝ ╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛ ╨╕ ╤Н╤В╨╛ ╨╜╤Г╨╢╨╜╨╛ ╨┐╤А╨╕╨╜╨╕╨╝╨░╤В╤М ╨▓╨╛ ╨▓╨╜╨╕╨╝╨░╨╜╨╕╨╡, ╨╜╨╛ ╨▓ ╤А╤П╨┤╨╡ ╤Б╨╗╤Г╤З╨░╨╡╨▓ ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨┐╨╛╨╗╨╡╨╖╨╜╨░.
+// ╨Ф╨╗╤П ╤Б╤А╨░╨▓╨╜╨╡╨╜╨╕╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О ╤Б╨╝. ╨▓╨░╤А╨╕╨░╨╜╤В ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╜╨╕╨╢╨╡.
 // Returns index in vector (double) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 // Yes, operation like (a==b) may be not correct for doubles. But this function may be considered as an useful one in some cases.
 //  The following version of the function finds the first element, that differs from "a" less than "d".
@@ -697,7 +697,7 @@ int FindIn (std::vector <double> &D, double a, int step = 1, int start = 0)
 
 int FindIn (std::vector <double> &D, double a, double d, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (double), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a) ╤Б ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О ╨┤╨╛ d, ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
 // Returns index in vector (double) of the first element, that differs from "a" less than nonnegative double "d".
 // Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
@@ -712,8 +712,8 @@ int FindIn (std::vector <double> &D, double a, double d, int step = 1, int start
 
 int FindIn (std::vector <long double> &D, long double a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
-// Да, прямое сравнение чисел long double не совсем корректно и это нужно принимать во внимание, но в ряде случаев функция может быть полезна. Для сравнения с заданной точностью см. вариант функции ниже.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (long double), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a), ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
+// ╨Ф╨░, ╨┐╤А╤П╨╝╨╛╨╡ ╤Б╤А╨░╨▓╨╜╨╡╨╜╨╕╨╡ ╤З╨╕╤Б╨╡╨╗ long double ╨╜╨╡ ╤Б╨╛╨▓╤Б╨╡╨╝ ╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛ ╨╕ ╤Н╤В╨╛ ╨╜╤Г╨╢╨╜╨╛ ╨┐╤А╨╕╨╜╨╕╨╝╨░╤В╤М ╨▓╨╛ ╨▓╨╜╨╕╨╝╨░╨╜╨╕╨╡, ╨╜╨╛ ╨▓ ╤А╤П╨┤╨╡ ╤Б╨╗╤Г╤З╨░╨╡╨▓ ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨┐╨╛╨╗╨╡╨╖╨╜╨░. ╨Ф╨╗╤П ╤Б╤А╨░╨▓╨╜╨╡╨╜╨╕╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О ╤Б╨╝. ╨▓╨░╤А╨╕╨░╨╜╤В ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╜╨╕╨╢╨╡.
 // Returns index in vector (long double) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 // Yes, operation like (a==b) may be not correct for doubles. But this function may be considered as an useful one in some cases. The following version of the function finds the first element, that differs from "a" less than "d".
 
@@ -728,7 +728,7 @@ int FindIn (std::vector <long double> &D, long double a, int step = 1, int start
 
 int FindIn (std::vector <long double> &D, long double a, long double d, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (long double), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a) ╤Б ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О ╨┤╨╛ d, ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝ -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
 // Returns index in vector (long double) of the first element, that differs from "a" less than nonnegative long double "d".
 // Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
@@ -744,7 +744,7 @@ int FindIn (std::vector <long double> &D, long double a, long double d, int step
 
 int FindIn (std::vector <std::string> &D, std::string a, int step = 1, int start = 0)
 {
-// Возвращает индекс первого найденного элемента (string), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (string), ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╡╨│╨╛ ╤Б ╨╕╤Б╨║╨╛╨╝╤Л╨╝ (a), ╨┐╨╛╨╕╤Б╨║ ╨▓╨╡╨┤╨╡╤В╤Б╤П ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ start, ╤И╨░╨│ ╨┐╨╛╨╕╤Б╨║╨░ = step, ╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨╜╨░╤И╨╗╨╕ ╤В╨░╨║╨╛╨│╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝ -1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ step <1, ╤В╨╛ step ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1. ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╨╜╨╜╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ start <0, ╤В╨╛ start ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ 1.
 // Returns index in vector (string) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
 
     if (step <1) step = 1; if (start <0) start = 0;
@@ -757,7 +757,7 @@ int FindIn (std::vector <std::string> &D, std::string a, int step = 1, int start
 
 
 int VectorCout (const std::vector <int> &P)
-// Вывод вектора (int) на экран через пробелы
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (int) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л
 // "Couts" vector (int) to screen. Returns -1 if the vector is empty
 
 {
@@ -772,7 +772,7 @@ int VectorCout (const std::vector <int> &P)
 }
 
 int VectorFout (const std::vector <int> &P, std::ofstream &fout)
-// Вывод вектора (int) в файл через пробелы. Возвращает -1, если вектор - пустой
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (int) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
 // "Fouts" vector (int) to file. Returns -1 if the vector is empty
 {
 
@@ -787,7 +787,7 @@ int VectorFout (const std::vector <int> &P, std::ofstream &fout)
 
 
 int VectorCout (const std::vector <long long int> &P)
-// Вывод вектора (long long int) на экран через пробелы
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (long long int) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л
 // "Couts" vector (long long int) to screen. Returns -1 if the vector is empty
 
 {
@@ -802,7 +802,7 @@ int VectorCout (const std::vector <long long int> &P)
 }
 
 int VectorFout (const std::vector <long long int> &P, std::ofstream &fout)
-// Вывод вектора (long long int) в файл через пробелы. Возвращает -1, если вектор - пустой
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (long long int) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
 // "Fouts" vector (long long int) to file. Returns -1 if the vector is empty
 {
 
@@ -818,8 +818,8 @@ int VectorFout (const std::vector <long long int> &P, std::ofstream &fout)
 
 
 int VectorCout (const std::vector <double> &P, unsigned int prec = 4, bool scientifique = false)
-// Вывод вектора (double) на экран через пробелы. Возвращает -1, если вектор - пустой
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (double) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Couts" vector (double) to screen. Returns -1 if the vector is empty
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
 {
@@ -850,8 +850,8 @@ int VectorCout (const std::vector <double> &P, unsigned int prec = 4, bool scien
 }
 
 int VectorFout (const std::vector <double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
-// Вывод вектора (double) в файл через пробелы. Возвращает -1, если вектор - пустой
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (double) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Fouts" vector (double) to file. Returns -1 if the vector is empty
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
 {
@@ -883,8 +883,8 @@ int VectorFout (const std::vector <double> &P, std::ofstream &fout, unsigned int
 
 
 int VectorCout (const std::vector <long double> &P, unsigned int prec = 4, bool scientifique = false)
-// Вывод вектора (long double) на экран через пробелы. Возвращает -1, если вектор - пустой
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (long double) ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Couts" vector (long double) to screen. Returns -1 if the vector is empty
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
 {
@@ -913,8 +913,8 @@ int VectorCout (const std::vector <long double> &P, unsigned int prec = 4, bool 
 }
 
 int VectorFout (const std::vector <long double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
-// Вывод вектора (long double) в файл через пробелы. Возвращает -1, если вектор - пустой
-// Вывод чисел проводится с заданной точностью prec, если bool scientifique == false. Если bool scientifique == true, вывод производится в экспоненциальной форме.
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (long double) ╨▓ ╤Д╨░╨╣╨╗ ╤З╨╡╤А╨╡╨╖ ╨┐╤А╨╛╨▒╨╡╨╗╤Л. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
+// ╨Т╤Л╨▓╨╛╨┤ ╤З╨╕╤Б╨╡╨╗ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨╜╨╛╤Б╤В╤М╤О prec, ╨╡╤Б╨╗╨╕ bool scientifique == false. ╨Х╤Б╨╗╨╕ bool scientifique == true, ╨▓╤Л╨▓╨╛╨┤ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╤Н╨║╤Б╨┐╨╛╨╜╨╡╨╜╤Ж╨╕╨░╨╗╤М╨╜╨╛╨╣ ╤Д╨╛╤А╨╝╨╡.
 // "Fouts" vector (long double) to file. Returns -1 if the vector is empty
 // If bool scientifique == false, the precision will be set as prec; if bool scientifique == true, scientific notation will be applied.
 {
@@ -947,7 +947,7 @@ int VectorFout (const std::vector <long double> &P, std::ofstream &fout, unsigne
 
 
 int VectorCout (const std::vector <std::string> & P)
-// Вывод вектора (string) через Enter на экран. Возвращает -1, если вектор - пустой
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (string) ╤З╨╡╤А╨╡╨╖ Enter ╨╜╨░ ╤Н╨║╤А╨░╨╜. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
 // "Couts" vector (string) to screen. Returns -1 if the vector is empty
 {
     if (P.size()==0) return -1;
@@ -960,7 +960,7 @@ int VectorCout (const std::vector <std::string> & P)
 }
 
 int VectorFout (const std::vector <std::string> & P, std::ofstream &fout)
-// Вывод вектора (string) через Enter в файл. Возвращает -1, если вектор - пустой
+// ╨Т╤Л╨▓╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А╨░ (string) ╤З╨╡╤А╨╡╨╖ Enter ╨▓ ╤Д╨░╨╣╨╗. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1, ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А - ╨┐╤Г╤Б╤В╨╛╨╣
 // "Fouts" vector (string) to file. Returns -1 if the vector is empty
 {
     if (P.size()==0) return -1;
@@ -976,7 +976,7 @@ int VectorFout (const std::vector <std::string> & P, std::ofstream &fout)
 
 
 int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции VectorCout (см. выше).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ VectorCout (╤Б╨╝. ╨▓╤Л╤И╨╡).
 // Modification of the function VectorCout (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -1027,7 +1027,7 @@ int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P
 }
 
 int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции VectorFout (см. выше).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ VectorFout (╤Б╨╝. ╨▓╤Л╤И╨╡).
 // Modification of the function VectorFout (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -1080,7 +1080,7 @@ int PairVectorFout (const std::pair < std::vector<int>, std::vector<double>> & P
 
 
 int GraphCout (const std::vector <int> &P, const bool weighted)
-// Вывод графа, заданного вектором смежности, на экран: каждое ребро выводится в новой строке. Граф - невзвешенный, либо веса ребер целочисленны.
+// ╨Т╤Л╨▓╨╛╨┤ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨╜╨░ ╤Н╨║╤А╨░╨╜: ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡. ╨У╤А╨░╤Д - ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣, ╨╗╨╕╨▒╨╛ ╨▓╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л.
 // "Couts" a graph that is set by Adjacency vector A to screen: one edge in one line. Parameter "weighted" sets if the graph A is weighted or no.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 
@@ -1102,7 +1102,7 @@ int GraphCout (const std::vector <int> &P, const bool weighted)
 
 
 int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &fout)
-// Вывод графа, заданного вектором смежности, в файл: каждое ребро выводится в новой строке. Граф - невзвешенный, либо веса ребер целочисленны.
+// ╨Т╤Л╨▓╨╛╨┤ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨▓ ╤Д╨░╨╣╨╗: ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡. ╨У╤А╨░╤Д - ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣, ╨╗╨╕╨▒╨╛ ╨▓╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л.
 // "Fouts" a graph that is set by Adjacency vector A to file: one edge in one line. Parameter "weighted" sets if the graph A is weighted or no.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 
@@ -1126,7 +1126,7 @@ int GraphFout (const std::vector <int> &P, const bool weighted, std::ofstream &f
 
 
 int GraphCout (const std::pair < std::vector<int>, std::vector<double>> & P, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции GraphCout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ GraphCout (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е ╨│╤А╨░╤Д╨╛╨▓ ╤Б ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╨╝╨╕ ╨▓╨╡╤Б╨░╨╝╨╕ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function GraphCout (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -1178,7 +1178,7 @@ int GraphCout (const std::pair < std::vector<int>, std::vector<double>> & P, uns
 
 
 int GraphFout (const std::pair < std::vector<int>, std::vector<double>> & P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции GraphFout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ GraphFout (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е ╨│╤А╨░╤Д╨╛╨▓ ╤Б ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╨╝╨╕ ╨▓╨╡╤Б╨░╨╝╨╕ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function GraphFout (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -1231,7 +1231,7 @@ int GraphFout (const std::pair < std::vector<int>, std::vector<double>> & P, std
 
 
 int GraphCout (const std::map <std::pair < int, int> , int> &P)
-// Вывод графа, заданного ассоциативным массивом смежности, на экран: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+// ╨Т╤Л╨▓╨╛╨┤ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╝ ╨╝╨░╤Б╤Б╨╕╨▓╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨╜╨░ ╤Н╨║╤А╨░╨╜: ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡. ╨Т╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л.
 // "Couts" a graph that is set by Adjacency map P to screen: one edge in one line.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 
@@ -1251,7 +1251,7 @@ int GraphCout (const std::map <std::pair < int, int> , int> &P)
 }
 
 int GraphFout (const std::map <std::pair < int, int> , int> &P, std::ofstream &fout)
-// Вывод графа, заданного ассоциативным массивом смежности, в файл: каждое ребро выводится в новой строке. Веса ребер целочисленны.
+// ╨Т╤Л╨▓╨╛╨┤ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╝ ╨╝╨░╤Б╤Б╨╕╨▓╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨▓ ╤Д╨░╨╣╨╗: ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡. ╨Т╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л.
 // "Couts" a graph that is set by Adjacency map P to file: one edge in one line.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 
@@ -1272,7 +1272,7 @@ int GraphFout (const std::map <std::pair < int, int> , int> &P, std::ofstream &f
 
 
 int GraphCout (const std::map <std::pair < int, int> , double> &P, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции GraphCout для заданного ассоциативным массивом смежности графа (см. выше) для случая нецелочисленных весов ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ GraphCout ╨┤╨╗╤П ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╝ ╨╝╨░╤Б╤Б╨╕╨▓╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨│╤А╨░╤Д╨░ (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function GraphCout for Adjacency map (see it above) for not-integer (double) weights of edges.
 
 
@@ -1312,7 +1312,7 @@ if (P.size()==0) return -1;
 
 
 int GraphFout (const std::map <std::pair < int, int> , double> &P, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции GraphFout для заданного ассоциативным массивом смежности графа (см. выше) для случая нецелочисленных весов ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ GraphFout ╨┤╨╗╤П ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╝ ╨╝╨░╤Б╤Б╨╕╨▓╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨│╤А╨░╤Д╨░ (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function GraphFout for Adjacency map (see it above) for not-integer (double) weights of edges.
 
 
@@ -1354,10 +1354,10 @@ if (P.size()==0) return -1;
 
 
 int GraphCout (const std::map <std::pair < int, int> , std::vector<int> > &P, bool in_line=false)
-// Вывод графа, заданного "мега-мапом", на экран: каждое ребро выводится в новой строке. Веса ребер целочисленны.
-// Параметр in_line задает, выводить ли все значения вектора-значения в 1 строку после ключа, или же каждое значение вектора выводится после ключа в новой строке.
-// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
-// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
+// ╨Т╤Л╨▓╨╛╨┤ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ "╨╝╨╡╨│╨░-╨╝╨░╨┐╨╛╨╝", ╨╜╨░ ╤Н╨║╤А╨░╨╜: ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡. ╨Т╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А in_line ╨╖╨░╨┤╨░╨╡╤В, ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤М ╨╗╨╕ ╨▓╤Б╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨▓╨╡╨║╤В╨╛╤А╨░-╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨▓ 1 ╤Б╤В╤А╨╛╨║╤Г ╨┐╨╛╤Б╨╗╨╡ ╨║╨╗╤О╤З╨░, ╨╕╨╗╨╕ ╨╢╨╡ ╨║╨░╨╢╨┤╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨┐╨╛╤Б╨╗╨╡ ╨║╨╗╤О╤З╨░ ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡.
+// ╨Ь╨╡╨│╨░-╨╝╨░╨┐ ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╗╤П╨╡╤В ╤Б╨╛╨▒╨╛╨╣ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨┐╤А╨╡╨┤╨╜╨░╨╖╨╜╨░╤З╨╡╨╜╨╜╤Л╨╣ ╨┤╨╗╤П ╤Е╤А╨░╨╜╨╡╨╜╨╕╤П ╨│╤А╨░╤Д╨╛╨▓ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕.
+// ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨║╨╗╤О╤З╨╛╨╝ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨┐╨░╤А╨░ ╤З╨╕╤Б╨╡╨╗, ╨╖╨░╨┤╨░╤О╤Й╨╕╤Е ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░ ╨╝╨╡╨╢╨┤╤Г ╨╜╨╕╨╝╨╕, ╨░ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ - ╨▓╨╡╨║╤В╨╛╤А ╨▓╨╡╤Б╨╛╨▓ ╨┤╨╗╤П ╨▓╤Б╨╡╤Е ╤А╨╡╨▒╨╡╤А ╨╝╨╡╨╢╨┤╤Г ╤Н╤В╨╕╨╝╨╕ ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕.
 // "Couts" a graph that is set by Adjacency mega-map P to screen: one edge in one line.
 // Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
 // In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
@@ -1395,10 +1395,10 @@ int GraphCout (const std::map <std::pair < int, int> , std::vector<int> > &P, bo
 }
 
 int GraphFout (const std::map <std::pair < int, int> , std::vector<int> > &P, std::ofstream &fout, bool in_line=false)
-// Вывод графа, заданного "мега-мапом", в файл: каждое ребро выводится в новой строке. Веса ребер целочисленны.
-// Параметр in_line задает, выводить ли все значения вектора-значения в 1 строку после ключа, или же каждое значение из вектора выводится после ключа в новой строке.
-// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
-// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
+// ╨Т╤Л╨▓╨╛╨┤ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ "╨╝╨╡╨│╨░-╨╝╨░╨┐╨╛╨╝", ╨▓ ╤Д╨░╨╣╨╗: ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡. ╨Т╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А in_line ╨╖╨░╨┤╨░╨╡╤В, ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤М ╨╗╨╕ ╨▓╤Б╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨▓╨╡╨║╤В╨╛╤А╨░-╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨▓ 1 ╤Б╤В╤А╨╛╨║╤Г ╨┐╨╛╤Б╨╗╨╡ ╨║╨╗╤О╤З╨░, ╨╕╨╗╨╕ ╨╢╨╡ ╨║╨░╨╢╨┤╨╛╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨╕╨╖ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨▓╤Л╨▓╨╛╨┤╨╕╤В╤Б╤П ╨┐╨╛╤Б╨╗╨╡ ╨║╨╗╤О╤З╨░ ╨▓ ╨╜╨╛╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡.
+// ╨Ь╨╡╨│╨░-╨╝╨░╨┐ ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╗╤П╨╡╤В ╤Б╨╛╨▒╨╛╨╣ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨┐╤А╨╡╨┤╨╜╨░╨╖╨╜╨░╤З╨╡╨╜╨╜╤Л╨╣ ╨┤╨╗╤П ╤Е╤А╨░╨╜╨╡╨╜╨╕╤П ╨│╤А╨░╤Д╨╛╨▓ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕.
+// ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨║╨╗╤О╤З╨╛╨╝ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨┐╨░╤А╨░ ╤З╨╕╤Б╨╡╨╗, ╨╖╨░╨┤╨░╤О╤Й╨╕╤Е ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░ ╨╝╨╡╨╢╨┤╤Г ╨╜╨╕╨╝╨╕, ╨░ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ - ╨▓╨╡╨║╤В╨╛╤А ╨▓╨╡╤Б╨╛╨▓ ╨┤╨╗╤П ╨▓╤Б╨╡╤Е ╤А╨╡╨▒╨╡╤А ╨╝╨╡╨╢╨┤╤Г ╤Н╤В╨╕╨╝╨╕ ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕.
 // "Fouts" a graph that is set by Adjacency mega-map P to file: one edge in one line.
 // Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
 // In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
@@ -1437,7 +1437,7 @@ int GraphFout (const std::map <std::pair < int, int> , std::vector<int> > &P, st
 
 
 int GraphCout (const std::map <std::pair < int, int> , std::vector<double> > &P, bool in_line=false, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции GraphCout для заданного "мега-мапом" (см. выше) для случая нецелочисленных весов ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ GraphCout ╨┤╨╗╤П ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ "╨╝╨╡╨│╨░-╨╝╨░╨┐╨╛╨╝" (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function GraphCout for mega-map (see it above) for not-integer (double) weights of edges.
 
 
@@ -1522,7 +1522,7 @@ if (in_line)
 
 
 int GraphFout (const std::map <std::pair < int, int> , std::vector <double> > &P, std::ofstream &fout, bool in_line=false, unsigned int prec = 4, bool scientifique = false)
-// Модификация функции GraphFout для заданного "мега-мапом" (см. выше) для случая нецелочисленных весов ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ GraphFout ╨┤╨╗╤П ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ "╨╝╨╡╨│╨░-╨╝╨░╨┐╨╛╨╝" (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function GraphFout for mega-map (see it above) for not-integer (double) weights of edges.
 
 
@@ -1611,7 +1611,7 @@ return 0;
 int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)
 {
     // swaps 2 elements in vector (int). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (int), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
+    // ╨Ч╨░╨╝╨╡╨╜╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ (int), ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╖╨░╨┐╤А╨░╤И╨╕╨▓╨░╨╡╨╝╤Л╤Е ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╨▓╤Л╤Е╨╛╨┤╨╕╤В ╨╖╨░ ╤А╨░╨╖╨╝╨╡╤А ╨▓╨╡╨║╤В╨╛╤А╨░ ╨╗╨╕╨▒╨╛ ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А ╨┐╤Г╤Б╤В╨╛╨╣
 
 
     if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
@@ -1626,7 +1626,7 @@ int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)
 int SwapInVector (std::vector <long long int> & A1, unsigned int f, unsigned int l)
 {
     // swaps 2 elements in vector (long long int). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (long long int), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
+    // ╨Ч╨░╨╝╨╡╨╜╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ (long long int), ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╖╨░╨┐╤А╨░╤И╨╕╨▓╨░╨╡╨╝╤Л╤Е ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╨▓╤Л╤Е╨╛╨┤╨╕╤В ╨╖╨░ ╤А╨░╨╖╨╝╨╡╤А ╨▓╨╡╨║╤В╨╛╤А╨░ ╨╗╨╕╨▒╨╛ ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А ╨┐╤Г╤Б╤В╨╛╨╣
 
 
     if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
@@ -1641,7 +1641,7 @@ int SwapInVector (std::vector <long long int> & A1, unsigned int f, unsigned int
 int SwapInVector (std::vector <double> & A1, unsigned int f, unsigned int l)
 {
     // swaps 2 elements in vector (double). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (double), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
+    // ╨Ч╨░╨╝╨╡╨╜╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ (double), ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╖╨░╨┐╤А╨░╤И╨╕╨▓╨░╨╡╨╝╤Л╤Е ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╨▓╤Л╤Е╨╛╨┤╨╕╤В ╨╖╨░ ╤А╨░╨╖╨╝╨╡╤А ╨▓╨╡╨║╤В╨╛╤А╨░ ╨╗╨╕╨▒╨╛ ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А ╨┐╤Г╤Б╤В╨╛╨╣
 
 
     if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
@@ -1657,7 +1657,7 @@ int SwapInVector (std::vector <double> & A1, unsigned int f, unsigned int l)
 int SwapInVector (std::vector <long double> & A1, unsigned int f, unsigned int l)
 {
     // swaps 2 elements in vector (long double). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (long double), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
+    // ╨Ч╨░╨╝╨╡╨╜╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ (long double), ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╖╨░╨┐╤А╨░╤И╨╕╨▓╨░╨╡╨╝╤Л╤Е ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╨▓╤Л╤Е╨╛╨┤╨╕╤В ╨╖╨░ ╤А╨░╨╖╨╝╨╡╤А ╨▓╨╡╨║╤В╨╛╤А╨░ ╨╗╨╕╨▒╨╛ ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А ╨┐╤Г╤Б╤В╨╛╨╣
 
 
     if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
@@ -1673,7 +1673,7 @@ int SwapInVector (std::vector <long double> & A1, unsigned int f, unsigned int l
 int SwapInVector (std::vector <std::string> & A1, unsigned int f, unsigned int l)
 {
     // swaps 2 elements in vector (string). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (string), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
+    // ╨Ч╨░╨╝╨╡╨╜╨░ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ (string), ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╖╨░╨┐╤А╨░╤И╨╕╨▓╨░╨╡╨╝╤Л╤Е ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╨▓╤Л╤Е╨╛╨┤╨╕╤В ╨╖╨░ ╤А╨░╨╖╨╝╨╡╤А ╨▓╨╡╨║╤В╨╛╤А╨░ ╨╗╨╕╨▒╨╛ ╨╡╤Б╨╗╨╕ ╨▓╨╡╨║╤В╨╛╤А ╨┐╤Г╤Б╤В╨╛╨╣
 
 
     if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
@@ -1689,7 +1689,7 @@ int SwapInVector (std::vector <std::string> & A1, unsigned int f, unsigned int l
 int HmDist (const std::string &s1, const std::string &s2)
 {
     // Counts Hamming Distance; returns -1 if any string is empty or they have different length.
-    // Считает Hamming Distance, возвращает -1 если строки разной длины либо хоть одна пустая.
+    // ╨б╤З╨╕╤В╨░╨╡╤В Hamming Distance, ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╤Б╤В╤А╨╛╨║╨╕ ╤А╨░╨╖╨╜╨╛╨╣ ╨┤╨╗╨╕╨╜╤Л ╨╗╨╕╨▒╨╛ ╤Е╨╛╤В╤М ╨╛╨┤╨╜╨░ ╨┐╤Г╤Б╤В╨░╤П.
 
     if ((s1.length()==0) || (s2.length()==0) || (s1.length()!=s2.length())) return -1;
     int q = 0;
@@ -1874,9 +1874,9 @@ return sr;
 
 
 std::string StrToCircular (const std::string& s, int tail = INT_MAX)
-// Находит и возвращает кратчайшую "круговую" ("скрученную в кольцо") строку для заданной (т.е. с максимальным "нахлестом" конца строки на начало).
-// Для строк длиной менее 3 символов возвращает ее же (считается, что в этом случае "нахлест" невозможен.
-// Возможно задать параметр tail - величнину максимального "нахлеста". Значения tail<=0 в расчет не принимаются.
+// ╨Э╨░╤Е╨╛╨┤╨╕╤В ╨╕ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨║╤А╨░╤В╤З╨░╨╣╤И╤Г╤О "╨║╤А╤Г╨│╨╛╨▓╤Г╤О" ("╤Б╨║╤А╤Г╤З╨╡╨╜╨╜╤Г╤О ╨▓ ╨║╨╛╨╗╤М╤Ж╨╛") ╤Б╤В╤А╨╛╨║╤Г ╨┤╨╗╤П ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ (╤В.╨╡. ╤Б ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╝ "╨╜╨░╤Е╨╗╨╡╤Б╤В╨╛╨╝" ╨║╨╛╨╜╤Ж╨░ ╤Б╤В╤А╨╛╨║╨╕ ╨╜╨░ ╨╜╨░╤З╨░╨╗╨╛).
+// ╨Ф╨╗╤П ╤Б╤В╤А╨╛╨║ ╨┤╨╗╨╕╨╜╨╛╨╣ ╨╝╨╡╨╜╨╡╨╡ 3 ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╡╨╡ ╨╢╨╡ (╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ "╨╜╨░╤Е╨╗╨╡╤Б╤В" ╨╜╨╡╨▓╨╛╨╖╨╝╨╛╨╢╨╡╨╜.
+// ╨Т╨╛╨╖╨╝╨╛╨╢╨╜╨╛ ╨╖╨░╨┤╨░╤В╤М ╨┐╨░╤А╨░╨╝╨╡╤В╤А tail - ╨▓╨╡╨╗╨╕╤З╨╜╨╕╨╜╤Г ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨│╨╛ "╨╜╨░╤Е╨╗╨╡╤Б╤В╨░". ╨Ч╨╜╨░╤З╨╡╨╜╨╕╤П tail<=0 ╨▓ ╤А╨░╤Б╤З╨╡╤В ╨╜╨╡ ╨┐╤А╨╕╨╜╨╕╨╝╨░╤О╤В╤Б╤П.
 
 //  Returns a circular string of minimal length of a string s; if length of s <3 returns s itself.
 //  One may set "tail" i.e. maximal overlap "tail-to-beginning" of the string s (nonpositive values of "tail" will be ignored).
@@ -1904,10 +1904,10 @@ std::string StrToCircular (const std::string& s, int tail = INT_MAX)
 
 int TandemRepeatsFinding (const std::string &s, std::vector <int> &Result, int MaxWordLength = 4, int limit = 5)
 
-// Функция находит все тандемные повторы в строке s, сформированные j-мерами длинной от 1 по MaxWordLength символов и имеющие длину не менее limit
-// MaxWordLength должно быть в границах от 2 по 6. limit должен быть больше MaxWordLength (иначе limit будет присвоено значение MaxWordLength+1).
-// Результат возвращается в векторе Result, где на четных позициях, отсчитываемых с нуля - позиции начала тандемного повтора в s (символы в s также нумеруются с нуля), а на нечетных - длина повтора
-// Возвращает 0 в случае успеха. В случае некорректных данных (длина s < MaxWordLength, MaxWordLength не в диапазоне [2; 6]) возвращает пустой Result и -1.
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨╜╨░╤Е╨╛╨┤╨╕╤В ╨▓╤Б╨╡ ╤В╨░╨╜╨┤╨╡╨╝╨╜╤Л╨╡ ╨┐╨╛╨▓╤В╨╛╤А╤Л ╨▓ ╤Б╤В╤А╨╛╨║╨╡ s, ╤Б╤Д╨╛╤А╨╝╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡ j-╨╝╨╡╤А╨░╨╝╨╕ ╨┤╨╗╨╕╨╜╨╜╨╛╨╣ ╨╛╤В 1 ╨┐╨╛ MaxWordLength ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨╕ ╨╕╨╝╨╡╤О╤Й╨╕╨╡ ╨┤╨╗╨╕╨╜╤Г ╨╜╨╡ ╨╝╨╡╨╜╨╡╨╡ limit
+// MaxWordLength ╨┤╨╛╨╗╨╢╨╜╨╛ ╨▒╤Л╤В╤М ╨▓ ╨│╤А╨░╨╜╨╕╤Ж╨░╤Е ╨╛╤В 2 ╨┐╨╛ 6. limit ╨┤╨╛╨╗╨╢╨╡╨╜ ╨▒╤Л╤В╤М ╨▒╨╛╨╗╤М╤И╨╡ MaxWordLength (╨╕╨╜╨░╤З╨╡ limit ╨▒╤Г╨┤╨╡╤В ╨┐╤А╨╕╤Б╨▓╨╛╨╡╨╜╨╛ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ MaxWordLength+1).
+// ╨а╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ Result, ╨│╨┤╨╡ ╨╜╨░ ╤З╨╡╤В╨╜╤Л╤Е ╨┐╨╛╨╖╨╕╤Ж╨╕╤П╤Е, ╨╛╤В╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╨╝╤Л╤Е ╤Б ╨╜╤Г╨╗╤П - ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╜╨░╤З╨░╨╗╨░ ╤В╨░╨╜╨┤╨╡╨╝╨╜╨╛╨│╨╛ ╨┐╨╛╨▓╤В╨╛╤А╨░ ╨▓ s (╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╨▓ s ╤В╨░╨║╨╢╨╡ ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╤Б ╨╜╤Г╨╗╤П), ╨░ ╨╜╨░ ╨╜╨╡╤З╨╡╤В╨╜╤Л╤Е - ╨┤╨╗╨╕╨╜╨░ ╨┐╨╛╨▓╤В╨╛╤А╨░
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 0 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░. ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е (╨┤╨╗╨╕╨╜╨░ s < MaxWordLength, MaxWordLength ╨╜╨╡ ╨▓ ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨╡ [2; 6]) ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨┐╤Г╤Б╤В╨╛╨╣ Result ╨╕ -1.
 
 // Finds all tandem repeats in the string s as follows:
 // the repeat has its lenght >= limits, the repeat should be formed by j-mers: j in [1; MaxWordLength], MaxWordLength in [2; 6]
@@ -2075,7 +2075,7 @@ int TandemRepeatsFinding (const std::string &s, std::vector <int> &Result, int M
 
 
     label1: ;
-        l [WordLenght-1]++;  //увеличение на 1 кода последней буквы // the digit that corresponds to the last symbol of j-mer is to be increased
+        l [WordLenght-1]++;  //╤Г╨▓╨╡╨╗╨╕╤З╨╡╨╜╨╕╨╡ ╨╜╨░ 1 ╨║╨╛╨┤╨░ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨╣ ╨▒╤Г╨║╨▓╤Л // the digit that corresponds to the last symbol of j-mer is to be increased
 
         if (l [WordLenght-1] == AlphLenght) // if so - we must recalculate the senior digits too
          {
@@ -2289,10 +2289,10 @@ MassTable =
 int GPFM (std::vector <std::string> &s, std::vector <std::vector <int>> & B, const std::string &Alph)
 {
 
-    // Генерирует позиционную матрицу частот B по набору исходных строк s и алфавиту Alph (содержит последовательность символов алфавита);
-    // Последовательность строк в матрице B соответствует последовательности символов в строке Alph (т.е. последовательности символов алфавита).
-    // в случае если в наборе менее 2х строк или они имеют неодинаковую длину или в алфавите менее 2 букв или хоть одна из строк содержит хоть один символ не из алфавита,
-    // или же если алфавит содержит дублирующиеся символы - возвращается -1  и пустая матрица B (в случае успеха возвращается 0).
+    // ╨У╨╡╨╜╨╡╤А╨╕╤А╤Г╨╡╤В ╨┐╨╛╨╖╨╕╤Ж╨╕╨╛╨╜╨╜╤Г╤О ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤З╨░╤Б╤В╨╛╤В B ╨┐╨╛ ╨╜╨░╨▒╨╛╤А╤Г ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╤Б╤В╤А╨╛╨║ s ╨╕ ╨░╨╗╤Д╨░╨▓╨╕╤В╤Г Alph (╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨┐╨╛╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╨╜╨╛╤Б╤В╤М ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨░╨╗╤Д╨░╨▓╨╕╤В╨░);
+    // ╨Я╨╛╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╨╜╨╛╤Б╤В╤М ╤Б╤В╤А╨╛╨║ ╨▓ ╨╝╨░╤В╤А╨╕╤Ж╨╡ B ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╨╡╤В ╨┐╨╛╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╨╜╨╛╤Б╤В╨╕ ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨▓ ╤Б╤В╤А╨╛╨║╨╡ Alph (╤В.╨╡. ╨┐╨╛╤Б╨╗╨╡╨┤╨╛╨▓╨░╤В╨╡╨╗╤М╨╜╨╛╤Б╤В╨╕ ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨░╨╗╤Д╨░╨▓╨╕╤В╨░).
+    // ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡╤Б╨╗╨╕ ╨▓ ╨╜╨░╨▒╨╛╤А╨╡ ╨╝╨╡╨╜╨╡╨╡ 2╤Е ╤Б╤В╤А╨╛╨║ ╨╕╨╗╨╕ ╨╛╨╜╨╕ ╨╕╨╝╨╡╤О╤В ╨╜╨╡╨╛╨┤╨╕╨╜╨░╨║╨╛╨▓╤Г╤О ╨┤╨╗╨╕╨╜╤Г ╨╕╨╗╨╕ ╨▓ ╨░╨╗╤Д╨░╨▓╨╕╤В╨╡ ╨╝╨╡╨╜╨╡╨╡ 2 ╨▒╤Г╨║╨▓ ╨╕╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╜╨░ ╨╕╨╖ ╤Б╤В╤А╨╛╨║ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╤Б╨╕╨╝╨▓╨╛╨╗ ╨╜╨╡ ╨╕╨╖ ╨░╨╗╤Д╨░╨▓╨╕╤В╨░,
+    // ╨╕╨╗╨╕ ╨╢╨╡ ╨╡╤Б╨╗╨╕ ╨░╨╗╤Д╨░╨▓╨╕╤В ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨┤╤Г╨▒╨╗╨╕╤А╤Г╤О╤Й╨╕╨╡╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╤Л - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П -1  ╨╕ ╨┐╤Г╤Б╤В╨░╤П ╨╝╨░╤В╤А╨╕╤Ж╨░ B (╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П 0).
 
     // Generates position frequency matrix (PFM) B upon an array of strings s and given Alphabet (Alphabet is set via string Alph that contains the sequence of its symbols);
     // Ordering of the rows in B corresponds to sequence of symbols in Alph.
@@ -2315,7 +2315,7 @@ int GPFM (std::vector <std::string> &s, std::vector <std::vector <int>> & B, con
             return -1;
         }
 
-    std::set <char> T; // проверка что нет дублирующихся символов в алфавите
+    std::set <char> T; // ╨┐╤А╨╛╨▓╨╡╤А╨║╨░ ╤З╤В╨╛ ╨╜╨╡╤В ╨┤╤Г╨▒╨╗╨╕╤А╤Г╤О╤Й╨╕╤Е╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨▓ ╨░╨╗╤Д╨░╨▓╨╕╤В╨╡
     T.clear(); // Testing if there are any identical symbols in the Alphabet
     for  (int y=0; y<Alph.length(); y++)
     {
@@ -2337,7 +2337,7 @@ int GPFM (std::vector <std::string> &s, std::vector <std::vector <int>> & B, con
 
 
 
-                B.clear(); // Если хоть один символ не из алфавита - очищаем матрицу и возвращаем -1
+                B.clear(); // ╨Х╤Б╨╗╨╕ ╤Е╨╛╤В╤М ╨╛╨┤╨╕╨╜ ╤Б╨╕╨╝╨▓╨╛╨╗ ╨╜╨╡ ╨╕╨╖ ╨░╨╗╤Д╨░╨▓╨╕╤В╨░ - ╨╛╤З╨╕╤Й╨░╨╡╨╝ ╨╝╨░╤В╤А╨╕╤Ж╤Г ╨╕ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝ -1
                 return -1; // even one symbol doesn't belong to Alph - matrix B to be cleared and -1 to return
 
             l1:;
@@ -2366,7 +2366,7 @@ double PDist (const std::string& s1, const std::string& s2) // counts p-distance
 
 int GDistanceMatrix (std::vector <std::string> &s, std::vector <std::vector <double>> & B)
 {
-// Генерирует матрицу расстояний "B" по набору исходных строк s; в случае если в наборе менее 2х строк или они имеют неодинаковую длину - возвращается -1 (в случае успеха - 0).
+// ╨У╨╡╨╜╨╡╤А╨╕╤А╤Г╨╡╤В ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╣ "B" ╨┐╨╛ ╨╜╨░╨▒╨╛╤А╤Г ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╤Б╤В╤А╨╛╨║ s; ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡╤Б╨╗╨╕ ╨▓ ╨╜╨░╨▒╨╛╤А╨╡ ╨╝╨╡╨╜╨╡╨╡ 2╤Е ╤Б╤В╤А╨╛╨║ ╨╕╨╗╨╕ ╨╛╨╜╨╕ ╨╕╨╝╨╡╤О╤В ╨╜╨╡╨╛╨┤╨╕╨╜╨░╨║╨╛╨▓╤Г╤О ╨┤╨╗╨╕╨╜╤Г - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П -1 (╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ - 0).
 // Generates DistanceMatrix "B" upon array of strings s; if s contains 1 or 0 items or strings have not equal length returns -1 and empty B.
 
 
@@ -2397,7 +2397,7 @@ int GDistanceMatrix (std::vector <std::string> &s, std::vector <std::vector <dou
 
 
 int EditDist (const std::string &s1, const std::string &s2)
-// Рассчитывает редакционное расстояние (расстояние Левенштейна) мeжду строками, принимает на вход даже пустые. Цена каждой операции = 1
+// ╨а╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В ╤А╨╡╨┤╨░╨║╤Ж╨╕╨╛╨╜╨╜╨╛╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╡ (╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╡ ╨Ы╨╡╨▓╨╡╨╜╤И╤В╨╡╨╣╨╜╨░) ╨╝e╨╢╨┤╤Г ╤Б╤В╤А╨╛╨║╨░╨╝╨╕, ╨┐╤А╨╕╨╜╨╕╨╝╨░╨╡╤В ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨┤╨░╨╢╨╡ ╨┐╤Г╤Б╤В╤Л╨╡. ╨ж╨╡╨╜╨░ ╨║╨░╨╢╨┤╨╛╨╣ ╨╛╨┐╨╡╤А╨░╤Ж╨╕╨╕ = 1
 // Computes Edit Distance (Levenshtein distance) between two strings (strings may be empty too).
 
 {
@@ -2432,7 +2432,7 @@ for (unsigned int i = 0; (i< n); i++)
         else
         {
             w = 1;
-            if (s1[i-1] == s2[j-1])   // нужны элементы строк i, j по порядку, но т.к. нумеруем с нуля символы строк - поправка на -1
+            if (s1[i-1] == s2[j-1])   // ╨╜╤Г╨╢╨╜╤Л ╤Н╨╗╨╡╨╝╨╡╨╜╤В╤Л ╤Б╤В╤А╨╛╨║ i, j ╨┐╨╛ ╨┐╨╛╤А╤П╨┤╨║╤Г, ╨╜╨╛ ╤В.╨║. ╨╜╤Г╨╝╨╡╤А╤Г╨╡╨╝ ╤Б ╨╜╤Г╨╗╤П ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╤Б╤В╤А╨╛╨║ - ╨┐╨╛╨┐╤А╨░╨▓╨║╨░ ╨╜╨░ -1
             //Note that symbols of strings have 0-based indexing. So we have "-1 - correction" here.
                 w = 0;
             B[i][j] = std::min (1+B[i-1][j], 1+B[i][j-1]);
@@ -2446,7 +2446,7 @@ return B[n-1][m-1];
 
 
 int EditDistA (const std::string &s1, const std::string &s2, std::string &sr1, std::string &sr2)
-// Расширенная версия функции EditDist (см. выше). Возвращает также Edit Distance Alignment строк s1 и s2 как строки sr1 и sr2 (если несколько вариантов возможны - один из возможных).
+// ╨а╨░╤Б╤И╨╕╤А╨╡╨╜╨╜╨░╤П ╨▓╨╡╤А╤Б╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ EditDist (╤Б╨╝. ╨▓╤Л╤И╨╡). ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤В╨░╨║╨╢╨╡ Edit Distance Alignment ╤Б╤В╤А╨╛╨║ s1 ╨╕ s2 ╨║╨░╨║ ╤Б╤В╤А╨╛╨║╨╕ sr1 ╨╕ sr2 (╨╡╤Б╨╗╨╕ ╨╜╨╡╤Б╨║╨╛╨╗╤М╨║╨╛ ╨▓╨░╤А╨╕╨░╨╜╤В╨╛╨▓ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╤Л - ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╤Л╤Е).
 // Extended version of the function EditDist (see it above). Returns also Edit Distance Alignment of s1 and s2 as sr1 and sr2 (one possible version if many exists).
 
 {
@@ -2485,7 +2485,7 @@ for (unsigned int i = 0; (i< n); i++)
         else
         {
             w = 1;
-            if (s1[i-1] == s2[j-1])   // нужны элементы строк i, j по порядку, но т.к. нумеруем с нуля символы строк - поправка на -1
+            if (s1[i-1] == s2[j-1])   // ╨╜╤Г╨╢╨╜╤Л ╤Н╨╗╨╡╨╝╨╡╨╜╤В╤Л ╤Б╤В╤А╨╛╨║ i, j ╨┐╨╛ ╨┐╨╛╤А╤П╨┤╨║╤Г, ╨╜╨╛ ╤В.╨║. ╨╜╤Г╨╝╨╡╤А╤Г╨╡╨╝ ╤Б ╨╜╤Г╨╗╤П ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╤Б╤В╤А╨╛╨║ - ╨┐╨╛╨┐╤А╨░╨▓╨║╨░ ╨╜╨░ -1
             //Note that symbols of strings have 0-based indexing. So we have "-1 - correction" here.
                 w = 0;
             B[i][j] = std::min (1+B[i-1][j], 1+B[i][j-1]);
@@ -2494,7 +2494,7 @@ for (unsigned int i = 0; (i< n); i++)
 
 
 
-// построение результата
+// ╨┐╨╛╤Б╤В╤А╨╛╨╡╨╜╨╕╨╡ ╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В╨░
 // let' s construct sr1 and sr2
 
 
@@ -2559,8 +2559,8 @@ return B[n-1][m-1];
 
 
 std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0)
-// Формирует строку CIGAR по результату "прикладывания" строки S2 к строке S0 с позиции npos;
-// в случае некорректных данных (длина какой-л. строки равна 0, начальная позиция отрицательна или приложенная S2 "выезжает" за границу S0 - возвращает пустую строку
+// ╨д╨╛╤А╨╝╨╕╤А╤Г╨╡╤В ╤Б╤В╤А╨╛╨║╤Г CIGAR ╨┐╨╛ ╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В╤Г "╨┐╤А╨╕╨║╨╗╨░╨┤╤Л╨▓╨░╨╜╨╕╤П" ╤Б╤В╤А╨╛╨║╨╕ S2 ╨║ ╤Б╤В╤А╨╛╨║╨╡ S0 ╤Б ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ npos;
+// ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е (╨┤╨╗╨╕╨╜╨░ ╨║╨░╨║╨╛╨╣-╨╗. ╤Б╤В╤А╨╛╨║╨╕ ╤А╨░╨▓╨╜╨░ 0, ╨╜╨░╤З╨░╨╗╤М╨╜╨░╤П ╨┐╨╛╨╖╨╕╤Ж╨╕╤П ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╨░ ╨╕╨╗╨╕ ╨┐╤А╨╕╨╗╨╛╨╢╨╡╨╜╨╜╨░╤П S2 "╨▓╤Л╨╡╨╖╨╢╨░╨╡╤В" ╨╖╨░ ╨│╤А╨░╨╜╨╕╤Ж╤Г S0 - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨┐╤Г╤Б╤В╤Г╤О ╤Б╤В╤А╨╛╨║╤Г
 // Generates CIGAR-string as a result of "fitting" of the string S2 to s0 (strarting position == npos).
 // If any data is incorrect returns empty string.
 
@@ -2630,22 +2630,22 @@ int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QD
 // 2 - the symbol that has the maximal sum of probability (quality) for a given position in consensus string will be chosen. it will have the max quality (probability) of this char at given position.
 // 3 - the symbol that has the maximal probability (quality) for a given position in consensus string will be chosen. It will have the same quality.
 // One may set QDataS as empty: in this case quality will considered as "some equal" for every symbol at every position.
-// So in order to find a consensus string upon a given collection without quality one may choose method №1 or №2 and empty QDataS.
+// So in order to find a consensus string upon a given collection without quality one may choose method тДЦ1 or тДЦ2 and empty QDataS.
 // If no symbol of the Alph has been found at a given position - the ' ' will be set there both in the consensus string TempS and in quality string QTempS.
 // If any input data is incorrect returns -1 and empty TempS and QTempS, otherwise returns 0.
 
-// Формирует консенсусную строку (если возможно несколько вариантов такой строки - то один из них) согласно набру строк DataS с соотвествующим качеством (строки, задающие качество даны в QDataS на соотвествующих позициях).
-// Результат - консенсусная строка TempS и соотвествующая ей строка качества QTempS. В случае успеха возвращается 0, в случае некорректных вводных данных - -1 и пустые указанные строки.
-// Параметр "Alph" задает алфавит: только эти символы учитываются при формировании консенсуса.
-// Параметр "Phred" задает шкалу качества (по умолчанию - Phred33).
-// Предусмотрены 4 метода формирования консенсусной строки:
-// 0 - по умолчанию - символы на каждой данной позиции выбираются согласно максимальной средней вероятности (качеству), качество присваивается то же.
-// 1 - символы на каждой данной позиции выбираются согласно максимальной суммарной вероятности (качеству), качество присваивается как среднее по данному символу.
-// 2 - то же, но качество присваивается как максимальное по данному символу на данной позиции.
-// 4 - выбор символа (и присвоение ему качества) осуществляется исходя из максимального качества (вероятности) символа на данной позиции.
-// Если передать пустой QDataS, то предполагается, что качество везде "какое-то одинаковое", строка QTempS возвращается пустой. Т.обр., для определения консенсусной строки согласно лишь частоте
-// появления символов достаточно выбрать метод = 1 или 2 и пустой QTempS.
-// Если ни одного символа из алфавита на данной позиции не найдено - ставится ' ' и качество по данной позиции задается как ' '.
+// ╨д╨╛╤А╨╝╨╕╤А╤Г╨╡╤В ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨╜╤Г╤О ╤Б╤В╤А╨╛╨║╤Г (╨╡╤Б╨╗╨╕ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╨╛ ╨╜╨╡╤Б╨║╨╛╨╗╤М╨║╨╛ ╨▓╨░╤А╨╕╨░╨╜╤В╨╛╨▓ ╤В╨░╨║╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕ - ╤В╨╛ ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╜╨╕╤Е) ╤Б╨╛╨│╨╗╨░╤Б╨╜╨╛ ╨╜╨░╨▒╤А╤Г ╤Б╤В╤А╨╛╨║ DataS ╤Б ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨╕╨╝ ╨║╨░╤З╨╡╤Б╤В╨▓╨╛╨╝ (╤Б╤В╤А╨╛╨║╨╕, ╨╖╨░╨┤╨░╤О╤Й╨╕╨╡ ╨║╨░╤З╨╡╤Б╤В╨▓╨╛ ╨┤╨░╨╜╤Л ╨▓ QDataS ╨╜╨░ ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨╕╤Е ╨┐╨╛╨╖╨╕╤Ж╨╕╤П╤Е).
+// ╨а╨╡╨╖╤Г╨╗╤М╤В╨░╤В - ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨╜╨░╤П ╤Б╤В╤А╨╛╨║╨░ TempS ╨╕ ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨░╤П ╨╡╨╣ ╤Б╤В╤А╨╛╨║╨░ ╨║╨░╤З╨╡╤Б╤В╨▓╨░ QTempS. ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П 0, ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л╤Е ╨▓╨▓╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е - -1 ╨╕ ╨┐╤Г╤Б╤В╤Л╨╡ ╤Г╨║╨░╨╖╨░╨╜╨╜╤Л╨╡ ╤Б╤В╤А╨╛╨║╨╕.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А "Alph" ╨╖╨░╨┤╨░╨╡╤В ╨░╨╗╤Д╨░╨▓╨╕╤В: ╤В╨╛╨╗╤М╨║╨╛ ╤Н╤В╨╕ ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╤Г╤З╨╕╤В╤Л╨▓╨░╤О╤В╤Б╤П ╨┐╤А╨╕ ╤Д╨╛╤А╨╝╨╕╤А╨╛╨▓╨░╨╜╨╕╨╕ ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨░.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А "Phred" ╨╖╨░╨┤╨░╨╡╤В ╤И╨║╨░╨╗╤Г ╨║╨░╤З╨╡╤Б╤В╨▓╨░ (╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О - Phred33).
+// ╨Я╤А╨╡╨┤╤Г╤Б╨╝╨╛╤В╤А╨╡╨╜╤Л 4 ╨╝╨╡╤В╨╛╨┤╨░ ╤Д╨╛╤А╨╝╨╕╤А╨╛╨▓╨░╨╜╨╕╤П ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕:
+// 0 - ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О - ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╨╜╨░ ╨║╨░╨╢╨┤╨╛╨╣ ╨┤╨░╨╜╨╜╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨▓╤Л╨▒╨╕╤А╨░╤О╤В╤Б╤П ╤Б╨╛╨│╨╗╨░╤Б╨╜╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╤Б╤А╨╡╨┤╨╜╨╡╨╣ ╨▓╨╡╤А╨╛╤П╤В╨╜╨╛╤Б╤В╨╕ (╨║╨░╤З╨╡╤Б╤В╨▓╤Г), ╨║╨░╤З╨╡╤Б╤В╨▓╨╛ ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╤В╨╛ ╨╢╨╡.
+// 1 - ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╨╜╨░ ╨║╨░╨╢╨┤╨╛╨╣ ╨┤╨░╨╜╨╜╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨▓╤Л╨▒╨╕╤А╨░╤О╤В╤Б╤П ╤Б╨╛╨│╨╗╨░╤Б╨╜╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╤Б╤Г╨╝╨╝╨░╤А╨╜╨╛╨╣ ╨▓╨╡╤А╨╛╤П╤В╨╜╨╛╤Б╤В╨╕ (╨║╨░╤З╨╡╤Б╤В╨▓╤Г), ╨║╨░╤З╨╡╤Б╤В╨▓╨╛ ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨║╨░╨║ ╤Б╤А╨╡╨┤╨╜╨╡╨╡ ╨┐╨╛ ╨┤╨░╨╜╨╜╨╛╨╝╤Г ╤Б╨╕╨╝╨▓╨╛╨╗╤Г.
+// 2 - ╤В╨╛ ╨╢╨╡, ╨╜╨╛ ╨║╨░╤З╨╡╤Б╤В╨▓╨╛ ╨┐╤А╨╕╤Б╨▓╨░╨╕╨▓╨░╨╡╤В╤Б╤П ╨║╨░╨║ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╡ ╨┐╨╛ ╨┤╨░╨╜╨╜╨╛╨╝╤Г ╤Б╨╕╨╝╨▓╨╛╨╗╤Г ╨╜╨░ ╨┤╨░╨╜╨╜╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕.
+// 4 - ╨▓╤Л╨▒╨╛╤А ╤Б╨╕╨╝╨▓╨╛╨╗╨░ (╨╕ ╨┐╤А╨╕╤Б╨▓╨╛╨╡╨╜╨╕╨╡ ╨╡╨╝╤Г ╨║╨░╤З╨╡╤Б╤В╨▓╨░) ╨╛╤Б╤Г╤Й╨╡╤Б╤В╨▓╨╗╤П╨╡╤В╤Б╤П ╨╕╤Б╤Е╨╛╨┤╤П ╨╕╨╖ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨│╨╛ ╨║╨░╤З╨╡╤Б╤В╨▓╨░ (╨▓╨╡╤А╨╛╤П╤В╨╜╨╛╤Б╤В╨╕) ╤Б╨╕╨╝╨▓╨╛╨╗╨░ ╨╜╨░ ╨┤╨░╨╜╨╜╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕.
+// ╨Х╤Б╨╗╨╕ ╨┐╨╡╤А╨╡╨┤╨░╤В╤М ╨┐╤Г╤Б╤В╨╛╨╣ QDataS, ╤В╨╛ ╨┐╤А╨╡╨┤╨┐╨╛╨╗╨░╨│╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨║╨░╤З╨╡╤Б╤В╨▓╨╛ ╨▓╨╡╨╖╨┤╨╡ "╨║╨░╨║╨╛╨╡-╤В╨╛ ╨╛╨┤╨╕╨╜╨░╨║╨╛╨▓╨╛╨╡", ╤Б╤В╤А╨╛╨║╨░ QTempS ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П ╨┐╤Г╤Б╤В╨╛╨╣. ╨в.╨╛╨▒╤А., ╨┤╨╗╤П ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╤П ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕ ╤Б╨╛╨│╨╗╨░╤Б╨╜╨╛ ╨╗╨╕╤И╤М ╤З╨░╤Б╤В╨╛╤В╨╡
+// ╨┐╨╛╤П╨▓╨╗╨╡╨╜╨╕╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨┤╨╛╤Б╤В╨░╤В╨╛╤З╨╜╨╛ ╨▓╤Л╨▒╤А╨░╤В╤М ╨╝╨╡╤В╨╛╨┤ = 1 ╨╕╨╗╨╕ 2 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ QTempS.
+// ╨Х╤Б╨╗╨╕ ╨╜╨╕ ╨╛╨┤╨╜╨╛╨│╨╛ ╤Б╨╕╨╝╨▓╨╛╨╗╨░ ╨╕╨╖ ╨░╨╗╤Д╨░╨▓╨╕╤В╨░ ╨╜╨░ ╨┤╨░╨╜╨╜╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╜╨╡ ╨╜╨░╨╣╨┤╨╡╨╜╨╛ - ╤Б╤В╨░╨▓╨╕╤В╤Б╤П ' ' ╨╕ ╨║╨░╤З╨╡╤Б╤В╨▓╨╛ ╨┐╨╛ ╨┤╨░╨╜╨╜╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╖╨░╨┤╨░╨╡╤В╤Б╤П ╨║╨░╨║ ' '.
 
 
 
@@ -2799,8 +2799,8 @@ int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QD
 
 
 int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)
-// Модификация функции ConsStringQ1 (см. выше) для целей учета всех вариантов консенсусной строки.
-// В консенсусной строке позиции разделяются символом tr (по умолчанию = '^'), при этом на каждой позиции может быть несколько символов из алфавита, если с т.зр. критерия выбора они равновероятны.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ ConsStringQ1 (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Ж╨╡╨╗╨╡╨╣ ╤Г╤З╨╡╤В╨░ ╨▓╤Б╨╡╤Е ╨▓╨░╤А╨╕╨░╨╜╤В╨╛╨▓ ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕.
+// ╨Т ╨║╨╛╨╜╤Б╨╡╨╜╤Б╤Г╤Б╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╤А╨░╨╖╨┤╨╡╨╗╤П╤О╤В╤Б╤П ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨╝ tr (╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О = '^'), ╨┐╤А╨╕ ╤Н╤В╨╛╨╝ ╨╜╨░ ╨║╨░╨╢╨┤╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨╜╨╡╤Б╨║╨╛╨╗╤М╨║╨╛ ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨╕╨╖ ╨░╨╗╤Д╨░╨▓╨╕╤В╨░, ╨╡╤Б╨╗╨╕ ╤Б ╤В.╨╖╤А. ╨║╤А╨╕╤В╨╡╤А╨╕╤П ╨▓╤Л╨▒╨╛╤А╨░ ╨╛╨╜╨╕ ╤А╨░╨▓╨╜╨╛╨▓╨╡╤А╨╛╤П╤В╨╜╤Л.
 // Modification of ConsStringQ1 (see it above) for all the version of consensus string. For that every position may have >= 1 symbols (if different symbols may be chosen for this position).
 // The positions are separated by the symbol tr (by default is set as '^').
 
@@ -2981,7 +2981,7 @@ int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QD
 
 void EDistForFindMR (const std::string &s1, const std::string &s2, const int D, const int L, int l, int b, std::set <std::pair <int, int>> &Result)
 
-// Вспомогательная функция для FindMutatedRepeatsED (см. ниже, приводится следующей).
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П FindMutatedRepeatsED (╤Б╨╝. ╨╜╨╕╨╢╨╡, ╨┐╤А╨╕╨▓╨╛╨┤╨╕╤В╤Б╤П ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╡╨╣).
 // An auxiliary function for FindMutatedRepeatsED, see its info for details (below, the following one).
 
 {
@@ -3004,7 +3004,7 @@ for (unsigned int i = 0; (i< n); i++)
         else
         {
             w = 1;
-            if (s1[i-1] == s2[j-1])   // нужны элементы строк i, j по порядку, но т.к. нумеруем с нуля символы строк - поправка на -1
+            if (s1[i-1] == s2[j-1])   // ╨╜╤Г╨╢╨╜╤Л ╤Н╨╗╨╡╨╝╨╡╨╜╤В╤Л ╤Б╤В╤А╨╛╨║ i, j ╨┐╨╛ ╨┐╨╛╤А╤П╨┤╨║╤Г, ╨╜╨╛ ╤В.╨║. ╨╜╤Г╨╝╨╡╤А╤Г╨╡╨╝ ╤Б ╨╜╤Г╨╗╤П ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╤Б╤В╤А╨╛╨║ - ╨┐╨╛╨┐╤А╨░╨▓╨║╨░ ╨╜╨░ -1
             //Note that symbols of strings have 0-based indexing. So we have "-1 - correction" here.
                 w = 0;
             B[i][j] = std::min (1+B[i-1][j], 1+B[i][j-1]);
@@ -3035,19 +3035,19 @@ while (l>=L-D)
 
 
 int FindMutatedRepeatsED (std::string &StrShort, std::string &StrLong, int D, std::set <std::pair <int, int>> &Result)
-// Функция находит все подстроки для строки StrLong, редакционное расстояние которых до StrShort не превышает D. При этом принимается, что "штраф" за пропуск и несовпадение символов  = 1.
-// Результат возвращается в set <std::pair <int, int>> Result, где первое число в паре - номер позиции начала подстроки в StrLong (счет позиций идет с 0), а второе - длина подстроки (пары не отсортированы).
-// Если исходные данные некорректны - возвращается -1 и пустой Result;, в случае успеха возвращается 0.
-// Идея реализованного алгоритма:
-// (1) Найти все начала таких подстрок в StrLong.
-// Для этого обе строки реверсируются, затем StrShort "выравнивается" на StrLong по обычным правилам для нахождения редакционного расстояния, но с тем отличием,
-// что суммарный начальный пропуск по StrLong не "штрафуется" (начать можно с любой позиции в длинной строке без "штрафа"). Найденные начальные позиции нумеруются с 1. Затем строки реверсируются обратно.
-// (2) Для каждой позиции вычисляется максимально возможная длина искомой подстроки, которая не может быть более длины StrShort плюс D, и при этом не может выходить за границу StrLong.
-// Пояснение. Длины искомых подстрок не могут отличаться от длины StrShort более чем на D в ту и другую сторону, т.к. редакционное расстояние не превышает D, а цена пропуска = 1.
-// (3) Если такая максимально возможная длина есть и составляет не менее длины StrShort минус D, то для соотвествующей подстроки (обозначим как TempS) и StrShort осуществляем стандартный Edit Distance Alignment с помощью вспомогательной функции EDistForFindMR.
-// И в выстраиваемой для этих целей матрице будут значения Edit Distance не только между StrShort и TempS, но и (!) укороченным с конца подстрокам TempS (для этого берем значения в матрице не только по последней строке (TempS "откладывается" вниз), но и по предшествующим.
-// Если для каждого такого префикса строки TempS (при условии, что его длина удовлетворяет пояснению к шагу (2)) значение Edit Distance не превышает D - фиксируем в set Result его начальную позицию (в нумерации от 0) и длину.
-// Функция возвращает 0 и заполненный Result в случае успеха и -1 и пустой Result в случае некорректности исходных данных (любая из строк пуста или StrShort длиннее StrLong или длина StrShort не превосходит D)
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨╜╨░╤Е╨╛╨┤╨╕╤В ╨▓╤Б╨╡ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨╕ ╨┤╨╗╤П ╤Б╤В╤А╨╛╨║╨╕ StrLong, ╤А╨╡╨┤╨░╨║╤Ж╨╕╨╛╨╜╨╜╨╛╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╡ ╨║╨╛╤В╨╛╤А╤Л╤Е ╨┤╨╛ StrShort ╨╜╨╡ ╨┐╤А╨╡╨▓╤Л╤И╨░╨╡╤В D. ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨┐╤А╨╕╨╜╨╕╨╝╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ "╤И╤В╤А╨░╤Д" ╨╖╨░ ╨┐╤А╨╛╨┐╤Г╤Б╨║ ╨╕ ╨╜╨╡╤Б╨╛╨▓╨┐╨░╨┤╨╡╨╜╨╕╨╡ ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓  = 1.
+// ╨а╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П ╨▓ set <std::pair <int, int>> Result, ╨│╨┤╨╡ ╨┐╨╡╤А╨▓╨╛╨╡ ╤З╨╕╤Б╨╗╨╛ ╨▓ ╨┐╨░╤А╨╡ - ╨╜╨╛╨╝╨╡╤А ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╜╨░╤З╨░╨╗╨░ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨╕ ╨▓ StrLong (╤Б╤З╨╡╤В ╨┐╨╛╨╖╨╕╤Ж╨╕╨╣ ╨╕╨┤╨╡╤В ╤Б 0), ╨░ ╨▓╤В╨╛╤А╨╛╨╡ - ╨┤╨╗╨╕╨╜╨░ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨╕ (╨┐╨░╤А╤Л ╨╜╨╡ ╨╛╤В╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨░╨╜╤Л).
+// ╨Х╤Б╨╗╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╨╡ ╨┤╨░╨╜╨╜╤Л╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ Result;, ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П 0.
+// ╨Ш╨┤╨╡╤П ╤А╨╡╨░╨╗╨╕╨╖╨╛╨▓╨░╨╜╨╜╨╛╨│╨╛ ╨░╨╗╨│╨╛╤А╨╕╤В╨╝╨░:
+// (1) ╨Э╨░╨╣╤В╨╕ ╨▓╤Б╨╡ ╨╜╨░╤З╨░╨╗╨░ ╤В╨░╨║╨╕╤Е ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║ ╨▓ StrLong.
+// ╨Ф╨╗╤П ╤Н╤В╨╛╨│╨╛ ╨╛╨▒╨╡ ╤Б╤В╤А╨╛╨║╨╕ ╤А╨╡╨▓╨╡╤А╤Б╨╕╤А╤Г╤О╤В╤Б╤П, ╨╖╨░╤В╨╡╨╝ StrShort "╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╨╡╤В╤Б╤П" ╨╜╨░ StrLong ╨┐╨╛ ╨╛╨▒╤Л╤З╨╜╤Л╨╝ ╨┐╤А╨░╨▓╨╕╨╗╨░╨╝ ╨┤╨╗╤П ╨╜╨░╤Е╨╛╨╢╨┤╨╡╨╜╨╕╤П ╤А╨╡╨┤╨░╨║╤Ж╨╕╨╛╨╜╨╜╨╛╨│╨╛ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П, ╨╜╨╛ ╤Б ╤В╨╡╨╝ ╨╛╤В╨╗╨╕╤З╨╕╨╡╨╝,
+// ╤З╤В╨╛ ╤Б╤Г╨╝╨╝╨░╤А╨╜╤Л╨╣ ╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╨┐╤А╨╛╨┐╤Г╤Б╨║ ╨┐╨╛ StrLong ╨╜╨╡ "╤И╤В╤А╨░╤Д╤Г╨╡╤В╤Б╤П" (╨╜╨░╤З╨░╤В╤М ╨╝╨╛╨╢╨╜╨╛ ╤Б ╨╗╤О╨▒╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨▓ ╨┤╨╗╨╕╨╜╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡ ╨▒╨╡╨╖ "╤И╤В╤А╨░╤Д╨░"). ╨Э╨░╨╣╨┤╨╡╨╜╨╜╤Л╨╡ ╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╡ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╤Б 1. ╨Ч╨░╤В╨╡╨╝ ╤Б╤В╤А╨╛╨║╨╕ ╤А╨╡╨▓╨╡╤А╤Б╨╕╤А╤Г╤О╤В╤Б╤П ╨╛╨▒╤А╨░╤В╨╜╨╛.
+// (2) ╨Ф╨╗╤П ╨║╨░╨╢╨┤╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨▓╤Л╤З╨╕╤Б╨╗╤П╨╡╤В╤Б╤П ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╨░╤П ╨┤╨╗╨╕╨╜╨░ ╨╕╤Б╨║╨╛╨╝╨╛╨╣ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨╕, ╨║╨╛╤В╨╛╤А╨░╤П ╨╜╨╡ ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨▒╨╛╨╗╨╡╨╡ ╨┤╨╗╨╕╨╜╤Л StrShort ╨┐╨╗╤О╤Б D, ╨╕ ╨┐╤А╨╕ ╤Н╤В╨╛╨╝ ╨╜╨╡ ╨╝╨╛╨╢╨╡╤В ╨▓╤Л╤Е╨╛╨┤╨╕╤В╤М ╨╖╨░ ╨│╤А╨░╨╜╨╕╤Ж╤Г StrLong.
+// ╨Я╨╛╤П╤Б╨╜╨╡╨╜╨╕╨╡. ╨Ф╨╗╨╕╨╜╤Л ╨╕╤Б╨║╨╛╨╝╤Л╤Е ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║ ╨╜╨╡ ╨╝╨╛╨│╤Г╤В ╨╛╤В╨╗╨╕╤З╨░╤В╤М╤Б╤П ╨╛╤В ╨┤╨╗╨╕╨╜╤Л StrShort ╨▒╨╛╨╗╨╡╨╡ ╤З╨╡╨╝ ╨╜╨░ D ╨▓ ╤В╤Г ╨╕ ╨┤╤А╤Г╨│╤Г╤О ╤Б╤В╨╛╤А╨╛╨╜╤Г, ╤В.╨║. ╤А╨╡╨┤╨░╨║╤Ж╨╕╨╛╨╜╨╜╨╛╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╨╡ ╨╜╨╡ ╨┐╤А╨╡╨▓╤Л╤И╨░╨╡╤В D, ╨░ ╤Ж╨╡╨╜╨░ ╨┐╤А╨╛╨┐╤Г╤Б╨║╨░ = 1.
+// (3) ╨Х╤Б╨╗╨╕ ╤В╨░╨║╨░╤П ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╨░╤П ╨┤╨╗╨╕╨╜╨░ ╨╡╤Б╤В╤М ╨╕ ╤Б╨╛╤Б╤В╨░╨▓╨╗╤П╨╡╤В ╨╜╨╡ ╨╝╨╡╨╜╨╡╨╡ ╨┤╨╗╨╕╨╜╤Л StrShort ╨╝╨╕╨╜╤Г╤Б D, ╤В╨╛ ╨┤╨╗╤П ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨╡╨╣ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨╕ (╨╛╨▒╨╛╨╖╨╜╨░╤З╨╕╨╝ ╨║╨░╨║ TempS) ╨╕ StrShort ╨╛╤Б╤Г╤Й╨╡╤Б╤В╨▓╨╗╤П╨╡╨╝ ╤Б╤В╨░╨╜╨┤╨░╤А╤В╨╜╤Л╨╣ Edit Distance Alignment ╤Б ╨┐╨╛╨╝╨╛╤Й╤М╤О ╨▓╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨╛╨╣ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ EDistForFindMR.
+// ╨Ш ╨▓ ╨▓╤Л╤Б╤В╤А╨░╨╕╨▓╨░╨╡╨╝╨╛╨╣ ╨┤╨╗╤П ╤Н╤В╨╕╤Е ╤Ж╨╡╨╗╨╡╨╣ ╨╝╨░╤В╤А╨╕╤Ж╨╡ ╨▒╤Г╨┤╤Г╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П Edit Distance ╨╜╨╡ ╤В╨╛╨╗╤М╨║╨╛ ╨╝╨╡╨╢╨┤╤Г StrShort ╨╕ TempS, ╨╜╨╛ ╨╕ (!) ╤Г╨║╨╛╤А╨╛╤З╨╡╨╜╨╜╤Л╨╝ ╤Б ╨║╨╛╨╜╤Ж╨░ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨░╨╝ TempS (╨┤╨╗╤П ╤Н╤В╨╛╨│╨╛ ╨▒╨╡╤А╨╡╨╝ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨▓ ╨╝╨░╤В╤А╨╕╤Ж╨╡ ╨╜╨╡ ╤В╨╛╨╗╤М╨║╨╛ ╨┐╨╛ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨╣ ╤Б╤В╤А╨╛╨║╨╡ (TempS "╨╛╤В╨║╨╗╨░╨┤╤Л╨▓╨░╨╡╤В╤Б╤П" ╨▓╨╜╨╕╨╖), ╨╜╨╛ ╨╕ ╨┐╨╛ ╨┐╤А╨╡╨┤╤И╨╡╤Б╤В╨▓╤Г╤О╤Й╨╕╨╝.
+// ╨Х╤Б╨╗╨╕ ╨┤╨╗╤П ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤В╨░╨║╨╛╨│╨╛ ╨┐╤А╨╡╤Д╨╕╨║╤Б╨░ ╤Б╤В╤А╨╛╨║╨╕ TempS (╨┐╤А╨╕ ╤Г╤Б╨╗╨╛╨▓╨╕╨╕, ╤З╤В╨╛ ╨╡╨│╨╛ ╨┤╨╗╨╕╨╜╨░ ╤Г╨┤╨╛╨▓╨╗╨╡╤В╨▓╨╛╤А╤П╨╡╤В ╨┐╨╛╤П╤Б╨╜╨╡╨╜╨╕╤О ╨║ ╤И╨░╨│╤Г (2)) ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ Edit Distance ╨╜╨╡ ╨┐╤А╨╡╨▓╤Л╤И╨░╨╡╤В D - ╤Д╨╕╨║╤Б╨╕╤А╤Г╨╡╨╝ ╨▓ set Result ╨╡╨│╨╛ ╨╜╨░╤З╨░╨╗╤М╨╜╤Г╤О ╨┐╨╛╨╖╨╕╤Ж╨╕╤О (╨▓ ╨╜╤Г╨╝╨╡╤А╨░╤Ж╨╕╨╕ ╨╛╤В 0) ╨╕ ╨┤╨╗╨╕╨╜╤Г.
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 0 ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╜╤Л╨╣ Result ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨╕ -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ Result ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е (╨╗╤О╨▒╨░╤П ╨╕╨╖ ╤Б╤В╤А╨╛╨║ ╨┐╤Г╤Б╤В╨░ ╨╕╨╗╨╕ StrShort ╨┤╨╗╨╕╨╜╨╜╨╡╨╡ StrLong ╨╕╨╗╨╕ ╨┤╨╗╨╕╨╜╨░ StrShort ╨╜╨╡ ╨┐╤А╨╡╨▓╨╛╤Б╤Е╨╛╨┤╨╕╤В D)
 
 
 // The function finds all the substrings of a string StrLong, that have Edit Distance to a string StrShort <= D. Gap and mistmatch penalties are set as "1" here.
@@ -3064,10 +3064,10 @@ int FindMutatedRepeatsED (std::string &StrShort, std::string &StrLong, int D, st
 {
     Result.clear();
 
-    if (StrShort.length()>StrLong.length()) return -1; // Приверка корректности исходных данных  // checking for input tata correctness
-    if ((StrShort.length()==0) || (StrLong.length()==0))return -1; // Приверка корректности исходных данных  // checking for input tata correctness
-    if (D<0) return -1; // Приверка корректности исходных данных  // checking for input tata correctness
-    if (StrShort.length()<=D) return -1; // Приверка корректности исходных данных  // checking for input tata correctness
+    if (StrShort.length()>StrLong.length()) return -1; // ╨Я╤А╨╕╨▓╨╡╤А╨║╨░ ╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е  // checking for input tata correctness
+    if ((StrShort.length()==0) || (StrLong.length()==0))return -1; // ╨Я╤А╨╕╨▓╨╡╤А╨║╨░ ╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е  // checking for input tata correctness
+    if (D<0) return -1; // ╨Я╤А╨╕╨▓╨╡╤А╨║╨░ ╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е  // checking for input tata correctness
+    if (StrShort.length()<=D) return -1; // ╨Я╤А╨╕╨▓╨╡╤А╨║╨░ ╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е  // checking for input tata correctness
 
 
     std::string TempS = "";
@@ -3077,7 +3077,7 @@ int FindMutatedRepeatsED (std::string &StrShort, std::string &StrLong, int D, st
     const int mismP = -1; //mismatch penalty
 
 std::set <int>StartPositions; //Here the start positions of required substrings of StrLong will be contained (their numbering starts from "1" for this set).
-// Здесь будем хранить номера начал искомых строк (здесь допущение: символы в строке нумеруются с 1)
+// ╨Ч╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╨╝ ╤Е╤А╨░╨╜╨╕╤В╤М ╨╜╨╛╨╝╨╡╤А╨░ ╨╜╨░╤З╨░╨╗ ╨╕╤Б╨║╨╛╨╝╤Л╤Е ╤Б╤В╤А╨╛╨║ (╨╖╨┤╨╡╤Б╤М ╨┤╨╛╨┐╤Г╤Й╨╡╨╜╨╕╨╡: ╤Б╨╕╨╝╨▓╨╛╨╗╤Л ╨▓ ╤Б╤В╤А╨╛╨║╨╡ ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╤Б 1)
 
 
 
@@ -3104,12 +3104,12 @@ int mt, dt, in;
 MatrixSet(B, n, m, 0);
 
 
-  for (unsigned int i = 0; (i< n); i++)  // Поправка: начать можно с любой позиции в длинной строке без "штрафа"
+  for (unsigned int i = 0; (i< n); i++)  // ╨Я╨╛╨┐╤А╨░╨▓╨║╨░: ╨╜╨░╤З╨░╤В╤М ╨╝╨╛╨╢╨╜╨╛ ╤Б ╨╗╤О╨▒╨╛╨╣ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨▓ ╨┤╨╗╨╕╨╜╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡ ╨▒╨╡╨╖ "╤И╤В╤А╨░╤Д╨░"
       B[i][0] = i*gapP;                  // The required substring may start at every position of the longer string so here are no penalty fo gapping at start
 
   // End of preparing a matrix for alignment
 
-  reverse(StrShort.begin(),StrShort.end()); // Переворачиваем строки, чтобы найти все начальные позиции искомых подстрок в StrLong
+  reverse(StrShort.begin(),StrShort.end()); // ╨Я╨╡╤А╨╡╨▓╨╛╤А╨░╤З╨╕╨▓╨░╨╡╨╝ ╤Б╤В╤А╨╛╨║╨╕, ╤З╤В╨╛╨▒╤Л ╨╜╨░╨╣╤В╨╕ ╨▓╤Б╨╡ ╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╡ ╨┐╨╛╨╖╨╕╤Ж╨╕╨╕ ╨╕╤Б╨║╨╛╨╝╤Л╤Е ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║ ╨▓ StrLong
 reverse(StrLong.begin(),StrLong.end()); // the strings should be reversed now in order to find all start positions of required substrings of StrLong
 
 for (unsigned int i = 1; (i< n); i++)
@@ -3126,12 +3126,12 @@ for (unsigned int i = 1; (i< n); i++)
             if (B[i][j]<std::max(dt, in)) B[i][j] = std::max(dt, in);
         }
 
-reverse(StrShort.begin(),StrShort.end());  // теперь переворачиваем строки назад
+reverse(StrShort.begin(),StrShort.end());  // ╤В╨╡╨┐╨╡╤А╤М ╨┐╨╡╤А╨╡╨▓╨╛╤А╨░╤З╨╕╨▓╨░╨╡╨╝ ╤Б╤В╤А╨╛╨║╨╕ ╨╜╨░╨╖╨░╨┤
 reverse(StrLong.begin(),StrLong.end()); // now the strings are reversed back
 
 
 for (int i=0;i<m;i++)
-    if(B[n-1][i]*(-1)<=D) // Условие того, что в данной точке будет начало одной или нескольких искомых подстрок (с поправкой на реверс)
+    if(B[n-1][i]*(-1)<=D) // ╨г╤Б╨╗╨╛╨▓╨╕╨╡ ╤В╨╛╨│╨╛, ╤З╤В╨╛ ╨▓ ╨┤╨░╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨║╨╡ ╨▒╤Г╨┤╨╡╤В ╨╜╨░╤З╨░╨╗╨╛ ╨╛╨┤╨╜╨╛╨╣ ╨╕╨╗╨╕ ╨╜╨╡╤Б╨║╨╛╨╗╤М╨║╨╕╤Е ╨╕╤Б╨║╨╛╨╝╤Л╤Е ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║ (╤Б ╨┐╨╛╨┐╤А╨░╨▓╨║╨╛╨╣ ╨╜╨░ ╤А╨╡╨▓╨╡╤А╤Б)
                           // This means that here will be the beginning for one or more required substrings (reverse adjusted)
     {
         StartPositions.insert(StrLong.length()-i+1);  // Computing the starting position ("1"-based indexing)
@@ -3145,7 +3145,7 @@ int l;
 
 
 for (auto it = StartPositions.begin(); it!=StartPositions.end(); it++)
-    // Для каждой найденной точки начала подстврок вычисляем l - максимально возможную длину искомой подстроки, которая не может быть более длины короткой строки плюс D, и при этом не может выходить за границу длинной строки.
+    // ╨Ф╨╗╤П ╨║╨░╨╢╨┤╨╛╨╣ ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨╣ ╤В╨╛╤З╨║╨╕ ╨╜╨░╤З╨░╨╗╨░ ╨┐╨╛╨┤╤Б╤В╨▓╤А╨╛╨║ ╨▓╤Л╤З╨╕╤Б╨╗╤П╨╡╨╝ l - ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╤Г╤О ╨┤╨╗╨╕╨╜╤Г ╨╕╤Б╨║╨╛╨╝╨╛╨╣ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨╕, ╨║╨╛╤В╨╛╤А╨░╤П ╨╜╨╡ ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨▒╨╛╨╗╨╡╨╡ ╨┤╨╗╨╕╨╜╤Л ╨║╨╛╤А╨╛╤В╨║╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕ ╨┐╨╗╤О╤Б D, ╨╕ ╨┐╤А╨╕ ╤Н╤В╨╛╨╝ ╨╜╨╡ ╨╝╨╛╨╢╨╡╤В ╨▓╤Л╤Е╨╛╨┤╨╕╤В╤М ╨╖╨░ ╨│╤А╨░╨╜╨╕╤Ж╤Г ╨┤╨╗╨╕╨╜╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕.
     // Let's compute "l" for every starting position. "l" means the maximal possible length for the required substring (<= StrShort.length+D, but within StrLong).
 {
 
@@ -3173,7 +3173,7 @@ return 0;
 
 
 int PartitionOfNumber (std::vector <std::vector <int>> &B, int n)
-// Генерирует разбиения числа на слагаемые для чисел больше 0 (иначе вернет -1). Результат генерируется в векторе векторов B.
+// ╨У╨╡╨╜╨╡╤А╨╕╤А╤Г╨╡╤В ╤А╨░╨╖╨▒╨╕╨╡╨╜╨╕╤П ╤З╨╕╤Б╨╗╨░ ╨╜╨░ ╤Б╨╗╨░╨│╨░╨╡╨╝╤Л╨╡ ╨┤╨╗╤П ╤З╨╕╤Б╨╡╨╗ ╨▒╨╛╨╗╤М╤И╨╡ 0 (╨╕╨╜╨░╤З╨╡ ╨▓╨╡╤А╨╜╨╡╤В -1). ╨а╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨│╨╡╨╜╨╡╤А╨╕╤А╤Г╨╡╤В╤Б╤П ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ ╨▓╨╡╨║╤В╨╛╤А╨╛╨▓ B.
 //Generates partitions of int n (i.e. representing n as a sum of positive integers) in B. If n<=0 returns empty B and "-1"
 
 {
@@ -3221,8 +3221,8 @@ int PartitionOfNumber (std::vector <std::vector <int>> &B, int n)
 
 
 int PartitionOfNumberL (std::vector <std::vector <int>> &B, int n, int l=-1)
-// Генерирует разбиения числа на слагаемые для чисел больше 0 (иначе вернет -1). Результат генерируется в векторе векторов B. Расширенная версия:
-// можно задать длину разбиения l. Если l>0, то возвращаются только разбиения длиной l. При этом более короткие разбиения "добиваются справа" нулями.
+// ╨У╨╡╨╜╨╡╤А╨╕╤А╤Г╨╡╤В ╤А╨░╨╖╨▒╨╕╨╡╨╜╨╕╤П ╤З╨╕╤Б╨╗╨░ ╨╜╨░ ╤Б╨╗╨░╨│╨░╨╡╨╝╤Л╨╡ ╨┤╨╗╤П ╤З╨╕╤Б╨╡╨╗ ╨▒╨╛╨╗╤М╤И╨╡ 0 (╨╕╨╜╨░╤З╨╡ ╨▓╨╡╤А╨╜╨╡╤В -1). ╨а╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨│╨╡╨╜╨╡╤А╨╕╤А╤Г╨╡╤В╤Б╤П ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ ╨▓╨╡╨║╤В╨╛╤А╨╛╨▓ B. ╨а╨░╤Б╤И╨╕╤А╨╡╨╜╨╜╨░╤П ╨▓╨╡╤А╤Б╨╕╤П:
+// ╨╝╨╛╨╢╨╜╨╛ ╨╖╨░╨┤╨░╤В╤М ╨┤╨╗╨╕╨╜╤Г ╤А╨░╨╖╨▒╨╕╨╡╨╜╨╕╤П l. ╨Х╤Б╨╗╨╕ l>0, ╤В╨╛ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╤О╤В╤Б╤П ╤В╨╛╨╗╤М╨║╨╛ ╤А╨░╨╖╨▒╨╕╨╡╨╜╨╕╤П ╨┤╨╗╨╕╨╜╨╛╨╣ l. ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨▒╨╛╨╗╨╡╨╡ ╨║╨╛╤А╨╛╤В╨║╨╕╨╡ ╤А╨░╨╖╨▒╨╕╨╡╨╜╨╕╤П "╨┤╨╛╨▒╨╕╨▓╨░╤О╤В╤Б╤П ╤Б╨┐╤А╨░╨▓╨░" ╨╜╤Г╨╗╤П╨╝╨╕.
 //Generates partitions of int n (i.e. representing n as a sum of positive integers) in B. Extended version: one may set l>0 as a length of patritions (i.e. number of summands).
 // In this case "0" will be added to the end of the shorter partitions. If n<=0 returns empty B and "-1"
 
@@ -3281,7 +3281,7 @@ int PartitionOfNumberL (std::vector <std::vector <int>> &B, int n, int l=-1)
 
 
 
-bool CompStrDLO (const std::string & s1, const std::string & s2)  //Comparing function for arranging an array (vector) of strings in descending length order / Компаратор для сортировки строк по убыванию длин
+bool CompStrDLO (const std::string & s1, const std::string & s2)  //Comparing function for arranging an array (vector) of strings in descending length order / ╨Ъ╨╛╨╝╨┐╨░╤А╨░╤В╨╛╤А ╨┤╨╗╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ ╤Б╤В╤А╨╛╨║ ╨┐╨╛ ╤Г╨▒╤Л╨▓╨░╨╜╨╕╤О ╨┤╨╗╨╕╨╜
 {
 
   return s1.length() > s2.length();
@@ -3293,9 +3293,9 @@ std::string ShortSuperstringGr (std::vector <std::string> DataS)
 // Generates shortest superstring of an array (vector) of strings DataS via implementing greedy algorithm. In doing so, every string that is a substring of any another one of DataS is to be excluded.
 // DataS is copied (not linked) here as it will be changed here.
 // Returns empty string if DataS is empty or all strings of DataS are empty.
-// Применен "жадный алгоритм" поиска наименьшей надстроки. При этом из рассмотрения исключаются строки, являющиеся подстроками других строк DataS.
-// Исходные данные DataS копируются, а не привязываются по ссылке, т.к. DataS будет изменяться в процессе работы функции
-// Возвращается пустая строка, если DataS - пустой или содержит только пустые строки.
+// ╨Я╤А╨╕╨╝╨╡╨╜╨╡╨╜ "╨╢╨░╨┤╨╜╤Л╨╣ ╨░╨╗╨│╨╛╤А╨╕╤В╨╝" ╨┐╨╛╨╕╤Б╨║╨░ ╨╜╨░╨╕╨╝╨╡╨╜╤М╤И╨╡╨╣ ╨╜╨░╨┤╤Б╤В╤А╨╛╨║╨╕. ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨╕╨╖ ╤А╨░╤Б╤Б╨╝╨╛╤В╤А╨╡╨╜╨╕╤П ╨╕╤Б╨║╨╗╤О╤З╨░╤О╤В╤Б╤П ╤Б╤В╤А╨╛╨║╨╕, ╤П╨▓╨╗╤П╤О╤Й╨╕╨╡╤Б╤П ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨░╨╝╨╕ ╨┤╤А╤Г╨│╨╕╤Е ╤Б╤В╤А╨╛╨║ DataS.
+// ╨Ш╤Б╤Е╨╛╨┤╨╜╤Л╨╡ ╨┤╨░╨╜╨╜╤Л╨╡ DataS ╨║╨╛╨┐╨╕╤А╤Г╤О╤В╤Б╤П, ╨░ ╨╜╨╡ ╨┐╤А╨╕╨▓╤П╨╖╤Л╨▓╨░╤О╤В╤Б╤П ╨┐╨╛ ╤Б╤Б╤Л╨╗╨║╨╡, ╤В.╨║. DataS ╨▒╤Г╨┤╨╡╤В ╨╕╨╖╨╝╨╡╨╜╤П╤В╤М╤Б╤П ╨▓ ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╡ ╤А╨░╨▒╨╛╤В╤Л ╤Д╤Г╨╜╨║╤Ж╨╕╨╕
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П ╨┐╤Г╤Б╤В╨░╤П ╤Б╤В╤А╨╛╨║╨░, ╨╡╤Б╨╗╨╕ DataS - ╨┐╤Г╤Б╤В╨╛╨╣ ╨╕╨╗╨╕ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤В╨╛╨╗╤М╨║╨╛ ╨┐╤Г╤Б╤В╤Л╨╡ ╤Б╤В╤А╨╛╨║╨╕.
 
 
 {
@@ -3333,9 +3333,9 @@ std::string ShortSuperstringGr (std::vector <std::string> DataS)
 
     std::vector <std::vector <int>> Arrow;   // A matrix to contain overlap value between strings i and j
     Arrow.clear();
-    MatrixSet (Arrow, DataS.size(), DataS.size(), 0); // Заготовка матрицы величин "перекрытий" между строками i и j
+    MatrixSet (Arrow, DataS.size(), DataS.size(), 0); // ╨Ч╨░╨│╨╛╤В╨╛╨▓╨║╨░ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╨▓╨╡╨╗╨╕╤З╨╕╨╜ "╨┐╨╡╤А╨╡╨║╤А╤Л╤В╨╕╨╣" ╨╝╨╡╨╢╨┤╤Г ╤Б╤В╤А╨╛╨║╨░╨╝╨╕ i ╨╕ j
 
-    // и ее заполнение величинами перекрытий: конца строки i и начала строки j
+    // ╨╕ ╨╡╨╡ ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╕╨╡ ╨▓╨╡╨╗╨╕╤З╨╕╨╜╨░╨╝╨╕ ╨┐╨╡╤А╨╡╨║╤А╤Л╤В╨╕╨╣: ╨║╨╛╨╜╤Ж╨░ ╤Б╤В╤А╨╛╨║╨╕ i ╨╕ ╨╜╨░╤З╨░╨╗╨░ ╤Б╤В╤А╨╛╨║╨╕ j
     // Filling the matrix Arrow with overlap value of end of i th and begin of j-th strings
 
     int npos=0;
@@ -3366,7 +3366,7 @@ std::string ShortSuperstringGr (std::vector <std::string> DataS)
                 }
 
             }
-       //конец создания заполненной матрицы перекрытий
+       //╨║╨╛╨╜╨╡╤Ж ╤Б╨╛╨╖╨┤╨░╨╜╨╕╤П ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╜╨╛╨╣ ╨╝╨░╤В╤А╨╕╤Ж╤Л ╨┐╨╡╤А╨╡╨║╤А╤Л╤В╨╕╨╣
        //end of Arrow filling
 
 
@@ -3381,21 +3381,21 @@ std::string ShortSuperstringGr (std::vector <std::string> DataS)
            TempS.clear();
 
            mx = 0;
-           for (unsigned int i = 0; (i<DataS.size()); i++)    // ищем максимум mx в 2-мерном массиве и его индексы b & e
+           for (unsigned int i = 0; (i<DataS.size()); i++)    // ╨╕╤Й╨╡╨╝ ╨╝╨░╨║╤Б╨╕╨╝╤Г╨╝ mx ╨▓ 2-╨╝╨╡╤А╨╜╨╛╨╝ ╨╝╨░╤Б╤Б╨╕╨▓╨╡ ╨╕ ╨╡╨│╨╛ ╨╕╨╜╨┤╨╡╨║╤Б╤Л b & e
                 for (unsigned int j = 0; (j<DataS.size()); j++)  // searching for maximum of mx (i.e. overlap value), for such maximum indexes of overlapping strings in DataS will be b and e.
                     if ((i!=j) && (Arrow [i] [j] >= mx)) {mx = Arrow [i] [j]; b = i; e=j;}
 
 
-           TempS = DataS[b].substr(0, DataS[b].length() - mx) + DataS[e]; //это - склейка соотвествующих строк /Glueing of overlapping strings
+           TempS = DataS[b].substr(0, DataS[b].length() - mx) + DataS[e]; //╤Н╤В╨╛ - ╤Б╨║╨╗╨╡╨╣╨║╨░ ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨╕╤Е ╤Б╤В╤А╨╛╨║ /Glueing of overlapping strings
 
-           DataS[b] = TempS; //теперь ее пишем вместо b-й строки, дальше перестроим наш двумерный массив / and this new glued string shold be write instead of b-th string
+           DataS[b] = TempS; //╤В╨╡╨┐╨╡╤А╤М ╨╡╨╡ ╨┐╨╕╤И╨╡╨╝ ╨▓╨╝╨╡╤Б╤В╨╛ b-╨╣ ╤Б╤В╤А╨╛╨║╨╕, ╨┤╨░╨╗╤М╤И╨╡ ╨┐╨╡╤А╨╡╤Б╤В╤А╨╛╨╕╨╝ ╨╜╨░╤И ╨┤╨▓╤Г╨╝╨╡╤А╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ / and this new glued string shold be write instead of b-th string
 
            for (unsigned int ii = 0; (ii<DataS.size()); ii++)
-                Arrow [ii] [e] = -1;  //"обнуляем" столбец e - в строку e слева не войдет больше ни одна строка / switching off e-th coloumn
+                Arrow [ii] [e] = -1;  //"╨╛╨▒╨╜╤Г╨╗╤П╨╡╨╝" ╤Б╤В╨╛╨╗╨▒╨╡╤Ж e - ╨▓ ╤Б╤В╤А╨╛╨║╤Г e ╤Б╨╗╨╡╨▓╨░ ╨╜╨╡ ╨▓╨╛╨╣╨┤╨╡╤В ╨▒╨╛╨╗╤М╤И╨╡ ╨╜╨╕ ╨╛╨┤╨╜╨░ ╤Б╤В╤А╨╛╨║╨░ / switching off e-th coloumn
 
 
            for (unsigned int jjj = 0; (jjj<DataS.size()); jjj++)
-                {Arrow [b] [jjj] = Arrow [e] [jjj];  //строку  e - в строку b, строку e обнулить (теперь выходит все из b) / copying row e to b, switching off e-th row
+                {Arrow [b] [jjj] = Arrow [e] [jjj];  //╤Б╤В╤А╨╛╨║╤Г  e - ╨▓ ╤Б╤В╤А╨╛╨║╤Г b, ╤Б╤В╤А╨╛╨║╤Г e ╨╛╨▒╨╜╤Г╨╗╨╕╤В╤М (╤В╨╡╨┐╨╡╤А╤М ╨▓╤Л╤Е╨╛╨┤╨╕╤В ╨▓╤Б╨╡ ╨╕╨╖ b) / copying row e to b, switching off e-th row
                 Arrow [e] [jjj] = -1;}
 
        }
@@ -3412,11 +3412,11 @@ std::string ShortSuperstringGr (std::vector <std::string> DataS)
 
 int TrieMake (std::vector <std::string> &DataS, std::vector <int> & Trie)
 // Trie constructing upon vector of strings DataS
-// Построение префиксного дерева Trie по массиву строк DataS
+// ╨Я╨╛╤Б╤В╤А╨╛╨╡╨╜╨╕╨╡ ╨┐╤А╨╡╤Д╨╕╨║╤Б╨╜╨╛╨│╨╛ ╨┤╨╡╤А╨╡╨▓╨░ Trie ╨┐╨╛ ╨╝╨░╤Б╤Б╨╕╨▓╤Г ╤Б╤В╤А╨╛╨║ DataS
 
 {
     Trie.clear(); // Here Trie will be contained as a number of triplets of integers (a = Trie [3i], b = Trie [3i+1], c = Trie [3i+2], i = 0, 1, ...). Each triplet means an edge a->b marked with symbol (char) c. Vertices in the Tree are numerated starting with "1".
-    // Здесь будет само дерево в виде набора триплетов чисел. Первые два задают ребро графа, а третье - соотвествующий символ (букву). Вершины графа нумеруются с 1.
+    // ╨Ч╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╤Б╨░╨╝╨╛ ╨┤╨╡╤А╨╡╨▓╨╛ ╨▓ ╨▓╨╕╨┤╨╡ ╨╜╨░╨▒╨╛╤А╨░ ╤В╤А╨╕╨┐╨╗╨╡╤В╨╛╨▓ ╤З╨╕╤Б╨╡╨╗. ╨Я╨╡╤А╨▓╤Л╨╡ ╨┤╨▓╨░ ╨╖╨░╨┤╨░╤О╤В ╤А╨╡╨▒╤А╨╛ ╨│╤А╨░╤Д╨░, ╨░ ╤В╤А╨╡╤В╤М╨╡ - ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨╕╨╣ ╤Б╨╕╨╝╨▓╨╛╨╗ (╨▒╤Г╨║╨▓╤Г). ╨Т╨╡╤А╤И╨╕╨╜╤Л ╨│╤А╨░╤Д╨░ ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╤Б 1.
 
     if (DataS.size()<2) return -1; // Function works for at least 2 strings
 
@@ -3429,25 +3429,25 @@ int TrieMake (std::vector <std::string> &DataS, std::vector <int> & Trie)
     int ind, l;
 
 
-    for (int i=0;i<DataS[0].length();i++)   // формирование графа по 1 строке / Pushing to Trie the first (the longest) string from dataset
+    for (int i=0;i<DataS[0].length();i++)   // ╤Д╨╛╤А╨╝╨╕╤А╨╛╨▓╨░╨╜╨╕╨╡ ╨│╤А╨░╤Д╨░ ╨┐╨╛ 1 ╤Б╤В╤А╨╛╨║╨╡ / Pushing to Trie the first (the longest) string from dataset
      {
          Trie.push_back(i+1);
          Trie.push_back(i+2);
          Trie.push_back( (int)DataS[0][i]  );
-         last = (i+2);  // сохраняем номер последней (наибольшей) вершины / number of the very last vertex added (i.e. the maximal vertex number at any time)
+         last = (i+2);  // ╤Б╨╛╤Е╤А╨░╨╜╤П╨╡╨╝ ╨╜╨╛╨╝╨╡╤А ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨╣ (╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣) ╨▓╨╡╤А╤И╨╕╨╜╤Л / number of the very last vertex added (i.e. the maximal vertex number at any time)
      }
 
 
 
 
 
-     for (int j=1;j<DataS.size();j++)  // добавляем остальные строки  / Pushing all the rest strings to Trie
+     for (int j=1;j<DataS.size();j++)  // ╨┤╨╛╨▒╨░╨▓╨╗╤П╨╡╨╝ ╨╛╤Б╤В╨░╨╗╤М╨╜╤Л╨╡ ╤Б╤В╤А╨╛╨║╨╕  / Pushing all the rest strings to Trie
      {
 
 
          TempS = DataS[j];
-         ind = 1; // the number of vertex from which we are searching Trie for symbols matching (when matching is found "ind" will be the number of relevant sinr-vertex)/ с которой вершины ищем совпадающие символы (начинаем всегда с первой, затем, после добавления, берем вершину-сток из соответствующего ребра)
-         l = 0; // counter of added symbols of every string being processed / счетчик добавленных символов по очередной строке
+         ind = 1; // the number of vertex from which we are searching Trie for symbols matching (when matching is found "ind" will be the number of relevant sinr-vertex)/ ╤Б ╨║╨╛╤В╨╛╤А╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╕╤Й╨╡╨╝ ╤Б╨╛╨▓╨┐╨░╨┤╨░╤О╤Й╨╕╨╡ ╤Б╨╕╨╝╨▓╨╛╨╗╤Л (╨╜╨░╤З╨╕╨╜╨░╨╡╨╝ ╨▓╤Б╨╡╨│╨┤╨░ ╤Б ╨┐╨╡╤А╨▓╨╛╨╣, ╨╖╨░╤В╨╡╨╝, ╨┐╨╛╤Б╨╗╨╡ ╨┤╨╛╨▒╨░╨▓╨╗╨╡╨╜╨╕╤П, ╨▒╨╡╤А╨╡╨╝ ╨▓╨╡╤А╤И╨╕╨╜╤Г-╤Б╤В╨╛╨║ ╨╕╨╖ ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╤О╤Й╨╡╨│╨╛ ╤А╨╡╨▒╤А╨░)
+         l = 0; // counter of added symbols of every string being processed / ╤Б╤З╨╡╤В╤З╨╕╨║ ╨┤╨╛╨▒╨░╨▓╨╗╨╡╨╜╨╜╤Л╤Е ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓ ╨┐╨╛ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╡
 
          lq: ;
 
@@ -3487,12 +3487,12 @@ int TrieMake (std::vector <std::string> &DataS, std::vector <int> & Trie)
 
 void Num (std::string & Numbers, std::vector <double> & A)
 {
-    // перегон строки с числами <double> в массив (вектор) А
+    // ╨┐╨╡╤А╨╡╨│╨╛╨╜ ╤Б╤В╤А╨╛╨║╨╕ ╤Б ╤З╨╕╤Б╨╗╨░╨╝╨╕ <double> ╨▓ ╨╝╨░╤Б╤Б╨╕╨▓ (╨▓╨╡╨║╤В╨╛╤А) ╨Р
     // converts string of numbers <double> (separated by spaces) to a vector of numbers
 
     A.clear();
 
-    int q = 0;  // удаление лишних пробелов если есть / deletind doubled spaces
+    int q = 0;  // ╤Г╨┤╨░╨╗╨╡╨╜╨╕╨╡ ╨╗╨╕╤И╨╜╨╕╤Е ╨┐╤А╨╛╨▒╨╡╨╗╨╛╨▓ ╨╡╤Б╨╗╨╕ ╨╡╤Б╤В╤М / deletind doubled spaces
     while (Numbers.find ("  ", q) != -1)
     {
         q = Numbers.find ("  ", q);
@@ -3508,10 +3508,10 @@ void Num (std::string & Numbers, std::vector <double> & A)
 
 
     std::string TempS = "";
-    int b=0; //начало каждого числа в строке  / The start position of a number
-    int e=0; // конец числа в строке / the end position
-    double r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    int b=0; //╨╜╨░╤З╨░╨╗╨╛ ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤З╨╕╤Б╨╗╨░ ╨▓ ╤Б╤В╤А╨╛╨║╨╡  / The start position of a number
+    int e=0; // ╨║╨╛╨╜╨╡╤Ж ╤З╨╕╤Б╨╗╨░ ╨▓ ╤Б╤В╤А╨╛╨║╨╡ / the end position
+    double r;  //╤Б╤О╨┤╨░ ╨┐╨╕╤Б╨░╤В╤М ╤Б╨░╨╝╨╛ ╤З╨╕╤Б╨╗╨╛ / a variable to contain a number
+    while (Numbers.find (" ", b) != -1)  //╤З╨╕╤Б╨╗╨╛ - ╨┤╨╛ ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╡╨│╨╛ ╨┐╤А╨╛╨▒╨╡╨╗╨░
     {
         e = Numbers.find (" ", b)-1;
         TempS = Numbers.substr(b, e-b+1);
@@ -3522,7 +3522,7 @@ void Num (std::string & Numbers, std::vector <double> & A)
         TempS.clear();
     }
 
-    TempS = Numbers.substr(b, Numbers.length()-b);  // еще одна итерация - от последнего пробела до конца строки / the last iteration - up to the string's end
+    TempS = Numbers.substr(b, Numbers.length()-b);  // ╨╡╤Й╨╡ ╨╛╨┤╨╜╨░ ╨╕╤В╨╡╤А╨░╤Ж╨╕╤П - ╨╛╤В ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨│╨╛ ╨┐╤А╨╛╨▒╨╡╨╗╨░ ╨┤╨╛ ╨║╨╛╨╜╤Ж╨░ ╤Б╤В╤А╨╛╨║╨╕ / the last iteration - up to the string's end
     r = atof(TempS.c_str());
     A.push_back(r);
     TempS.clear();
@@ -3532,13 +3532,13 @@ void Num (std::string & Numbers, std::vector <double> & A)
 
 void Num (std::string & Numbers, std::vector <int> & A)
 {
-    // перегон строки с числами int в массив (вектор) А
+    // ╨┐╨╡╤А╨╡╨│╨╛╨╜ ╤Б╤В╤А╨╛╨║╨╕ ╤Б ╤З╨╕╤Б╨╗╨░╨╝╨╕ int ╨▓ ╨╝╨░╤Б╤Б╨╕╨▓ (╨▓╨╡╨║╤В╨╛╤А) ╨Р
     // converts string of numbers <int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
 
-    int q = 0;  // удаление лишних пробелов / deleting doubled spaces
+    int q = 0;  // ╤Г╨┤╨░╨╗╨╡╨╜╨╕╨╡ ╨╗╨╕╤И╨╜╨╕╤Е ╨┐╤А╨╛╨▒╨╡╨╗╨╛╨▓ / deleting doubled spaces
     while (Numbers.find ("  ", q) != -1)
     {
         q = Numbers.find ("  ", q);
@@ -3553,10 +3553,10 @@ void Num (std::string & Numbers, std::vector <int> & A)
     {Numbers.erase((Numbers.length()-1), 1);}
 
     std::string TempS = "";
-    int b=0; //начало каждого числа в строке  / The start position of a number
-    int e=0; // конец числа в строке / the end position
-    int r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    int b=0; //╨╜╨░╤З╨░╨╗╨╛ ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤З╨╕╤Б╨╗╨░ ╨▓ ╤Б╤В╤А╨╛╨║╨╡  / The start position of a number
+    int e=0; // ╨║╨╛╨╜╨╡╤Ж ╤З╨╕╤Б╨╗╨░ ╨▓ ╤Б╤В╤А╨╛╨║╨╡ / the end position
+    int r;  //╤Б╤О╨┤╨░ ╨┐╨╕╤Б╨░╤В╤М ╤Б╨░╨╝╨╛ ╤З╨╕╤Б╨╗╨╛ / a variable to contain a number
+    while (Numbers.find (" ", b) != -1)  //╤З╨╕╤Б╨╗╨╛ - ╨┤╨╛ ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╡╨│╨╛ ╨┐╤А╨╛╨▒╨╡╨╗╨░
     {
         e = Numbers.find (" ", b)-1;
         TempS = Numbers.substr(b, e-b+1);
@@ -3567,7 +3567,7 @@ void Num (std::string & Numbers, std::vector <int> & A)
         TempS.clear();
     }
 
-    TempS = Numbers.substr(b, Numbers.length()-b);  // еще одна итерация - от последнего пробела до конца строки / the last iteration - up to the string's end
+    TempS = Numbers.substr(b, Numbers.length()-b);  // ╨╡╤Й╨╡ ╨╛╨┤╨╜╨░ ╨╕╤В╨╡╤А╨░╤Ж╨╕╤П - ╨╛╤В ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨│╨╛ ╨┐╤А╨╛╨▒╨╡╨╗╨░ ╨┤╨╛ ╨║╨╛╨╜╤Ж╨░ ╤Б╤В╤А╨╛╨║╨╕ / the last iteration - up to the string's end
     r = atoi(TempS.c_str());
     A.push_back(r);
     TempS.clear();
@@ -3576,9 +3576,9 @@ void Num (std::string & Numbers, std::vector <int> & A)
 
 
 int Num (std::string & Numbers, int &a1,int &a2, double &a3)
-// Вспомогательная функция: перегон строки, содержащей 3 числа, разделенных пробелами (пара целых, задающих вершины ребра и одного double) соответственно в int a1,int a2, double a3. Числа должны быть разделены пробелами, а более ничего строка содержать не должна.
-// Возвращает -1 если выявлена ошибка исходных данных (нет 3х "кандидатов в числа").
-// При этом проверка на то, что конвертируемая в число подстрока содержит лишь цифры и десятичный разделитель, в данной версии функции НЕ проводится.
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П: ╨┐╨╡╤А╨╡╨│╨╛╨╜ ╤Б╤В╤А╨╛╨║╨╕, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╨╡╨╣ 3 ╤З╨╕╤Б╨╗╨░, ╤А╨░╨╖╨┤╨╡╨╗╨╡╨╜╨╜╤Л╤Е ╨┐╤А╨╛╨▒╨╡╨╗╨░╨╝╨╕ (╨┐╨░╤А╨░ ╤Ж╨╡╨╗╤Л╤Е, ╨╖╨░╨┤╨░╤О╤Й╨╕╤Е ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨╡╨▒╤А╨░ ╨╕ ╨╛╨┤╨╜╨╛╨│╨╛ double) ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╨╡╨╜╨╜╨╛ ╨▓ int a1,int a2, double a3. ╨з╨╕╤Б╨╗╨░ ╨┤╨╛╨╗╨╢╨╜╤Л ╨▒╤Л╤В╤М ╤А╨░╨╖╨┤╨╡╨╗╨╡╨╜╤Л ╨┐╤А╨╛╨▒╨╡╨╗╨░╨╝╨╕, ╨░ ╨▒╨╛╨╗╨╡╨╡ ╨╜╨╕╤З╨╡╨│╨╛ ╤Б╤В╤А╨╛╨║╨░ ╤Б╨╛╨┤╨╡╤А╨╢╨░╤В╤М ╨╜╨╡ ╨┤╨╛╨╗╨╢╨╜╨░.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╡╤Б╨╗╨╕ ╨▓╤Л╤П╨▓╨╗╨╡╨╜╨░ ╨╛╤И╨╕╨▒╨║╨░ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е (╨╜╨╡╤В 3╤Е "╨║╨░╨╜╨┤╨╕╨┤╨░╤В╨╛╨▓ ╨▓ ╤З╨╕╤Б╨╗╨░").
+// ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨┐╤А╨╛╨▓╨╡╤А╨║╨░ ╨╜╨░ ╤В╨╛, ╤З╤В╨╛ ╨║╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╨╝╨░╤П ╨▓ ╤З╨╕╤Б╨╗╨╛ ╨┐╨╛╨┤╤Б╤В╤А╨╛╨║╨░ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨╗╨╕╤И╤М ╤Ж╨╕╤Д╤А╤Л ╨╕ ╨┤╨╡╤Б╤П╤В╨╕╤З╨╜╤Л╨╣ ╤А╨░╨╖╨┤╨╡╨╗╨╕╤В╨╡╨╗╤М, ╨▓ ╨┤╨░╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤Б╨╕╨╕ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ ╨Э╨Х ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П.
 // Converts a string to 3 numbers (2 integers and 1 double; they should be separated by spaces in the string and the string should not contain any other symbols) to int &1,int a2, double a3.
 // Returns -1 if input data is incorrect (no 3 "candidates to numbers" are found).
 // But note that here is NO checking if a substring to be converted to a number contains digits and decimal point only.
@@ -3586,7 +3586,7 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 
 {
 
-    int q = 0;  // удаление лишних пробелов если есть / deletind doubled spaces
+    int q = 0;  // ╤Г╨┤╨░╨╗╨╡╨╜╨╕╨╡ ╨╗╨╕╤И╨╜╨╕╤Е ╨┐╤А╨╛╨▒╨╡╨╗╨╛╨▓ ╨╡╤Б╨╗╨╕ ╨╡╤Б╤В╤М / deletind doubled spaces
     while (Numbers.find ("  ", q) != -1)
     {
         q = Numbers.find ("  ", q);
@@ -3602,8 +3602,8 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 
 
     std::string TempS = "";
-    int b=0; //начало каждого числа в строке  / The start position of a number
-    int e=0; // конец числа в строке / the end position
+    int b=0; //╨╜╨░╤З╨░╨╗╨╛ ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤З╨╕╤Б╨╗╨░ ╨▓ ╤Б╤В╤А╨╛╨║╨╡  / The start position of a number
+    int e=0; // ╨║╨╛╨╜╨╡╤Ж ╤З╨╕╤Б╨╗╨░ ╨▓ ╤Б╤В╤А╨╛╨║╨╡ / the end position
 
     e = Numbers.find (" ", b)-1; //reading the first int - i.e. the first vertex of an edge
     if (e<0) return -1;
@@ -3639,17 +3639,17 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 
 
 int UWGraphRead (std::ifstream & fin, std::vector <int> & A)
-// Чтение невзвешенного графа в вектор смежности.
-// Назовем вектором смежности для взвешенного графа упорядоченный набор (массив) четного кол-ва чисел (а[2i], a[2i+1],... / i нумеруется c 0 /),
-// где каждая пара чисел а[2i], a[2i+1] задает ребро графа между вершинами а[2i] и a[2i+1] ("список ребер в строку").
-// Данный формат не содержит информации, является ли граф ориентированным или нет (возможны оба варианта). При использовании формата для орграфа считается, что ребро направлено из а[2i] в a[2i+1].
-// Предполагается считывание из файла, содержащего список ребер (каждое ребро - отдельная строка)
-// Возвращает -1 и пустой вектор A, если полученный вектор смежности пустой или же при считывании очередного ребра считано не 2 элемента (числа)
+// ╨з╤В╨╡╨╜╨╕╨╡ ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╨▓ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕.
+// ╨Э╨░╨╖╨╛╨▓╨╡╨╝ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨┤╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╤Г╨┐╨╛╤А╤П╨┤╨╛╤З╨╡╨╜╨╜╤Л╨╣ ╨╜╨░╨▒╨╛╤А (╨╝╨░╤Б╤Б╨╕╨▓) ╤З╨╡╤В╨╜╨╛╨│╨╛ ╨║╨╛╨╗-╨▓╨░ ╤З╨╕╤Б╨╡╨╗ (╨░[2i], a[2i+1],... / i ╨╜╤Г╨╝╨╡╤А╤Г╨╡╤В╤Б╤П c 0 /),
+// ╨│╨┤╨╡ ╨║╨░╨╢╨┤╨░╤П ╨┐╨░╤А╨░ ╤З╨╕╤Б╨╡╨╗ ╨░[2i], a[2i+1] ╨╖╨░╨┤╨░╨╡╤В ╤А╨╡╨▒╤А╨╛ ╨│╤А╨░╤Д╨░ ╨╝╨╡╨╢╨┤╤Г ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕ ╨░[2i] ╨╕ a[2i+1] ("╤Б╨┐╨╕╤Б╨╛╨║ ╤А╨╡╨▒╨╡╤А ╨▓ ╤Б╤В╤А╨╛╨║╤Г").
+// ╨Ф╨░╨╜╨╜╤Л╨╣ ╤Д╨╛╤А╨╝╨░╤В ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╨╕, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╝ ╨╕╨╗╨╕ ╨╜╨╡╤В (╨▓╨╛╨╖╨╝╨╛╨╢╨╜╤Л ╨╛╨▒╨░ ╨▓╨░╤А╨╕╨░╨╜╤В╨░). ╨Я╤А╨╕ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╨╕ ╤Д╨╛╤А╨╝╨░╤В╨░ ╨┤╨╗╤П ╨╛╤А╨│╤А╨░╤Д╨░ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╤А╨╡╨▒╤А╨╛ ╨╜╨░╨┐╤А╨░╨▓╨╗╨╡╨╜╨╛ ╨╕╨╖ ╨░[2i] ╨▓ a[2i+1].
+// ╨Я╤А╨╡╨┤╨┐╨╛╨╗╨░╨│╨░╨╡╤В╤Б╤П ╤Б╤З╨╕╤В╤Л╨▓╨░╨╜╨╕╨╡ ╨╕╨╖ ╤Д╨░╨╣╨╗╨░, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╨╡╨│╨╛ ╤Б╨┐╨╕╤Б╨╛╨║ ╤А╨╡╨▒╨╡╤А (╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ - ╨╛╤В╨┤╨╡╨╗╤М╨╜╨░╤П ╤Б╤В╤А╨╛╨║╨░)
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ ╨▓╨╡╨║╤В╨╛╤А A, ╨╡╤Б╨╗╨╕ ╨┐╨╛╨╗╤Г╤З╨╡╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ ╨╕╨╗╨╕ ╨╢╨╡ ╨┐╤А╨╕ ╤Б╤З╨╕╤В╤Л╨▓╨░╨╜╨╕╨╕ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨│╨╛ ╤А╨╡╨▒╤А╨░ ╤Б╤З╨╕╤В╨░╨╜╨╛ ╨╜╨╡ 2 ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (╤З╨╕╤Б╨╗╨░)
 
 // Reads Edge list to "Adjacency vector" of unweighted graph. Let "Adjacency vector" of unweighted graph be a data structure,
-// that contains array of integers such as а[2i], a[2i+1],... / 0-basing indexing in array /.
-// So such array contains even number of elements. Every pair а[2i], a[2i+1] means an edge between vertex а[2i] and а[2i+1] (~ "Edge list as one String").
-// This format don't identify the graph as directed or undirected (both cases may be). If the graph is considered as directed, its edges should be considered as а[2i] -> a[2i+1].
+// that contains array of integers such as ╨░[2i], a[2i+1],... / 0-basing indexing in array /.
+// So such array contains even number of elements. Every pair ╨░[2i], a[2i+1] means an edge between vertex ╨░[2i] and ╨░[2i+1] (~ "Edge list as one String").
+// This format don't identify the graph as directed or undirected (both cases may be). If the graph is considered as directed, its edges should be considered as ╨░[2i] -> a[2i+1].
 // Input file should be in edge list format, every edge in new line.
 // Returns -1 and empty "Adjacency vector" A if any line contains number of elements that !=2.
 
@@ -3681,15 +3681,15 @@ int UWGraphRead (std::ifstream & fin, std::vector <int> & A)
 
 
 int WGraphRead (std::ifstream & fin, std::vector <int> & A)
-// Чтение взвешенного графа в вектор смежности. Назовем вектором смежности для взвешенного графа упорядоченный набор (массив) чисел (а[3i], a[3i+1], a[3i+2],... / i нумеруется c 0 /), где каждая тройка чисел а[3i], a[3i+1] задает ребро графа между вершинами а[3i] и a[3i+1], а a[3i+2] есть вес этого ребра, ("список ребер в строку").
-// Рассматриваемый формат не содержит информации, является граф ориентированным или нет (возможны оба варианта). При использовании формата для орграфа считается, что ребро направлено из а[3i] в a[3i+1].
-// Данная структура данных занимает меньше памяти, чем матрица смежности, и может быть удобна для решения ряда задач.
-// Предполагается считывание из файла, содержащего список смежности (каждое ребро - отдельная строка)
-// Возвращает -1 и пустой вектор A, , если полученный вектор смежности пустой или же при считывании очередного ребра считано не 3 элемента (числа)
+// ╨з╤В╨╡╨╜╨╕╨╡ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╨▓ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕. ╨Э╨░╨╖╨╛╨▓╨╡╨╝ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨┤╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╤Г╨┐╨╛╤А╤П╨┤╨╛╤З╨╡╨╜╨╜╤Л╨╣ ╨╜╨░╨▒╨╛╤А (╨╝╨░╤Б╤Б╨╕╨▓) ╤З╨╕╤Б╨╡╨╗ (╨░[3i], a[3i+1], a[3i+2],... / i ╨╜╤Г╨╝╨╡╤А╤Г╨╡╤В╤Б╤П c 0 /), ╨│╨┤╨╡ ╨║╨░╨╢╨┤╨░╤П ╤В╤А╨╛╨╣╨║╨░ ╤З╨╕╤Б╨╡╨╗ ╨░[3i], a[3i+1] ╨╖╨░╨┤╨░╨╡╤В ╤А╨╡╨▒╤А╨╛ ╨│╤А╨░╤Д╨░ ╨╝╨╡╨╢╨┤╤Г ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕ ╨░[3i] ╨╕ a[3i+1], ╨░ a[3i+2] ╨╡╤Б╤В╤М ╨▓╨╡╤Б ╤Н╤В╨╛╨│╨╛ ╤А╨╡╨▒╤А╨░, ("╤Б╨┐╨╕╤Б╨╛╨║ ╤А╨╡╨▒╨╡╤А ╨▓ ╤Б╤В╤А╨╛╨║╤Г").
+// ╨а╨░╤Б╤Б╨╝╨░╤В╤А╨╕╨▓╨░╨╡╨╝╤Л╨╣ ╤Д╨╛╤А╨╝╨░╤В ╨╜╨╡ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╨╕, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨│╤А╨░╤Д ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╝ ╨╕╨╗╨╕ ╨╜╨╡╤В (╨▓╨╛╨╖╨╝╨╛╨╢╨╜╤Л ╨╛╨▒╨░ ╨▓╨░╤А╨╕╨░╨╜╤В╨░). ╨Я╤А╨╕ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╨╕ ╤Д╨╛╤А╨╝╨░╤В╨░ ╨┤╨╗╤П ╨╛╤А╨│╤А╨░╤Д╨░ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╤А╨╡╨▒╤А╨╛ ╨╜╨░╨┐╤А╨░╨▓╨╗╨╡╨╜╨╛ ╨╕╨╖ ╨░[3i] ╨▓ a[3i+1].
+// ╨Ф╨░╨╜╨╜╨░╤П ╤Б╤В╤А╤Г╨║╤В╤Г╤А╨░ ╨┤╨░╨╜╨╜╤Л╤Е ╨╖╨░╨╜╨╕╨╝╨░╨╡╤В ╨╝╨╡╨╜╤М╤И╨╡ ╨┐╨░╨╝╤П╤В╨╕, ╤З╨╡╨╝ ╨╝╨░╤В╤А╨╕╤Ж╨░ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨╕ ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╤Г╨┤╨╛╨▒╨╜╨░ ╨┤╨╗╤П ╤А╨╡╤И╨╡╨╜╨╕╤П ╤А╤П╨┤╨░ ╨╖╨░╨┤╨░╤З.
+// ╨Я╤А╨╡╨┤╨┐╨╛╨╗╨░╨│╨░╨╡╤В╤Б╤П ╤Б╤З╨╕╤В╤Л╨▓╨░╨╜╨╕╨╡ ╨╕╨╖ ╤Д╨░╨╣╨╗╨░, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╨╡╨│╨╛ ╤Б╨┐╨╕╤Б╨╛╨║ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ (╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ - ╨╛╤В╨┤╨╡╨╗╤М╨╜╨░╤П ╤Б╤В╤А╨╛╨║╨░)
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ ╨▓╨╡╨║╤В╨╛╤А A, , ╨╡╤Б╨╗╨╕ ╨┐╨╛╨╗╤Г╤З╨╡╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ ╨╕╨╗╨╕ ╨╢╨╡ ╨┐╤А╨╕ ╤Б╤З╨╕╤В╤Л╨▓╨░╨╜╨╕╨╕ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨│╨╛ ╤А╨╡╨▒╤А╨░ ╤Б╤З╨╕╤В╨░╨╜╨╛ ╨╜╨╡ 3 ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨░ (╤З╨╕╤Б╨╗╨░)
 
-// Reads Edges list to "Adjacency vector" of weighted graph. Let "Adjacency vector" of weighted graph be a data structure, that contains array of integers such as а[3i], a[3i+1], a[3i+2],... / 0-basing indexing in array /.
-// So such array contains 3n number of elements. Every pair а[3i], a[3i+1] means an edge between vertex а[3i] and а[3i+1] with weight a[3i+2]("Edge list as one String").
-// This format don't identify the graph as directed or undirected (both cases may be). If the graph is considered as directed, its edges should be considered as а[3i] -> a[3i+1].
+// Reads Edges list to "Adjacency vector" of weighted graph. Let "Adjacency vector" of weighted graph be a data structure, that contains array of integers such as ╨░[3i], a[3i+1], a[3i+2],... / 0-basing indexing in array /.
+// So such array contains 3n number of elements. Every pair ╨░[3i], a[3i+1] means an edge between vertex ╨░[3i] and ╨░[3i+1] with weight a[3i+2]("Edge list as one String").
+// This format don't identify the graph as directed or undirected (both cases may be). If the graph is considered as directed, its edges should be considered as ╨░[3i] -> a[3i+1].
 // Input file should be in edge list format, every edge in new line.
 // Returns -1 and empty "Adjacency vector" A if any line contains number of elements of any line that !=3.
 
@@ -3722,9 +3722,9 @@ int WGraphRead (std::ifstream & fin, std::vector <int> & A)
 
 
 int WGraphRead (std::ifstream & fin, std::pair < std::vector<int>, std::vector<double>> & A)
-// Модификация функции WGraphRead (см. выше) для случая нецелочисленных весов ребер (double).
-// Чтение проводится в пару векторов pair < std::vector<int>, std::vector<double>> & A, где первый вектор является вектором смежности считываемого графа без указания весов,
-// а второй вектор содержит соотвествующие веса. Соотвественно для ребра задаваемого парой вершин под индексами 2*i, 2*i+1 первого вектора вес будет равен элементу под индексом i второго вектора.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ WGraphRead (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А (double).
+// ╨з╤В╨╡╨╜╨╕╨╡ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П ╨▓ ╨┐╨░╤А╤Г ╨▓╨╡╨║╤В╨╛╤А╨╛╨▓ pair < std::vector<int>, std::vector<double>> & A, ╨│╨┤╨╡ ╨┐╨╡╤А╨▓╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╨╝╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╨▒╨╡╨╖ ╤Г╨║╨░╨╖╨░╨╜╨╕╤П ╨▓╨╡╤Б╨╛╨▓,
+// ╨░ ╨▓╤В╨╛╤А╨╛╨╣ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╤Б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╤Г╤О╤Й╨╕╨╡ ╨▓╨╡╤Б╨░. ╨б╨╛╨╛╤В╨▓╨╡╤Б╤В╨▓╨╡╨╜╨╜╨╛ ╨┤╨╗╤П ╤А╨╡╨▒╤А╨░ ╨╖╨░╨┤╨░╨▓╨░╨╡╨╝╨╛╨│╨╛ ╨┐╨░╤А╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜ ╨┐╨╛╨┤ ╨╕╨╜╨┤╨╡╨║╤Б╨░╨╝╨╕ 2*i, 2*i+1 ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨▓╨╡╤Б ╨▒╤Г╨┤╨╡╤В ╤А╨░╨▓╨╡╨╜ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╤Г ╨┐╨╛╨┤ ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨╝ i ╨▓╤В╨╛╤А╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨░.
 
 // Modification of the function WGraphRead (see it above) for not-integer (double) weihgts of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weigths are set in the second one.
@@ -3815,7 +3815,7 @@ int RangeVGraph (std::vector <int> & A, int & mx, int & mn, const bool weighted,
 
 
 int RenumVGraph (std::vector <int> & A, const int d, const bool weighted, bool IgnoreWeighted = false)
-//Renumerates vertices adding d-parameter (d may be non-negative or negative) / Перенумеровывавает вершины графа: прибавляет величину d (может быть положительной и отрицательной)
+//Renumerates vertices adding d-parameter (d may be non-negative or negative) / ╨Я╨╡╤А╨╡╨╜╤Г╨╝╨╡╤А╨╛╨▓╤Л╨▓╨░╨▓╨░╨╡╤В ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨│╤А╨░╤Д╨░: ╨┐╤А╨╕╨▒╨░╨▓╨╗╤П╨╡╤В ╨▓╨╡╨╗╨╕╤З╨╕╨╜╤Г d (╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╨╛╨╣ ╨╕ ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╨╛╨╣)
 // Graph must be set as "Adjacency vector", bool "weighted" sets if the graph is weighted or no.
 // If (IgnoreWeighted = true) the function adds d to every element in A without any dataset checking
 
@@ -3941,7 +3941,7 @@ int AdjMatrix2AdjVector (std::vector <int> & A, const std::vector <std::vector <
     if (B.size()==0) return -1;
 
     for (int y=0; y<B.size(); y++)  // lets test: if the matrix B is a "square"
-        if (B.size()!=B[y].size()) return -1; // тест на квадратность
+        if (B.size()!=B[y].size()) return -1; // ╤В╨╡╤Б╤В ╨╜╨░ ╨║╨▓╨░╨┤╤А╨░╤В╨╜╨╛╤Б╤В╤М
 
 
     int t;
@@ -4022,7 +4022,7 @@ int AdjMatrix2AdjVector (std::pair < std::vector<int>, std::vector<double>> & A,
     if (B.size()==0) return -1;
 
     for (unsigned int y=0; y<B.size(); y++)  // lets test: if the matrix B is a "square"
-        if (B.size()!=B[y].size()) return -1; // тест на квадратность
+        if (B.size()!=B[y].size()) return -1; // ╤В╨╡╤Б╤В ╨╜╨░ ╨║╨▓╨░╨┤╤А╨░╤В╨╜╨╛╤Б╤В╤М
 
 
     double t;
@@ -4064,9 +4064,9 @@ int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, in
 // Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
 // Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
 // Returns -1 if input data is not correct. Otherwise returns 0.
-// Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. Для невзвешенного графа считаем вес всех ребер = 1.
-// Возвращает -1 в случае некорректности исходных данных.
-// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+// ╨Ъ╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╤В ╨Т╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A ╨▓ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ G2. ╨Ь╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╡ ╤А╨╡╨▒╤А╨░ ╨▒╤Г╨┤╤Г╤В ╨╛╨▒╤К╨╡╨┤╨╕╨╜╨╡╨╜╤Л ╤Б ╤Б╤Г╨╝╨╝╨░╤А╨╜╤Л╨╝ ╨▓╨╡╤Б╨╛╨╝. ╨Ф╨╗╤П ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨▓╨╡╤Б ╨▓╤Б╨╡╤Е ╤А╨╡╨▒╨╡╤А = 1.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А weighted ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝ (╨Ш╤Б╤В╨╕╨╜╨░) ╨╕╨╗╨╕ ╨╜╨╡╤В.
 
 
 {
@@ -4122,8 +4122,8 @@ int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, in
 int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)
 // Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
 // Returns -1 if input data is not correct. Otherwise returns 0.
-// Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом.
-// Возвращает -1 в случае некорректности исходных данных.
+// ╨Ъ╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╤В ╨Т╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A ╨▓ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ G2. ╨Ь╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╡ ╤А╨╡╨▒╤А╨░ ╨▒╤Г╨┤╤Г╤В ╨╛╨▒╤К╨╡╨┤╨╕╨╜╨╡╨╜╤Л ╤Б ╤Б╤Г╨╝╨╝╨░╤А╨╜╤Л╨╝ ╨▓╨╡╤Б╨╛╨╝.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е.
 
 {
     G2.clear();
@@ -4161,8 +4161,8 @@ int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> 
 int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , int> &G1)
 // Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are integers.
 // Returns -1 if input data is not correct. Otherwise returns 0.
-// Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса целочисленны).
-// Возвращает -1 в случае некорректности исходных данных.
+// ╨Ъ╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╤В ╨Р╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ G1 ╨▓ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р (╤В╨╛╨╗╤М╨║╨╛ ╨▓╨╛ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣, ╨▓╨╡╤Б╨░ ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л).
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е.
 
 
 
@@ -4185,8 +4185,8 @@ int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, in
 int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , double> &G1)
 // Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, all weights are double.
 // Returns -1 if input data is not correct. Otherwise returns 0.
-// Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса имеют тип double).
-// Возвращает -1 в случае некорректности исходных данных.
+// ╨Ъ╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╤В ╨Р╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ G1 ╨▓ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р (╤В╨╛╨╗╤М╨║╨╛ ╨▓╨╛ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣, ╨▓╨╡╤Б╨░ ╨╕╨╝╨╡╤О╤В ╤В╨╕╨┐ double).
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е.
 
 
 {
@@ -4211,11 +4211,11 @@ int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int
 // In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
 // Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
 // Returns -1 if input data is not correct. Otherwise returns 0.
-// Конвертирует Вектор смежности A в ассоциативный "мега-мап" G2. Для невзвешенного графа считаем вес всех ребер = 1.
-// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
-// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
-// Возвращает -1 в случае некорректности исходных данных.
-// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+// ╨Ъ╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╤В ╨Т╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A ╨▓ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ "╨╝╨╡╨│╨░-╨╝╨░╨┐" G2. ╨Ф╨╗╤П ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨▓╨╡╤Б ╨▓╤Б╨╡╤Е ╤А╨╡╨▒╨╡╤А = 1.
+// ╨Ь╨╡╨│╨░-╨╝╨░╨┐ ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╗╤П╨╡╤В ╤Б╨╛╨▒╨╛╨╣ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨┐╤А╨╡╨┤╨╜╨░╨╖╨╜╨░╤З╨╡╨╜╨╜╤Л╨╣ ╨┤╨╗╤П ╤Е╤А╨░╨╜╨╡╨╜╨╕╤П ╨│╤А╨░╤Д╨╛╨▓ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕.
+// ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨║╨╗╤О╤З╨╛╨╝ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨┐╨░╤А╨░ ╤З╨╕╤Б╨╡╨╗, ╨╖╨░╨┤╨░╤О╤Й╨╕╤Е ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░ ╨╝╨╡╨╢╨┤╤Г ╨╜╨╕╨╝╨╕, ╨░ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ - ╨▓╨╡╨║╤В╨╛╤А ╨▓╨╡╤Б╨╛╨▓ ╨┤╨╗╤П ╨▓╤Б╨╡╤Е ╤А╨╡╨▒╨╡╤А ╨╝╨╡╨╢╨┤╤Г ╤Н╤В╨╕╨╝╨╕ ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А weighted ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝ (╨Ш╤Б╤В╨╕╨╜╨░) ╨╕╨╗╨╕ ╨╜╨╡╤В.
 
 
 {
@@ -4270,7 +4270,7 @@ int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int
 
 
 int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2)
-// Модификация функции AdjVectorToAdjMegaMap (см. выше) для случая нецелочисленных весов ребер графа.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ AdjVectorToAdjMegaMap (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░.
 // Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -4315,10 +4315,10 @@ int AdjMegaMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int
 // Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
 // In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
 // Returns -1 if input data is not correct. Otherwise returns 0.
-// Конвертирует "мега-мап" G1 в вектор смежности А (только во взвешенный, веса целочисленны).
-// Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
-// При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
-// Возвращает -1 в случае некорректности исходных данных.
+// ╨Ъ╨╛╨╜╨▓╨╡╤А╤В╨╕╤А╤Г╨╡╤В "╨╝╨╡╨│╨░-╨╝╨░╨┐" G1 ╨▓ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р (╤В╨╛╨╗╤М╨║╨╛ ╨▓╨╛ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣, ╨▓╨╡╤Б╨░ ╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л).
+// ╨Ь╨╡╨│╨░-╨╝╨░╨┐ ╨┐╤А╨╡╨┤╤Б╤В╨░╨▓╨╗╤П╨╡╤В ╤Б╨╛╨▒╨╛╨╣ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╤Л╨╣ ╨╝╨░╤Б╤Б╨╕╨▓ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╨┐╤А╨╡╨┤╨╜╨░╨╖╨╜╨░╤З╨╡╨╜╨╜╤Л╨╣ ╨┤╨╗╤П ╤Е╤А╨░╨╜╨╡╨╜╨╕╤П ╨│╤А╨░╤Д╨╛╨▓ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕.
+// ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨║╨╗╤О╤З╨╛╨╝ ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨┐╨░╤А╨░ ╤З╨╕╤Б╨╡╨╗, ╨╖╨░╨┤╨░╤О╤Й╨╕╤Е ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░ ╨╝╨╡╨╢╨┤╤Г ╨╜╨╕╨╝╨╕, ╨░ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ - ╨▓╨╡╨║╤В╨╛╤А ╨▓╨╡╤Б╨╛╨▓ ╨┤╨╗╤П ╨▓╤Б╨╡╤Е ╤А╨╡╨▒╨╡╤А ╨╝╨╡╨╢╨┤╤Г ╤Н╤В╨╕╨╝╨╕ ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е.
 
 
 
@@ -4343,7 +4343,7 @@ int AdjMegaMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int
 
 
 int AdjMegaMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, const std::map <std::pair < int, int> , std::vector<double> > &G1)
-// Модификация функции AdjMegaMapToAdjVector (см. выше) для случая нецелочисленных весов ребер графа.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ AdjMegaMapToAdjVector (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░.
 // Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -4371,14 +4371,14 @@ int AdjMegaMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & 
 
 
 
-int CheckUnvisit (std::vector <int> & Visited) // Вспомогательная функция для поиска первой непомеченной вершины в графе
+int CheckUnvisit (std::vector <int> & Visited) // ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨┐╨╡╤А╨▓╨╛╨╣ ╨╜╨╡╨┐╨╛╨╝╨╡╤З╨╡╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╨│╤А╨░╤Д╨╡
 // An auxiliary function that finds the first unmarked vertex in the graph (0 means unmarked)
 
 {
     int b = -1;
 
     for (unsigned int w = 0; w<Visited.size(); w++)
-        if (Visited[w] ==0)   // ищем номер первой необойденной вершины
+        if (Visited[w] ==0)   // ╨╕╤Й╨╡╨╝ ╨╜╨╛╨╝╨╡╤А ╨┐╨╡╤А╨▓╨╛╨╣ ╨╜╨╡╨╛╨▒╨╛╨╣╨┤╨╡╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л
         {b=w; break;}
 
     return b;
@@ -4388,8 +4388,8 @@ int CheckUnvisit (std::vector <int> & Visited) // Вспомогательная функция для по
 
 
 void EcycleDGraph (int t, std::vector <int> & R, const int V, std::vector <std::vector<int>> &B)
-// Вспомогательная функция для поиска Эйлерова цикла в ОРИЕНТИРОВАННОМ графе, где он заведомо существует, нет изолированных вершин и нумерация вершин идет с 1.
-// B - матрица смежности, содержащая кол-во ребер между вершинами, V - максимальный номер вершины
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨н╨╣╨╗╨╡╤А╨╛╨▓╨░ ╤Ж╨╕╨║╨╗╨░ ╨▓ ╨Ю╨а╨Ш╨Х╨Э╨в╨Ш╨а╨Ю╨Т╨Р╨Э╨Э╨Ю╨Ь ╨│╤А╨░╤Д╨╡, ╨│╨┤╨╡ ╨╛╨╜ ╨╖╨░╨▓╨╡╨┤╨╛╨╝╨╛ ╤Б╤Г╤Й╨╡╤Б╤В╨▓╤Г╨╡╤В, ╨╜╨╡╤В ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨▓╨╡╤А╤И╨╕╨╜ ╨╕ ╨╜╤Г╨╝╨╡╤А╨░╤Ж╨╕╤П ╨▓╨╡╤А╤И╨╕╨╜ ╨╕╨┤╨╡╤В ╤Б 1.
+// B - ╨╝╨░╤В╤А╨╕╤Ж╨░ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╨░╤П ╨║╨╛╨╗-╨▓╨╛ ╤А╨╡╨▒╨╡╤А ╨╝╨╡╨╢╨┤╤Г ╨▓╨╡╤А╤И╨╕╨╜╨░╨╝╨╕, V - ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л
 
 // An auxiliary function that finds Eulerian cycle in the DIRECTED graph without without checking of input data correctness
 //(i.e. (1) the graph includes Eulerian cycle, (2) its vertices numbers start from "1", (3) the graph doesn't contain any isolated vertices).
@@ -4401,7 +4401,7 @@ void EcycleDGraph (int t, std::vector <int> & R, const int V, std::vector <std::
 
     int f = 1;
 
-    while (f!=0)  // Строим начиная с вершины за номером t путь и вычеркиваем пройденные ребра // Building up the path from vertex № t
+    while (f!=0)  // ╨б╤В╤А╨╛╨╕╨╝ ╨╜╨░╤З╨╕╨╜╨░╤П ╤Б ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╖╨░ ╨╜╨╛╨╝╨╡╤А╨╛╨╝ t ╨┐╤Г╤В╤М ╨╕ ╨▓╤Л╤З╨╡╤А╨║╨╕╨▓╨░╨╡╨╝ ╨┐╤А╨╛╨╣╨┤╨╡╨╜╨╜╤Л╨╡ ╤А╨╡╨▒╤А╨░ // Building up the path from vertex тДЦ t
     {
 
         for (int i = 1; i<(V+1); i++)
@@ -4410,8 +4410,8 @@ void EcycleDGraph (int t, std::vector <int> & R, const int V, std::vector <std::
             {
 
             R.push_back(t);
-            B [t][i]--; // ребро вычеркнули // deleting edge
-            t = i; // дальше ищем со следующей вершины // tet's continue from the end vertex of the deleted edge
+            B [t][i]--; // ╤А╨╡╨▒╤А╨╛ ╨▓╤Л╤З╨╡╤А╨║╨╜╤Г╨╗╨╕ // deleting edge
+            t = i; // ╨┤╨░╨╗╤М╤И╨╡ ╨╕╤Й╨╡╨╝ ╤Б╨╛ ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л // tet's continue from the end vertex of the deleted edge
             goto l1;
             }
 
@@ -4427,7 +4427,7 @@ void EcycleDGraph (int t, std::vector <int> & R, const int V, std::vector <std::
     std::vector <int> T;
     T.clear();
 
-    if (R.size()!=0)  // а теперь ищем замкнутые циклы ("пузыри"), относящиеся к какой-либо вершине из уже построенного в R пути. И так рукуррентно ("пузырь" может содержать еще "пузырь" и т.д.)
+    if (R.size()!=0)  // ╨░ ╤В╨╡╨┐╨╡╤А╤М ╨╕╤Й╨╡╨╝ ╨╖╨░╨╝╨║╨╜╤Г╤В╤Л╨╡ ╤Ж╨╕╨║╨╗╤Л ("╨┐╤Г╨╖╤Л╤А╨╕"), ╨╛╤В╨╜╨╛╤Б╤П╤Й╨╕╨╡╤Б╤П ╨║ ╨║╨░╨║╨╛╨╣-╨╗╨╕╨▒╨╛ ╨▓╨╡╤А╤И╨╕╨╜╨╡ ╨╕╨╖ ╤Г╨╢╨╡ ╨┐╨╛╤Б╤В╤А╨╛╨╡╨╜╨╜╨╛╨│╨╛ ╨▓ R ╨┐╤Г╤В╨╕. ╨Ш ╤В╨░╨║ ╤А╤Г╨║╤Г╤А╤А╨╡╨╜╤В╨╜╨╛ ("╨┐╤Г╨╖╤Л╤А╤М" ╨╝╨╛╨╢╨╡╤В ╤Б╨╛╨┤╨╡╤А╨╢╨░╤В╤М ╨╡╤Й╨╡ "╨┐╤Г╨╖╤Л╤А╤М" ╨╕ ╤В.╨┤.)
         // Now we should search for cycles related to every vertex of the path in the vector R recurrently.
 
     {
@@ -4437,14 +4437,14 @@ void EcycleDGraph (int t, std::vector <int> & R, const int V, std::vector <std::
         T.clear();
         EcycleDGraph (R[j], T, V, B);
 
-        if (T.size()!=0)  // И если такой "пузырь" есть // And if we have found such cycle
+        if (T.size()!=0)  // ╨Ш ╨╡╤Б╨╗╨╕ ╤В╨░╨║╨╛╨╣ "╨┐╤Г╨╖╤Л╤А╤М" ╨╡╤Б╤В╤М // And if we have found such cycle
         {
         T.push_back(R[j]); // lets finish the cycle by pushing back R[j] - it is both its begin and its end.
         for (unsigned int w = (j+1); w<R.size(); w++) // And then lets add to it the rest of the path. So we have in T the Path with cycle related to R[j]-vertex added.
-            T.push_back(R[w]); // Дополним его значением R[j] (это его и начало и конец) и затем присовокупим остаток пути из R. Это и будет изначальный путь, в который вставили путь по "пузырю" из вершины R[j]
+            T.push_back(R[w]); // ╨Ф╨╛╨┐╨╛╨╗╨╜╨╕╨╝ ╨╡╨│╨╛ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡╨╝ R[j] (╤Н╤В╨╛ ╨╡╨│╨╛ ╨╕ ╨╜╨░╤З╨░╨╗╨╛ ╨╕ ╨║╨╛╨╜╨╡╤Ж) ╨╕ ╨╖╨░╤В╨╡╨╝ ╨┐╤А╨╕╤Б╨╛╨▓╨╛╨║╤Г╨┐╨╕╨╝ ╨╛╤Б╤В╨░╤В╨╛╨║ ╨┐╤Г╤В╨╕ ╨╕╨╖ R. ╨н╤В╨╛ ╨╕ ╨▒╤Г╨┤╨╡╤В ╨╕╨╖╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╨┐╤Г╤В╤М, ╨▓ ╨║╨╛╤В╨╛╤А╤Л╨╣ ╨▓╤Б╤В╨░╨▓╨╕╨╗╨╕ ╨┐╤Г╤В╤М ╨┐╨╛ "╨┐╤Г╨╖╤Л╤А╤О" ╨╕╨╖ ╨▓╨╡╤А╤И╨╕╨╜╤Л R[j]
 
 
-        R.resize(j); // Теперь обновим сам R. Обрежем все, что дальше вершины R[j] и добавим вместо этого тоткорректированный путь из T
+        R.resize(j); // ╨в╨╡╨┐╨╡╤А╤М ╨╛╨▒╨╜╨╛╨▓╨╕╨╝ ╤Б╨░╨╝ R. ╨Ю╨▒╤А╨╡╨╢╨╡╨╝ ╨▓╤Б╨╡, ╤З╤В╨╛ ╨┤╨░╨╗╤М╤И╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л R[j] ╨╕ ╨┤╨╛╨▒╨░╨▓╨╕╨╝ ╨▓╨╝╨╡╤Б╤В╨╛ ╤Н╤В╨╛╨│╨╛ ╤В╨╛╤В╨║╨╛╤А╤А╨╡╨║╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╣ ╨┐╤Г╤В╤М ╨╕╨╖ T
         for (unsigned int e = 0; e<T.size(); e++) // Now it is time to update R. Lets cut all that is further than R[j] and add updated path from T (it contains cycle related to R[j]-vertex now)
             R.push_back(T[e]);
         T.clear();
@@ -4463,12 +4463,12 @@ void EcycleDGraph (int t, std::vector <int> & R, const int V, std::vector <std::
 
 
 int EPathDGraph (std::vector <int> & A, std::vector <int> & R, const bool weighted, std::vector <int> & Isolated)
-// Поиск Эйлерова пути либо Эйлерова цикла в ОРИЕНТИРОВАННОМ графе. Принимает на вход вектор смежности графа с указанием, взвешенный ли граф, а также заготовку R для найденного пути (цикла) и Isolated для изолированных вершин.
-// При этом не считается изолированной вершина, имеющая лишь петли.
-// Возвращает заполненные R и Isolated (если есть путь либо цикл, при этом возвращаемые значения соответственно 2 и 1) и пустые вектора и -1, если их не найдено.
-// Эйлеров путь/ цикл ищется на всем графе, либо на единственной компоненте связности, при условии что прочие вершины - изолированные.
-// Может работать с ориентированными графами с дублирующими ребрами и с множественными петлями. Нумерация вершин может осуществляться любыми целыми числами, в т.ч. отрицательными. При этом считается, что граф содержит все вершины, соответствующие всем числам от min (1, минимальный заданный номер вершины) по максимальный заданный номер вершины включительно.
-// В процессе работы граф приводится к виду, чтобы вершины нумеровались начиная с 1. По окончанию работы исходная нумерация восстанавливается.
+// ╨Я╨╛╨╕╤Б╨║ ╨н╨╣╨╗╨╡╤А╨╛╨▓╨░ ╨┐╤Г╤В╨╕ ╨╗╨╕╨▒╨╛ ╨н╨╣╨╗╨╡╤А╨╛╨▓╨░ ╤Ж╨╕╨║╨╗╨░ ╨▓ ╨Ю╨а╨Ш╨Х╨Э╨в╨Ш╨а╨Ю╨Т╨Р╨Э╨Э╨Ю╨Ь ╨│╤А╨░╤Д╨╡. ╨Я╤А╨╕╨╜╨╕╨╝╨░╨╡╤В ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨│╤А╨░╤Д╨░ ╤Б ╤Г╨║╨░╨╖╨░╨╜╨╕╨╡╨╝, ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣ ╨╗╨╕ ╨│╤А╨░╤Д, ╨░ ╤В╨░╨║╨╢╨╡ ╨╖╨░╨│╨╛╤В╨╛╨▓╨║╤Г R ╨┤╨╗╤П ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨│╨╛ ╨┐╤Г╤В╨╕ (╤Ж╨╕╨║╨╗╨░) ╨╕ Isolated ╨┤╨╗╤П ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨▓╨╡╤А╤И╨╕╨╜.
+// ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨╜╨╡ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╨░, ╨╕╨╝╨╡╤О╤Й╨░╤П ╨╗╨╕╤И╤М ╨┐╨╡╤В╨╗╨╕.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╜╤Л╨╡ R ╨╕ Isolated (╨╡╤Б╨╗╨╕ ╨╡╤Б╤В╤М ╨┐╤Г╤В╤М ╨╗╨╕╨▒╨╛ ╤Ж╨╕╨║╨╗, ╨┐╤А╨╕ ╤Н╤В╨╛╨╝ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╨╝╤Л╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╨╡╨╜╨╜╨╛ 2 ╨╕ 1) ╨╕ ╨┐╤Г╤Б╤В╤Л╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨╕ -1, ╨╡╤Б╨╗╨╕ ╨╕╤Е ╨╜╨╡ ╨╜╨░╨╣╨┤╨╡╨╜╨╛.
+// ╨н╨╣╨╗╨╡╤А╨╛╨▓ ╨┐╤Г╤В╤М/ ╤Ж╨╕╨║╨╗ ╨╕╤Й╨╡╤В╤Б╤П ╨╜╨░ ╨▓╤Б╨╡╨╝ ╨│╤А╨░╤Д╨╡, ╨╗╨╕╨▒╨╛ ╨╜╨░ ╨╡╨┤╨╕╨╜╤Б╤В╨▓╨╡╨╜╨╜╨╛╨╣ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В╨╡ ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕, ╨┐╤А╨╕ ╤Г╤Б╨╗╨╛╨▓╨╕╨╕ ╤З╤В╨╛ ╨┐╤А╨╛╤З╨╕╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л - ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡.
+// ╨Ь╨╛╨╢╨╡╤В ╤А╨░╨▒╨╛╤В╨░╤В╤М ╤Б ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╝╨╕ ╨│╤А╨░╤Д╨░╨╝╨╕ ╤Б ╨┤╤Г╨▒╨╗╨╕╤А╤Г╤О╤Й╨╕╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕ ╨╕ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕. ╨Э╤Г╨╝╨╡╤А╨░╤Ж╨╕╤П ╨▓╨╡╤А╤И╨╕╨╜ ╨╝╨╛╨╢╨╡╤В ╨╛╤Б╤Г╤Й╨╡╤Б╤В╨▓╨╗╤П╤В╤М╤Б╤П ╨╗╤О╨▒╤Л╨╝╨╕ ╤Ж╨╡╨╗╤Л╨╝╨╕ ╤З╨╕╤Б╨╗╨░╨╝╨╕, ╨▓ ╤В.╤З. ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╝╨╕. ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨│╤А╨░╤Д ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨▓╤Б╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л, ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╤О╤Й╨╕╨╡ ╨▓╤Б╨╡╨╝ ╤З╨╕╤Б╨╗╨░╨╝ ╨╛╤В min (1, ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╖╨░╨┤╨░╨╜╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л) ╨┐╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╖╨░╨┤╨░╨╜╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓╨║╨╗╤О╤З╨╕╤В╨╡╨╗╤М╨╜╨╛.
+// ╨Т ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╡ ╤А╨░╨▒╨╛╤В╤Л ╨│╤А╨░╤Д ╨┐╤А╨╕╨▓╨╛╨┤╨╕╤В╤Б╤П ╨║ ╨▓╨╕╨┤╤Г, ╤З╤В╨╛╨▒╤Л ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╗╨╕╤Б╤М ╨╜╨░╤З╨╕╨╜╨░╤П ╤Б 1. ╨Я╨╛ ╨╛╨║╨╛╨╜╤З╨░╨╜╨╕╤О ╤А╨░╨▒╨╛╤В╤Л ╨╕╤Б╤Е╨╛╨┤╨╜╨░╤П ╨╜╤Г╨╝╨╡╤А╨░╤Ж╨╕╤П ╨▓╨╛╤Б╤Б╤В╨░╨╜╨░╨▓╨╗╨╕╨▓╨░╨╡╤В╤Б╤П.
 
 // Finding Eulerian Cycle or Path in directed graph (weighted or non-weighted) that may contain multiple edges and multiple loops.
 // Returns Path/ Cycle as R, isolated vertices as Isolated. Returns value "1" if Eulerian cycle has been found or value "2" if Eulerian path has been found or "-1" together with empty R and Isolates if no cycle/ path found.
@@ -4478,30 +4478,30 @@ int EPathDGraph (std::vector <int> & A, std::vector <int> & R, const bool weight
 
 
 {
-    R.clear(); // здесь будет искомый цикл/ путь // vector for Eulerian cycle/ path
-    Isolated.clear(); // Здесь будут храниться найденные изолированные вершины // vector for isolated vertices.
+    R.clear(); // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╕╤Б╨║╨╛╨╝╤Л╨╣ ╤Ж╨╕╨║╨╗/ ╨┐╤Г╤В╤М // vector for Eulerian cycle/ path
+    Isolated.clear(); // ╨Ч╨┤╨╡╤Б╤М ╨▒╤Г╨┤╤Г╤В ╤Е╤А╨░╨╜╨╕╤В╤М╤Б╤П ╨╜╨░╨╣╨┤╨╡╨╜╨╜╤Л╨╡ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л // vector for isolated vertices.
 
 
     if (A.size()==0) return -1;
     if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
 
-    int V; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    int V; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
     int E = A.size()/(2+weighted); // the total number of edges in the graph
 
 
     int mn;
     RangeVGraph (A, V, mn, weighted);
 
-    if (mn<1)  // Приведение вектора к нумерованию вершин с 1 // renumbering vertices to start from 1.
+    if (mn<1)  // ╨Я╤А╨╕╨▓╨╡╨┤╨╡╨╜╨╕╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨║ ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╜╨╕╤О ╨▓╨╡╤А╤И╨╕╨╜ ╤Б 1 // renumbering vertices to start from 1.
     {
         RenumVGraph (A, (1-mn), weighted);
         V = V+(1-mn);
     }
 
-    std::vector <int> Visited (V+1, 0); // нулевой элемент использовать не будем: нумеруются вершины с 1
+    std::vector <int> Visited (V+1, 0); // ╨╜╤Г╨╗╨╡╨▓╨╛╨╣ ╤Н╨╗╨╡╨╝╨╡╨╜╤В ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╤М ╨╜╨╡ ╨▒╤Г╨┤╨╡╨╝: ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤Б 1
     Visited [0] = 1;
 
-    std::vector <int> Vin(V+1, 0); //для подсчета входящих и исходящих в вершину
+    std::vector <int> Vin(V+1, 0); //╨┤╨╗╤П ╨┐╨╛╨┤╤Б╤З╨╡╤В╨░ ╨▓╤Е╨╛╨┤╤П╤Й╨╕╤Е ╨╕ ╨╕╤Б╤Е╨╛╨┤╤П╤Й╨╕╤Е ╨▓ ╨▓╨╡╤А╤И╨╕╨╜╤Г
     std::vector <int> Vout (V+1, 0); // for counting in-edges and out-edges
 
     for (int q=0; q<A.size()-1-weighted; q= q+2+weighted)
@@ -4518,10 +4518,10 @@ int EPathDGraph (std::vector <int> & A, std::vector <int> & R, const bool weight
 
     for (int a = 1; a<=V; a++)
     {
-        if ((Vin [a]==0) && (Vout [a]==0) ) {Visited [a]=2;Isolated.push_back(a);c0++;continue;} // такая вершина - изолированная // such a vertex is isolated
-        if (Vin [a]==Vout [a]) {c++; continue;} // у такой входы = выходам, считаем их //such a vertex has the number of in-edges = the number of out-edges. Lets count these vertices.
-        if ((Vin [a]-Vout [a])==1) {c2++; t2 = a; continue;} // у такой на 1 больше входов, считаем их и запоминаем последнюю/ // such a vertex has the number of in-edges - the number of out-edges = 1. Lets count them and remember the last one.
-        if ((Vin [a]-Vout [a])==-1) {c1++; t1 = a; continue;} // а у такой - выходов, считаем их и запоминаем последнюю// such a vertex has the number of in-edges - the number of out-edges = -1. Lets count them and remember the last one.
+        if ((Vin [a]==0) && (Vout [a]==0) ) {Visited [a]=2;Isolated.push_back(a);c0++;continue;} // ╤В╨░╨║╨░╤П ╨▓╨╡╤А╤И╨╕╨╜╨░ - ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╨░╤П // such a vertex is isolated
+        if (Vin [a]==Vout [a]) {c++; continue;} // ╤Г ╤В╨░╨║╨╛╨╣ ╨▓╤Е╨╛╨┤╤Л = ╨▓╤Л╤Е╨╛╨┤╨░╨╝, ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨╕╤Е //such a vertex has the number of in-edges = the number of out-edges. Lets count these vertices.
+        if ((Vin [a]-Vout [a])==1) {c2++; t2 = a; continue;} // ╤Г ╤В╨░╨║╨╛╨╣ ╨╜╨░ 1 ╨▒╨╛╨╗╤М╤И╨╡ ╨▓╤Е╨╛╨┤╨╛╨▓, ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨╕╤Е ╨╕ ╨╖╨░╨┐╨╛╨╝╨╕╨╜╨░╨╡╨╝ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╤О╤О/ // such a vertex has the number of in-edges - the number of out-edges = 1. Lets count them and remember the last one.
+        if ((Vin [a]-Vout [a])==-1) {c1++; t1 = a; continue;} // ╨░ ╤Г ╤В╨░╨║╨╛╨╣ - ╨▓╤Л╤Е╨╛╨┤╨╛╨▓, ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨╕╤Е ╨╕ ╨╖╨░╨┐╨╛╨╝╨╕╨╜╨░╨╡╨╝ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╤О╤О// such a vertex has the number of in-edges - the number of out-edges = -1. Lets count them and remember the last one.
 
 
     }
@@ -4531,26 +4531,26 @@ int EPathDGraph (std::vector <int> & A, std::vector <int> & R, const bool weight
     MatrixSet(B, V+1, V+1, 0);
 
 
-    for (unsigned int x = 0; x<A.size()-1-weighted; x = x+2+weighted)  // Формируем матрицу смежности B, содержащую ко-во ребер даже для взвешенных графов
+    for (unsigned int x = 0; x<A.size()-1-weighted; x = x+2+weighted)  // ╨д╨╛╤А╨╝╨╕╤А╤Г╨╡╨╝ ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ B, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╤Г╤О ╨║╨╛-╨▓╨╛ ╤А╨╡╨▒╨╡╤А ╨┤╨░╨╢╨╡ ╨┤╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е ╨│╤А╨░╤Д╨╛╨▓
         // Forming Adjacency matrix and filling it with the number of edges between vertices.
     {
         B[(A[x])][(A[x+1])]++;
 
     }
 
-    int t = CheckUnvisit(Visited); // начнем искать путь/цикл с любой неизолированной вершины // Lets start search from any non-isolated vertex
+    int t = CheckUnvisit(Visited); // ╨╜╨░╤З╨╜╨╡╨╝ ╨╕╤Б╨║╨░╤В╤М ╨┐╤Г╤В╤М/╤Ж╨╕╨║╨╗ ╤Б ╨╗╤О╨▒╨╛╨╣ ╨╜╨╡╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л // Lets start search from any non-isolated vertex
     sort (Isolated.begin(), Isolated.end());
 
     if ( ((c+c0)==V) && (c>=1) )  //In this case we may have a Cycle
     {
-        EcycleDGraph(t, R, V, B); // Формируем цикл // find the cycle
-        if (mn<1) // и если надо перенумеровываем вершины назад если необходимо // Renumbering all the vertices back if needed
+        EcycleDGraph(t, R, V, B); // ╨д╨╛╤А╨╝╨╕╤А╤Г╨╡╨╝ ╤Ж╨╕╨║╨╗ // find the cycle
+        if (mn<1) // ╨╕ ╨╡╤Б╨╗╨╕ ╨╜╨░╨┤╨╛ ╨┐╨╡╤А╨╡╨╜╤Г╨╝╨╡╤А╨╛╨▓╤Л╨▓╨░╨╡╨╝ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╨░╨╖╨░╨┤ ╨╡╤Б╨╗╨╕ ╨╜╨╡╨╛╨▒╤Е╨╛╨┤╨╕╨╝╨╛ // Renumbering all the vertices back if needed
         {
             RenumVGraph (A, (-1+mn), weighted);
             RenumVGraph (R, (-1+mn), false, true);
             RenumVGraph (Isolated, (-1+mn), false, true);
         }
-        R.push_back(R[0]); // в цикле начало = концу
+        R.push_back(R[0]); // ╨▓ ╤Ж╨╕╨║╨╗╨╡ ╨╜╨░╤З╨░╨╗╨╛ = ╨║╨╛╨╜╤Ж╤Г
 
         if ((R.size()-1)!=E) {Isolated.clear(); R.clear(); return -1;} // all the edges must be in R, the total number of edges = E
 
@@ -4558,10 +4558,10 @@ int EPathDGraph (std::vector <int> & A, std::vector <int> & R, const bool weight
     }
 
 
-    if (((c+c0+c1+c2)==V) && (c1==1) && (c2==1)) // необходимое условие наличия пути // in this case we may have Path
+    if (((c+c0+c1+c2)==V) && (c1==1) && (c2==1)) // ╨╜╨╡╨╛╨▒╤Е╨╛╨┤╨╕╨╝╨╛╨╡ ╤Г╤Б╨╗╨╛╨▓╨╕╨╡ ╨╜╨░╨╗╨╕╤З╨╕╤П ╨┐╤Г╤В╨╕ // in this case we may have Path
     {
 
-        B[t2][t1]++; // добавим недостающее до цикла ребро // adding edge in order to complete path to cycle
+        B[t2][t1]++; // ╨┤╨╛╨▒╨░╨▓╨╕╨╝ ╨╜╨╡╨┤╨╛╤Б╤В╨░╤О╤Й╨╡╨╡ ╨┤╨╛ ╤Ж╨╕╨║╨╗╨░ ╤А╨╡╨▒╤А╨╛ // adding edge in order to complete path to cycle
         EcycleDGraph(t1, R, V, B);  // find the cycle
 
         R.push_back(R[0]);
@@ -4606,15 +4606,15 @@ int EPathDGraph (std::vector <int> & A, std::vector <int> & R, const bool weight
 
 
 int EPathDGraph (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <int> & R, std::vector <int> & Isolated)
-// Модификация функции EPathDGraph (см. выше) для случая нецелочисленных весов ребер (double).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ EPathDGraph (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А (double).
 // Modification of the function EPathDGraph (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 
 
 {
-    R.clear(); // здесь будет искомый цикл/ путь // vector for Eulerian cycle/ path
-    Isolated.clear(); // Здесь будут храниться найденные изолированные вершины // vector for isolated vertices.
+    R.clear(); // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╕╤Б╨║╨╛╨╝╤Л╨╣ ╤Ж╨╕╨║╨╗/ ╨┐╤Г╤В╤М // vector for Eulerian cycle/ path
+    Isolated.clear(); // ╨Ч╨┤╨╡╤Б╤М ╨▒╤Г╨┤╤Г╤В ╤Е╤А╨░╨╜╨╕╤В╤М╤Б╤П ╨╜╨░╨╣╨┤╨╡╨╜╨╜╤Л╨╡ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л // vector for isolated vertices.
 
     if ((A.first).size()==0) return -1;
     if ((A.second).size()==0) return -1;
@@ -4628,7 +4628,7 @@ int EPathDGraph (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
 
 
 int GenRandomUWGraph (std::vector <int> &P, int v, int e, int b=0)
-// Вспомогательная функция для генерации случайного невзвешенного графа в векторе смежности P
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨│╨╡╨╜╨╡╤А╨░╤Ж╨╕╨╕ ╤Б╨╗╤Г╤З╨░╨╣╨╜╨╛╨│╨╛ ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ P
 // An auxiliary function that generates a random unweighted graph P (set by Adjacency vector P)
 // e means the number of edges, v means the number of vertices, b means the minimal number to be assigned to vertex
 
@@ -4659,13 +4659,13 @@ int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair 
 // For UNDIRECTED graph G2 will contain edge multiplicity for both keys std::pair <int, int> (vertex1, vertex 2) and std::pair <int, int> (vertex2, vertex 1).
 // For example for undirected graph will be so: "G2[std::pair <int, int>(1, 2)] = G2[std::pair <int, int>(2, 1)] = 3".
 // Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
-// Возвращает кратность ребер графа, заданного вектором смежности А, в ассоциативном массиве смежности G2.
-// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
-// Параметр directed задает, является ли граф ориентированным (Истина) или нет.
-// К примеру, для ориентированного графа "G2[std::pair <int, int>(1, 2)] = 3" означает, что направленное ребро 1->2 имеет кратность = 3.
-// Для неориентированного будут храниться одинаковые значения для пар вершин (vertex1, vertex 2) и (vertex2, vertex 1).
-// Т.е. для неориентированного графа будет верной подобная запись: G2[std::pair <int, int>(1, 2)] = G2[std::pair <int, int>(2, 1)] = 3
-// Возвращает -1 и пустой G2 в случае некорректности исходных данных. Если успех - вернет 0.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨║╤А╨░╤В╨╜╨╛╤Б╤В╤М ╤А╨╡╨▒╨╡╤А ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р, ╨▓ ╨░╤Б╤Б╨╛╤Ж╨╕╨░╤В╨╕╨▓╨╜╨╛╨╝ ╨╝╨░╤Б╤Б╨╕╨▓╨╡ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ G2.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А weighted ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝ (╨Ш╤Б╤В╨╕╨╜╨░) ╨╕╨╗╨╕ ╨╜╨╡╤В.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А directed ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╝ (╨Ш╤Б╤В╨╕╨╜╨░) ╨╕╨╗╨╕ ╨╜╨╡╤В.
+// ╨Ъ ╨┐╤А╨╕╨╝╨╡╤А╤Г, ╨┤╨╗╤П ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ "G2[std::pair <int, int>(1, 2)] = 3" ╨╛╨╖╨╜╨░╤З╨░╨╡╤В, ╤З╤В╨╛ ╨╜╨░╨┐╤А╨░╨▓╨╗╨╡╨╜╨╜╨╛╨╡ ╤А╨╡╨▒╤А╨╛ 1->2 ╨╕╨╝╨╡╨╡╤В ╨║╤А╨░╤В╨╜╨╛╤Б╤В╤М = 3.
+// ╨Ф╨╗╤П ╨╜╨╡╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨│╨╛ ╨▒╤Г╨┤╤Г╤В ╤Е╤А╨░╨╜╨╕╤В╤М╤Б╤П ╨╛╨┤╨╕╨╜╨░╨║╨╛╨▓╤Л╨╡ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨┤╨╗╤П ╨┐╨░╤А ╨▓╨╡╤А╤И╨╕╨╜ (vertex1, vertex 2) ╨╕ (vertex2, vertex 1).
+// ╨в.╨╡. ╨┤╨╗╤П ╨╜╨╡╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░ ╨▒╤Г╨┤╨╡╤В ╨▓╨╡╤А╨╜╨╛╨╣ ╨┐╨╛╨┤╨╛╨▒╨╜╨░╤П ╨╖╨░╨┐╨╕╤Б╤М: G2[std::pair <int, int>(1, 2)] = G2[std::pair <int, int>(2, 1)] = 3
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ G2 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е. ╨Х╤Б╨╗╨╕ ╤Г╤Б╨┐╨╡╤Е - ╨▓╨╡╤А╨╜╨╡╤В 0.
 
 
 
@@ -4728,7 +4728,7 @@ int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 // Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
-// Модификация AdjVectorEdgesMultiplicity (см. выше) для случая графа с нецелочисленными весами ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П AdjVectorEdgesMultiplicity (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨│╤А╨░╤Д╨░ ╤Б ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╨╝╨╕ ╨▓╨╡╤Б╨░╨╝╨╕ ╤А╨╡╨▒╨╡╤А.
 
 {
     G2.clear();
@@ -4744,7 +4744,7 @@ int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<
 
 int DFSSCC1 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order, const bool weighted)
 
-//Вспомогательная функция для упорядочивания вершин орграфа для поиска сильносвязных его компонент
+//╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╤Г╨┐╨╛╤А╤П╨┤╨╛╤З╨╕╨▓╨░╨╜╨╕╤П ╨▓╨╡╤А╤И╨╕╨╜ ╨╛╤А╨│╤А╨░╤Д╨░ ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╤Б╨╕╨╗╤М╨╜╨╛╤Б╨▓╤П╨╖╨╜╤Л╤Е ╨╡╨│╨╛ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В
 // An auxiliary function to order vertices of a graph for the function SCCGraph_Vertices
 
 
@@ -4759,12 +4759,12 @@ int DFSSCC1 (const std::vector <int> & A, const int b, std::vector <int> & Visit
     {
 
 
-        if ( (A[r+1]==b) && (A[r]==b) ) continue; // Если петля - идем дальше //if a loop found - let's continue, loop will be ignored
+        if ( (A[r+1]==b) && (A[r]==b) ) continue; // ╨Х╤Б╨╗╨╕ ╨┐╨╡╤В╨╗╤П - ╨╕╨┤╨╡╨╝ ╨┤╨░╨╗╤М╤И╨╡ //if a loop found - let's continue, loop will be ignored
 
 
 
 
-        if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0) )  // нашли непосещенную? непосещенная = 0  //found a non-visited vertex
+        if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0) )  // ╨╜╨░╤И╨╗╨╕ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О? ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨░╤П = 0  //found a non-visited vertex
         {
            Visited[(A[r])] = 1;
 
@@ -4778,7 +4778,7 @@ int DFSSCC1 (const std::vector <int> & A, const int b, std::vector <int> & Visit
     }
 
     order.push_back(b);
-    Visited [b] = 2;  // отработали и перекрасили в черный (=2) // now the vertex is to become black (=2)
+    Visited [b] = 2;  // ╨╛╤В╤А╨░╨▒╨╛╤В╨░╨╗╨╕ ╨╕ ╨┐╨╡╤А╨╡╨║╤А╨░╤Б╨╕╨╗╨╕ ╨▓ ╤З╨╡╤А╨╜╤Л╨╣ (=2) // now the vertex is to become black (=2)
 
 return 0;
 }
@@ -4786,7 +4786,7 @@ return 0;
 
 int DFSSCC2 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order,std::set <int> & R, const bool weighted)
 
-//Вспомогательная функция для поиска вершин очередной сильно связной компоненты для SCCGraph_Vertices
+//╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨▓╨╡╤А╤И╨╕╨╜ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ ╤Б╨╕╨╗╤М╨╜╨╛ ╤Б╨▓╤П╨╖╨╜╨╛╨╣ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В╤Л ╨┤╨╗╤П SCCGraph_Vertices
 // An auxiliary function to find vertices of a graph for a strongly connected component (for the function SCCGraph_Vertices).
 
 {
@@ -4800,12 +4800,12 @@ int DFSSCC2 (const std::vector <int> & A, const int b, std::vector <int> & Visit
     {
 
 
-        if ( (A[r]==b) && (A[r+1]==b) ) continue; // Если петля - идем дальше //if a loop found - let's continue, loop will be ignored
+        if ( (A[r]==b) && (A[r+1]==b) ) continue; // ╨Х╤Б╨╗╨╕ ╨┐╨╡╤В╨╗╤П - ╨╕╨┤╨╡╨╝ ╨┤╨░╨╗╤М╤И╨╡ //if a loop found - let's continue, loop will be ignored
 
 
 
 
-        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // нашли непосещенную? непосещенная = 0  //found a non-visited vertex
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // ╨╜╨░╤И╨╗╨╕ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О? ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨░╤П = 0  //found a non-visited vertex
         {
            Visited[(A[r])] = 1;
 
@@ -4819,17 +4819,17 @@ int DFSSCC2 (const std::vector <int> & A, const int b, std::vector <int> & Visit
     }
 
 
-    Visited [b] = 2;  // отработали и перекрасили в черный (=2) // now the vertex is to become black (=2)
+    Visited [b] = 2;  // ╨╛╤В╤А╨░╨▒╨╛╤В╨░╨╗╨╕ ╨╕ ╨┐╨╡╤А╨╡╨║╤А╨░╤Б╨╕╨╗╨╕ ╨▓ ╤З╨╡╤А╨╜╤Л╨╣ (=2) // now the vertex is to become black (=2)
 
 return 0;
 }
 
 
 int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)
-// Функция для нахождения наборов вершин по всем компонентам сильной связности (области сильной связности) ориентированного графа, заданного вектором смежности А. Параметр weighted задает, является ли граф взвешенным.
-// Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах) и номер минимальной вершины (по умолчанию = 0).
-// В случае успеха возвращает число сильно связанных компонент. Возвращает и заполненный вектор G, каждый элемент которого - набор вершин очередной компоненты связности.
-// В случае некорректных входных данных возвращает -1 и пустой G.
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨╜╨░╤Е╨╛╨╢╨┤╨╡╨╜╨╕╤П ╨╜╨░╨▒╨╛╤А╨╛╨▓ ╨▓╨╡╤А╤И╨╕╨╜ ╨┐╨╛ ╨▓╤Б╨╡╨╝ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В╨░╨╝ ╤Б╨╕╨╗╤М╨╜╨╛╨╣ ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕ (╨╛╨▒╨╗╨░╤Б╤В╨╕ ╤Б╨╕╨╗╤М╨╜╨╛╨╣ ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕) ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨│╨╛ ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р. ╨Я╨░╤А╨░╨╝╨╡╤В╤А weighted ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝.
+// ╨в╨░╨║╨╢╨╡ ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨┐╨╛╨┤╨░╨╡╤В╤Б╤П ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л V (╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨┐╨╡╤А╨╡╨┤╨░╨╜, ╤А╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В╤Б╤П ╤Б╨░╨╝╨╛╤Б╤В╨╛╤П╤В╨╡╨╗╤М╨╜╨╛ ╨║╨░╨║ ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╤А╨╡╨▒╤А╨░╤Е) ╨╕ ╨╜╨╛╨╝╨╡╤А ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л (╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О = 0).
+// ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤З╨╕╤Б╨╗╨╛ ╤Б╨╕╨╗╤М╨╜╨╛ ╤Б╨▓╤П╨╖╨░╨╜╨╜╤Л╤Е ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А G, ╨║╨░╨╢╨┤╤Л╨╣ ╤Н╨╗╨╡╨╝╨╡╨╜╤В ╨║╨╛╤В╨╛╤А╨╛╨│╨╛ - ╨╜╨░╨▒╨╛╤А ╨▓╨╡╤А╤И╨╕╨╜ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В╤Л ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕.
+// ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л╤Е ╨▓╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ G.
 
 // The function finds collection of vertices for each strongly connected component of the directed graph, that is set by an Adjacency vector A.
 // These collections are to be contained in vector G, i.e. G[i] contains a collection of vertices of the i-th strongly connected component.
@@ -4856,7 +4856,7 @@ int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, 
     }
 
 
-    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    if (mx>V) V = mx; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
 
 
 
@@ -4874,13 +4874,13 @@ int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, 
 
 
 
-    int b=CheckUnvisit(Visited);  // вершина откуда идет поиск  // let's start from here
+    int b=CheckUnvisit(Visited);  // ╨▓╨╡╤А╤И╨╕╨╜╨░ ╨╛╤В╨║╤Г╨┤╨░ ╨╕╨┤╨╡╤В ╨┐╨╛╨╕╤Б╨║  // let's start from here
 
     int f;
 
     while (CheckUnvisit(Visited)!=-1)
     {
-        b=CheckUnvisit(Visited);  // берем первую же непосещенную вершину  // vertex not visited yet
+        b=CheckUnvisit(Visited);  // ╨▒╨╡╤А╨╡╨╝ ╨┐╨╡╤А╨▓╤Г╤О ╨╢╨╡ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О ╨▓╨╡╤А╤И╨╕╨╜╤Г  // vertex not visited yet
         f=DFSSCC1 (A, b, Visited, order, weighted);
     }
 
@@ -4913,10 +4913,10 @@ int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, 
 
 
 int CCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & R, const bool weighted, int mn = 0, int V = INT_MIN)
-// Функция для нахождения наборов вершин по всем компонентам связности неориентированного (области связности) графа, заданного вектором смежности А. Параметр weighted задает, является ли граф взвешенным.
-// Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах) и номер минимальной вершины (по умолчанию = 0).
-// В случае успеха возвращает число связанных компонент. Возвращает и заполненный вектор R, каждый элемент которого - набор вершин очередной компоненты связности.
-// В случае некорректных входных данных возвращает -1 и пустой R.
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨╜╨░╤Е╨╛╨╢╨┤╨╡╨╜╨╕╤П ╨╜╨░╨▒╨╛╤А╨╛╨▓ ╨▓╨╡╤А╤И╨╕╨╜ ╨┐╨╛ ╨▓╤Б╨╡╨╝ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В╨░╨╝ ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕ ╨╜╨╡╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨│╨╛ (╨╛╨▒╨╗╨░╤Б╤В╨╕ ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕) ╨│╤А╨░╤Д╨░, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р. ╨Я╨░╤А╨░╨╝╨╡╤В╤А weighted ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝.
+// ╨в╨░╨║╨╢╨╡ ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨┐╨╛╨┤╨░╨╡╤В╤Б╤П ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л V (╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨┐╨╡╤А╨╡╨┤╨░╨╜, ╤А╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В╤Б╤П ╤Б╨░╨╝╨╛╤Б╤В╨╛╤П╤В╨╡╨╗╤М╨╜╨╛ ╨║╨░╨║ ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╤А╨╡╨▒╤А╨░╤Е) ╨╕ ╨╜╨╛╨╝╨╡╤А ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л (╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О = 0).
+// ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╤З╨╕╤Б╨╗╨╛ ╤Б╨▓╤П╨╖╨░╨╜╨╜╤Л╤Е ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В. ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В ╨╕ ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А R, ╨║╨░╨╢╨┤╤Л╨╣ ╤Н╨╗╨╡╨╝╨╡╨╜╤В ╨║╨╛╤В╨╛╤А╨╛╨│╨╛ - ╨╜╨░╨▒╨╛╤А ╨▓╨╡╤А╤И╨╕╨╜ ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ ╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤В╤Л ╤Б╨▓╤П╨╖╨╜╨╛╤Б╤В╨╕.
+// ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л╤Е ╨▓╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ R.
 
 // The function finds collection of vertices for each connected component of the undirected graph, that is set by an Adjacency vector A.
 // These collections are to be contained in vector R, i.e. R[i] contains a collection of vertices of the i-th connected component.
@@ -4944,7 +4944,7 @@ int CCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & R, c
     }
 
 
-    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    if (mx>V) V = mx; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
 
 
     std::set <int> G; // temp set to contain another component found
@@ -4957,7 +4957,7 @@ int CCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & R, c
         Visited[y] = 1;
 
 
-    int b=CheckUnvisit(Visited);  // вершина откуда идет поиск // let's start from the vertex b
+    int b=CheckUnvisit(Visited);  // ╨▓╨╡╤А╤И╨╕╨╜╨░ ╨╛╤В╨║╤Г╨┤╨░ ╨╕╨┤╨╡╤В ╨┐╨╛╨╕╤Б╨║ // let's start from the vertex b
 
     std::stack <int> Q;
 
@@ -4972,9 +4972,9 @@ while (CheckUnvisit(Visited)!=-1)
 
     while (!Q.empty())
     {
-        b= Q.top();  // берем последнюю вершину из очереди
-        Q.pop();  // убрать ее из очереди
-        Visited[b] = 1;  // она посещена  // now the vertex is ti be marked as "visited"
+        b= Q.top();  // ╨▒╨╡╤А╨╡╨╝ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╤О╤О ╨▓╨╡╤А╤И╨╕╨╜╤Г ╨╕╨╖ ╨╛╤З╨╡╤А╨╡╨┤╨╕
+        Q.pop();  // ╤Г╨▒╤А╨░╤В╤М ╨╡╨╡ ╨╕╨╖ ╨╛╤З╨╡╤А╨╡╨┤╨╕
+        Visited[b] = 1;  // ╨╛╨╜╨░ ╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨░  // now the vertex is ti be marked as "visited"
 
 
         for (unsigned int r = 0; r<A.size(); r=r+2+weighted)
@@ -4988,7 +4988,7 @@ while (CheckUnvisit(Visited)!=-1)
 
             }
 
-            if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0) )  // 2 проверки т.к. ребра двусторонние
+            if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0) )  // 2 ╨┐╤А╨╛╨▓╨╡╤А╨║╨╕ ╤В.╨║. ╤А╨╡╨▒╤А╨░ ╨┤╨▓╤Г╤Б╤В╨╛╤А╨╛╨╜╨╜╨╕╨╡
             {
                 Q.push(A[r]);
                 Visited[(A[r])] = 1;
@@ -5024,11 +5024,11 @@ return R.size();
 
 
 int DFSTS (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order, const bool weighted)
-// Вспомогательная функция для функции TSortHP. Проверки исходных данных не проводится, вершины в ориентированном орграфе, заданном вектором смежности A, д.б. нумерованы с 1.
-// Граф может содержать петли (игнорируются).
-// В процессе обхода раскрашиваем вершины в массиве Visited: 0 - непосещенная (белая), 1 - посещена, но не отработана (серая), 2 - отработана (черная).
-// weighted - истина, если взвешенный граф, иначе - ложь.
-// Если найден цикл - возвращает 1 и пустой order.
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ TSortHP. ╨Я╤А╨╛╨▓╨╡╤А╨║╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е ╨╜╨╡ ╨┐╤А╨╛╨▓╨╛╨┤╨╕╤В╤Б╤П, ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨╝ ╨╛╤А╨│╤А╨░╤Д╨╡, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╝ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A, ╨┤.╨▒. ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╜╤Л ╤Б 1.
+// ╨У╤А╨░╤Д ╨╝╨╛╨╢╨╡╤В ╤Б╨╛╨┤╨╡╤А╨╢╨░╤В╤М ╨┐╨╡╤В╨╗╨╕ (╨╕╨│╨╜╨╛╤А╨╕╤А╤Г╤О╤В╤Б╤П).
+// ╨Т ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╡ ╨╛╨▒╤Е╨╛╨┤╨░ ╤А╨░╤Б╨║╤А╨░╤И╨╕╨▓╨░╨╡╨╝ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╨╝╨░╤Б╤Б╨╕╨▓╨╡ Visited: 0 - ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨░╤П (╨▒╨╡╨╗╨░╤П), 1 - ╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨░, ╨╜╨╛ ╨╜╨╡ ╨╛╤В╤А╨░╨▒╨╛╤В╨░╨╜╨░ (╤Б╨╡╤А╨░╤П), 2 - ╨╛╤В╤А╨░╨▒╨╛╤В╨░╨╜╨░ (╤З╨╡╤А╨╜╨░╤П).
+// weighted - ╨╕╤Б╤В╨╕╨╜╨░, ╨╡╤Б╨╗╨╕ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣ ╨│╤А╨░╤Д, ╨╕╨╜╨░╤З╨╡ - ╨╗╨╛╨╢╤М.
+// ╨Х╤Б╨╗╨╕ ╨╜╨░╨╣╨┤╨╡╨╜ ╤Ж╨╕╨║╨╗ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ order.
 
 // An auxiliary function for the function TSortHP. Works without any checking of input data correctness. Vertices in the input directed graph (it is set by the Adjacency vector A) are to be numbered starting from 1.
 // The graph may contain loops (they will be ignored).
@@ -5048,7 +5048,7 @@ int DFSTS (const std::vector <int> & A, const int b, std::vector <int> & Visited
     {
 
 
-        if ( (A[r]==b) && (A[r+1]==b) ) continue; // Если петля - идем дальше //if a loop found - let's continue, loop will be ignored
+        if ( (A[r]==b) && (A[r+1]==b) ) continue; // ╨Х╤Б╨╗╨╕ ╨┐╨╡╤В╨╗╤П - ╨╕╨┤╨╡╨╝ ╨┤╨░╨╗╤М╤И╨╡ //if a loop found - let's continue, loop will be ignored
 
         if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 1) )  // in this case a cycle is found
         {
@@ -5057,7 +5057,7 @@ int DFSTS (const std::vector <int> & A, const int b, std::vector <int> & Visited
         }
 
 
-        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // нашли непосещенную? непосещенная = 0  //found a non-visited vertex
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // ╨╜╨░╤И╨╗╨╕ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О? ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨░╤П = 0  //found a non-visited vertex
         {
            Visited[(A[r+1])] = 1;
            f=DFSTS (A, (A[r+1]), Visited, order, weighted);
@@ -5073,24 +5073,24 @@ int DFSTS (const std::vector <int> & A, const int b, std::vector <int> & Visited
     }
 
     order.push_back(b);
-    Visited [b] = 2;  // отработали и перекрасили в черный (=2) // now the vertex is to become black (=2)
+    Visited [b] = 2;  // ╨╛╤В╤А╨░╨▒╨╛╤В╨░╨╗╨╕ ╨╕ ╨┐╨╡╤А╨╡╨║╤А╨░╤Б╨╕╨╗╨╕ ╨▓ ╤З╨╡╤А╨╜╤Л╨╣ (=2) // now the vertex is to become black (=2)
 
 return 0;
 }
 
 
 int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & order, std::vector <int> & Isolated, const bool weighted, const bool OnlyTS = false)
-// Функция для топологической сортировки в орграфе. Также в случае наличия топологической сортировки (и при условии OnlyTS = false) ищет Гамильтонов путь и перечень изолированных вершин. При этом не считается изолированной вершина, имеющая лишь петли.
-// Функция НЕ является функцией поиска именно Гамильтонова пути, он ищется ТОЛЬКО в случае наличия топологической сортировки.
-// Принимает на вход вектор смежности графа A с указанием, взвешенный ли граф (параметр weighted), а также заготовку R для Гамильтонова пути, order для топологической сортировки, Isolated для перечня изолированных вершин.
-// Может работать с ориентированными графами с дублирующими ребрами и с множественными петлями (петли будут игнорироваться).
-// Нумерация вершин может осуществляться любыми целыми числами, в т.ч. отрицательными. При этом считается, что граф содержит все вершины, соответствующие всем числам от min (1, минимальный заданный номер вершины) по максимальный заданный номер вершины включительно.
-// В процессе работы граф приводится к виду, чтобы вершины нумеровались начиная с 1. По окончанию работы исходная нумерация восстанавливается.
-// Если OnlyTS == false (нормальная работа функции):
-// Возвращает 0, если найдены и топологическая сортировка, и Гамильтонов путь.
-// Возвращает -1 и пустые R, order, Isolated, если в графе найден цикл.
-// Возвращает 1 и пустой R, если есть топологическая сортировка, а Гамильтонова пути нет.
-// Если параметр OnlyTS == true, то ищется только топологическая сортировка (данный режим предусмотрен для ускорения работы). Возвращает 0, если она найдена и -1 если нет. Гамильтонов путь и изолированные вершины не возвращаются (R и Isolated будут пусты в любом случае).
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨╛╨╣ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ ╨▓ ╨╛╤А╨│╤А╨░╤Д╨╡. ╨в╨░╨║╨╢╨╡ ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨░╨╗╨╕╤З╨╕╤П ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨╛╨╣ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ (╨╕ ╨┐╤А╨╕ ╤Г╤Б╨╗╨╛╨▓╨╕╨╕ OnlyTS = false) ╨╕╤Й╨╡╤В ╨У╨░╨╝╨╕╨╗╤М╤В╨╛╨╜╨╛╨▓ ╨┐╤Г╤В╤М ╨╕ ╨┐╨╡╤А╨╡╤З╨╡╨╜╤М ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨▓╨╡╤А╤И╨╕╨╜. ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╨╜╨╡ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╨░, ╨╕╨╝╨╡╤О╤Й╨░╤П ╨╗╨╕╤И╤М ╨┐╨╡╤В╨╗╨╕.
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨Э╨Х ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╡╨╣ ╨┐╨╛╨╕╤Б╨║╨░ ╨╕╨╝╨╡╨╜╨╜╨╛ ╨У╨░╨╝╨╕╨╗╤М╤В╨╛╨╜╨╛╨▓╨░ ╨┐╤Г╤В╨╕, ╨╛╨╜ ╨╕╤Й╨╡╤В╤Б╤П ╨в╨Ю╨Ы╨м╨Ъ╨Ю ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨░╨╗╨╕╤З╨╕╤П ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨╛╨╣ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕.
+// ╨Я╤А╨╕╨╜╨╕╨╝╨░╨╡╤В ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨▓╨╡╨║╤В╨╛╤А ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨│╤А╨░╤Д╨░ A ╤Б ╤Г╨║╨░╨╖╨░╨╜╨╕╨╡╨╝, ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣ ╨╗╨╕ ╨│╤А╨░╤Д (╨┐╨░╤А╨░╨╝╨╡╤В╤А weighted), ╨░ ╤В╨░╨║╨╢╨╡ ╨╖╨░╨│╨╛╤В╨╛╨▓╨║╤Г R ╨┤╨╗╤П ╨У╨░╨╝╨╕╨╗╤М╤В╨╛╨╜╨╛╨▓╨░ ╨┐╤Г╤В╨╕, order ╨┤╨╗╤П ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨╛╨╣ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕, Isolated ╨┤╨╗╤П ╨┐╨╡╤А╨╡╤З╨╜╤П ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨▓╨╡╤А╤И╨╕╨╜.
+// ╨Ь╨╛╨╢╨╡╤В ╤А╨░╨▒╨╛╤В╨░╤В╤М ╤Б ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╝╨╕ ╨│╤А╨░╤Д╨░╨╝╨╕ ╤Б ╨┤╤Г╨▒╨╗╨╕╤А╤Г╤О╤Й╨╕╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕ ╨╕ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ (╨┐╨╡╤В╨╗╨╕ ╨▒╤Г╨┤╤Г╤В ╨╕╨│╨╜╨╛╤А╨╕╤А╨╛╨▓╨░╤В╤М╤Б╤П).
+// ╨Э╤Г╨╝╨╡╤А╨░╤Ж╨╕╤П ╨▓╨╡╤А╤И╨╕╨╜ ╨╝╨╛╨╢╨╡╤В ╨╛╤Б╤Г╤Й╨╡╤Б╤В╨▓╨╗╤П╤В╤М╤Б╤П ╨╗╤О╨▒╤Л╨╝╨╕ ╤Ж╨╡╨╗╤Л╨╝╨╕ ╤З╨╕╤Б╨╗╨░╨╝╨╕, ╨▓ ╤В.╤З. ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╝╨╕. ╨Я╤А╨╕ ╤Н╤В╨╛╨╝ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨│╤А╨░╤Д ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨▓╤Б╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л, ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╤О╤Й╨╕╨╡ ╨▓╤Б╨╡╨╝ ╤З╨╕╤Б╨╗╨░╨╝ ╨╛╤В min (1, ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╖╨░╨┤╨░╨╜╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л) ╨┐╨╛ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╖╨░╨┤╨░╨╜╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓╨║╨╗╤О╤З╨╕╤В╨╡╨╗╤М╨╜╨╛.
+// ╨Т ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╡ ╤А╨░╨▒╨╛╤В╤Л ╨│╤А╨░╤Д ╨┐╤А╨╕╨▓╨╛╨┤╨╕╤В╤Б╤П ╨║ ╨▓╨╕╨┤╤Г, ╤З╤В╨╛╨▒╤Л ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╗╨╕╤Б╤М ╨╜╨░╤З╨╕╨╜╨░╤П ╤Б 1. ╨Я╨╛ ╨╛╨║╨╛╨╜╤З╨░╨╜╨╕╤О ╤А╨░╨▒╨╛╤В╤Л ╨╕╤Б╤Е╨╛╨┤╨╜╨░╤П ╨╜╤Г╨╝╨╡╤А╨░╤Ж╨╕╤П ╨▓╨╛╤Б╤Б╤В╨░╨╜╨░╨▓╨╗╨╕╨▓╨░╨╡╤В╤Б╤П.
+// ╨Х╤Б╨╗╨╕ OnlyTS == false (╨╜╨╛╤А╨╝╨░╨╗╤М╨╜╨░╤П ╤А╨░╨▒╨╛╤В╨░ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕):
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 0, ╨╡╤Б╨╗╨╕ ╨╜╨░╨╣╨┤╨╡╨╜╤Л ╨╕ ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░, ╨╕ ╨У╨░╨╝╨╕╨╗╤М╤В╨╛╨╜╨╛╨▓ ╨┐╤Г╤В╤М.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╤Л╨╡ R, order, Isolated, ╨╡╤Б╨╗╨╕ ╨▓ ╨│╤А╨░╤Д╨╡ ╨╜╨░╨╣╨┤╨╡╨╜ ╤Ж╨╕╨║╨╗.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ R, ╨╡╤Б╨╗╨╕ ╨╡╤Б╤В╤М ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░, ╨░ ╨У╨░╨╝╨╕╨╗╤М╤В╨╛╨╜╨╛╨▓╨░ ╨┐╤Г╤В╨╕ ╨╜╨╡╤В.
+// ╨Х╤Б╨╗╨╕ ╨┐╨░╤А╨░╨╝╨╡╤В╤А OnlyTS == true, ╤В╨╛ ╨╕╤Й╨╡╤В╤Б╤П ╤В╨╛╨╗╤М╨║╨╛ ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ (╨┤╨░╨╜╨╜╤Л╨╣ ╤А╨╡╨╢╨╕╨╝ ╨┐╤А╨╡╨┤╤Г╤Б╨╝╨╛╤В╤А╨╡╨╜ ╨┤╨╗╤П ╤Г╤Б╨║╨╛╤А╨╡╨╜╨╕╤П ╤А╨░╨▒╨╛╤В╤Л). ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В 0, ╨╡╤Б╨╗╨╕ ╨╛╨╜╨░ ╨╜╨░╨╣╨┤╨╡╨╜╨░ ╨╕ -1 ╨╡╤Б╨╗╨╕ ╨╜╨╡╤В. ╨У╨░╨╝╨╕╨╗╤М╤В╨╛╨╜╨╛╨▓ ╨┐╤Г╤В╤М ╨╕ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╨╡ ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╤О╤В╤Б╤П (R ╨╕ Isolated ╨▒╤Г╨┤╤Г╤В ╨┐╤Г╤Б╤В╤Л ╨▓ ╨╗╤О╨▒╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡).
 
 // The function finds topological sorting of directed graph (returned as vector "order").
 // ONLY IF topological sorting exists AND OnlyTS == false the function also checks for Hamiltonian path (returned as vector R) and list of Isolated vertices (returned as vector Isolated).
@@ -5116,14 +5116,14 @@ int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & o
     if (A.size()==0) return -1;
     if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
 
-    int Vg; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    int Vg; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
     int E = A.size()/(2+weighted); // the total number of edges in the graph
 
 
     int mn;
     RangeVGraph (A, Vg, mn, weighted);
 
-    if (mn<1)  // Приведение вектора к нумерованию вершин с 1 // renumbering vertices to start from 1.
+    if (mn<1)  // ╨Я╤А╨╕╨▓╨╡╨┤╨╡╨╜╨╕╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨║ ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╜╨╕╤О ╨▓╨╡╤А╤И╨╕╨╜ ╤Б 1 // renumbering vertices to start from 1.
     {
         RenumVGraph (A, (1-mn), weighted);
         Vg = Vg+(1-mn);
@@ -5131,11 +5131,11 @@ int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & o
 
     if (!OnlyTS)
     {
-    std::vector <int> Vin(Vg+1, 0); //для подсчета входящих и исходящих в вершину
+    std::vector <int> Vin(Vg+1, 0); //╨┤╨╗╤П ╨┐╨╛╨┤╤Б╤З╨╡╤В╨░ ╨▓╤Е╨╛╨┤╤П╤Й╨╕╤Е ╨╕ ╨╕╤Б╤Е╨╛╨┤╤П╤Й╨╕╤Е ╨▓ ╨▓╨╡╤А╤И╨╕╨╜╤Г
     std::vector <int> Vout (Vg+1, 0); // for counting in-edges and out-edges
 
 
-    // Поиск изолированных
+    // ╨Я╨╛╨╕╤Б╨║ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е
     // Let's find isolated vertices
 
     for (int q=0; q<A.size()-1-weighted; q= q+2+weighted)
@@ -5155,18 +5155,18 @@ int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & o
 
     }
 
-    // Конец поиска изолированных // end of finding isolated vertices
+    // ╨Ъ╨╛╨╜╨╡╤Ж ╨┐╨╛╨╕╤Б╨║╨░ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е // end of finding isolated vertices
     }
 
-    std::vector <int> Visited (Vg+1, 0); // нулевой элемент использовать не будем: нумеруются вершины с 1  // all vertices are to be numbered starting from 1
+    std::vector <int> Visited (Vg+1, 0); // ╨╜╤Г╨╗╨╡╨▓╨╛╨╣ ╤Н╨╗╨╡╨╝╨╡╨╜╤В ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╤М ╨╜╨╡ ╨▒╤Г╨┤╨╡╨╝: ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤Б 1  // all vertices are to be numbered starting from 1
     Visited [0] = 1;
-    int b=CheckUnvisit(Visited);  // вершина откуда идет поиск  // let's start from here
+    int b=CheckUnvisit(Visited);  // ╨▓╨╡╤А╤И╨╕╨╜╨░ ╨╛╤В╨║╤Г╨┤╨░ ╨╕╨┤╨╡╤В ╨┐╨╛╨╕╤Б╨║  // let's start from here
 
     int f;
 
     while (CheckUnvisit(Visited)!=-1)
     {
-        b=CheckUnvisit(Visited);  // берем первую же непосещенную вершину  // vertex not visited yet
+        b=CheckUnvisit(Visited);  // ╨▒╨╡╤А╨╡╨╝ ╨┐╨╡╤А╨▓╤Г╤О ╨╢╨╡ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О ╨▓╨╡╤А╤И╨╕╨╜╤Г  // vertex not visited yet
 
 
 
@@ -5188,7 +5188,7 @@ int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & o
 
     }
 
-    reverse (order.begin(),order.end());  // в массиве order - результат топологической сортировки  // order contains topological sorting
+    reverse (order.begin(),order.end());  // ╨▓ ╨╝╨░╤Б╤Б╨╕╨▓╨╡ order - ╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨╛╨╣ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕  // order contains topological sorting
 
 
     if (!OnlyTS)
@@ -5198,7 +5198,7 @@ int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & o
     MatrixSet(B, Vg+1, Vg+1, 0);
 
 
-    for (unsigned int x = 0; x<A.size()-1-weighted; x = x+2+weighted)  // Формируем матрицу смежности B, содержащую ко-во ребер даже для взвешенных графов
+    for (unsigned int x = 0; x<A.size()-1-weighted; x = x+2+weighted)  // ╨д╨╛╤А╨╝╨╕╤А╤Г╨╡╨╝ ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ B, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╤Г╤О ╨║╨╛-╨▓╨╛ ╤А╨╡╨▒╨╡╤А ╨┤╨░╨╢╨╡ ╨┤╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е ╨│╤А╨░╤Д╨╛╨▓
         // Forming Adjacency matrix and filling it with the number of edges between vertices.
     {
         if (A[x]!=A[x+1]) B[(A[x])][(A[x+1])]++;
@@ -5264,7 +5264,7 @@ int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & o
 
 
 int TSortHP (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <int> & R, std::vector <int> & order, std::vector <int> & Isolated, const bool OnlyTS = false)
-// Модификация функции TSortHP (см. выше) для случая нецелочисленных весов ребер (double).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ TSortHP (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А (double).
 // Modification of the function TSortHP (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -5286,13 +5286,13 @@ int TSortHP (std::pair < std::vector<int>, std::vector<double>> & A, std::vector
 int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
 {
 
-    // Рассчитывает расстояния от заданной вершины b до всех прочих в орграфе (используется метод поиска в ширину).
-    // Возвращается 1 в случае успеха (вектор D содержит кратчайшие расстояния от вершины b до вершины i, а вектор Prev - индекс вершин-предков в таком пути).
-    // По умолчанию вектор D содержит значения LLONG_MAX, а вектор Prev - "-1".
-    // Если в ходе работы обнаружен цикл негативного веса, то функция возвращает -1 и пустые вектора D и Prev.
-    // На входе д.б. граф, заданный вектором смежности A (считается, что вершины нумеруются с 0), номер исходной вершины b и флаг, является ли граф взвешенным (const bool weighted). Для невзвешенных считается, что каждое ребро имеет вес = 1.
-    // Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах)
-    // Функция работает со взвешенными и с невзвешенными графами, причем они могут содержать петли и множественные ребра. Ребра могут иметь как неотрицательный (в т.ч. и нулевой), так и отрицательный вес.
+    // ╨а╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╨╛╤В ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л b ╨┤╨╛ ╨▓╤Б╨╡╤Е ╨┐╤А╨╛╤З╨╕╤Е ╨▓ ╨╛╤А╨│╤А╨░╤Д╨╡ (╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╤В╤Б╤П ╨╝╨╡╤В╨╛╨┤ ╨┐╨╛╨╕╤Б╨║╨░ ╨▓ ╤И╨╕╤А╨╕╨╜╤Г).
+    // ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П 1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ (╨▓╨╡╨║╤В╨╛╤А D ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨║╤А╨░╤В╤З╨░╨╣╤И╨╕╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╨╛╤В ╨▓╨╡╤А╤И╨╕╨╜╤Л b ╨┤╨╛ ╨▓╨╡╤А╤И╨╕╨╜╤Л i, ╨░ ╨▓╨╡╨║╤В╨╛╤А Prev - ╨╕╨╜╨┤╨╡╨║╤Б ╨▓╨╡╤А╤И╨╕╨╜-╨┐╤А╨╡╨┤╨║╨╛╨▓ ╨▓ ╤В╨░╨║╨╛╨╝ ╨┐╤Г╤В╨╕).
+    // ╨Я╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╨▓╨╡╨║╤В╨╛╤А D ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П LLONG_MAX, ╨░ ╨▓╨╡╨║╤В╨╛╤А Prev - "-1".
+    // ╨Х╤Б╨╗╨╕ ╨▓ ╤Е╨╛╨┤╨╡ ╤А╨░╨▒╨╛╤В╤Л ╨╛╨▒╨╜╨░╤А╤Г╨╢╨╡╨╜ ╤Ж╨╕╨║╨╗ ╨╜╨╡╨│╨░╤В╨╕╨▓╨╜╨╛╨│╨╛ ╨▓╨╡╤Б╨░, ╤В╨╛ ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╤Л╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ D ╨╕ Prev.
+    // ╨Э╨░ ╨▓╤Е╨╛╨┤╨╡ ╨┤.╨▒. ╨│╤А╨░╤Д, ╨╖╨░╨┤╨░╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A (╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╤Б 0), ╨╜╨╛╨╝╨╡╤А ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л b ╨╕ ╤Д╨╗╨░╨│, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝ (const bool weighted). ╨Ф╨╗╤П ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨╕╨╝╨╡╨╡╤В ╨▓╨╡╤Б = 1.
+    // ╨в╨░╨║╨╢╨╡ ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨┐╨╛╨┤╨░╨╡╤В╤Б╤П ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л V (╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨┐╨╡╤А╨╡╨┤╨░╨╜, ╤А╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В╤Б╤П ╤Б╨░╨╝╨╛╤Б╤В╨╛╤П╤В╨╡╨╗╤М╨╜╨╛ ╨║╨░╨║ ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╤А╨╡╨▒╤А╨░╤Е)
+    // ╨д╤Г╨╜╨║╤Ж╨╕╤П ╤А╨░╨▒╨╛╤В╨░╨╡╤В ╤Б╨╛ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝╨╕ ╨╕ ╤Б ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝╨╕ ╨│╤А╨░╤Д╨░╨╝╨╕, ╨┐╤А╨╕╤З╨╡╨╝ ╨╛╨╜╨╕ ╨╝╨╛╨│╤Г╤В ╤Б╨╛╨┤╨╡╤А╨╢╨░╤В╤М ╨┐╨╡╤В╨╗╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╡ ╤А╨╡╨▒╤А╨░. ╨а╨╡╨▒╤А╨░ ╨╝╨╛╨│╤Г╤В ╨╕╨╝╨╡╤В╤М ╨║╨░╨║ ╨╜╨╡╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╣ (╨▓ ╤В.╤З. ╨╕ ╨╜╤Г╨╗╨╡╨▓╨╛╨╣), ╤В╨░╨║ ╨╕ ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╣ ╨▓╨╡╤Б.
 
     // The function counts the shortest distances from the vertex b to all vertices in the graph (these distances are to be contained in vector D, i.e. D[i] means the shortest distance from b to I).
     // By default vector D is filled with LLONG_MAX.
@@ -5328,23 +5328,23 @@ int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const in
     }
 
 
-    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    if (mx>V) V = mx; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
 
     if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
     {
         return -1;
     }
 
-    D.resize(V+1, LLONG_MAX); // По умолчанию расстояния равны + бесконечность // The default distance values is LLONG_MAX for every vertex
+    D.resize(V+1, LLONG_MAX); // ╨Я╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╤А╨░╨▓╨╜╤Л + ╨▒╨╡╤Б╨║╨╛╨╜╨╡╤З╨╜╨╛╤Б╤В╤М // The default distance values is LLONG_MAX for every vertex
 
 
-    Prev.resize(V+1, -1); // по умолчанию "предка" нет. // The previous vartexes are not set by default (i.e. =-1 for every vertex)
+    Prev.resize(V+1, -1); // ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О "╨┐╤А╨╡╨┤╨║╨░" ╨╜╨╡╤В. // The previous vartexes are not set by default (i.e. =-1 for every vertex)
 
 
-    std::queue <int> Q; //вектор очереди
+    std::queue <int> Q; //╨▓╨╡╨║╤В╨╛╤А ╨╛╤З╨╡╤А╨╡╨┤╨╕
 
 
-   D[b] = 0; //дистанция от первой вершины до себя = 0 // the distance from starting vertex to itself = 0
+   D[b] = 0; //╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤П ╨╛╤В ╨┐╨╡╤А╨▓╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨┤╨╛ ╤Б╨╡╨▒╤П = 0 // the distance from starting vertex to itself = 0
 
    Q.push (b);
 
@@ -5358,8 +5358,8 @@ int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const in
 
     while (!(Q.empty()))
     {
-        j = 0;// индекс пробега по вектору смежности A // indexes of beginning-vertices of edges in A
-        i = Q.front(); // номер очередной вершины из очереди к рассмотрению (добавляем в конец, достаем с начала) // number of vertex to continue from
+        j = 0;// ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╤А╨╛╨▒╨╡╨│╨░ ╨┐╨╛ ╨▓╨╡╨║╤В╨╛╤А╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A // indexes of beginning-vertices of edges in A
+        i = Q.front(); // ╨╜╨╛╨╝╨╡╤А ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╕╨╖ ╨╛╤З╨╡╤А╨╡╨┤╨╕ ╨║ ╤А╨░╤Б╤Б╨╝╨╛╤В╤А╨╡╨╜╨╕╤О (╨┤╨╛╨▒╨░╨▓╨╗╤П╨╡╨╝ ╨▓ ╨║╨╛╨╜╨╡╤Ж, ╨┤╨╛╤Б╤В╨░╨╡╨╝ ╤Б ╨╜╨░╤З╨░╨╗╨░) // number of vertex to continue from
 
         while (j<=A.size()-2-weighted) // lets look through A
         {
@@ -5374,32 +5374,32 @@ int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const in
                 // we should recount distance if we have found non-visited vertex or we may reduce its distance from vertex b.
 
                 {
-                    Q.push(A[j+1]);  //эту j+1 вершину - в очередь // in this casr we should push such vertex to quenue Q
+                    Q.push(A[j+1]);  //╤Н╤В╤Г j+1 ╨▓╨╡╤А╤И╨╕╨╜╤Г - ╨▓ ╨╛╤З╨╡╤А╨╡╨┤╤М // in this casr we should push such vertex to quenue Q
                     count++;
-                    D[(A[j+1])] = D[(i)]+(long long int)(A[j+2]); // по ней посчитаем дистанцию // and recount its distance from b
+                    D[(A[j+1])] = D[(i)]+(long long int)(A[j+2]); // ╨┐╨╛ ╨╜╨╡╨╣ ╨┐╨╛╤Б╤З╨╕╤В╨░╨╡╨╝ ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤О // and recount its distance from b
 
-                    Prev [(A[j+1])] = i;// и предка // and reset its previous vertex too
+                    Prev [(A[j+1])] = i;// ╨╕ ╨┐╤А╨╡╨┤╨║╨░ // and reset its previous vertex too
                 }
 
             }
 
             if (!weighted)
             {
-            // для невзвешенного все аналогично, но считаем что вес каждого ребра =1
+            // ╨┤╨╗╤П ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╨╛╨│╨╛ ╨▓╤Б╨╡ ╨░╨╜╨░╨╗╨╛╨│╨╕╤З╨╜╨╛, ╨╜╨╛ ╤Б╤З╨╕╤В╨░╨╡╨╝ ╤З╤В╨╛ ╨▓╨╡╤Б ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤А╨╡╨▒╤А╨░ =1
             // for an unweighted graph lets put every edge has distance =1.
 
 
                 if (  (A[j]==i) && ((D[ (A[j+1] )] == LLONG_MAX) || (D[ (A[j+1]) ] > (D[ i ]+1) ))  )
-                //если нашли вершину i и следующая за ней (за номером j+1 в векторе А): (1) не исходная (от которой считаем, равная b),
-                // и (2) дистанция до нее равна LLONG_MAX (там еще не были) либо больше дистанции до i, увеличенной на A[j+1] (путь через i + последнее ребро из i)
+                //╨╡╤Б╨╗╨╕ ╨╜╨░╤И╨╗╨╕ ╨▓╨╡╤А╤И╨╕╨╜╤Г i ╨╕ ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨░╤П ╨╖╨░ ╨╜╨╡╨╣ (╨╖╨░ ╨╜╨╛╨╝╨╡╤А╨╛╨╝ j+1 ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ ╨Р): (1) ╨╜╨╡ ╨╕╤Б╤Е╨╛╨┤╨╜╨░╤П (╨╛╤В ╨║╨╛╤В╨╛╤А╨╛╨╣ ╤Б╤З╨╕╤В╨░╨╡╨╝, ╤А╨░╨▓╨╜╨░╤П b),
+                // ╨╕ (2) ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤П ╨┤╨╛ ╨╜╨╡╨╡ ╤А╨░╨▓╨╜╨░ LLONG_MAX (╤В╨░╨╝ ╨╡╤Й╨╡ ╨╜╨╡ ╨▒╤Л╨╗╨╕) ╨╗╨╕╨▒╨╛ ╨▒╨╛╨╗╤М╤И╨╡ ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╨╕ ╨┤╨╛ i, ╤Г╨▓╨╡╨╗╨╕╤З╨╡╨╜╨╜╨╛╨╣ ╨╜╨░ A[j+1] (╨┐╤Г╤В╤М ╤З╨╡╤А╨╡╨╖ i + ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨╡ ╤А╨╡╨▒╤А╨╛ ╨╕╨╖ i)
                 // we should recount distance if we have found non-visited vertex or we may reduce its distance from vertex b.
 
                 {
-                    Q.push(A[j+1]);  //эту j+1 вершину - в очередь // in this casr we should push such vertex to quenue Q
+                    Q.push(A[j+1]);  //╤Н╤В╤Г j+1 ╨▓╨╡╤А╤И╨╕╨╜╤Г - ╨▓ ╨╛╤З╨╡╤А╨╡╨┤╤М // in this casr we should push such vertex to quenue Q
                     count++;
-                    D[(A[j+1])] = D[(i)]+1; // по ней посчитаем дистанцию // and recount its distance from b
+                    D[(A[j+1])] = D[(i)]+1; // ╨┐╨╛ ╨╜╨╡╨╣ ╨┐╨╛╤Б╤З╨╕╤В╨░╨╡╨╝ ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤О // and recount its distance from b
 
-                    Prev [(A[j+1])] = i;// и предка // and reset its previous vertex too
+                    Prev [(A[j+1])] = i;// ╨╕ ╨┐╤А╨╡╨┤╨║╨░ // and reset its previous vertex too
                 }
 
             }
@@ -5409,7 +5409,7 @@ int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const in
 
         Q.pop();
 
-        if (count > (c)) //Значит, мы наткнулись на цикл отрицательного веса // This means we found a negative weight cycle
+        if (count > (c)) //╨Ч╨╜╨░╤З╨╕╤В, ╨╝╤Л ╨╜╨░╤В╨║╨╜╤Г╨╗╨╕╤Б╤М ╨╜╨░ ╤Ж╨╕╨║╨╗ ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╨╛╨│╨╛ ╨▓╨╡╤Б╨░ // This means we found a negative weight cycle
         {
             D.clear();
             Prev.clear();
@@ -5428,7 +5428,7 @@ int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const in
 
 
 int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, std::vector <int> & Prev, int V = INT_MIN)
-// Модификация функции DistanceBFA (см. выше) для случая нецелочисленных весов ребер (double).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ DistanceBFA (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А (double).
 // Modification of the function DistanceBFA (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -5461,23 +5461,23 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
     }
 
 
-    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    if (mx>V) V = mx; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
 
     if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
     {
         return -1;
     }
 
-    D.resize(V+1, INFINITY); // По умолчанию расстояния равны + бесконечность // The default distance values is INFINITY for every vertex
+    D.resize(V+1, INFINITY); // ╨Я╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╤А╨░╨▓╨╜╤Л + ╨▒╨╡╤Б╨║╨╛╨╜╨╡╤З╨╜╨╛╤Б╤В╤М // The default distance values is INFINITY for every vertex
 
 
-    Prev.resize(V+1, -1); // по умолчанию "предка" нет. // The previous vartexes are not set by default (i.e. =-1 for every vertex)
+    Prev.resize(V+1, -1); // ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О "╨┐╤А╨╡╨┤╨║╨░" ╨╜╨╡╤В. // The previous vartexes are not set by default (i.e. =-1 for every vertex)
 
 
-    std::queue <int> Q; //вектор очереди
+    std::queue <int> Q; //╨▓╨╡╨║╤В╨╛╤А ╨╛╤З╨╡╤А╨╡╨┤╨╕
 
 
-   D[b] = 0.0; //дистанция от первой вершины до себя = 0 // the distance from starting vertex to itself = 0
+   D[b] = 0.0; //╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤П ╨╛╤В ╨┐╨╡╤А╨▓╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨┤╨╛ ╤Б╨╡╨▒╤П = 0 // the distance from starting vertex to itself = 0
 
    Q.push (b);
 
@@ -5491,8 +5491,8 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
 
     while (!(Q.empty()))
     {
-        j = 0;// индекс пробега по вектору смежности A // indexes of beginning-vertices of edges in A
-        i = Q.front(); // номер очередной вершины из очереди к рассмотрению (добавляем в конец, достаем с начала) // number of vertex to continue from
+        j = 0;// ╨╕╨╜╨┤╨╡╨║╤Б ╨┐╤А╨╛╨▒╨╡╨│╨░ ╨┐╨╛ ╨▓╨╡╨║╤В╨╛╤А╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A // indexes of beginning-vertices of edges in A
+        i = Q.front(); // ╨╜╨╛╨╝╨╡╤А ╨╛╤З╨╡╤А╨╡╨┤╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╕╨╖ ╨╛╤З╨╡╤А╨╡╨┤╨╕ ╨║ ╤А╨░╤Б╤Б╨╝╨╛╤В╤А╨╡╨╜╨╕╤О (╨┤╨╛╨▒╨░╨▓╨╗╤П╨╡╨╝ ╨▓ ╨║╨╛╨╜╨╡╤Ж, ╨┤╨╛╤Б╤В╨░╨╡╨╝ ╤Б ╨╜╨░╤З╨░╨╗╨░) // number of vertex to continue from
 
         while (j<A.second.size()) // lets look through A
         {
@@ -5504,11 +5504,11 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
                 // we should recount distance if we have found non-visited vertex or we may reduce its distance from vertex b.
 
                 {
-                    Q.push((A.first)[2*j+1]);  //эту вершину - в очередь // in this casr we should push such vertex to quenue Q
+                    Q.push((A.first)[2*j+1]);  //╤Н╤В╤Г ╨▓╨╡╤А╤И╨╕╨╜╤Г - ╨▓ ╨╛╤З╨╡╤А╨╡╨┤╤М // in this casr we should push such vertex to quenue Q
                     count++;
-                    D[ (A.first)[2*j+1] ] = D[ i ]+ (long double)((A.second)[j]); // по ней посчитаем дистанцию // and recount its distance from b
+                    D[ (A.first)[2*j+1] ] = D[ i ]+ (long double)((A.second)[j]); // ╨┐╨╛ ╨╜╨╡╨╣ ╨┐╨╛╤Б╤З╨╕╤В╨░╨╡╨╝ ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤О // and recount its distance from b
 
-                    Prev [ (A.first)[2*j+1] ] = i;// и предка // and reset its previous vertex too
+                    Prev [ (A.first)[2*j+1] ] = i;// ╨╕ ╨┐╤А╨╡╨┤╨║╨░ // and reset its previous vertex too
                 }
 
             j = j+1;
@@ -5516,7 +5516,7 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
 
         Q.pop();
 
-        if (count > (c)) //Значит, мы наткнулись на цикл отрицательного веса // This means we found a negative weight cycle
+        if (count > (c)) //╨Ч╨╜╨░╤З╨╕╤В, ╨╝╤Л ╨╜╨░╤В╨║╨╜╤Г╨╗╨╕╤Б╤М ╨╜╨░ ╤Ж╨╕╨║╨╗ ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╨╛╨│╨╛ ╨▓╨╡╤Б╨░ // This means we found a negative weight cycle
         {
             D.clear();
             Prev.clear();
@@ -5532,18 +5532,18 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
 
 int DFS_for_NBPaths (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path)
 // An auxiliary function for NBPaths (see it below): DFS for finding isolated cycles
-// Вспомогательная функция для NBPaths (см. ниже): обход в глубину графа для поиска изолированных циклов
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П NBPaths (╤Б╨╝. ╨╜╨╕╨╢╨╡): ╨╛╨▒╤Е╨╛╨┤ ╨▓ ╨│╨╗╤Г╨▒╨╕╨╜╤Г ╨│╤А╨░╤Д╨░ ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╤Ж╨╕╨║╨╗╨╛╨▓
 
 
 {
-    int f = -1;  // f==-1 means that we have no cycle // флаг что нету цикла
+    int f = -1;  // f==-1 means that we have no cycle // ╤Д╨╗╨░╨│ ╤З╤В╨╛ ╨╜╨╡╤В╤Г ╤Ж╨╕╨║╨╗╨░
     Visited [b] = 1;
 
 
    for (unsigned int r = 0; r<=A.size(); r=r+2+w)
     {
 
-        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 1) && ((A[r+1])==bconst)  )  // если нашли посещенную, и это - исходная (bconst)
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 1) && ((A[r+1])==bconst)  )  // ╨╡╤Б╨╗╨╕ ╨╜╨░╤И╨╗╨╕ ╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О, ╨╕ ╤Н╤В╨╛ - ╨╕╤Б╤Е╨╛╨┤╨╜╨░╤П (bconst)
         {                                                                       // if we have found the initial vertex (labeled as "bconst")
            f = 1;  // we have a cycle
            Path.push_back(A[r+1]);
@@ -5552,12 +5552,12 @@ int DFS_for_NBPaths (const std::vector <int> & A, const bool w, const int b, con
 
 
 
-        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // нашли непосещенную? непосещенная = 0, идем глубже
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0) )  // ╨╜╨░╤И╨╗╨╕ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╤Г╤О? ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨░╤П = 0, ╨╕╨┤╨╡╨╝ ╨│╨╗╤Г╨▒╨╢╨╡
         {                                                // if we have found an unvisited vertex - let's go deeper
            Visited[(A[r+1])] = 1;
            Path.push_back(A[r+1]);
            f = DFS_for_NBPaths (A, w, (A[r+1]), bconst, Visited, Path);
-           if (f==1) break; // если снизу передан успех - его передать наверх  // if we have found a cycle at any step - let's
+           if (f==1) break; // ╨╡╤Б╨╗╨╕ ╤Б╨╜╨╕╨╖╤Г ╨┐╨╡╤А╨╡╨┤╨░╨╜ ╤Г╤Б╨┐╨╡╤Е - ╨╡╨│╨╛ ╨┐╨╡╤А╨╡╨┤╨░╤В╤М ╨╜╨░╨▓╨╡╤А╤Е  // if we have found a cycle at any step - let's
 
         }
 
@@ -5566,14 +5566,14 @@ int DFS_for_NBPaths (const std::vector <int> & A, const bool w, const int b, con
     }
 
 
-    return f; //возвращается, что есть цикл, если он обнаружен
+    return f; //╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨╡╤Б╤В╤М ╤Ж╨╕╨║╨╗, ╨╡╤Б╨╗╨╕ ╨╛╨╜ ╨╛╨▒╨╜╨░╤А╤Г╨╢╨╡╨╜
 }
 
 
 
 void Circuit_for_NBPaths (const std::vector <int> & A, const bool w, int V, std::vector <std::vector<int> >&Paths, std::vector <int> & Visited)
 // An auxiliary function for NBPaths (see it below): finding isolated cycles
-// Вспомогательная функция для NBPaths (см. ниже) для поиска изолированных циклов
+// ╨Т╤Б╨┐╨╛╨╝╨╛╨│╨░╤В╨╡╨╗╤М╨╜╨░╤П ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П NBPaths (╤Б╨╝. ╨╜╨╕╨╢╨╡) ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╤Ж╨╕╨║╨╗╨╛╨▓
 
 {
 
@@ -5604,12 +5604,12 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
 // Vertices may be numbered in different ways (they may be marked by both negative and non-negative integers). In order to implement the function vertices may be renumbered to get started from "1"; after search is completed, the vertices will be assigned their original numbers.
 // The input graph A may have multiple edges (multiple edges will be considered as non branching paths) and multiple loops (any loop will considered as a non branching path).
 
-// Функция для поиска всех максимально длинных неразветвляющихся путей в графе, заданном вектором смежности А. Параметр w задает, является ли граф взвешенным, или нет.
-// Параметр directed - является ли граф ориентированным.
-// Результат возвращается в std::vector <std::vector<int> > Paths.
-// Возвращает -1 и пустой Paths в случае некорректности исходных данных. В случае успеха вернет 0.
-// Может работать с графами, вершины которых заданы любыми целыми числами, в т.ч. - отрицательными.
-// Может работать с графами множественными ребрами и множественными петлями (каждое множественное ребро и каждая петля рассматриваются как отдельный путь).
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨▓╤Б╨╡╤Е ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛ ╨┤╨╗╨╕╨╜╨╜╤Л╤Е ╨╜╨╡╤А╨░╨╖╨▓╨╡╤В╨▓╨╗╤П╤О╤Й╨╕╤Е╤Б╤П ╨┐╤Г╤В╨╡╨╣ ╨▓ ╨│╤А╨░╤Д╨╡, ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╝ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р. ╨Я╨░╤А╨░╨╝╨╡╤В╤А w ╨╖╨░╨┤╨░╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝, ╨╕╨╗╨╕ ╨╜╨╡╤В.
+// ╨Я╨░╤А╨░╨╝╨╡╤В╤А directed - ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨╛╤А╨╕╨╡╨╜╤В╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╝.
+// ╨а╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П ╨▓ std::vector <std::vector<int> > Paths.
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╨╛╨╣ Paths ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╨╛╤Б╤В╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е. ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ ╨▓╨╡╤А╨╜╨╡╤В 0.
+// ╨Ь╨╛╨╢╨╡╤В ╤А╨░╨▒╨╛╤В╨░╤В╤М ╤Б ╨│╤А╨░╤Д╨░╨╝╨╕, ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨║╨╛╤В╨╛╤А╤Л╤Е ╨╖╨░╨┤╨░╨╜╤Л ╨╗╤О╨▒╤Л╨╝╨╕ ╤Ж╨╡╨╗╤Л╨╝╨╕ ╤З╨╕╤Б╨╗╨░╨╝╨╕, ╨▓ ╤В.╤З. - ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╝╨╕.
+// ╨Ь╨╛╨╢╨╡╤В ╤А╨░╨▒╨╛╤В╨░╤В╤М ╤Б ╨│╤А╨░╤Д╨░╨╝╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ (╨║╨░╨╢╨┤╨╛╨╡ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨╕ ╨║╨░╨╢╨┤╨░╤П ╨┐╨╡╤В╨╗╤П ╤А╨░╤Б╤Б╨╝╨░╤В╤А╨╕╨▓╨░╤О╤В╤Б╤П ╨║╨░╨║ ╨╛╤В╨┤╨╡╨╗╤М╨╜╤Л╨╣ ╨┐╤Г╤В╤М).
 
 
 {
@@ -5622,7 +5622,7 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
     int mn, mx;
     RangeVGraph (A, mx, mn, w);
 
-    if (mn<1)  // Приведение вектора к нумерованию вершин с 1 // renumbering vertices to start from 1.
+    if (mn<1)  // ╨Я╤А╨╕╨▓╨╡╨┤╨╡╨╜╨╕╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨║ ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╜╨╕╤О ╨▓╨╡╤А╤И╨╕╨╜ ╤Б 1 // renumbering vertices to start from 1.
     {
         RenumVGraph (A, (1-mn), w);
 
@@ -5632,17 +5632,17 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
 
 
 
-    int m = -1; //здесь будет номер максимальной вершины, число вершин  // The maximal vertex number will be set as "m".
+    int m = -1; //╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╜╨╛╨╝╨╡╤А ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л, ╤З╨╕╤Б╨╗╨╛ ╨▓╨╡╤А╤И╨╕╨╜  // The maximal vertex number will be set as "m".
     for (int a = 0; a<A.size(); a=(a+2+w))
     {
         if (A[a]>m) m=A[a];
         if (A[a+1]>m) m=A[a+1];
     }
 
-    std::vector <int> Leafs; // Здесь будут вершины разветвления
+    std::vector <int> Leafs; // ╨Ч╨┤╨╡╤Б╤М ╨▒╤Г╨┤╤Г╤В ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨░╨╖╨▓╨╡╤В╨▓╨╗╨╡╨╜╨╕╤П
     Leafs.clear();           // Here the branching vertices will be
 
-    std::vector <int> Vin(m+1, 0); //для подсчета входящих и исходящих в вершину, чтобы определить листья и вершины разветвения.
+    std::vector <int> Vin(m+1, 0); //╨┤╨╗╤П ╨┐╨╛╨┤╤Б╤З╨╡╤В╨░ ╨▓╤Е╨╛╨┤╤П╤Й╨╕╤Е ╨╕ ╨╕╤Б╤Е╨╛╨┤╤П╤Й╨╕╤Е ╨▓ ╨▓╨╡╤А╤И╨╕╨╜╤Г, ╤З╤В╨╛╨▒╤Л ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╕╤В╤М ╨╗╨╕╤Б╤В╤М╤П ╨╕ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╤А╨░╨╖╨▓╨╡╤В╨▓╨╡╨╜╨╕╤П.
     std::vector <int> Vout (m+1, 0); // Let's count in and out edges for every vertex in order to find branching vertices
 
     std::vector <int> EdgeVisited (A.size()/(2+w), -1);
@@ -5663,7 +5663,7 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
 
     for (int q = 1; q<=m; q++)  // searching for branching vertices
         if ((Vin[q]!=1) || (Vout[q]!=1))
-    {        Leafs.push_back(q); // вставляем номер
+    {        Leafs.push_back(q); // ╨▓╤Б╤В╨░╨▓╨╗╤П╨╡╨╝ ╨╜╨╛╨╝╨╡╤А
 
     }
 
@@ -5688,16 +5688,16 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
 
 
 
-            if ((EdgeVisited[j/(2+w)]==-1) && (A[j]==u)) // нашли непосещенное ребро, начинающееся с вершины u
+            if ((EdgeVisited[j/(2+w)]==-1) && (A[j]==u)) // ╨╜╨░╤И╨╗╨╕ ╨╜╨╡╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨╛╨╡ ╤А╨╡╨▒╤А╨╛, ╨╜╨░╤З╨╕╨╜╨░╤О╤Й╨╡╨╡╤Б╤П ╤Б ╨▓╨╡╤А╤И╨╕╨╜╤Л u
                                                         // if we have found an another unvisited edge starting frov the vertex u
 
             {
-                EdgeVisited[j/(2+w)]=1;//теперь оно посещенное  // now this edge is visited
+                EdgeVisited[j/(2+w)]=1;//╤В╨╡╨┐╨╡╤А╤М ╨╛╨╜╨╛ ╨┐╨╛╤Б╨╡╤Й╨╡╨╜╨╜╨╛╨╡  // now this edge is visited
 
 
 
-                Path.push_back(A[j+1]); // в путь - следующую вершину // adding to Path another vertex
-                if (FindIn(Leafs, A[j+1])!=-1)  // и если это - вершина разветвления - вывести путь, и наверх - дальше искать пути из вершины u
+                Path.push_back(A[j+1]); // ╨▓ ╨┐╤Г╤В╤М - ╤Б╨╗╨╡╨┤╤Г╤О╤Й╤Г╤О ╨▓╨╡╤А╤И╨╕╨╜╤Г // adding to Path another vertex
+                if (FindIn(Leafs, A[j+1])!=-1)  // ╨╕ ╨╡╤Б╨╗╨╕ ╤Н╤В╨╛ - ╨▓╨╡╤А╤И╨╕╨╜╨░ ╤А╨░╨╖╨▓╨╡╤В╨▓╨╗╨╡╨╜╨╕╤П - ╨▓╤Л╨▓╨╡╤Б╤В╨╕ ╨┐╤Г╤В╤М, ╨╕ ╨╜╨░╨▓╨╡╤А╤Е - ╨┤╨░╨╗╤М╤И╨╡ ╨╕╤Б╨║╨░╤В╤М ╨┐╤Г╤В╨╕ ╨╕╨╖ ╨▓╨╡╤А╤И╨╕╨╜╤Л u
                 {                               // And if it is a branching vertex - ths path is built, let's find another one starting from the vertex u
 
                     Paths.push_back(Path);
@@ -5705,7 +5705,7 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
                     goto l1;
                 }
 
-                 if (FindIn(Leafs, A[j+1])==-1) // а иначе - ищем дальше с найденой вершины неразветвления // and if no - lets continue path building from the non-branching vertex we have found
+                 if (FindIn(Leafs, A[j+1])==-1) // ╨░ ╨╕╨╜╨░╤З╨╡ - ╨╕╤Й╨╡╨╝ ╨┤╨░╨╗╤М╤И╨╡ ╤Б ╨╜╨░╨╣╨┤╨╡╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╨╡╤А╨░╨╖╨▓╨╡╤В╨▓╨╗╨╡╨╜╨╕╤П // and if no - lets continue path building from the non-branching vertex we have found
                  {
                      u = A[j+1];
                      goto l2;
@@ -5740,7 +5740,7 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
     int m1 = FindIn(Visited, 0, 1, 1);
     while (m1!=-1)
     {
-    Circuit_for_NBPaths(A, w, m1, Paths, Visited); // а теперь - изолированные циклы; // now let's find isolated cycles
+    Circuit_for_NBPaths(A, w, m1, Paths, Visited); // ╨░ ╤В╨╡╨┐╨╡╤А╤М - ╨╕╨╖╨╛╨╗╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡ ╤Ж╨╕╨║╨╗╤Л; // now let's find isolated cycles
     m1 = FindIn(Visited, 0, 1, 1);
     }
 
@@ -5840,7 +5840,7 @@ int NBPaths (std::vector <int> & A, bool w, std::vector <std::vector<int> >&Path
 
 
 
-    if (mn<1)  // Приведение вектора к нумерованию вершин с 1 // renumbering vertices to start from 1.
+    if (mn<1)  // ╨Я╤А╨╕╨▓╨╡╨┤╨╡╨╜╨╕╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ ╨║ ╨╜╤Г╨╝╨╡╤А╨╛╨▓╨░╨╜╨╕╤О ╨▓╨╡╤А╤И╨╕╨╜ ╤Б 1 // renumbering vertices to start from 1.
     {
         RenumVGraph (A, (mn-1), w);
         for (int i = 0; i<Paths.size(); i++)
@@ -5858,7 +5858,7 @@ return 0;
 
 
 int NBPaths (std::pair < std::vector<int>, std::vector<double>> & P, std::vector <std::vector<int> >&Paths, bool directed = true)
-// Модификация функции NBPaths (см. выше) для случая нецелочисленного веса ребер.
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ NBPaths (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╨╛╨│╨╛ ╨▓╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А.
 // Modification of the function NBPaths (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -5881,13 +5881,13 @@ int NBPaths (std::pair < std::vector<int>, std::vector<double>> & P, std::vector
 
 
 long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int e, std::vector <std::vector<int> >&Paths, std::vector <int> &Flows, std::vector < std::pair < int, int> > &MinCut)
-// Функция для поиска максимального потока в графе из вершины b в вершину e; граф задается вектором смежности А;
-// параметр weighted определяет, является ли граф взвешенным (если взвешенный - "Истина", при этом веса ребер здесь могут быть лишь целыми положительными).
-// Может работать с множественными ребрами (рассматриваются как одно "объединенное" ребро с суммарным весом) и с множественными петлями (петли игнорируются).
-// Вершины графа должны быть неотрицательны, веса ребер - только положительны
-// Возвращает: (1) величину максимального потока, (2) заполненный вектор путей Paths, слагающих максимальный поток (один из возможных вариантов построения Paths, если их может быть несколько),
-// (3) соответствующие этим путям значения потоков в векторе Flows, (4) перечень ребер минимального разреза графа в векторе MinCut (каждое ребро задано парой вершин).
-//  В случае некорректных исходных данных или отсутствия пути из b в e возвращает -1 и пустые Paths, Flows, MinCut.
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╨┤╨╗╤П ╨┐╨╛╨╕╤Б╨║╨░ ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨│╨╛ ╨┐╨╛╤В╨╛╨║╨░ ╨▓ ╨│╤А╨░╤Д╨╡ ╨╕╨╖ ╨▓╨╡╤А╤И╨╕╨╜╤Л b ╨▓ ╨▓╨╡╤А╤И╨╕╨╜╤Г e; ╨│╤А╨░╤Д ╨╖╨░╨┤╨░╨╡╤В╤Б╤П ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨Р;
+// ╨┐╨░╤А╨░╨╝╨╡╤В╤А weighted ╨╛╨┐╤А╨╡╨┤╨╡╨╗╤П╨╡╤В, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝ (╨╡╤Б╨╗╨╕ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╣ - "╨Ш╤Б╤В╨╕╨╜╨░", ╨┐╤А╨╕ ╤Н╤В╨╛╨╝ ╨▓╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А ╨╖╨┤╨╡╤Б╤М ╨╝╨╛╨│╤Г╤В ╨▒╤Л╤В╤М ╨╗╨╕╤И╤М ╤Ж╨╡╨╗╤Л╨╝╨╕ ╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╤Л╨╝╨╕).
+// ╨Ь╨╛╨╢╨╡╤В ╤А╨░╨▒╨╛╤В╨░╤В╤М ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╤А╨╡╨▒╤А╨░╨╝╨╕ (╤А╨░╤Б╤Б╨╝╨░╤В╤А╨╕╨▓╨░╤О╤В╤Б╤П ╨║╨░╨║ ╨╛╨┤╨╜╨╛ "╨╛╨▒╤К╨╡╨┤╨╕╨╜╨╡╨╜╨╜╨╛╨╡" ╤А╨╡╨▒╤А╨╛ ╤Б ╤Б╤Г╨╝╨╝╨░╤А╨╜╤Л╨╝ ╨▓╨╡╤Б╨╛╨╝) ╨╕ ╤Б ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╝╨╕ ╨┐╨╡╤В╨╗╤П╨╝╨╕ (╨┐╨╡╤В╨╗╨╕ ╨╕╨│╨╜╨╛╤А╨╕╤А╤Г╤О╤В╤Б╤П).
+// ╨Т╨╡╤А╤И╨╕╨╜╤Л ╨│╤А╨░╤Д╨░ ╨┤╨╛╨╗╨╢╨╜╤Л ╨▒╤Л╤В╤М ╨╜╨╡╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л, ╨▓╨╡╤Б╨░ ╤А╨╡╨▒╨╡╤А - ╤В╨╛╨╗╤М╨║╨╛ ╨┐╨╛╨╗╨╛╨╢╨╕╤В╨╡╨╗╤М╨╜╤Л
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В: (1) ╨▓╨╡╨╗╨╕╤З╨╕╨╜╤Г ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨╛╨│╨╛ ╨┐╨╛╤В╨╛╨║╨░, (2) ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А ╨┐╤Г╤В╨╡╨╣ Paths, ╤Б╨╗╨░╨│╨░╤О╤Й╨╕╤Е ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨┐╨╛╤В╨╛╨║ (╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨▓╨╛╨╖╨╝╨╛╨╢╨╜╤Л╤Е ╨▓╨░╤А╨╕╨░╨╜╤В╨╛╨▓ ╨┐╨╛╤Б╤В╤А╨╛╨╡╨╜╨╕╤П Paths, ╨╡╤Б╨╗╨╕ ╨╕╤Е ╨╝╨╛╨╢╨╡╤В ╨▒╤Л╤В╤М ╨╜╨╡╤Б╨║╨╛╨╗╤М╨║╨╛),
+// (3) ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╤О╤Й╨╕╨╡ ╤Н╤В╨╕╨╝ ╨┐╤Г╤В╤П╨╝ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П ╨┐╨╛╤В╨╛╨║╨╛╨▓ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ Flows, (4) ╨┐╨╡╤А╨╡╤З╨╡╨╜╤М ╤А╨╡╨▒╨╡╤А ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╨╛╨│╨╛ ╤А╨░╨╖╤А╨╡╨╖╨░ ╨│╤А╨░╤Д╨░ ╨▓ ╨▓╨╡╨║╤В╨╛╤А╨╡ MinCut (╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨╖╨░╨┤╨░╨╜╨╛ ╨┐╨░╤А╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜).
+//  ╨Т ╤Б╨╗╤Г╤З╨░╨╡ ╨╜╨╡╨║╨╛╤А╤А╨╡╨║╤В╨╜╤Л╤Е ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╨┤╨░╨╜╨╜╤Л╤Е ╨╕╨╗╨╕ ╨╛╤В╤Б╤Г╤В╤Б╤В╨▓╨╕╤П ╨┐╤Г╤В╨╕ ╨╕╨╖ b ╨▓ e ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В -1 ╨╕ ╨┐╤Г╤Б╤В╤Л╨╡ Paths, Flows, MinCut.
 
 
 // Finds maximal flow from vertex b to vertex e in the graph A (set by Adjacency vector A).
@@ -5903,10 +5903,10 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
 
 {
 
-    long long int Result=0;// здесь будет результат // Here a result will be
-    Paths.clear(); // здесь будут пути, слагающие макспоток
-    Flows.clear(); // а здесь  - соответствующие им величины подпотоков, слагающие общий поток из b в е
-    MinCut.clear(); // А здесь будет минимальный разрез
+    long long int Result=0;// ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В // Here a result will be
+    Paths.clear(); // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╤Г╤В ╨┐╤Г╤В╨╕, ╤Б╨╗╨░╨│╨░╤О╤Й╨╕╨╡ ╨╝╨░╨║╤Б╨┐╨╛╤В╨╛╨║
+    Flows.clear(); // ╨░ ╨╖╨┤╨╡╤Б╤М  - ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╤О╤Й╨╕╨╡ ╨╕╨╝ ╨▓╨╡╨╗╨╕╤З╨╕╨╜╤Л ╨┐╨╛╨┤╨┐╨╛╤В╨╛╨║╨╛╨▓, ╤Б╨╗╨░╨│╨░╤О╤Й╨╕╨╡ ╨╛╨▒╤Й╨╕╨╣ ╨┐╨╛╤В╨╛╨║ ╨╕╨╖ b ╨▓ ╨╡
+    MinCut.clear(); // ╨Р ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╤А╨░╨╖╤А╨╡╨╖
 
     if (A.size()==0) return -1;
 
@@ -5915,11 +5915,11 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
 
     int mn, mx;
     RangeVGraph (A, mx, mn, false, true);
-    if (mn<0) return -1; // все вершины и веса д.б. неотрицательны // all vertices should have non-negative marks. All weights shouldn't be negative too.
+    if (mn<0) return -1; // ╨▓╤Б╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╕ ╨▓╨╡╤Б╨░ ╨┤.╨▒. ╨╜╨╡╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л // all vertices should have non-negative marks. All weights shouldn't be negative too.
 
 
 
-    if (FindIn(A, b, (2+weighted), 0) == -1) return -1; // Проверка что вершины b (как исток) и e (как сток) есть в графе
+    if (FindIn(A, b, (2+weighted), 0) == -1) return -1; // ╨Я╤А╨╛╨▓╨╡╤А╨║╨░ ╤З╤В╨╛ ╨▓╨╡╤А╤И╨╕╨╜╤Л b (╨║╨░╨║ ╨╕╤Б╤В╨╛╨║) ╨╕ e (╨║╨░╨║ ╤Б╤В╨╛╨║) ╨╡╤Б╤В╤М ╨▓ ╨│╤А╨░╤Д╨╡
     if (FindIn(A, e, (2+weighted), 1) == -1) return -1; // Checking for vertex b (as source) and vertex e (as sink) both are in the graph
 
     if (weighted)
@@ -5944,15 +5944,15 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
     std::vector <int> Path; Path.clear();
 
     int d = DistanceBFA (A, D, b, Prev, weighted);
-    if (D[e]==LLONG_MAX) return -1; // в этом случае е недостижима из b // In this case we have no path from b to e.
+    if (D[e]==LLONG_MAX) return -1; // ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡ ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ b // In this case we have no path from b to e.
 
 
     while (d!=-1)
     {
-        if (D[e]==LLONG_MAX) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
-        if (D.size()<=e) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+        if (D[e]==LLONG_MAX) break; // ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡ ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ b  // In this case we have no path from b to e.
+        if (D.size()<=e) break; // ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡ ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ b  // In this case we have no path from b to e.
 
-        // строим путь из b в е
+        // ╤Б╤В╤А╨╛╨╕╨╝ ╨┐╤Г╤В╤М ╨╕╨╖ b ╨▓ ╨╡
         // Let's build path from b to e.
 
         Path.clear();
@@ -5974,11 +5974,11 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
 
         std::reverse(std::begin(Path), std::end(Path));
 
-        // построили путь из b в е
+        // ╨┐╨╛╤Б╤В╤А╨╛╨╕╨╗╨╕ ╨┐╤Г╤В╤М ╨╕╨╖ b ╨▓ ╨╡
         // We have a path from b to e.
 
         l=INT_MAX;
-        for (int q=0; q<Path.size()-1; q++)  // ищем ребро с самой низкой пропускной способностью и записываем пропускную способноость в l
+        for (int q=0; q<Path.size()-1; q++)  // ╨╕╤Й╨╡╨╝ ╤А╨╡╨▒╤А╨╛ ╤Б ╤Б╨░╨╝╨╛╨╣ ╨╜╨╕╨╖╨║╨╛╨╣ ╨┐╤А╨╛╨┐╤Г╤Б╨║╨╜╨╛╨╣ ╤Б╨┐╨╛╤Б╨╛╨▒╨╜╨╛╤Б╤В╤М╤О ╨╕ ╨╖╨░╨┐╨╕╤Б╤Л╨▓╨░╨╡╨╝ ╨┐╤А╨╛╨┐╤Г╤Б╨║╨╜╤Г╤О ╤Б╨┐╨╛╤Б╨╛╨▒╨╜╨╛╨╛╤Б╤В╤М ╨▓ l
         {                                    // looking for an edge with the minimal non-zero weight in the Path
             C = std::make_pair(Path[q], Path[q+1]);
             if ((l>G2[C])&&(G2[C]>0))
@@ -5990,7 +5990,7 @@ long long int MaxFlowGraph (std::vector <int> A, const bool weighted, int b, int
 
 
 
-        for (int q=0; q<Path.size()-1; q++)  // Вычитаем l по всему найденному пути // recalculating weights of all edges of the Path
+        for (int q=0; q<Path.size()-1; q++)  // ╨Т╤Л╤З╨╕╤В╨░╨╡╨╝ l ╨┐╨╛ ╨▓╤Б╨╡╨╝╤Г ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨╝╤Г ╨┐╤Г╤В╨╕ // recalculating weights of all edges of the Path
         {
            C = std::make_pair(Path[q], Path[q+1]);
             G2[C] = G2[C]-l;
@@ -6028,7 +6028,7 @@ for (int y=0; y<MinCut.size(); y++)
 
 
 long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, int b, int e, std::vector <std::vector<int> >&Paths, std::vector <double> &Flows, std::vector < std::pair < int, int> > &MinCut)
-// Модификация функции MaxFlowGraph (см. выше) для случая нецелочисленных весов ребер (double).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ MaxFlowGraph (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А (double).
 // Modification of the function MaxFlowGraph (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -6037,10 +6037,10 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
 
 {
 
-    long double Result=0.0;// здесь будет результат  // Here a result will be
-    Paths.clear(); // здесь будут пути, слагающие макспоток
-    Flows.clear(); // а здесь  - соответствующие им величины подпотоков, слагающие общий поток из b в е
-    MinCut.clear(); // А здесь будет минимальный разрез
+    long double Result=0.0;// ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В  // Here a result will be
+    Paths.clear(); // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╤Г╤В ╨┐╤Г╤В╨╕, ╤Б╨╗╨░╨│╨░╤О╤Й╨╕╨╡ ╨╝╨░╨║╤Б╨┐╨╛╤В╨╛╨║
+    Flows.clear(); // ╨░ ╨╖╨┤╨╡╤Б╤М  - ╤Б╨╛╨╛╤В╨▓╨╡╤В╤Б╤В╨▓╤Г╤О╤Й╨╕╨╡ ╨╕╨╝ ╨▓╨╡╨╗╨╕╤З╨╕╨╜╤Л ╨┐╨╛╨┤╨┐╨╛╤В╨╛╨║╨╛╨▓, ╤Б╨╗╨░╨│╨░╤О╤Й╨╕╨╡ ╨╛╨▒╤Й╨╕╨╣ ╨┐╨╛╤В╨╛╨║ ╨╕╨╖ b ╨▓ ╨╡
+    MinCut.clear(); // ╨Р ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨╕╨╜╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╤А╨░╨╖╤А╨╡╨╖
     if ((b<0) || (e<0))  return -1;
 
 
@@ -6051,11 +6051,11 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
 
     int mn, mx;
     RangeVGraph (A.first, mx, mn, false, true);
-    if (mn<0) return -1; // все вершины д.б. неотрицательны  // all vertices should have non-negative marks.
+    if (mn<0) return -1; // ╨▓╤Б╨╡ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨┤.╨▒. ╨╜╨╡╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л  // all vertices should have non-negative marks.
 
 
 
-    if (FindIn(A.first, b, 2, 0) == -1) return -1; // Проверка что вершины b (как исток) и e (как сток) есть в графе
+    if (FindIn(A.first, b, 2, 0) == -1) return -1; // ╨Я╤А╨╛╨▓╨╡╤А╨║╨░ ╤З╤В╨╛ ╨▓╨╡╤А╤И╨╕╨╜╤Л b (╨║╨░╨║ ╨╕╤Б╤В╨╛╨║) ╨╕ e (╨║╨░╨║ ╤Б╤В╨╛╨║) ╨╡╤Б╤В╤М ╨▓ ╨│╤А╨░╤Д╨╡
     if (FindIn(A.first, e, 2, 1) == -1) return -1; // Checking for vertex b (as source) and vertex e (as sink) both are in the graph
 
 
@@ -6082,15 +6082,15 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
     std::vector <int> Path; Path.clear();
 
     int d = DistanceBFA (A, D, b, Prev);
-    if (D[e]==INFINITY) return -1; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+    if (D[e]==INFINITY) return -1; // ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡ ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ b  // In this case we have no path from b to e.
 
 
     while (d!=-1)
     {
-        if (D[e]==INFINITY) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
-        if (D.size()<=e) break; // в этом случае е недостижима из b  // In this case we have no path from b to e.
+        if (D[e]==INFINITY) break; // ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡ ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ b  // In this case we have no path from b to e.
+        if (D.size()<=e) break; // ╨▓ ╤Н╤В╨╛╨╝ ╤Б╨╗╤Г╤З╨░╨╡ ╨╡ ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ b  // In this case we have no path from b to e.
 
-        // строим путь из b в е
+        // ╤Б╤В╤А╨╛╨╕╨╝ ╨┐╤Г╤В╤М ╨╕╨╖ b ╨▓ ╨╡
         // Let's build path from b to e.
 
         Path.clear();
@@ -6109,7 +6109,7 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
             x = Prev[x];
 
         }
-        // построили путь из b в е
+        // ╨┐╨╛╤Б╤В╤А╨╛╨╕╨╗╨╕ ╨┐╤Г╤В╤М ╨╕╨╖ b ╨▓ ╨╡
          // We have a path from b to e.
 
         std::reverse(std::begin(Path), std::end(Path));
@@ -6119,7 +6119,7 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
 
 
         l=INFINITY;
-        for (int q=0; q<Path.size()-1; q++)  // ищем ребро с самой низкой пропускной способностью и записываем пропускную способноость в l
+        for (int q=0; q<Path.size()-1; q++)  // ╨╕╤Й╨╡╨╝ ╤А╨╡╨▒╤А╨╛ ╤Б ╤Б╨░╨╝╨╛╨╣ ╨╜╨╕╨╖╨║╨╛╨╣ ╨┐╤А╨╛╨┐╤Г╤Б╨║╨╜╨╛╨╣ ╤Б╨┐╨╛╤Б╨╛╨▒╨╜╨╛╤Б╤В╤М╤О ╨╕ ╨╖╨░╨┐╨╕╤Б╤Л╨▓╨░╨╡╨╝ ╨┐╤А╨╛╨┐╤Г╤Б╨║╨╜╤Г╤О ╤Б╨┐╨╛╤Б╨╛╨▒╨╜╨╛╨╛╤Б╤В╤М ╨▓ l
         {                                    // looking for an edge with the minimal non-zero weight in the Path
             C = std::make_pair(Path[q], Path[q+1]);
             if ((l>G2[C])&&(G2[C]>0.0))
@@ -6131,7 +6131,7 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
 
 
 
-        for (int q=0; q<Path.size()-1; q++)  // Вычитаем l по всему найденному пути  // recalculating weights of all edges of the Path
+        for (int q=0; q<Path.size()-1; q++)  // ╨Т╤Л╤З╨╕╤В╨░╨╡╨╝ l ╨┐╨╛ ╨▓╤Б╨╡╨╝╤Г ╨╜╨░╨╣╨┤╨╡╨╜╨╜╨╛╨╝╤Г ╨┐╤Г╤В╨╕  // recalculating weights of all edges of the Path
         {
            C = std::make_pair(Path[q], Path[q+1]);
             G2[C] = G2[C]-l;
@@ -6172,16 +6172,16 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
 int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
 {
 
-// Рассчитывает расстояния от заданной вершины b до всех прочих в орграфе. Метод работает быстрее, чем DistanceBFA за счет предварительной топологической сортировки орграфа.
-// Однако метод неприменим для орграфов, содержащих любой цикл кроме петель,  в т.ч. - множественных (петли будут игнорироваться).
-// Возвращается 1 в случае успеха (вектор D содержит кратчайшие расстояния от вершины b до вершины i, а вектор Prev - индекс вершин-предков в таком пути).
-// По умолчанию вектор D содержит значения LLONG_MAX, а вектор Prev - "-1".
-// Если был обнаружен цикл - возвращается -1 и пустые вектора D и Prev.
-// На входе д.б. граф, заданный вектором смежности A (считается, что вершины нумеруются с 0), номер исходной вершины и флаг, является ли граф взвешенным.
-// Для невзвешенных графов считается, что каждое ребро имеет вес = 1. Для взвешенных - длины ребер должны быть строго меньше INT_MAX.
-// Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах)
-// Функция работает со взвешенными и с невзвешенными графами, причем они могут содержать петли и множественные ребра.
-// Ребра могут иметь как неотрицательный (в т.ч. и нулевой), так и отрицательный вес.
+// ╨а╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╨╛╤В ╨╖╨░╨┤╨░╨╜╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л b ╨┤╨╛ ╨▓╤Б╨╡╤Е ╨┐╤А╨╛╤З╨╕╤Е ╨▓ ╨╛╤А╨│╤А╨░╤Д╨╡. ╨Ь╨╡╤В╨╛╨┤ ╤А╨░╨▒╨╛╤В╨░╨╡╤В ╨▒╤Л╤Б╤В╤А╨╡╨╡, ╤З╨╡╨╝ DistanceBFA ╨╖╨░ ╤Б╤З╨╡╤В ╨┐╤А╨╡╨┤╨▓╨░╤А╨╕╤В╨╡╨╗╤М╨╜╨╛╨╣ ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨╛╨╣ ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨╕ ╨╛╤А╨│╤А╨░╤Д╨░.
+// ╨Ю╨┤╨╜╨░╨║╨╛ ╨╝╨╡╤В╨╛╨┤ ╨╜╨╡╨┐╤А╨╕╨╝╨╡╨╜╨╕╨╝ ╨┤╨╗╤П ╨╛╤А╨│╤А╨░╤Д╨╛╨▓, ╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╨╕╤Е ╨╗╤О╨▒╨╛╨╣ ╤Ж╨╕╨║╨╗ ╨║╤А╨╛╨╝╨╡ ╨┐╨╡╤В╨╡╨╗╤М,  ╨▓ ╤В.╤З. - ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╤Е (╨┐╨╡╤В╨╗╨╕ ╨▒╤Г╨┤╤Г╤В ╨╕╨│╨╜╨╛╤А╨╕╤А╨╛╨▓╨░╤В╤М╤Б╤П).
+// ╨Т╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П 1 ╨▓ ╤Б╨╗╤Г╤З╨░╨╡ ╤Г╤Б╨┐╨╡╤Е╨░ (╨▓╨╡╨║╤В╨╛╤А D ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨║╤А╨░╤В╤З╨░╨╣╤И╨╕╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╨╛╤В ╨▓╨╡╤А╤И╨╕╨╜╤Л b ╨┤╨╛ ╨▓╨╡╤А╤И╨╕╨╜╤Л i, ╨░ ╨▓╨╡╨║╤В╨╛╤А Prev - ╨╕╨╜╨┤╨╡╨║╤Б ╨▓╨╡╤А╤И╨╕╨╜-╨┐╤А╨╡╨┤╨║╨╛╨▓ ╨▓ ╤В╨░╨║╨╛╨╝ ╨┐╤Г╤В╨╕).
+// ╨Я╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╨▓╨╡╨║╤В╨╛╤А D ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П LLONG_MAX, ╨░ ╨▓╨╡╨║╤В╨╛╤А Prev - "-1".
+// ╨Х╤Б╨╗╨╕ ╨▒╤Л╨╗ ╨╛╨▒╨╜╨░╤А╤Г╨╢╨╡╨╜ ╤Ж╨╕╨║╨╗ - ╨▓╨╛╨╖╨▓╤А╨░╤Й╨░╨╡╤В╤Б╤П -1 ╨╕ ╨┐╤Г╤Б╤В╤Л╨╡ ╨▓╨╡╨║╤В╨╛╤А╨░ D ╨╕ Prev.
+// ╨Э╨░ ╨▓╤Е╨╛╨┤╨╡ ╨┤.╨▒. ╨│╤А╨░╤Д, ╨╖╨░╨┤╨░╨╜╨╜╤Л╨╣ ╨▓╨╡╨║╤В╨╛╤А╨╛╨╝ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ A (╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╤Г╨╝╨╡╤А╤Г╤О╤В╤Б╤П ╤Б 0), ╨╜╨╛╨╝╨╡╤А ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╕ ╤Д╨╗╨░╨│, ╤П╨▓╨╗╤П╨╡╤В╤Б╤П ╨╗╨╕ ╨│╤А╨░╤Д ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝.
+// ╨Ф╨╗╤П ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е ╨│╤А╨░╤Д╨╛╨▓ ╤Б╤З╨╕╤В╨░╨╡╤В╤Б╤П, ╤З╤В╨╛ ╨║╨░╨╢╨┤╨╛╨╡ ╤А╨╡╨▒╤А╨╛ ╨╕╨╝╨╡╨╡╤В ╨▓╨╡╤Б = 1. ╨Ф╨╗╤П ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╤Е - ╨┤╨╗╨╕╨╜╤Л ╤А╨╡╨▒╨╡╤А ╨┤╨╛╨╗╨╢╨╜╤Л ╨▒╤Л╤В╤М ╤Б╤В╤А╨╛╨│╨╛ ╨╝╨╡╨╜╤М╤И╨╡ INT_MAX.
+// ╨в╨░╨║╨╢╨╡ ╨╜╨░ ╨▓╤Е╨╛╨┤ ╨┐╨╛╨┤╨░╨╡╤В╤Б╤П ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л V (╨╡╤Б╨╗╨╕ ╨╜╨╡ ╨┐╨╡╤А╨╡╨┤╨░╨╜, ╤А╨░╤Б╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╤В╤Б╤П ╤Б╨░╨╝╨╛╤Б╤В╨╛╤П╤В╨╡╨╗╤М╨╜╨╛ ╨║╨░╨║ ╨╜╨╛╨╝╨╡╤А ╨╜╨░╨╕╨▒╨╛╨╗╤М╤И╨╡╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨▓ ╤А╨╡╨▒╤А╨░╤Е)
+// ╨д╤Г╨╜╨║╤Ж╨╕╤П ╤А╨░╨▒╨╛╤В╨░╨╡╤В ╤Б╨╛ ╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝╨╕ ╨╕ ╤Б ╨╜╨╡╨▓╨╖╨▓╨╡╤И╨╡╨╜╨╜╤Л╨╝╨╕ ╨│╤А╨░╤Д╨░╨╝╨╕, ╨┐╤А╨╕╤З╨╡╨╝ ╨╛╨╜╨╕ ╨╝╨╛╨│╤Г╤В ╤Б╨╛╨┤╨╡╤А╨╢╨░╤В╤М ╨┐╨╡╤В╨╗╨╕ ╨╕ ╨╝╨╜╨╛╨╢╨╡╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╡ ╤А╨╡╨▒╤А╨░.
+// ╨а╨╡╨▒╤А╨░ ╨╝╨╛╨│╤Г╤В ╨╕╨╝╨╡╤В╤М ╨║╨░╨║ ╨╜╨╡╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╣ (╨▓ ╤В.╤З. ╨╕ ╨╜╤Г╨╗╨╡╨▓╨╛╨╣), ╤В╨░╨║ ╨╕ ╨╛╤В╤А╨╕╤Ж╨░╤В╨╡╨╗╤М╨╜╤Л╨╣ ╨▓╨╡╤Б.
 
 // The function counts the shortest distances from the vertex b to all vertices in the graph (these distances are to be contained in vector D, i.e. D[i] means the shortest distance from b to i).
 // By default vector D is filled with LLONG_MAX.
@@ -6214,21 +6214,21 @@ int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
     }
 
 
-    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    if (mx>V) V = mx; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
 
     if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
     {
         return -1;
     }
 
-    D.resize(V+1, LLONG_MAX); // По умолчанию расстояния равны + бесконечность // The default distance values is LLONG_MAX for every vertex
+    D.resize(V+1, LLONG_MAX); // ╨Я╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╤А╨░╨▓╨╜╤Л + ╨▒╨╡╤Б╨║╨╛╨╜╨╡╤З╨╜╨╛╤Б╤В╤М // The default distance values is LLONG_MAX for every vertex
 
 
-    Prev.resize(V+1, -1); // по умолчанию "предка" нет. // The previous vertices are not set by default (i.e. =-1 for every vertex)
+    Prev.resize(V+1, -1); // ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О "╨┐╤А╨╡╨┤╨║╨░" ╨╜╨╡╤В. // The previous vertices are not set by default (i.e. =-1 for every vertex)
 
 
 
-    std::vector <int> order; // здесь будет храниться топологическая сортировка вершин
+    std::vector <int> order; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╤Е╤А╨░╨╜╨╕╤В╤М╤Б╤П ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨▓╨╡╤А╤И╨╕╨╜
     order.clear();
 
     std::vector <int> R; // An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
@@ -6258,7 +6258,7 @@ int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 
     int bb;
 
-    for (int i = 0; i< order.size(); i++)   // поиск нового номера вершины начала поиска
+    for (int i = 0; i< order.size(); i++)   // ╨┐╨╛╨╕╤Б╨║ ╨╜╨╛╨▓╨╛╨│╨╛ ╨╜╨╛╨╝╨╡╤А╨░ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╨░╤З╨░╨╗╨░ ╨┐╨╛╨╕╤Б╨║╨░
     {
 
         if (order[i]==b) {bb = i; break;}
@@ -6266,36 +6266,36 @@ int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
     }
 
 
-    D[order[bb]] = 0; //дистанция от первой вершины до себя = 0
+    D[order[bb]] = 0; //╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤П ╨╛╤В ╨┐╨╡╤А╨▓╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨┤╨╛ ╤Б╨╡╨▒╤П = 0
 
     std::vector <std::vector <int>> B (V+1);
 
-    MatrixSet(B, V+1, V+1, INT_MAX);    // Создание заготовки матирицы B в виде 2-хмерного массива (из векторов)
+    MatrixSet(B, V+1, V+1, INT_MAX);    // ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨╖╨░╨│╨╛╤В╨╛╨▓╨║╨╕ ╨╝╨░╤В╨╕╤А╨╕╤Ж╤Л B ╨▓ ╨▓╨╕╨┤╨╡ 2-╤Е╨╝╨╡╤А╨╜╨╛╨│╨╛ ╨╝╨░╤Б╤Б╨╕╨▓╨░ (╨╕╨╖ ╨▓╨╡╨║╤В╨╛╤А╨╛╨▓)
 
 
     for (unsigned int x = 0; x<=(A.size()-(2+weighted)); x = x+2+weighted)
     {
         if (weighted)
         {
-            if ( (A[x]!=A[x+1]) && ( B[(A[x])][(A[x+1])] > A[x+2] ) ) B[(A[x])][(A[x+1])] = A[x+2];  // в матрицу смежности вставляем длину кратчайшего ребра
+            if ( (A[x]!=A[x+1]) && ( B[(A[x])][(A[x+1])] > A[x+2] ) ) B[(A[x])][(A[x+1])] = A[x+2];  // ╨▓ ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨▓╤Б╤В╨░╨▓╨╗╤П╨╡╨╝ ╨┤╨╗╨╕╨╜╤Г ╨║╤А╨░╤В╤З╨░╨╣╤И╨╡╨│╨╛ ╤А╨╡╨▒╤А╨░
         }
 
         if (!weighted)
         {
-            if (A[x]!=A[x+1]) B[(A[x])][(A[x+1])] = 1;  // в матрицу смежности вставляем длину ребра
+            if (A[x]!=A[x+1]) B[(A[x])][(A[x+1])] = 1;  // ╨▓ ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨▓╤Б╤В╨░╨▓╨╗╤П╨╡╨╝ ╨┤╨╗╨╕╨╜╤Г ╤А╨╡╨▒╤А╨░
         }
     }
 
-    // Конец заполнения матрицы смежности
+    // ╨Ъ╨╛╨╜╨╡╤Ж ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╕╤П ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕
 
 
 
-    for (int b = bb; b<V; b++)              // бежим по матрице смежности от искомой вершины к большим номерам и пересчитываем дистанцию
+    for (int b = bb; b<V; b++)              // ╨▒╨╡╨╢╨╕╨╝ ╨┐╨╛ ╨╝╨░╤В╤А╨╕╤Ж╨╡ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨╛╤В ╨╕╤Б╨║╨╛╨╝╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨║ ╨▒╨╛╨╗╤М╤И╨╕╨╝ ╨╜╨╛╨╝╨╡╤А╨░╨╝ ╨╕ ╨┐╨╡╤А╨╡╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╨╝ ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤О
         for (int j = b+1; j<=V; j++)
         {
 
 
-            if (D[order[b]]==LLONG_MAX) continue; //если вершина b недостижима из исходной, нечего от нее расстояния пересчитывать // We should recalculate distances only from vertices that are accessible from vertex b as initial one.
+            if (D[order[b]]==LLONG_MAX) continue; //╨╡╤Б╨╗╨╕ ╨▓╨╡╤А╤И╨╕╨╜╨░ b ╨╜╨╡╨┤╨╛╤Б╤В╨╕╨╢╨╕╨╝╨░ ╨╕╨╖ ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨╣, ╨╜╨╡╤З╨╡╨│╨╛ ╨╛╤В ╨╜╨╡╨╡ ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╨┐╨╡╤А╨╡╤Б╤З╨╕╤В╤Л╨▓╨░╤В╤М // We should recalculate distances only from vertices that are accessible from vertex b as initial one.
 
             if ( (B[order[b]][order[j]]!=INT_MAX) && ((D[order[j]]==LLONG_MAX) || (D[order[j]]>(D[order[b]]+(long long int)(B[order[b]][order[j]]) ) ) ) )   {D[order[j]]=(D[order[b]]+ (long long int)(B[order[b]][order[j]]) ); Prev[order[j]]= order[b];}
 
@@ -6308,7 +6308,7 @@ int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 
 
 int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, std::vector <int> & Prev, int V = INT_MIN)
-// Модификация функции DistanceTS (см. выше) для случая нецелочисленных весов ребер (double).
+// ╨Ь╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╤П ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ DistanceTS (╤Б╨╝. ╨▓╤Л╤И╨╡) ╨┤╨╗╤П ╤Б╨╗╤Г╤З╨░╤П ╨╜╨╡╤Ж╨╡╨╗╨╛╤З╨╕╤Б╨╗╨╡╨╜╨╜╤Л╤Е ╨▓╨╡╤Б╨╛╨▓ ╤А╨╡╨▒╨╡╤А (double).
 // Modification of the function DistanceTS (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
@@ -6336,21 +6336,21 @@ int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vec
     }
 
 
-    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+    if (mx>V) V = mx; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤И╨╕╨╜╤Л // the max number of assigned to vertices
 
     if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
     {
         return -1;
     }
 
-    D.resize(V+1, INFINITY); // По умолчанию расстояния равны + бесконечность // The default distance values is INFINITY for every vertex
+    D.resize(V+1, INFINITY); // ╨Я╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╤А╨░╤Б╤Б╤В╨╛╤П╨╜╨╕╤П ╤А╨░╨▓╨╜╤Л + ╨▒╨╡╤Б╨║╨╛╨╜╨╡╤З╨╜╨╛╤Б╤В╤М // The default distance values is INFINITY for every vertex
 
 
-    Prev.resize(V+1, -1); // по умолчанию "предка" нет. // The previous vertices are not set by default (i.e. =-1 for every vertex)
+    Prev.resize(V+1, -1); // ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О "╨┐╤А╨╡╨┤╨║╨░" ╨╜╨╡╤В. // The previous vertices are not set by default (i.e. =-1 for every vertex)
 
 
 
-    std::vector <int> order; // здесь будет храниться топологическая сортировка вершин
+    std::vector <int> order; // ╨╖╨┤╨╡╤Б╤М ╨▒╤Г╨┤╨╡╤В ╤Е╤А╨░╨╜╨╕╤В╤М╤Б╤П ╤В╨╛╨┐╨╛╨╗╨╛╨│╨╕╤З╨╡╤Б╨║╨░╤П ╤Б╨╛╤А╤В╨╕╤А╨╛╨▓╨║╨░ ╨▓╨╡╤А╤И╨╕╨╜
     order.clear();
 
     std::vector <int> R; // An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
@@ -6380,7 +6380,7 @@ int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vec
 
     int bb;
 
-    for (int i = 0; i< order.size(); i++)   // поиск нового номера вершины начала поиска
+    for (int i = 0; i< order.size(); i++)   // ╨┐╨╛╨╕╤Б╨║ ╨╜╨╛╨▓╨╛╨│╨╛ ╨╜╨╛╨╝╨╡╤А╨░ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨╜╨░╤З╨░╨╗╨░ ╨┐╨╛╨╕╤Б╨║╨░
     {
 
         if (order[i]==b) {bb = i; break;}
@@ -6388,24 +6388,24 @@ int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vec
     }
 
 
-    D[order[bb]] = 0.0; //дистанция от первой вершины до себя = 0
+    D[order[bb]] = 0.0; //╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤П ╨╛╤В ╨┐╨╡╤А╨▓╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨┤╨╛ ╤Б╨╡╨▒╤П = 0
 
     std::vector <std::vector <double>> B (V+1);
 
-    MatrixSet(B, V+1, V+1, INFINITY);    // Создание заготовки матирицы B в виде 2-хмерного массива (из векторов)
+    MatrixSet(B, V+1, V+1, INFINITY);    // ╨б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨╖╨░╨│╨╛╤В╨╛╨▓╨║╨╕ ╨╝╨░╤В╨╕╤А╨╕╤Ж╤Л B ╨▓ ╨▓╨╕╨┤╨╡ 2-╤Е╨╝╨╡╤А╨╜╨╛╨│╨╛ ╨╝╨░╤Б╤Б╨╕╨▓╨░ (╨╕╨╖ ╨▓╨╡╨║╤В╨╛╤А╨╛╨▓)
 
 
     for (unsigned int x = 0; x<=((A.first).size()-(2)); x = x+2)
     {
 
-            if ( ((A.first)[x]!=(A.first)[x+1]) && ( B[((A.first)[x])][((A.first)[x+1])] > (A.second)[x/2] ) ) B[(A.first)[x]][(A.first)[x+1]] = (A.second)[x/2];  // в матрицу смежности вставляем длину кратчайшего ребра
+            if ( ((A.first)[x]!=(A.first)[x+1]) && ( B[((A.first)[x])][((A.first)[x+1])] > (A.second)[x/2] ) ) B[(A.first)[x]][(A.first)[x+1]] = (A.second)[x/2];  // ╨▓ ╨╝╨░╤В╤А╨╕╤Ж╤Г ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨▓╤Б╤В╨░╨▓╨╗╤П╨╡╨╝ ╨┤╨╗╨╕╨╜╤Г ╨║╤А╨░╤В╤З╨░╨╣╤И╨╡╨│╨╛ ╤А╨╡╨▒╤А╨░
    }
 
-    // Конец заполнения матрицы смежности
+    // ╨Ъ╨╛╨╜╨╡╤Ж ╨╖╨░╨┐╨╛╨╗╨╜╨╡╨╜╨╕╤П ╨╝╨░╤В╤А╨╕╤Ж╤Л ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕
 
 
 
-    for (int b = bb; b<V; b++)              // бежим по матрице смежности от искомой вершины к большим номерам и пересчитываем дистанцию
+    for (int b = bb; b<V; b++)              // ╨▒╨╡╨╢╨╕╨╝ ╨┐╨╛ ╨╝╨░╤В╤А╨╕╤Ж╨╡ ╤Б╨╝╨╡╨╢╨╜╨╛╤Б╤В╨╕ ╨╛╤В ╨╕╤Б╨║╨╛╨╝╨╛╨╣ ╨▓╨╡╤А╤И╨╕╨╜╤Л ╨║ ╨▒╨╛╨╗╤М╤И╨╕╨╝ ╨╜╨╛╨╝╨╡╤А╨░╨╝ ╨╕ ╨┐╨╡╤А╨╡╤Б╤З╨╕╤В╤Л╨▓╨░╨╡╨╝ ╨┤╨╕╤Б╤В╨░╨╜╤Ж╨╕╤О
         for (int j = b+1; j<=V; j++)
         {
 
