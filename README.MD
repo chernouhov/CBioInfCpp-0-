@@ -35,9 +35,6 @@ The data structures "Adjacency vector" and "Adjacency map" to represent a graph 
 PS The current version of CBioInfCpp.h contains not so many functions. But it would be nice if this
 library grows up.
 
-PPS Note that the current version of CBioInfCpp.h has 866-encoding. So Russian symbols may be viewed not correctly here.
-But when downloaded and opened in the proper encoding it will be viewed good.
-
 # Input-Output functions
 
 `int FastaRead (std::ifstream & fin, std::vector < std::string> & IndexS,
