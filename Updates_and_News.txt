@@ -31,7 +31,7 @@
 - Добавлено семейство функций NBPaths для поиска максимально длинных неразветвляющихся путей в графе (взвешенном, невзвешенном, ориентированном, неориентированном).
 - Добавлены функции ConsStringQ1 и ConsStringQ2 для определения консенсусной строки с учетом качества символов в строках исходной коллекции. Ввиду малого объема данных для тестирования могут быть ошибки.
 
-- Group of function "NBPaths" (for finding maximal non-branching paths in a graph, both weighted or no, direcyed or no) has been added.
+- Group of function "NBPaths" (for finding maximal branching paths in a graph, both weighted or no, direcyed or no) has been added.
 - Functions ConsStringQ1 and ConsStringQ2 for building consensus string upon a given collection of strings according to their quality has been added. Note that due to little data for testing errors may be found here (please notify if you found any).
 
 31.08.2019
@@ -47,3 +47,12 @@
 - Добавлены функции перекодирования Вектора смежности в/ из расширенного Ассоциативного массива смежности (AdjVectorToAdjMegaMap, AdjMegaMapToAdjVector) и расширено семейство функций вывода в файл и на экран графов, заданных расширенным Ассоциативным массивом смежности (GraphCout, GraphFout).
 - Added group of functions AdjVectorToAdjMegaMap, AdjMegaMapToAdjVector to convert Adjacency vector to/ from Adjacency mega-map (i.e. extended version of Adjacency map to contain graphs having different multiply edges).
 - Updated Group of function GraphCout and GraphFout to deal with mega-maps.
+
+03.11.2019
+- Семейство функций Num расширено.
+- Добавлена функция ScoreStringMatrix для подсчета суммарного количества всех несовпадений символов по каждой позиции по набору строк.
+- Добавлена функция GPPM (генерирует позиционную матрицу вероятностей; при этом может использоваться сглаживание (т. наз. "pseudocounts"): применена формула (Ns+z)/(N+2*z)).
+
+- Group of functions Num updated.
+- Function ScoreStringMatrix that counts score (i.e. total number of mismatches) upon vector a of strings s added. 
+- Function GPPM that generates a position probability matrix (PPM) added. Note that pseudocounts may be used (the formula (Ns+z)/(N+2*z) is implemented).

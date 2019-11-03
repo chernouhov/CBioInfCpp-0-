@@ -647,7 +647,7 @@ int MatrixFout (std::vector <std::vector <long long int>> & B, std::ofstream & f
 }
 
 
-int FindIn (std::vector <int> &D, int a, int step = 1, int start = 0)
+int FindIn (const std::vector <int> &D, int a, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
@@ -662,7 +662,7 @@ int FindIn (std::vector <int> &D, int a, int step = 1, int start = 0)
 }
 
 
-int FindIn (std::vector <long long int> &D, long long int a, int step = 1, int start = 0)
+int FindIn (const std::vector <long long int> &D, long long int a, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (long long int), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (long long int) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
@@ -676,7 +676,7 @@ int FindIn (std::vector <long long int> &D, long long int a, int step = 1, int s
 }
 
 
-int FindIn (std::vector <double> &D, double a, int step = 1, int start = 0)
+int FindIn (const std::vector <double> &D, double a, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Да, прямое сравнение чисел double не совсем корректно и это нужно принимать во внимание, но в ряде случаев функция может быть полезна.
@@ -695,7 +695,7 @@ int FindIn (std::vector <double> &D, double a, int step = 1, int start = 0)
 
 
 
-int FindIn (std::vector <double> &D, double a, double d, int step = 1, int start = 0)
+int FindIn (const std::vector <double> &D, double a, double d, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (double) of the first element, that differs from "a" less than nonnegative double "d".
@@ -710,7 +710,7 @@ int FindIn (std::vector <double> &D, double a, double d, int step = 1, int start
 }
 
 
-int FindIn (std::vector <long double> &D, long double a, int step = 1, int start = 0)
+int FindIn (const std::vector <long double> &D, long double a, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращает -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Да, прямое сравнение чисел long double не совсем корректно и это нужно принимать во внимание, но в ряде случаев функция может быть полезна. Для сравнения с заданной точностью см. вариант функции ниже.
@@ -726,7 +726,7 @@ int FindIn (std::vector <long double> &D, long double a, int step = 1, int start
 }
 
 
-int FindIn (std::vector <long double> &D, long double a, long double d, int step = 1, int start = 0)
+int FindIn (const std::vector <long double> &D, long double a, long double d, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (long double), совпадающего с искомым (a) с точностью до d, поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (long double) of the first element, that differs from "a" less than nonnegative long double "d".
@@ -742,7 +742,7 @@ int FindIn (std::vector <long double> &D, long double a, long double d, int step
 
 
 
-int FindIn (std::vector <std::string> &D, std::string a, int step = 1, int start = 0)
+int FindIn (const std::vector <std::string> &D, std::string a, int step = 1, int start = 0)
 {
 // Возвращает индекс первого найденного элемента (string), совпадающего с искомым (a), поиск ведется с позиции start, шаг поиска = step, если не нашли такого элемента - возвращаем -1. Если переданное значение step <1, то step присваивается значение 1. Если переданное значение start <0, то start присваивается значение 1.
 // Returns index in vector (string) of the first element = a. Search starts from index "start" with step = "step". If no such element found the function returns 0. If step<1 step will be set as 1. If start<0 start will be set as 0.
@@ -2351,6 +2351,78 @@ int GPFM (std::vector <std::string> &s, std::vector <std::vector <int>> & B, con
 
 
 
+int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long double>> & B, const std::string &Alph, long double z = 0.0)
+{
+
+// Генерирует позиционную матрицу вероятностей B по набору исходных строк s и алфавиту Alph (содержит последовательность символов алфавита);
+// Последовательность строк в матрице B соответствует последовательности символов в строке Alph (т.е. последовательности символов алфавита).
+// в случае если в набор пустой или же строки в нем имеют неодинаковую длину или в алфавите менее 2 букв или хоть одна из строк содержит хоть один символ не из алфавита,
+// или же если алфавит содержит дублирующиеся символы - возвращается -1  и пустая матрица B (в случае успеха возвращается 0 и заполненная B).
+    // z - параметр для сглаживания (pseudocount): используется формула (Ns+z)/(N+2*z)
+
+// Generates a position probability matrix (PPM) B upon an array of strings s and given Alphabet (Alphabet is set via string Alph that contains the sequence of its symbols);
+// Ordering of the rows in B corresponds to sequence of symbols in Alph.
+// If s contains 0 items or its strings have not equal length or even the only string contains symbol that not belongs to Alphabet or if there are any identical symbols in the Alphabet - returns -1 and empty B. If success returns 0 and generated B.
+    // z is a pseudocount parameter: (Ns+z)/(N+2*z) is used
+
+
+
+    B.clear();
+    if ((s.size()<1) || (Alph.length()<2)) return -1; // checking that s contains at least 1 sting and Alph consists of >=2 symbols.
+
+
+    int lstring = (s[0]).length();
+    int lvector = s.size();
+
+
+    for (int i=1; i<s.size(); i++)  // checking that all strings in s have equal length
+        if (s[i].length()!=lstring)
+        {
+            return -1;
+        }
+
+    std::set <char> T; // проверка что нет дублирующихся символов в алфавите
+    T.clear(); // Testing if there are any identical symbols in the Alphabet
+    for  (int y=0; y<Alph.length(); y++)
+    {
+        T.insert(Alph[y]);
+        if ((T.size()-1)!=y)
+            return -1;
+
+    }
+    T.clear();
+
+
+
+    MatrixSet (B, Alph.length(), lstring, z);
+
+
+
+
+    for (int i = 0; i<lstring; i++)
+    {
+        for (int j = 0; j<lvector; j++)
+        {
+            for  (int y=0; y<Alph.length(); y++)
+                if (((s[j])[i]) == Alph[y]) {B[y][i]=B[y][i]+1.0/(s.size()+2*z); goto l1;}
+
+
+
+                B.clear(); // Если хоть один символ не из алфавита - очищаем матрицу и возвращаем -1
+                return -1; // even one symbol doesn't belong to Alph - matrix B to be cleared and -1 to return
+
+            l1:;
+        }
+
+    }
+
+
+
+
+    return 0;
+
+}
+
 
 
 double PDist (const std::string& s1, const std::string& s2) // counts p-distance without checking of the input data correctness
@@ -3636,6 +3708,74 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 }
 
 
+void Num (std::string & Numbers, std::vector <std::string> & A)
+{
+// Modification of "Num"-functions (see them above) for strings.
+// Converts string that consists of some strings (separated by spaces) to a vector of strings
+// Модификация функций семейства Num (см. выше) для строк: Перегон строки со строками, разделенными пробелами, в массив (вектор) строк А.
+
+
+    A.clear();
+
+    int q = 0;  // deleting doubled spaces
+    while (Numbers.find ("  ", q) != -1)
+    {
+        q = Numbers.find ("  ", q);
+        Numbers.erase(q, 1);
+    }
+
+    while (Numbers[0] == ' ')  // deleting spaces from the very beginning
+    {Numbers.erase(0, 1);}
+
+
+    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    {Numbers.erase((Numbers.length()-1), 1);}
+
+    std::string TempS = "";
+    int b=0; // The start position of a string
+    int e=0; // the end position
+
+    while (Numbers.find (" ", b) != -1)  //строка - до следующего пробела
+    {
+        e = Numbers.find (" ", b)-1;
+        TempS = Numbers.substr(b, e-b+1);
+
+         A.push_back(TempS);
+
+        b = e+2;
+        TempS.clear();
+    }
+
+    TempS = Numbers.substr(b, Numbers.length()-b);  // еще одна итерация - от последнего пробела до конца строки / the last iteration - up to the string's end
+
+    A.push_back(TempS);
+    TempS.clear();
+}
+
+
+int ScoreStringMatrix (const std::vector <std::string> &s)
+// Returnes a score (i.e. total number of mismatches) upon vector of strings s. If input data is incorrect returns 0.
+// Возвращает суммарное количество всех несовпадений символов по каждой позиции по набору строк s. Если данные некорректны вернет -1.
+
+{
+    if (s.size()==0) return -1;
+    if (s[0].length()==0) return -1;
+    for (int i=0; i<s.size(); i++)
+    {
+        if (s[i].length()!=s[0].length()) return -1;
+    }
+
+    int r = 0;
+    for (int j=0; j<s[0].length();j++)
+        for (int i=0; i<s.size(); i++)
+            for (int x= i; x<s.size(); x++)
+                if (s[x][j]!=s[i][j])
+                    r++;
+
+    return r;
+
+
+}
 
 
 int UWGraphRead (std::ifstream & fin, std::vector <int> & A)
@@ -3772,7 +3912,7 @@ int WGraphRead (std::ifstream & fin, std::pair < std::vector<int>, std::vector<d
 
 
 
-int RangeVGraph (std::vector <int> & A, int & mx, int & mn, const bool weighted, bool IgnoreWeighted = false)
+int RangeVGraph (const std::vector <int> & A, int & mx, int & mn, const bool weighted, bool IgnoreWeighted = false)
 //Finds max (i.e. mx) and min (i.e. mn) value of numbers that assigned to vertices
 // Graph must be set as "Adjacency vector", bool "weighted" sets if the graph is weighted or no.
 // If (IgnoreWeighted = true) the function looks at every element in A without any dataset checking
