@@ -31,7 +31,7 @@
 - Добавлено семейство функций NBPaths для поиска максимально длинных неразветвляющихся путей в графе (взвешенном, невзвешенном, ориентированном, неориентированном).
 - Добавлены функции ConsStringQ1 и ConsStringQ2 для определения консенсусной строки с учетом качества символов в строках исходной коллекции. Ввиду малого объема данных для тестирования могут быть ошибки.
 
-- Group of function "NBPaths" (for finding maximal branching paths in a graph, both weighted or no, direcyed or no) has been added.
+- Group of function "NBPaths" (for finding maximal non-branching paths in a graph, both weighted or no, direcyed or no) has been added.
 - Functions ConsStringQ1 and ConsStringQ2 for building consensus string upon a given collection of strings according to their quality has been added. Note that due to little data for testing errors may be found here (please notify if you found any).
 
 31.08.2019
