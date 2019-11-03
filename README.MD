@@ -397,6 +397,16 @@ If s contains 1 or 0 items or strings have not equal length or even the only
 string contains symbol that not belongs to Alphabet or 
 if there are any identical symbols in the Alphabet - returns -1 and empty B.
 ***
+`int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long double>> & B, const std::string &Alph, long double z = 0.0)`
+
+Generates a position probability matrix (PPM) B upon an array of strings s and given Alphabet (Alphabet is set via string Alph that contains the sequence of its symbols);
+
+Ordering of the rows in B corresponds to sequence of symbols in Alph.
+
+If s contains 0 items or its strings have not equal length or even the only string contains symbol that not belongs to Alphabet or if there are any identical symbols in the Alphabet - returns -1 and empty B. If success returns 0 and generated B.
+
+z is a pseudocount parameter: (Ns+z)/(N+2*z) is used
+***
 `double PDist (const std::string& s1, const std::string& s2)`
 
 Counts p-distance without checking of the input data correctness
@@ -530,6 +540,13 @@ Returns -1 if input data is incorrect (no 3 "candidates to numbers" are found).
 
 But note that here is NO checking if a substring to be converted to a number
 contains digits and decimal point only.
+
+***
+`void Num (std::string & Numbers, std::vector <std::string> & A)`
+Modification of "Num"-functions (see them above) for strings.
+
+Converts string that consists of some strings (separated by spaces) to a vector of strings.
+***
 
 # Working with graphs
 
@@ -1228,6 +1245,12 @@ range or if the vector is empty
 
 Generates CIGAR-string as a result of "fitting" of the string S2 to s0 (starting position == npos). 
 If any data is incorrect returns empty string.
+***
+`int ScoreStringMatrix (const std::vector <std::string> &s)`
+
+Returnes a score (i.e. total number of mismatches) upon a vector of strings s. 
+
+If input data is incorrect returns 0.
 ***
 `int GenRandomUWGraph (std::vector <int> &P, int v, int e, int b=0)`
 
