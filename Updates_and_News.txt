@@ -56,3 +56,14 @@
 - Group of functions Num updated.
 - Function ScoreStringMatrix that counts score (i.e. total number of mismatches) upon vector a of strings s added. 
 - Function GPPM that generates a position probability matrix (PPM) added. Note that pseudocounts may be used (the formula (Ns+z)/(N+2*z) is implemented).
+
+
+26.11.2019
+- В функциях подбора консенсусных строк (в т.ч. - с учетом качества) ConsStringQ1 и ConsStringQ2 метод по умолчанию задан = 1.
+- Добавлена функция JoinOverlapStrings - объединяет пересекающиеся строки (как с учетом качества, так и без (напр., коллекция коллекция вида  0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA без учета качества объединится как 0->ATGTA, 10->TTC)).
+- Добавлена функция ProfileProbableMer - для поиска всех наиболее вероятных j-меров в строке исходя из заднанной позиционной матрицы вероятностей.
+
+- For the functions ConsStringQ1 and ConsStringQ2 (intended for finding consesus string, in doing so quality may be taken into consideration or no) the default method is set  = 1.
+- Function JoinOverlapStrings for joining overlapping strings has been added (in doing so quality may be taken into consideration or no). So if we need to join collection 0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA in any way without any additional info,we should set NoQuality = true, Aggregate = false, and have the result: 0->ATGTA, 10->TTC.
+- Function ProfileProbableMer to find all most probable j-mers in a given string upon a given position probability matrix (PPM) has been added.
+

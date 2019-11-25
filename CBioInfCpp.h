@@ -2690,7 +2690,7 @@ std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0
 
 
 
-int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)
+int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 1, const std::string &Alph = "ACGT", const int Phred=33)
 // Generates a consensus string upon std::vector <std::string> DataS as an input collection of strings and QDataS as their quality.
 // The result will be as TempS as consensus string and QTempS as its quality string.
 // If multiply consensus strings exist returns the one of them.
@@ -2870,7 +2870,7 @@ int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QD
     }
 
 
-int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)
+int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS, const int method = 1, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)
 // Модификация функции ConsStringQ1 (см. выше) для целей учета всех вариантов консенсусной строки.
 // В консенсусной строке позиции разделяются символом tr (по умолчанию = '^'), при этом на каждой позиции может быть несколько символов из алфавита, если с т.зр. критерия выбора они равновероятны.
 // Modification of ConsStringQ1 (see it above) for all the version of consensus string. For that every position may have >= 1 symbols (if different symbols may be chosen for this position).
@@ -3048,6 +3048,273 @@ int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QD
     if (f==1) {QDataS.clear(); QTempS.clear();}
     return 0;
     }
+
+
+int JoinOverlapStrings (std::multimap <long long int, std::string> & Locuses, std::map <long long int, std::string> & JoinedLocuses, const bool Aggregate = false, const bool NoQuality = false, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)
+// Функция, которая принимает на вход Locuses, содержащий набор подстрок из некоторой неизвестной строки, в формате: стартовая позиция в неизвестной строке -> сама (под)строка,
+// и объединяет пересекающиеся строки (результат записывается в JoinedLocuses в том же формате).
+// Области пересечений строятся как консенсусные строки:
+// - с помощью функции ConsStringQ1, если необходим какой-либо один из приемлемых вариантов (bool Aggregate = false), или с помощью ConsStringQ2, если необходимы все варианты (bool Aggregate = true) (подробнее см описания данных функций),
+// - с выбранным методом построения консенсусной строки (0 - 3, подробнее о методах также  см. описания ConsStringQ1 и ConsStringQ2),
+// - с учетом качества (NoQuality=true) или нет (NoQuality=false); при учете качества считается, что первая половина каждой строки в Locuses содержит собственно саму строку, а вторая половина - строку, задающую ее качество.
+// - Параметр качества задается по шкале Phred с помощью соответствующего параметра.
+// - Алфавит задается параметром Alph, так что при формировании консенсусных строк будут учитываться только символы из данного алфавита.
+// Таким образом, если необходимо просто соединить все пересекающиеся строки в нектором наборе без учета качества, необходимо задать NoQuality = true, задать алфавит и в Locuses разместить саму коллекцию объединяемых строк.
+// В случае NoQuality = true будет всегда использоваться метод №1
+// Например, коллекция вида  0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA в этом случае объединится как 0->ATGTA, 10->TTC.
+
+// The function joins overlapping strings from Locuses (contain substrings of the unknown string as pairs: start position -> string) and writes the resulting collection of the joined strings to JoinedLocuses (has the same format).
+// The overlaps are to constructed as consensus strings:
+// - using ConsStringQ1 (if any one version of result needed, set bool Aggregate = false for it) or using ConsStringQ2 (if all the version needed, set bool Aggregate = true for it), see info on ConsStringQ1 and ConsStringQ2 for details.
+// - using the chosen method of consensus generating (set by parameter "method", see info on ConsStringQ1 and ConsStringQ2 for details).
+// - taking in account quality (NoQuality=true, scale is set by parameter "Phred") or no (NoQuality=false).
+// - the Alphabet should be set by the string Alph. In doing so, only symbols of the Alph will be taken into account for consensus string generation.
+// If NoQuality = true method #1 will be used always.
+// So, if we need to join collection 0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA in any way without any additional info,
+// we should set NoQuality = true, Aggregate = false, and have the result: 0->ATGTA, 10->TTC.
+
+
+{
+    JoinedLocuses.clear();
+    if (Locuses.size()==0) return -1;
+    if (Phred<33) return -1;
+    if (method<0) return -1;
+    if (method>3) return -1;
+
+
+    auto it1 = Locuses.begin();
+    if (Locuses.size()==1) {JoinedLocuses.insert(std::pair<long long int, std::string>(it1->first, it1->second) ); return 0;}
+
+
+    int t;
+
+    int mx = -1;
+
+    long long int y = 1;
+    auto it2 = it1;
+    it2++;
+
+    std::vector <long long int> Pos;
+    Pos.clear();
+    Pos.push_back(0);
+
+    std::vector<std::vector <long long int>> AllPos;
+    AllPos.clear();
+
+    while (it2!=Locuses.end())
+    {
+        if ( (it1->first + it1->second.length()/2) > mx) mx = (it1->first + it1->second.length()/2);
+
+        if ( (it2->first)<=mx)
+
+        {
+            Pos.push_back(y);
+
+            y++;
+
+            it2++;
+
+            it1++;
+
+            if (it2==Locuses.end())
+            {
+                AllPos.push_back(Pos);
+                Pos.clear();
+             }
+            continue;
+
+        }
+
+        else
+
+        {
+            AllPos.push_back(Pos);
+            Pos.clear();
+
+            it1=it2;
+            it2++;
+
+
+
+            Pos.push_back(y);
+            y++;
+
+
+            mx=-1;
+
+            if (it2==Locuses.end())
+            {
+                AllPos.push_back(Pos);
+                Pos.clear();
+             }
+
+            continue;
+
+        }
+
+
+    }
+
+    std::vector <std::string> DataS;
+    DataS.clear();
+    std::string TempS="";
+
+
+    std::vector <std::string> QDataS;
+    QDataS.clear();
+    std::string QTempS="";
+
+
+    for (int i=0; i<AllPos.size(); i++)
+    {
+    DataS.clear();
+    QDataS.clear();
+    mx=0;
+    for (int j=0; j<AllPos[i].size(); j++)
+    {
+        it1 = Locuses.begin();
+        for (int e = 0; e<AllPos[i][j]; e++)
+            it1++;
+        if (j==0) y = it1->first;
+
+        TempS=it1->second.substr(0, it1->second.length()/2);
+        QTempS=it1->second.substr(it1->second.length()/2, it1->second.length()/2);
+
+        if (NoQuality)
+        {
+            TempS = TempS + QTempS;
+            QTempS = QTempS + QTempS;
+        }
+
+
+        for (int g=1; g<=(it1->first-y); g++)
+        {
+            TempS="-"+TempS;
+            QTempS=" "+QTempS;
+        }
+        if (TempS.length()>mx) mx = TempS.length();
+        DataS.push_back(TempS);
+        QDataS.push_back(QTempS);
+
+    }
+
+
+
+    for (int r = 0; r<DataS.size(); r++)
+    {
+        if (DataS[r].length()<mx)
+        {
+            t = (mx-DataS[r].length());
+            for (int g=1; g<=t; g++)
+            {
+                DataS[r]=DataS[r]+"-";
+                QDataS[r]=QDataS[r]+" ";
+             }
+        }
+    }
+
+
+
+        if (NoQuality) QDataS.clear();
+
+        if (Aggregate)        ConsStringQ2(DataS, QDataS, TempS, QTempS, method*(!NoQuality)+NoQuality, Alph);
+        if (!Aggregate)        ConsStringQ1(DataS, QDataS, TempS, QTempS, method*(!NoQuality)+NoQuality, Alph);
+
+
+        JoinedLocuses.insert(std::pair<long long int, std::string>(y, TempS+QTempS) );
+
+
+                TempS.clear();
+                QTempS.clear();
+
+}
+
+
+return 0;
+}
+
+
+
+
+
+long double ProfileProbableMer (const std::string &s, int n, const std::vector <std::vector <long double>> & B, std::vector <std::string> & DataS, long double d = 0.0000001, std::string Alph = "ACGT")
+
+// Finds all most probable n-mer of the given string s upon position probability matrix B and Alphabet Alph.
+// Returns their probability and all these n-mers contained in DataS.
+// If any data incorrect returns empty DataS and -1.0.
+// d sets precision for doubles comparison.
+
+// Находит все наиболее вероятные n-меры в строке s исходя из позиционной матрицы вероятностей B и возвращает их в векторе DataS. Возвращает значение соответствующей вероятности.
+// Если данные некорректны, возвращает пустой DataS и -1.0
+// Параметр d задает точность при расчете вероятностей.
+
+{
+
+        DataS.clear();
+
+        if (n>s.length()) return -1.0;
+        if (n<1) return -1.0;
+        if (d<0.0) return -1.0;
+        if (s=="") return -1.0;
+        for (int y=0; y<s.length(); y++)
+            if (Alph.find(s[y])==-1) return -1.0;
+
+        if (Alph.size()==0) return -1.0;
+        if (B.size()!=Alph.size()) return -1.0;
+
+
+
+
+        for (int z=0; z<B.size(); z++)
+        {
+            if (B[z].size()!=n) return -1.0;
+            for (int x=0; x<n; x++)
+                if (B[z][x]<0.0) return -1.0;
+        }
+
+
+
+
+
+        long double p = 0.0; // for probability of the most probable n-mer
+        long double tp = 0.0; // for probability of n-mer in s
+
+        std::string ts="";
+
+
+
+        for (int y = 0; y< s.length()-n+1; y++)
+        {
+            ts = s.substr(y, n);
+            tp = 1.0;
+
+
+            for (int x = 0; x<ts.size(); x++)
+                tp = tp*B[ Alph.find(ts[x])] [x];
+
+
+
+
+            if ((tp-p)>=d)
+            {
+                p=tp;
+                DataS.clear();
+                DataS.push_back(ts);
+                continue;
+            }
+
+            if (std::abs(tp-p)<d)
+            {
+               DataS.push_back(ts);
+
+            }
+
+
+        }
+
+
+        return p;
+}
 
 
 
@@ -3601,6 +3868,48 @@ void Num (std::string & Numbers, std::vector <double> & A)
 }
 
 
+void Num (std::string & Numbers, std::vector <long double> & A)
+{
+    // перегон строки с числами <long double> в массив (вектор) А
+    // converts string of numbers <long double> (separated by spaces) to a vector of numbers
+
+    A.clear();
+
+    int q = 0;  // удаление лишних пробелов если есть / deletind doubled spaces
+    while (Numbers.find ("  ", q) != -1)
+    {
+        q = Numbers.find ("  ", q);
+        Numbers.erase(q, 1);
+    }
+
+    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    {Numbers.erase(0, 1);}
+
+
+    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    {Numbers.erase((Numbers.length()-1), 1);}
+
+
+    std::string TempS = "";
+    int b=0; //начало каждого числа в строке  / The start position of a number
+    int e=0; // конец числа в строке / the end position
+    long double r;  //сюда писать само число / a variable to contain a number
+    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    {
+        e = Numbers.find (" ", b)-1;
+        TempS = Numbers.substr(b, e-b+1);
+         r = atof(TempS.c_str());
+         A.push_back(r);
+
+        b = e+2;
+        TempS.clear();
+    }
+
+    TempS = Numbers.substr(b, Numbers.length()-b);  // еще одна итерация - от последнего пробела до конца строки / the last iteration - up to the string's end
+    r = atof(TempS.c_str());
+    A.push_back(r);
+    TempS.clear();
+}
 
 void Num (std::string & Numbers, std::vector <int> & A)
 {
@@ -3645,6 +3954,50 @@ void Num (std::string & Numbers, std::vector <int> & A)
     TempS.clear();
 }
 
+
+
+void Num (std::string & Numbers, std::vector <long long int> & A)
+{
+    // перегон строки с числами long long int в массив (вектор) А
+    // converts string of numbers <long long int> (separated by spaces) to a vector of numbers
+
+
+    A.clear();
+
+    int q = 0;  // удаление лишних пробелов / deleting doubled spaces
+    while (Numbers.find ("  ", q) != -1)
+    {
+        q = Numbers.find ("  ", q);
+        Numbers.erase(q, 1);
+    }
+
+    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    {Numbers.erase(0, 1);}
+
+
+    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    {Numbers.erase((Numbers.length()-1), 1);}
+
+    std::string TempS = "";
+    int b=0; //начало каждого числа в строке  / The start position of a number
+    int e=0; // конец числа в строке / the end position
+    long long int r;  //сюда писать само число / a variable to contain a number
+    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    {
+        e = Numbers.find (" ", b)-1;
+        TempS = Numbers.substr(b, e-b+1);
+         r = atoi(TempS.c_str());
+         A.push_back(r);
+
+        b = e+2;
+        TempS.clear();
+    }
+
+    TempS = Numbers.substr(b, Numbers.length()-b);  // еще одна итерация - от последнего пробела до конца строки / the last iteration - up to the string's end
+    r = atoi(TempS.c_str());
+    A.push_back(r);
+    TempS.clear();
+}
 
 
 int Num (std::string & Numbers, int &a1,int &a2, double &a3)
@@ -4200,13 +4553,15 @@ int AdjMatrix2AdjVector (std::pair < std::vector<int>, std::vector<double>> & A,
 
 
 
-int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted)
+int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, const bool directed = true)
 // Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
 // Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+// Parameter "directed" sets if the graph A is directed or no. For undirected graph numers of nodes of every edge will be written to G2 in increasing order.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 // Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. Для невзвешенного графа считаем вес всех ребер = 1.
 // Возвращает -1 в случае некорректности исходных данных.
-// Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+// Параметр weighted задает, является ли граф взвешенным (Истина) или нет. Параметр directed задает, является ли граф ориентированным (Истина) или нет.
+// Для неориентированных графов номера вершин каждого ребра будут записаны в G2 порядке возрастания.
 
 
 {
@@ -4221,7 +4576,8 @@ int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, in
     {
     for (int i=0; i<A.size(); i=i+3)
     {
-        C = std::make_pair(A[i], A[i+1]);
+        if (directed) C = std::make_pair(A[i], A[i+1]);
+        if (!directed) C = std::make_pair(std::min(A[i], A[i+1]), std::max(A[i], A[i+1]));
         D = std::make_pair(C, A[i+2]);
 
         if (G2.find(C)!=G2.end())
@@ -4239,7 +4595,8 @@ int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, in
     {
     for (int i=0; i<A.size(); i=i+2)
     {
-        C = std::make_pair(A[i], A[i+1]);
+        if (directed) C = std::make_pair(A[i], A[i+1]);
+        if (!directed) C = std::make_pair(std::min(A[i], A[i+1]), std::max(A[i], A[i+1]));
         D = std::make_pair(C, 1);
 
         if (G2.find(C)!=G2.end())
@@ -4259,10 +4616,12 @@ int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, in
 
 
 
-int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)
+int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2, const bool directed = true)
 // Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
+// Parameter "directed" sets if the graph A is directed or no. For undirected graph numbers of nodes of every edge will be written to G2 in increasing order.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 // Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом.
+// Параметр directed задает, является ли граф ориентированным (Истина) или нет. Для неориентированных графов номера вершин каждого ребра будут записаны в G2 порядке возрастания.
 // Возвращает -1 в случае некорректности исходных данных.
 
 {
@@ -4279,7 +4638,9 @@ int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> 
 
     for (int i=0; i<(A.second).size(); i++)
     {
-        C = std::make_pair((A.first)[i*2], (A.first)[2*i+1]);
+        if (directed) C = std::make_pair((A.first)[i*2], (A.first)[2*i+1]);
+        if (!directed) C = std::make_pair( std::min((A.first)[i*2], (A.first)[2*i+1]), std::max((A.first)[i*2], (A.first)[2*i+1]));
+
         D = std::make_pair(C, (A.second)[i]);
 
         if (G2.find(C)!=G2.end())
@@ -4345,17 +4706,19 @@ int AdjMapToAdjVector (std::pair < std::vector<int>, std::vector<double>> & A, c
 }
 
 
-int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted)
+int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted, const bool directed = true)
 // Converts Adjacency vector A to Adjacency mega-map G2.
 // Adjacency mega-map is an extended version of Adjacency map (and it is built basing on std::map too) for containing graphs that have multiply loops and multiply edges.
 // In doing so, the key value of the map is a pair of integers that sets edge(s) between them and the mapped value is a vector that contains weights of all edges between these vertices.
 // Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
+// Parameter "directed" sets if the graph A is directed or no. For undirected graph numers of nodes of every edge will be written to G2 in increasing order.
 // Returns -1 if input data is not correct. Otherwise returns 0.
 // Конвертирует Вектор смежности A в ассоциативный "мега-мап" G2. Для невзвешенного графа считаем вес всех ребер = 1.
 // Мега-мап представляет собой ассоциативный массив смежности, предназначенный для хранения графов с множественными петлями и множественными ребрами.
 // При этом ключом является пара чисел, задающих вершины ребер графа между ними, а значением - вектор весов для всех ребер между этими вершинами.
 // Возвращает -1 в случае некорректности исходных данных.
 // Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+// Параметр directed задает, является ли граф ориентированным (Истина) или нет. Для неориентированных графов номера вершин каждого ребра будут записаны в G2 порядке возрастания.
 
 
 {
@@ -4371,8 +4734,9 @@ int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int
     {
     for (int i=0; i<A.size(); i=i+3)
     {
-        C = std::make_pair(A[i], A[i+1]);
 
+        if (directed) C = std::make_pair(A[i], A[i+1]);
+        if (!directed) C = std::make_pair(std::min(A[i], A[i+1]), std::max(A[i], A[i+1]));
 
         if (G2.find(C)!=G2.end())
         {G2[C].push_back(A[i+2]); continue;}
@@ -4389,8 +4753,9 @@ int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int
     {
     for (int i=0; i<A.size(); i=i+2)
     {
-        C = std::make_pair(A[i], A[i+1]);
 
+        if (directed) C = std::make_pair(A[i], A[i+1]);
+        if (!directed) C = std::make_pair(std::min(A[i], A[i+1]), std::max(A[i], A[i+1]));
 
         if (G2.find(C)!=G2.end())
         {G2[C].push_back(1); continue;}
@@ -4409,7 +4774,7 @@ int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int
 
 
 
-int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2)
+int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2, const bool directed = true)
 // Модификация функции AdjVectorToAdjMegaMap (см. выше) для случая нецелочисленных весов ребер графа.
 // Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
 // Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
@@ -4431,8 +4796,8 @@ int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<doubl
 
     for (int i=0; i<(A.second).size(); i++)
     {
-        C = std::make_pair((A.first)[i*2], (A.first)[2*i+1]);
-
+        if (directed) C = std::make_pair((A.first)[i*2], (A.first)[2*i+1]);
+        if (!directed) C = std::make_pair  (std::min((A.first)[i*2], (A.first)[2*i+1]), std::max((A.first)[i*2], (A.first)[2*i+1]));
 
         if (G2.find(C)!=G2.end())
         {G2[C].push_back((A.second)[i]); continue;}
@@ -5217,6 +5582,38 @@ int DFSTS (const std::vector <int> & A, const int b, std::vector <int> & Visited
 
 return 0;
 }
+
+
+int CycleToPath (std::vector <int> Cycle, std::vector<int> &Path)
+// Функция "вставляет" цикл Cycle в путь Path с первого значения из Path, которое встречается в Cycle.
+// В случае успеха вернет 0. В случае неуспеха или некорректных исходных данных вернет -1.
+
+// The function integrate cycle Cycle to the path Path (starting vertex will be the first from Cycle that may be found in Path)
+// Returns 0 if success. Returns -1 if it is impossible or input data are incorrect
+
+{
+    int f = -1;
+    if (Cycle.size()==0) return f;
+    if (Cycle[0]!=Cycle[Cycle.size()-1]) return f;
+    if (Path.size()==0) return f;
+
+    int t, d;
+    for (int j=0; j<Cycle.size(); j++)
+    {
+        t = FindIn(Path, Cycle[j]);
+        if (t==-1) continue;
+        f = 0;
+        Path.insert( Path.begin()+1+t, Cycle.begin()+j+1, Cycle.end()-1 );
+
+        d = Cycle.size()-j-2;
+        Cycle.resize(j+1);
+
+        Path.insert( Path.begin()+1+t+d, Cycle.begin(), Cycle.end() );
+    }
+
+    return f;
+}
+
 
 
 int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> & order, std::vector <int> & Isolated, const bool weighted, const bool OnlyTS = false)
