@@ -418,7 +418,7 @@ Generates DistanceMatrix "B" upon array of strings s; if s contains 1 or 0
 items or strings have not equal length returns -1 and empty B.
 ***
 `int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, 
-std::string &TempS, std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)`
+std::string &TempS, std::string &QTempS, const int method = 1, const std::string &Alph = "ACGT", const int Phred=33)`
 
 Generates a consensus string upon std::vector <std::string> DataS as an input collection of strings and QDataS as their quality. 
 
@@ -444,11 +444,34 @@ If no symbol of the Alph has been found at a given position - the ' ' will be se
 If any input data is incorrect returns -1 and empty TempS and QTempS, otherwise returns 0.
 ***
 `int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, std::string &QTempS,
-const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)`
+const int method = 1, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)`
 
 Modification of ConsStringQ1 (see it above) for all the version of consensus string. For that every position may have >= 1 symbols (if different symbols may be chosen for this position). 
 
 The positions are separated by the symbol tr (by default is set as '^').
+***
+`int JoinOverlapStrings (std::multimap <long long int, std::string> & Locuses, std::map <long long int, std::string> & JoinedLocuses, const bool Aggregate = false, const bool NoQuality = false, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)`
+
+The function joins overlapping strings from Locuses (contain substrings of the unknown string as pairs: start position -> string) and writes the resulting collection of the joined strings to JoinedLocuses (has the same format).
+
+The overlaps are to constructed as consensus strings:
+ - using ConsStringQ1 (if any one version of result needed, set bool Aggregate = false for it) or using ConsStringQ2 (if all the version needed, set bool Aggregate = true for it), see info on ConsStringQ1 and ConsStringQ2 for details.
+ - using the chosen method of consensus generating (set by parameter "method", see info on ConsStringQ1 and ConsStringQ2 for details).
+ - taking in account quality (NoQuality=true, scale is set by parameter "Phred") or no (NoQuality=false).
+ - the Alphabet should be set by the string Alph. In doing so, only symbols of the Alph will be taken into account for consensus string generation.
+
+If NoQuality = true method #1 will be used always.
+
+So, if we need to join collection 0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA in any way without any additional info,
+we should set NoQuality = true, Aggregate = false, and have the result: 0->ATGTA, 10->TTC.
+
+***
+`long double ProfileProbableMer (const std::string &s, int n, const std::vector <std::vector <long double>> & B, std::vector <std::string> & DataS, long double d = 0.0000001, std::string Alph = "ACGT")`
+
+Finds all most probable n-mer of the given string s upon position probability matrix (PPM) B and the Alphabet Alph.
+Returns their probability and all these n-mers contained in DataS.
+If any data incorrect returns empty DataS and -1.0.
+Parameter d sets precision for doubles comparison.
 ***
 `int EditDist (const std::string &s1, const std::string &s2)`
 
@@ -746,21 +769,21 @@ first vector has its weight set as i-th element in the second one.
 For an undirected graph the data that is lower than the Main diagonal of the
 matrix B is ignored
 ***
-`int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted)`
+`int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, const bool directed = true)`
 
 Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together. 
 Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. 
+Parameter "directed" sets if the graph A is directed or no. For undirected graph numers of nodes of every edge will be written to G2 in increasing order.
 
 If A is unweighted we consider that every edge have its weight = 1. 
 
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
-`int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)`
+`int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2, const bool directed = true)`
 
-Modification of the function AdjVectorToAdjMap (see it above) for not-integer
-(double) weights of edges of a graph.
+Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together.
 
-Converts Adjacency vector A to Adjacency map G2. Multiple edges will be joined together. 
+Parameter "directed" sets if the graph A is directed or no. For undirected graph numbers of nodes of every edge will be written to G2 in increasing order.
 
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
@@ -779,7 +802,7 @@ Converts Adjacency map G1 to Adjacency vector A. A is considered as weighted, al
 
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
-`int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted)`
+`int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted, const bool directed = true)`
 
 Converts Adjacency vector A to Adjacency mega-map G2.
 
@@ -789,9 +812,11 @@ In doing so, the key value of the map is a pair of integers that sets edge(s) be
 
 Parameter "weighted" sets if the graph A is weighted or no. Weights may be only integers. If A is unweighted we consider that every edge have its weight = 1.
 
+Parameter "directed" sets if the graph A is directed or no. For undirected graph numers of nodes of every edge will be written to G2 in increasing order.
+
 Returns -1 if input data is not correct. Otherwise returns 0.
 ***
-`int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2)`
+`int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2, const bool directed = true)`
 
 Modification of the function AdjVectorToAdjMegaMap (see it above) for not-integer (double) weights of edges of a graph.
 ***
@@ -916,6 +941,12 @@ Bool "weighted" should be set as "true" for weighted graph, "false" for
 unweighted.
 
 If the graph contains cycle - returns 1 and empty "order".
+***
+`int CycleToPath (std::vector <int> Cycle, std::vector<int> &Path)`
+
+The function integrate cycle Cycle to the path Path (starting vertex will be the first from the Cycle that may be found in the Path)
+
+Returns 0 if success. Returns -1 if it is impossible or input data are incorrect.
 ***
 `int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> &
 order, std::vector <int> & Isolated, const bool weighted, const bool OnlyTS =
