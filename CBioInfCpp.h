@@ -3056,7 +3056,7 @@ int JoinOverlapStrings (std::multimap <long long int, std::string> & Locuses, st
 // Области пересечений строятся как консенсусные строки:
 // - с помощью функции ConsStringQ1, если необходим какой-либо один из приемлемых вариантов (bool Aggregate = false), или с помощью ConsStringQ2, если необходимы все варианты (bool Aggregate = true) (подробнее см описания данных функций),
 // - с выбранным методом построения консенсусной строки (0 - 3, подробнее о методах также  см. описания ConsStringQ1 и ConsStringQ2),
-// - с учетом качества (NoQuality=true) или нет (NoQuality=false); при учете качества считается, что первая половина каждой строки в Locuses содержит собственно саму строку, а вторая половина - строку, задающую ее качество.
+// - с учетом качества (NoQuality=false) или нет (NoQuality=true); при учете качества считается, что первая половина каждой строки в Locuses содержит собственно саму строку, а вторая половина - строку, задающую ее качество.
 // - Параметр качества задается по шкале Phred с помощью соответствующего параметра.
 // - Алфавит задается параметром Alph, так что при формировании консенсусных строк будут учитываться только символы из данного алфавита.
 // Таким образом, если необходимо просто соединить все пересекающиеся строки в нектором наборе без учета качества, необходимо задать NoQuality = true, задать алфавит и в Locuses разместить саму коллекцию объединяемых строк.
@@ -3067,7 +3067,8 @@ int JoinOverlapStrings (std::multimap <long long int, std::string> & Locuses, st
 // The overlaps are to constructed as consensus strings:
 // - using ConsStringQ1 (if any one version of result needed, set bool Aggregate = false for it) or using ConsStringQ2 (if all the version needed, set bool Aggregate = true for it), see info on ConsStringQ1 and ConsStringQ2 for details.
 // - using the chosen method of consensus generating (set by parameter "method", see info on ConsStringQ1 and ConsStringQ2 for details).
-// - taking in account quality (NoQuality=true, scale is set by parameter "Phred") or no (NoQuality=false).
+// - taking into account quality (NoQuality=false, scale is set by parameter "Phred") or no (NoQuality=true).
+//   NOTE that if we take quality into account (NoQuality=false) it is expected that the first half of every string in Locuses means the string to be joined itself, and the other half – its quality.
 // - the Alphabet should be set by the string Alph. In doing so, only symbols of the Alph will be taken into account for consensus string generation.
 // If NoQuality = true method #1 will be used always.
 // So, if we need to join collection 0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA in any way without any additional info,
