@@ -457,7 +457,8 @@ The function joins overlapping strings from Locuses (contain substrings of the u
 The overlaps are to constructed as consensus strings:
  - using ConsStringQ1 (if any one version of result needed, set bool Aggregate = false for it) or using ConsStringQ2 (if all the version needed, set bool Aggregate = true for it), see info on ConsStringQ1 and ConsStringQ2 for details.
  - using the chosen method of consensus generating (set by parameter "method", see info on ConsStringQ1 and ConsStringQ2 for details).
- - taking in account quality (NoQuality=true, scale is set by parameter "Phred") or no (NoQuality=false).
+ - taking into account quality (NoQuality=false, scale is set by parameter "Phred") or no (NoQuality=true). 
+ NOTE that if we take quality into account (NoQuality=false) it is expected that the first half of every string in Locuses means the string to be joined itself, and the other half – its quality.
  - the Alphabet should be set by the string Alph. In doing so, only symbols of the Alph will be taken into account for consensus string generation.
 
 If NoQuality = true method #1 will be used always.
@@ -549,9 +550,18 @@ with "1".
 Converts string of numbers <double> (separated by spaces) to a vector of
 numbers
 ***
+`void Num (std::string & Numbers, std::vector <long double> & A)`
+
+Converts string of numbers <long double> (separated by spaces) to a vector of
+numbers
+***
 `void Num (std::string & Numbers, std::vector <int> & A)`
 
 Converts string of numbers <int> (separated by spaces) to a vector of numbers
+***
+`void Num (std::string & Numbers, std::vector <long long int> & A)`
+
+Converts string of numbers <long long int> (separated by spaces) to a vector of numbers
 ***
 `int Num (std::string & Numbers, int &a1,int &a2, double &a3)`
 
