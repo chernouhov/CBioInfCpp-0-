@@ -394,7 +394,7 @@ Counts p-distance without checking of the input data correctness
 в случае если в наборе менее 2х строк или они имеют неодинаковую длину, то возвращается -1 (в случае успеха - 0).
 ***
 `int ConsStringQ1 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, 
-std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)`
+std::string &QTempS, const int method = 1, const std::string &Alph = "ACGT", const int Phred=33)`
 
 Формирует консенсусную строку (если возможно несколько вариантов такой строки - то один из них) согласно набру строк DataS с соотвествующим качеством (строки, задающие качество даны в QDataS на соответствующих позициях).
 
@@ -416,11 +416,41 @@ std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", con
 Если ни одного символа из алфавита на данной позиции не найдено - ставится ' ' и качество по данной позиции задается как ' '.
 ***
 `int ConsStringQ2 (std::vector <std::string> &DataS, std::vector<std::string> &QDataS, std::string &TempS, 
-std::string &QTempS, const int method = 0, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)`
+std::string &QTempS, const int method = 1, const std::string &Alph = "ACGT", const char tr = '^', const int Phred=33)`
 
 Модификация функции ConsStringQ1 (см. выше) для целей учета всех вариантов консенсусной строки.
 В консенсусной строке позиции разделяются символом tr (по умолчанию = '^'), 
 при этом на каждой позиции может быть несколько символов из алфавита, если с т.зр. критерия выбора они равновероятны.
+***
+`int EditDist (const std::string &s1, const std::string &s2)`
+
+Рассчитывает редакционное расстояние (расстояние Левенштейна) 
+между строками, принимает на вход даже пустые. Цена каждой операции = 1.
+***
+`int JoinOverlapStrings (std::multimap <long long int, std::string> & Locuses, std::map <long long int, std::string> & JoinedLocuses, const bool Aggregate = false, const bool NoQuality = false, const int method = 0, const std::string &Alph = "ACGT", const int Phred=33)`
+
+Функция, которая принимает на вход Locuses, содержащий набор подстрок из некоторой неизвестной строки, в формате: стартовая позиция в неизвестной строке -> сама (под)строка, и объединяет пересекающиеся строки (результат записывается в JoinedLocuses в том же формате).
+
+Области пересечений строятся как консенсусные строки:
+ - с помощью функции ConsStringQ1, если необходим какой-либо один из приемлемых вариантов (bool Aggregate = false), или с помощью ConsStringQ2, если необходимы все варианты (bool Aggregate = true) (подробнее см описания данных функций),
+ - с выбранным методом построения консенсусной строки (0 - 3, подробнее о методах также  см. описания ConsStringQ1 и ConsStringQ2),
+ - с учетом качества (NoQuality=true) или нет (NoQuality=false); при учете качества считается, что первая половина каждой строки в Locuses содержит собственно саму строку, а вторая половина - строку, задающую ее качество.
+ - Параметр качества задается по шкале Phred с помощью соответствующего параметра.
+ - Алфавит задается параметром Alph, так что при формировании консенсусных строк будут учитываться только символы из данного алфавита.
+
+Таким образом, если необходимо просто соединить все пересекающиеся строки в некотором наборе без учета качества, необходимо задать NoQuality = true, задать алфавит и в Locuses разместить саму коллекцию объединяемых строк.
+
+В случае NoQuality = true будет всегда использоваться метод №1
+
+Например, коллекция вида  0->ACGT, 1->TGTA, 1->TT, 10->TT, 11->TCA в этом случае объединится как 0->ATGTA, 10->TTC.
+***
+`long double ProfileProbableMer (const std::string &s, int n, const std::vector <std::vector <long double>> & B, std::vector <std::string> & DataS, long double d = 0.0000001, std::string Alph = "ACGT")`
+
+Находит все наиболее вероятные n-меры в строке s исходя из позиционной матрицы вероятностей B и возвращает их в векторе DataS. Возвращает значение соответствующей вероятности.
+
+Если данные некорректны, возвращает пустой DataS и -1.0
+
+Параметр d задает точность при расчете вероятностей.
 ***
 `int EditDist (const std::string &s1, const std::string &s2)`
 
@@ -711,17 +741,18 @@ first vector has its weight set as i-th element in the second one.
 For an undirected graph the data that is lower than the Main diagonal of the
 matrix B is ignored
 ***
-`int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted)`
+`int AdjVectorToAdjMap (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, const bool directed = true)`
 
 Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. 
 Для невзвешенного графа считаем вес всех ребер = 1.
 Возвращает -1 в случае некорректности исходных данных.
 Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+Параметр directed задает, является ли граф ориентированным (Истина) или нет. Для неориентированных графов номера вершин каждого ребра будут записаны в G2 порядке возрастания.
 ***
-`int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2)`
+`int AdjVectorToAdjMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , double> &G2, const bool directed = true)`
 
-Модификация функции AdjVectorToAdjMap (см. выше) для случая нецелочисленных значений ребер.
-Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом. 
+Конвертирует Вектор смежности A в ассоциативный массив смежности G2. Множественные ребра будут объединены с суммарным весом.
+Параметр directed задает, является ли граф ориентированным (Истина) или нет. Для неориентированных графов номера вершин каждого ребра будут записаны в G2 порядке возрастания.
 Возвращает -1 в случае некорректности исходных данных.
 ***
 `int AdjMapToAdjVector (std::vector <int> &A, const std::map <std::pair < int, int> , int> &G1)`
@@ -734,7 +765,7 @@ matrix B is ignored
 Конвертирует Ассоциативный массив смежности G1 в вектор смежности А (только во взвешенный, веса имеют тип double).
 Возвращает -1 в случае некорректности исходных данных.
 ***
-`int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted)`
+`int AdjVectorToAdjMegaMap (const std::vector <int> &A, std::map <std::pair < int, int> , std::vector<int> > &G2, const bool weighted, const bool directed = true)`
 
 Конвертирует Вектор смежности A в ассоциативный "мега-мап" G2. Для невзвешенного графа считаем вес всех ребер = 1.
 
@@ -745,8 +776,10 @@ matrix B is ignored
 Возвращает -1 в случае некорректности исходных данных.
 
 Параметр weighted задает, является ли граф взвешенным (Истина) или нет.
+
+Параметр directed задает, является ли граф ориентированным (Истина) или нет. Для неориентированных графов номера вершин каждого ребра будут записаны в G2 порядке возрастания.
 ***
-`int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2)`
+`int AdjVectorToAdjMegaMap (const std::pair < std::vector<int>, std::vector<double>> & A, std::map <std::pair < int, int> , std::vector<double> > &G2, const bool directed = true)`
 
 Модификация функции AdjVectorToAdjMegaMap (см. выше) для случая нецелочисленных весов ребер графа.
 ***
@@ -854,6 +887,11 @@ std::vector <int> & order, const bool weighted)`
 weighted - истина, если взвешенный граф, иначе - ложь. 
 
 Если найден цикл - возвращает 1 и пустой order. 
+***
+`int CycleToPath (std::vector <int> Cycle, std::vector<int> &Path)`
+
+Функция "вставляет" цикл Cycle в путь Path с первого значения из Path, которое встречается в Cycle.
+В случае успеха вернет 0. В случае неуспеха или некорректных исходных данных вернет -1.
 ***
 `int TSortHP (std::vector <int> & A, std::vector <int> & R, std::vector <int> &
 order, std::vector <int> & Isolated, const bool weighted, const bool OnlyTS =
