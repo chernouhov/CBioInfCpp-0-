@@ -1145,6 +1145,26 @@ An auxiliary function to order vertices of a graph for the function SCCGraph_Ver
 
 An auxiliary function to find vertices of a graph for a strongly connected component (for the function SCCGraph_Vertices).
 ***
+`int NeighborJoiningUndirectedGraph (const std::vector <std::vector <int>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Generates a tree (undirected graph) using Neighbor Joining method (as an Adjacency vector A, 1-based indexing of vertices) upon a distance matrix B.
+
+If any data incorrect (B has zero lines (i.e. empty) or has negative values or is not a square matrix) returns empty A and -1. If success returns 0.
+***
+`int UPGMA_UndirectedGraph (const std::vector <std::vector <int>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Generates a tree (undirected graph) using UPGMA method (as an Adjacency vector A, 1-based indexing of vertices) upon a distance matrix B.
+
+If any data incorrect (B has zero lines (i.e. empty) or has negative values or is not a square matrix) returns empty A and -1. If success returns 0.
+***
+`int NeighborJoiningUndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Modification for distance matrix B of doubles.
+***
+`int UPGMA_UndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Modification for distance matrix B of doubles.
+***
 `int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)`
 
 The function finds collection of vertices for each strongly connected component of the directed graph, that is set by an Adjacency vector A.
