@@ -1054,6 +1054,26 @@ INT_MIN)`
 
 Вспомогательная функция для поиска вершин очередной сильно связной компоненты для SCCGraph_Vertices
 ***
+`int NeighborJoiningUndirectedGraph (const std::vector <std::vector <int>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Конструирует дерево (неориентированный граф) методом присоединения ближайшего соседа на основе матрицы дистанций B, результат - дерево - возвращается в векторе смежности A. Нумерация вершин графа ведется с 1.
+
+Возвращает 0 в случае успеха; в случае некорректных данных (пустая или не квадратная  или содержащая отрицательные элементы матрица B), вернет -1.
+***
+`int UPGMA_UndirectedGraph (const std::vector <std::vector <int>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Конструирует дерево (неориентированный граф) методом UPGMA на основе матрицы дистанций B, результат - дерево - возвращается в векторе смежности A. Нумерация вершин графа ведется с 1.
+
+Возвращает 0 в случае успеха; в случае некорректных данных (пустая или не квадратная  или содержащая отрицательные элементы матрица B), вернет -1.
+***
+`int NeighborJoiningUndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Модификация функции для нецелочисленной матрицы дистанций B.
+***
+`int UPGMA_UndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
+
+Модификация функции для нецелочисленной матрицы дистанций B.
+***
 `int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)`
 
 Функция для нахождения наборов вершин по всем компонентам сильной связности (т.е. областей сильной связности) ориентированного графа, заданного вектором смежности А. Параметр weighted задает, является ли граф взвешенным.
