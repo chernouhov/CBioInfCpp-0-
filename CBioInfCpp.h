@@ -5290,6 +5290,551 @@ return 0;
 }
 
 
+
+int NeighborJoiningUndirectedGraph (const std::vector <std::vector <int>> B, std::pair < std::vector<int>, std::vector<double>> &A)
+// Конструирует дерево (неориентированный граф) методом присоединения ближайшего соседа на основе матрицы дистанций B, результат - дерево - возвращается в векторе смежности A. Нумерация вершин графа ведется с 1.
+// Возвращает 0 в случае успеха; в случае некорректных данных (пустая или не квадратная  или содержащая отрицательные элементы матрица B), вернет -1.
+// Generates a tree (undirected graph) using Neighbor Joining method (as an Adjacency vector A, 1-based indexing of vertices) upon a distance matrix B.
+// If any data incorrect (B has zero lines (i.e. empty) or has negative values or is not a square matrix) returns empty A and -1. If success returns 0.
+
+
+
+{
+    A.first.clear();
+    A.second.clear();
+    if (B.size()==0) return -1;
+    for (int q=0;q<B.size();q++)
+        if ((B.size()!=B[q].size())) return -1;
+
+    int y = B.size();
+
+
+    std::vector <std::vector <double>> D; D.clear();
+    std::vector <double> B1; B1.clear();
+
+    MatrixSet(D,y+1,y+1,0.0);
+
+    for (int a = 0; a<D.size(); a++) // занесение в заголовки строк и столбцов номеров соответствующих вершин графа
+        // strings&columns numbers will be in headers (i.e. in 0-labeled string and columns of D)
+    {
+        D[0][a] = a*1.0;
+        D[a][0] = a*1.0;
+
+    }
+
+    for (int i = 0; i<B.size(); i++)
+        for (int j = 0; j<B.size(); j++)
+        // writting B to D
+    {
+        if (B[i][j]<0) return -1;
+
+
+            D[i+1][j+1] = 1.0*B[i][j];
+
+
+    }
+
+
+    std::vector <std::vector <double>> Q; //Q-matrix will be here
+
+    MatrixSet(Q,y+1,y+1,0.0);
+    double z1, z2;
+    double tz1, tz2;
+    int ti, tj;
+    double mn = std::numeric_limits<double>::max();
+    int countv = y+1;
+    int n=y;
+    for (int q=0; q<(n-1); q++)
+    {
+
+        if (D.size()==3)
+        {
+            z2 = D[1][2];
+            A.first.push_back((int)D[0][1]);
+            A.first.push_back((int)D[0][2]);
+            A.second.push_back(z2);
+
+            break;
+
+        }
+
+        mn = std::numeric_limits<double>::max();
+        MatrixSet(Q,y+1,y+1,0.0);
+        for (int i=1; i<(y+1); i++)
+            for (int j=1; j<(y+1); j++)
+            {
+                if (i==j) continue;
+                z1=0.0; z2=0.0;
+                for (int ii=1;ii<=y;ii++)
+                {
+
+                    z1 = z1+D[i][ii];
+                    z2 = z2+D[j][ii];
+                }
+
+                Q[i][j] = (y-2.0)*D[i][j]-z1-z2;
+                if (Q[i][j]<mn)
+                {mn=Q[i][j];
+                    ti=i;
+                    tj=j;
+                    tz1=z1; tz2=z2;}
+
+            }
+        // сделали Q-матрицу Q-matrix is done
+
+
+
+
+               A.first.push_back((int)D[0][ti]);
+               A.first.push_back(countv);
+               A.second.push_back(0.5*D[ti][tj]+0.5*(tz1-tz2)/(y-2));
+
+
+
+               A.first.push_back((int)D[0][tj]);
+               A.first.push_back(countv);
+               A.second.push_back(D[ti][tj] - 0.5*D[ti][tj]-0.5*(tz1-tz2)/(y-2));
+
+
+               z1 = D[ti][tj];
+
+
+               D[0][ti]=countv;
+               D[ti][0]=countv;
+
+                   for (int x2 = 1;x2<(y+1);x2++)
+                       {
+
+                            D[x2][ti] = 0.5*(-1.0*z1+D[ti][x2]+D[tj][x2]);
+                            D[ti][x2] = D[x2][ti];
+                       }
+
+
+                   for (int x2 = 0;x2<(y+1);x2++)
+                       {
+
+                            D[x2].erase(D[x2].begin()+tj);
+                       }
+                   D.erase(D.begin()+tj);
+
+
+                countv++;
+               y--;
+
+
+
+    }
+
+return 0;
+
+
+}
+
+
+int UPGMA_UndirectedGraph (const std::vector <std::vector <int>> B, std::pair < std::vector<int>, std::vector<double>> &A)
+// Конструирует дерево (неориентированный граф) методом UPGMA на основе матрицы дистанций B, результат - дерево - возвращается в векторе смежности A. Нумерация вершин графа ведется с 1.
+// Возвращает 0 в случае успеха; в случае некорректных данных (пустая или не квадратная  или содержащая отрицательные элементы матрица B), вернет -1.
+// Generates a tree (undirected graph) using UPGMA method (as an Adjacency vector A, 1-based indexing of vertices) upon a distance matrix B.
+// If any data incorrect (B has zero lines (i.e. empty) or has negative values or is not a square matrix) returns empty A and -1. If success returns 0.
+
+
+
+{
+    A.first.clear();
+    A.second.clear();
+    if (B.size()==0) return -1;
+    for (int q=0;q<B.size();q++)
+        if ((B.size()!=B[q].size())) return -1;
+
+    int y = B.size();
+
+
+    std::vector <std::vector <double>> D; D.clear();
+    std::vector <double> B1; B1.clear();
+
+    MatrixSet(D,y+1,y+1,0.0);
+
+    for (int a = 0; a<D.size(); a++) // занесение в заголовки строк и столбцов номеров соответствующих вершин графа
+        // strings&columns numbers will be in headers (i.e. in 0-labeled string and columns of D)
+    {
+        D[0][a] = a*1.0;
+        D[a][0] = a*1.0;
+
+    }
+
+    for (int i = 0; i<B.size(); i++)
+        for (int j = 0; j<B.size(); j++)
+        // writing B to D
+    {
+        if (B[i][j]<0) return -1;
+
+
+            D[i+1][j+1] = 1.0*B[i][j];
+
+
+    }
+
+
+    std::map <double, double> R; // остаточные расстояния от вершины до низа // the remaining distance to the bottom of the tree
+    R.clear();
+
+    for (int q = 0; q<y; q++)
+        R.insert(std::pair<double, double>((q+1)*1.0, 0.0));
+
+
+
+
+    std::map <double, double> N; // кол-во элементов в кластере под вершиной // the number of elements in the cluster lower the vertex
+    N.clear();
+
+    for (int q = 0; q<y; q++)
+        N.insert(std::pair<double, double>((q+1)*1.0, 1.0));
+
+
+
+
+    int count = 0;
+    double mn = std::numeric_limits<double>::max();
+    int ii, jj;
+    int countv = y+1;
+    double t;
+
+    while (count!=(y-1))
+    {
+        mn = std::numeric_limits<double>::max();
+        for (int w = 1; w<D.size(); w++) // поиск самых близких вершин ii и jj
+          {
+            for (int e = w+1; e<D.size(); e++)
+            {
+                if ((D[w][e] >0.0)&& (D[w][e] <mn))
+                {
+                    ii=w;
+                    jj = e;
+                    mn = D[w][e];
+
+                }
+
+            }
+          }
+
+
+
+
+        for (int w = 1; w<D.size(); w++) //пересчет //recalculating
+        {
+
+            if (D[ii][w]>0.0)
+            {
+                t = (D[ii][w]*N[D[ii][0]*1.0]+D[jj][w]*N[D[jj][0]*1.0])/(N[D[ii][0]*1.0]+N[D[jj][0]*1.0]);
+                D[ii][w] = t;
+
+                D[w][ii] = D[ii][w];
+
+
+            }
+
+            D[jj][w] = -1.0;
+            D[w][jj] = D[jj][w];
+
+        }
+
+
+
+        A.first.push_back(countv);
+        A.first.push_back((int)D[ii][0]);
+        A.second.push_back(mn*0.5-1.0*R[D[ii][0]]);
+
+        A.first.push_back(countv);
+        A.first.push_back((int)D[jj][0]);
+        A.second.push_back(mn*0.5-1.0*R[D[jj][0]]);
+
+        R.insert(std::pair<double, double>(countv*1.0, mn*0.5));
+        t = (N[D[ii][0]*1.0]+N[D[jj][0]*1.0]);
+        N.insert(std::pair<double, double>(countv*1.0, t));
+
+        D[0][ii] = countv;
+        D[ii][0] = countv;
+
+        countv++;
+        count++;
+    }
+
+
+return 0;
+
+}
+
+
+
+int NeighborJoiningUndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)
+// Модификация функции для нецелочисленной матрицы дистанций B.
+// Modification for distance matrix B of doubles.
+
+{
+    A.first.clear();
+    A.second.clear();
+    if (B.size()==0) return -1;
+    for (int q=0;q<B.size();q++)
+        if ((B.size()!=B[q].size())) return -1;
+
+    int y = B.size();
+
+
+    std::vector <std::vector <double>> D; D.clear();
+    std::vector <double> B1; B1.clear();
+
+    MatrixSet(D,y+1,y+1,0.0);
+
+    for (int a = 0; a<D.size(); a++) // занесение в заголовки строк и столбцов номеров соответствующих вершин графа
+        // strings&columns numbers will be in headers (i.e. in 0-labeled string and columns of D)
+    {
+        D[0][a] = a*1.0;
+        D[a][0] = a*1.0;
+
+    }
+
+    for (int i = 0; i<B.size(); i++)
+        for (int j = 0; j<B.size(); j++)
+        // writing B to D
+    {
+        if (B[i][j]<0) return -1;
+
+
+            D[i+1][j+1] = 1.0*B[i][j];
+
+
+    }
+
+
+    std::vector <std::vector <double>> Q; //Q-matrix will be here
+
+    MatrixSet(Q,y+1,y+1,0.0);
+    double z1, z2;
+    double tz1, tz2;
+    int ti, tj;
+    double mn = std::numeric_limits<double>::max();
+    int countv = y+1;
+    int n=y;
+    for (int q=0; q<(n-1); q++)
+    {
+
+        if (D.size()==3)
+        {
+            z2 = D[1][2];
+            A.first.push_back((int)D[0][1]);
+            A.first.push_back((int)D[0][2]);
+            A.second.push_back(z2);
+
+            break;
+
+        }
+
+        mn = std::numeric_limits<double>::max();
+        MatrixSet(Q,y+1,y+1,0.0);
+        for (int i=1; i<(y+1); i++)
+            for (int j=1; j<(y+1); j++)
+            {
+                if (i==j) continue;
+                z1=0.0; z2=0.0;
+                for (int ii=1;ii<=y;ii++)
+                {
+
+                    z1 = z1+D[i][ii];
+                    z2 = z2+D[j][ii];
+                }
+
+                Q[i][j] = (y-2.0)*D[i][j]-z1-z2;
+                if (Q[i][j]<mn)
+                {mn=Q[i][j];
+                    ti=i;
+                    tj=j;
+                    tz1=z1; tz2=z2;}
+
+            }
+        // сделали Q-матрицу Q-matrix is done
+
+
+
+
+               A.first.push_back((int)D[0][ti]);
+               A.first.push_back(countv);
+               A.second.push_back(0.5*D[ti][tj]+0.5*(tz1-tz2)/(y-2));
+
+
+
+               A.first.push_back((int)D[0][tj]);
+               A.first.push_back(countv);
+               A.second.push_back(D[ti][tj] - 0.5*D[ti][tj]-0.5*(tz1-tz2)/(y-2));
+
+
+               z1 = D[ti][tj];
+
+
+               D[0][ti]=countv;
+               D[ti][0]=countv;
+
+                   for (int x2 = 1;x2<(y+1);x2++)
+                       {
+
+                            D[x2][ti] = 0.5*(-1.0*z1+D[ti][x2]+D[tj][x2]);
+                            D[ti][x2] = D[x2][ti];
+                       }
+
+
+                   for (int x2 = 0;x2<(y+1);x2++)
+                       {
+
+                            D[x2].erase(D[x2].begin()+tj);
+                       }
+                   D.erase(D.begin()+tj);
+
+
+                countv++;
+               y--;
+
+
+
+    }
+
+return 0;
+
+
+}
+
+
+int UPGMA_UndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)
+// Модификация функции для нецелочисленной матрицы дистанций B.
+// Modification for distance matrix B of doubles.
+
+{
+    A.first.clear();
+    A.second.clear();
+    if (B.size()==0) return -1;
+    for (int q=0;q<B.size();q++)
+        if ((B.size()!=B[q].size())) return -1;
+
+    int y = B.size();
+
+
+    std::vector <std::vector <double>> D; D.clear();
+    std::vector <double> B1; B1.clear();
+
+    MatrixSet(D,y+1,y+1,0.0);
+
+    for (int a = 0; a<D.size(); a++) // занесение в заголовки строк и столбцов номеров соответствующих вершин графа
+        // strings&columns numbers will be in headers (i.e. in 0-labeled string and columns of D)
+    {
+        D[0][a] = a*1.0;
+        D[a][0] = a*1.0;
+
+    }
+
+    for (int i = 0; i<B.size(); i++)
+        for (int j = 0; j<B.size(); j++)
+        // writing B to D
+    {
+        if (B[i][j]<0) return -1;
+
+
+            D[i+1][j+1] = 1.0*B[i][j];
+
+
+    }
+
+
+    std::map <double, double> R; // остаточные расстояния от вершины до низа // the remaining distance to the bottom of the tree
+    R.clear();
+
+    for (int q = 0; q<y; q++)
+        R.insert(std::pair<double, double>((q+1)*1.0, 0.0));
+
+
+
+
+    std::map <double, double> N; // кол-во элементов в кластере под вершиной // the number of elements in the cluster lower the vertex
+    N.clear();
+
+    for (int q = 0; q<y; q++)
+        N.insert(std::pair<double, double>((q+1)*1.0, 1.0));
+
+
+
+
+    int count = 0;
+    double mn = std::numeric_limits<double>::max();
+    int ii, jj;
+    int countv = y+1;
+    double t;
+
+    while (count!=(y-1))
+    {
+        mn = std::numeric_limits<double>::max();
+        for (int w = 1; w<D.size(); w++) // поиск самых близких вершин ii и jj
+          {
+            for (int e = w+1; e<D.size(); e++)
+            {
+                if ((D[w][e] >0.0)&& (D[w][e] <mn))
+                {
+                    ii=w;
+                    jj = e;
+                    mn = D[w][e];
+
+                }
+
+            }
+          }
+
+
+
+
+        for (int w = 1; w<D.size(); w++) //пересчет //recalculating
+        {
+
+            if (D[ii][w]>0.0)
+            {
+                t = (D[ii][w]*N[D[ii][0]*1.0]+D[jj][w]*N[D[jj][0]*1.0])/(N[D[ii][0]*1.0]+N[D[jj][0]*1.0]);
+                D[ii][w] = t;
+
+                D[w][ii] = D[ii][w];
+
+
+            }
+
+            D[jj][w] = -1.0;
+            D[w][jj] = D[jj][w];
+
+        }
+
+
+
+        A.first.push_back(countv);
+        A.first.push_back((int)D[ii][0]);
+        A.second.push_back(mn*0.5-1.0*R[D[ii][0]]);
+
+        A.first.push_back(countv);
+        A.first.push_back((int)D[jj][0]);
+        A.second.push_back(mn*0.5-1.0*R[D[jj][0]]);
+
+        R.insert(std::pair<double, double>(countv*1.0, mn*0.5));
+        t = (N[D[ii][0]*1.0]+N[D[jj][0]*1.0]);
+        N.insert(std::pair<double, double>(countv*1.0, t));
+
+        D[0][ii] = countv;
+        D[ii][0] = countv;
+
+        countv++;
+        count++;
+    }
+
+return 0;
+
+
+}
+
+
+
+
+
 int DFSSCC2 (const std::vector <int> & A, const int b, std::vector <int> & Visited, std::vector <int> & order,std::set <int> & R, const bool weighted)
 
 //Вспомогательная функция для поиска вершин очередной сильно связной компоненты для SCCGraph_Vertices

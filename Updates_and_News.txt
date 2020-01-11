@@ -69,3 +69,7 @@
 - Function ProfileProbableMer to find all most probable j-mers in a given string upon a given position probability matrix (PPM) has been added.
 - Function CycleToPath has been added.
 
+11.11.2020
+- Добавлены функции UPGMA_UndirectedGraph и NeighborJoiningUndirectedGraph для восстановления деревьев (в виде неориентированного графа) по матрицам дистанций методами присоединения ближайшего соседа и UPGMA.
+- Added group of functions UPGMA_UndirectedGraph and NeighborJoiningUndirectedGraph for tree generating (as undirected graph) upon given distance matrix.
+
