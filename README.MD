@@ -1157,6 +1157,32 @@ Generates a tree (undirected graph) using UPGMA method (as an Adjacency vector A
 
 If any data incorrect (B has zero lines (i.e. empty) or has negative values or is not a square matrix) returns empty A and -1. If success returns 0.
 ***
+`void DFSAllPathsDGraph (std::vector <int>&A, std::vector <int> &Visited, const int &b, const int &e, const bool weighted, std::set <std::vector <int>> & GPath, std::vector <int> &Path)`
+
+An auxiliary function for AllPathsDGraph (see it below)
+***
+`int AllPathsDGraph (std::vector <int>&A, const int &b, const int &e, const bool weighted, std::set <std::vector <int>> & GPath)`
+
+An experimental function to find all paths from the vertex b to the vertex e of directed graph that is set by Adjacency vector A. May be too slow or have some mistakes.
+
+Graph A may be weighted or no (set by weighted).
+
+Returns 0 and set of paths found in GPath, if input data are incorrect returns -1 and empty GPath.
+***
+`int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)`
+
+An auxiliary function for Circles_in_Graph (see it below): DFS for finding cycles
+***
+`int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
+
+An experimental function to find all cycles in graph that is set by Adjacency vector A. May be too slow or have some mistakes.
+
+A may be weighted or no (set by w) and directed or no (set be directed).
+
+If StartV is not empty, the function searches only for cycles that contain any vertex in StartV.
+
+Returns 0 and set of cycles found in Paths, if input data are incorrect returns -1 and empty Paths.
+***
 `int NeighborJoiningUndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
 
 Modification for distance matrix B of doubles.
