@@ -1074,6 +1074,32 @@ INT_MIN)`
 
 Модификация функции для нецелочисленной матрицы дистанций B.
 ***
+`void DFSAllPathsDGraph (std::vector <int>&A, std::vector <int> &Visited, const int &b, const int &e, const bool weighted, std::set <std::vector <int>> & GPath, std::vector <int> &Path)`
+
+Вспомогательная функция для AllPathsDGraph (см. ниже)
+***
+`int AllPathsDGraph (std::vector <int>&A, const int &b, const int &e, const bool weighted, std::set <std::vector <int>> & GPath)`
+
+Экспериментальная функция для поиска всех путей в ориентированном графе из вершины b в вершину e. Может работать неточно и долго.
+
+Граф задается вектором смежности A. weighted задает, взвешенный ли он.
+
+Возвращает 0 и найденные пути в GPath, в случае некорректных исходных данных вернет пустой GPath и -1.
+***
+`int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)`
+
+Вспомогательная функция для Circles_in_Graph (см. ниже): обход в глубину графа
+***
+`int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
+
+Экспериментальная функция для поиска всех циклов в графе. Может работать неточно и долго.
+
+Если множество StartV непустое, ищет циклы только через эти вершины.
+
+Граф задается вектором смежности A. w задает, взвешенный ли он, а directed - ориентированный ли он.
+
+Возвращает 0 и найденные циклы в Paths, в случае некорректных исходных данных вернет пустой Paths и -1.
+***
 `int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)`
 
 Функция для нахождения наборов вершин по всем компонентам сильной связности (т.е. областей сильной связности) ориентированного графа, заданного вектором смежности А. Параметр weighted задает, является ли граф взвешенным.
