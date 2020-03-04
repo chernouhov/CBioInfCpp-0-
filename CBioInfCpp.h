@@ -23,6 +23,11 @@
 #include <float.h>
 #include <cstdlib>
 #include <ctime>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <functional>
+
 
 
 int FastaRead (std::ifstream & fin, std::vector <std::string> & IndexS, std::vector <std::string> & DataS)
@@ -7249,6 +7254,347 @@ long double MaxFlowGraph (std::pair < std::vector<int>, std::vector<double>> A, 
     }
 
     return Result;
+}
+
+
+
+void DFSAllPathsDGraph (std::vector <int>&A, std::vector <int> &Visited, const int &b, const int &e, const bool weighted, std::set <std::vector <int>> & GPath, std::vector <int> &Path)
+// An auxiliary function for AllPathsDGraph (see it below)
+// Вспомогательная функция для AllPathsDGraph (см. ниже)
+{
+    Path.push_back(b);
+    Visited [b]=1;
+
+    for (int i=0; i<A.size(); i = i+2+ weighted)
+    {
+
+
+        if( (A[i]==b) && (A[i+1]==e))
+        {
+            Path.push_back(e);
+
+            GPath.insert(Path);
+
+
+            Path.pop_back();
+            continue;
+        }
+
+
+
+
+        if( (A[i]==b) && (Visited [A[i+1]]==0) )
+        {
+            //Visited [A[i+1]]=1;
+            DFSAllPathsDGraph (A, Visited, A[i+1], e, weighted, GPath, Path);
+            Visited [A[i+1]]=0;
+        }
+
+    }
+
+    Path.pop_back();
+}
+
+
+
+
+int AllPathsDGraph (std::vector <int>&A, const int &b, const int &e, const bool weighted, std::set <std::vector <int>> & GPath)
+// An experimental function to find all paths from the vertex b to the vertex e of directed graph that is set by Adjacency vector A. May be too slow or have some mistakes.
+// A may be weighted or no (set by weighted).
+// Returns 0 and set of paths found in GPath, if input data are incorrect returns -1 and empty GPath.
+// Экспериментальная функция для поиска всех путей в ориентированном графе из вершины b в вершину e. Может работать неточно и долго.
+// Граф задается вектором смежности A. weighted задает, взвешенный ли он.
+// Возвращает 0 и найденные пути в GPath, в случае некорректных исходных данных вернет пустой GPath и -1.
+
+{
+    GPath.clear();
+    if (A.size()==0) return -1;
+    if ((A.size()%(2+weighted))!=0) return -1;
+
+    std::vector <int> Path;
+    Path.clear();
+
+    int mn, mx;
+
+    RangeVGraph(A, mx, mn, weighted);
+
+    std::vector <int> Visited (mx+1, 0);
+
+
+    DFSAllPathsDGraph (A, Visited, b, e, weighted, GPath, Path);
+
+    return 0;
+
+}
+
+int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)
+// An auxiliary function for Circles_in_Graph (see it below): DFS for finding cycles
+// Вспомогательная функция для Circles_in_Graph (см. ниже): обход в глубину графа
+
+
+{
+
+    if (directed)
+    {
+
+    Visited [b] = 1;
+    Path.push_back(b+mn*(mn<0) );
+
+
+   for (unsigned int r = 0; r<A.size(); r=r+2+w)
+    {
+
+        if ( (A[r]==b) && ((A[r+1])==bconst) && (b!=bconst) )  // если нашли исходную (bconst)
+        {                                                                       // if we have found the initial vertex (labeled as "bconst")
+
+           Path.push_back(A[r+1]+mn*(mn<0));
+
+
+           GPath.insert(Path);
+            Path.pop_back();
+
+
+            continue;
+        }
+
+
+
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0)  && ((A[r+1])!=bconst) )  // нашли непосещенную? непосещенная = 0, идем глубже
+        {                                                // if we have found an unvisited vertex - let's go deeper
+           Visited[(A[r+1])] = 1;
+
+
+           DFS_for_Circles (A, w, A[r+1], bconst, Visited, Path, GPath, mn, directed);
+           Visited[(A[r+1])] = 0;
+           Path.pop_back();
+
+
+           Visited [bconst] = 1;
+        }
+
+
+   }
+
+
+}
+
+    if (!directed)
+    {
+
+    Visited [b] = 1;
+    Path.push_back(b+mn*(mn<0) );
+
+
+
+   for (unsigned int r = 0; r<A.size(); r=r+2+w)
+    {
+
+        if ( (A[r]==b) && ((A[r+1])==bconst) && (b!=bconst) )  // если нашли исходную (bconst)
+        {                                                                       // if we have found the initial vertex (labeled as "bconst")
+
+
+            Path.push_back(A[r+1]+mn*(mn<0));
+
+
+
+            if ((Path.size()>3)&& (GPath.find(Path)==GPath.end()))
+            {
+                std::reverse(std::begin(Path),std::end(Path));
+                GPath.insert(Path);
+                std::reverse(std::begin(Path),std::end(Path));
+            }
+
+            Path.pop_back();
+
+
+
+            continue;
+        }
+
+        if ( (A[r+1]==b) && ((A[r])==bconst) && (b!=bconst) )  // если нашли исходную (bconst)
+        {                                                                       // if we have found the initial vertex (labeled as "bconst")
+
+
+            Path.push_back(A[r]+mn*(mn<0));
+
+
+
+           if ((Path.size()>3)&& (GPath.find(Path)==GPath.end()))
+           {
+               std::reverse(std::begin(Path),std::end(Path));
+               GPath.insert(Path);
+               std::reverse(std::begin(Path),std::end(Path));
+           }
+
+            Path.pop_back();
+
+
+
+            continue;
+        }
+
+
+
+        if ( (A[r]==b) && (Visited [ (A[r+1]) ] == 0)  && ((A[r+1])!=bconst) )  // нашли непосещенную? непосещенная = 0, идем глубже
+        {                                                // if we have found an unvisited vertex - let's go deeper
+           Visited[(A[r+1])] = 1;
+
+
+
+           DFS_for_Circles (A, w, A[r+1], bconst, Visited, Path, GPath, mn, directed);
+           Visited[(A[r+1])] = 0;
+           Path.pop_back();
+
+
+
+           Visited [bconst] = 1;
+           continue;
+        }
+
+
+        if ( (A[r+1]==b) && (Visited [ (A[r]) ] == 0)  && ((A[r])!=bconst) )  // нашли непосещенную? непосещенная = 0, идем глубже
+        {                                                // if we have found an unvisited vertex - let's go deeper
+           Visited[(A[r])] = 1;
+
+
+
+           DFS_for_Circles (A, w, A[r], bconst, Visited, Path, GPath, mn, directed);
+           Visited[(A[r])] = 0;
+           Path.pop_back();
+
+
+
+           Visited [bconst] = 1;
+           continue;
+        }
+
+   }
+
+
+}
+
+
+    return 0;
+}
+
+
+
+int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)
+// An experimental function to find all cycles in graph that is set by Adjacency vector A. May be too slow or have some mistakes.
+// A may be weighted or no (set by w) and directed or no (set be directed).
+// If StartV is not empty, the function searches only for cycles that contain any vertex in StartV.
+// Returns 0 and set of cycles found in Paths, if input data are incorrect returns -1 and empty Paths.
+// Экспериментальная функция для поиска всех циклов в графе. Может работать неточно и долго.
+// Если множество StartV непустое, ищет циклы только через эти вершины.
+// Граф задается вектором смежности A. w задает, взвешенный ли он, а directed - ориентированный ли он.
+// Возвращает 0 и найденные циклы в Paths, в случае некорректных исходных данных вернет пустой Paths и -1.
+
+{
+    Paths.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+w)!=0 ) return -1; // checking for input data correctness
+
+    int mn, mx;
+
+    bool f = (StartV.size()==0);
+
+    RangeVGraph(A, mx, mn, w);
+
+    if (mn<0)  // Приведение вектора к нумерованию вершин с 0 // renumbering vertices to start from 0.
+    {
+        RenumVGraph (A, (0-mn), w);
+        mx = mx+(0-mn);
+
+
+    }
+
+
+
+    std::vector <int> Path;
+
+    Path.clear();
+
+    std::map <std::pair < int, int> , int> G2;
+
+    if (!directed)  // если неориентированный граф - добавляем кратные ребра как циклы
+    {
+        AdjVectorEdgesMultiplicity (A, G2, w, false);
+        for (int i=0; i<A.size(); i = i+2+w)
+        {
+            if ((G2[std::pair<int, int>(A[i], A[i+1])]>=2) && (A[i]!=A[i+1]))
+                if ( ((StartV.find(A[i] + mn*(mn<0)) != StartV.end()) && (StartV.find(A[i+1] + mn*(mn<0)) != StartV.end()) && (!f)) || (f) )
+                    Paths.insert({  std::min(A[i], A[i+1])+mn*(mn<0), std::max(A[i], A[i+1])+mn*(mn<0), std::min(A[i], A[i+1])+mn*(mn<0) });
+        }
+        G2.clear();
+
+    }
+
+
+
+    for (int i=0; i<A.size(); i = i+2+w)  // В любом случае добавляем петли
+    {
+        if (A[i]==A[i+1])
+            if ( ((StartV.find(A[i] + mn*(mn<0)) != StartV.end()) && (StartV.find(A[i+1] + mn*(mn<0)) != StartV.end()) && (!f)) || (f) )
+                Paths.insert({A[i]+mn*(mn<0), A[i+1]+mn*(mn<0)});
+
+
+    }
+
+
+
+    std::vector <int> Vin(mx+1, 0); //для подсчета входящих и исходящих в вершину
+    std::vector <int> Vout (mx+1, 0); // for counting in-edges and out-edges
+
+    for (int q=0; q<A.size()-1-w; q= q+2+w)
+    {
+        Vin[(A[q+1])]++;
+        Vout[(A[q])]++;
+    }
+
+
+
+   std::vector <int> Visited (mx+1, 0);
+
+    std::vector <std::vector<int> >P;
+    P.clear();
+
+
+
+    if (f)
+    {
+        NBPaths (A, w, P, directed);
+
+
+
+        for (int j=0; j<P.size(); j++)
+        {
+            if (Vin[P[j][0]]*Vout[P[j][0]]!=0)
+                StartV.insert(P[j][0]);
+            if (Vin[P[j][P[j].size()-1]]*Vout[P[j][P[j].size()-1]]!=0)
+                StartV.insert(P[j][P[j].size()-1]);
+        }
+
+    }
+
+        for (auto it = StartV.begin(); it!=StartV.end(); it++)
+        {
+            Path.clear();
+            DFS_for_Circles (A, w, *it-mn*(mn<0), *it-mn*(mn<0), Visited, Path, Paths, mn, directed);
+            Visited [*it-mn*(mn<0)] = 2;
+        }
+
+
+
+
+    if (mn<0)  // Обратное переименование вершин если необходимо // renumbering vertices back it needed.
+    {
+        RenumVGraph (A, (mn), w);
+
+
+    }
+
+return 0;
+
 }
 
 

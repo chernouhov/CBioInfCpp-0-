@@ -73,3 +73,7 @@
 - Добавлены функции UPGMA_UndirectedGraph и NeighborJoiningUndirectedGraph для восстановления деревьев (в виде неориентированного графа) по матрицам дистанций методами присоединения ближайшего соседа и UPGMA.
 - Added group of functions UPGMA_UndirectedGraph and NeighborJoiningUndirectedGraph for tree generating (as undirected graph) upon given distance matrix.
 
+05.03.2020
+- Добавлены экспериментальные функции для поиска всех циклов в графе () и всех путей между заданными вершинами в орграфе (AllPathsDGraph).
+- Added experimental functions for finding all cycles in a graph (Circles_in_Graph) and all find all paths between any two vertices in a directed graph (AllPathsDGraph).
+
