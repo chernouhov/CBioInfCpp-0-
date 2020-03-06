@@ -78,12 +78,12 @@
 - Added experimental functions for finding all cycles in a graph (Circles_in_Graph) and all find all paths between any two vertices in a directed graph (AllPathsDGraph).
 
 06.03.2020
-- Добавлена функция SubGraphsInscribed для решения частного случая задачи поиска изоморфного подграфа (поиск только «вписанных» подграфов), а также для проверки изоморфности двух графов.
-- Added function SubGraphsInscribed to solve the particular case of subgraph isomorphism problem for “inscribed” subgraphs only; it may be also used to check if 2 graphs are isomorphic.
+- Добавлена функция SubGraphsInscribed для решения частного случая задачи поиска в некотором графе A всех подграфов, изоморфных заданному графу B (а именно, для поиска только «вписанных» подграфов), а также для проверки изоморфности двух графов.
+- Added function SubGraphsInscribed to solve the particular case of the problem of finding in a some graph A all subgraphs that are isomorphic to given graph B (can be found “inscribed” subgraphs only); The function may be also used to check if 2 graphs are isomorphic.
 This function can work with:
 	directed or undirected graphs,
 	graphs that have more than one connected components/ strongly connected components,
 	graphs that contain multiple edges.
-"Inscribed" means here that subgraphs of A to be found may be "glued" to other parts of A only by edges that connected to vertices that are begin/ end of its max-lenght non-branching path.
+"Inscribed" means here that (1) this subgraph is "glued" to other parts of A only by edges that connected to its vertices that are begin/ end ones of any max-length non-branching path of this subgraph and/ or (2) graph A may have some other connected components.
 I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
 But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.

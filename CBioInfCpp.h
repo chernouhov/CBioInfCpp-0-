@@ -7610,8 +7610,11 @@ struct PairIntHash  // for SubGraphsInscribed - see it below
 };
 
 int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, const bool directed = true)
-// The function finds all inscribed graphs in unweighted graph A that are isomorphic to unweighted graph B.
-// "Inscribed" means here that subgraphs of A to be found may be "glued" to other parts of A only by edges that connected to vertices that are begin/ end of its max-lenght non-branching path.
+// The function finds all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
+// "Inscribed" means here that
+// (1) this subgraph is "glued" to other parts of A only by edges that connected to its vertices that are begin/ end ones of any max-length non-branching path of this subgraph
+// and/ or
+// (2) graph A may have some other connected components.
 // i.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
 // But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.
 // A is set by an Adjacency vector.
@@ -7622,9 +7625,9 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::
 // The function returnes the number of different subgraphs of A that are isomorphic to B and subgraphs themselves in Result; if input data are incorrect returns -1 and empty Result.
 // A and B may have >=1 connected components; also A and B may have multiply edges.
 
-// Функция находит все "вписанные" подграфы в A, изоморфные графу B.
-// "Вписанный" здесь значит, что найденные подграфы могут быть соединены с оставшейся частью графа A только через крайние вершины максимальных неразветвляющихся путей данных подграфов,
-// либо "концевые пути" будут содержаться в каком-либо из неразветвляющихся путей в А.
+// Функция находит все "вписанные" подграфы графа A, изоморфные графу B.
+// «Вписанным» подграфом графа A здесь называется такой его подграф, который может быть «приклеен» к другим частям графа A только за счет ребер,
+// инцидентных лишь граничным вершинам его (подграфа) неразветвляющихся путей максимальной длины (при этом граф A может содержать и иные компоненты связности).
 // Т.е. для графа B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} будет найден изоморфный ему подграф A1, "вписанный" в граф A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}, и этот подграф A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6},
 // однако если в граф A добавить ребро 3->8 (A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), то функция не найдет в A изоморфных B "вписанных" подграфов.
 // A и B д.б. невзвешеными, задаются векторами смежности, могут быть ориентированными (bool directed = true) и нет.
