@@ -1067,6 +1067,28 @@ But weights are set in the second one.
 
 So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 ***
+`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, const bool directed = true)`
+
+The function finds all inscribed graphs in unweighted graph A that are isomorphic to unweighted graph B.
+
+"Inscribed" means here that subgraphs of A to be found may be "glued" to other parts of A only by edges that connected to vertices that are begin/ end of its max-length non-branching path. I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
+
+But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.
+
+Graph A is set by an Adjacency vector A.
+
+Graph B is set by an Adjacency vector B.
+
+Both A and B are unweighted graphs.
+
+Bool "directed" sets if A and B are directed graphs or no.
+
+Result: a set for containing all subgraphs of A found (set by Adjacency vectors), i.e. this set to contain results.
+
+The function returns the number of different subgraphs of A that are isomorphic to B and subgraphs themselves in Result; if input data are incorrect returns -1 and empty Result.
+
+A and B may have >=1 connected components; also A and B may have multiply edges.
+***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 
