@@ -1069,17 +1069,24 @@ So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the firs
 ***
 `int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, const bool directed = true)`
 
-The function finds all inscribed graphs in unweighted graph A that are isomorphic to unweighted graph B.
+The function finds all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
+"Inscribed" means here that 
 
-"Inscribed" means here that subgraphs of A to be found may be "glued" to other parts of A only by edges that connected to vertices that are begin/ end of its max-length non-branching path. I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
+(1) this subgraph is "glued" to other parts of A only by edges that connected to its vertices that are begin/ end ones of any max-length non-branching path of this subgraph 
+
+and/ or 
+
+(2) graph A may have some other connected components.
+
+I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
 
 But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.
 
-Graph A is set by an Adjacency vector A.
+Graph A is set by an Adjacency vector.
 
-Graph B is set by an Adjacency vector B.
+Graph B is set by an Adjacency vector.
 
-Both A and B are unweighted graphs.
+Both A and B are unweighted.
 
 Bool "directed" sets if A and B are directed graphs or no.
 
