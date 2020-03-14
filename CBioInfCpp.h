@@ -7873,9 +7873,9 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-   // Умножение простых колец в А
+   // Умножение колец в А
 
-   // all simple circles of NB-paths of A will be multiplied as follows: all vertices should be as the starting in the path
+   // all circles of NB-paths of A will be multiplied as follows: all vertices should be as the starting in the path
 
 
 
@@ -7895,7 +7895,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-  if ( (PathsA[j][0] == PathsA[j][PathsA[j].size()-1]) && (VinA[PathsA[j][0]]+VoutA[PathsA[j][0]])==2)
+  if ( (PathsA[j][0] == PathsA[j][PathsA[j].size()-1]))
     {
 
 
@@ -7923,8 +7923,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
    }
 
-   // Конец Умножение простых колец в А
-   // end of multiplying of simple circles
+   // Конец Умножение колец в А
+   // end of multiplying of circles
 }
 
 
@@ -8187,24 +8187,32 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
        l11: for (int i=0; i<PathsA.size(); i++)
        {
 
+           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=(PathsA[i].size()-1)) ) // если вписываем в кольцо
 
-           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<(PathsA[i].size()-1)) && ((VinA[(PathsA[i][0])]+VoutA[PathsA[i][0]])==2) ) // если вписываем в простой цикл // in case we are trying to juxtapose it with a simple cycle of A
            {
 
-               NPaths[j].push_back(i);  // номер пути                 //  number of path of PathsA
 
-               NPaths[j].push_back(0); // стартовая позиция в нем    //statring posiyion in it
-               NPaths[j].push_back(PathsB[j].size()); // его длина   // lenght
+               for (int z=0; z<=PathsA[i].size()-1-PathsB[j].size(); z++)
 
-
-               //***
-               for (int x=1; x<PathsA[i].size(); x++)
                {
-                   if (directed)
-                       A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+                   NPaths[j].push_back(i);  // номер пути
 
-                   if (!directed)
-                       A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                   NPaths[j].push_back(z); // стартовая позиция в нем
+
+                   NPaths[j].push_back(PathsB[j].size()); // его длина
+
+
+
+                   //***
+                   for (int x=1; x<PathsA[i].size(); x++)
+                   {
+                       if (directed)
+                           A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                       if (!directed)
+                           A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                   }
+
                }
 
            }
@@ -8212,19 +8220,19 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-           if ( (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=PathsA[i].size()) && ( (VinA[(PathsA[i][0])]+VoutA[PathsA[i][0]])==1) && ((VinA[(PathsA[i][PathsA[i].size()-1])]+VoutA[PathsA[i][PathsA[i].size()-1]])==1)  )
-               // Нашли: не кольцо, не меньшей длины, и при этом - простую цепь
-               // in case we are trying to juxtapose it with a simple chain of A
+
+           if ( (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=PathsA[i].size()) )  // Нашли: не кольцо, не меньшей длины
+
 
             {
                 for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
 
                 {
-                    NPaths[j].push_back(i);  // номер пути   //  number of path of PathsA
+                    NPaths[j].push_back(i);  // номер пути
 
-                    NPaths[j].push_back(z); // стартовая позиция в нем    //statring posiyion in it
+                    NPaths[j].push_back(z); // стартовая позиция в нем
 
-                    NPaths[j].push_back(PathsB[j].size()); // его длина   // lenght
+                    NPaths[j].push_back(PathsB[j].size()); // его длина
 
 
 
@@ -8289,6 +8297,14 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
    }
 
 
+   for (int i=0; i<NPaths.size(); i++)
+   {
+
+       if (NPaths[i].size()==0)
+       {   // если для какого-то пути из B нет аналогов в A
+        return -1;
+       }
+   }
 
 
 // "pre-Thinning of data"
