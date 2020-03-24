@@ -7673,6 +7673,8 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::
 
     // end of checking of input data correctness
 
+     bool eq = false;
+     if (A.size()==B.size()) eq = true;  // in this case we are testing if B is isomorphic to A
 
 
     if (!directed)  // Normalizing an undirected graph: every edge should have their vertices in increasing (non-decreasing) order
@@ -9239,6 +9241,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
                 l3: if (l==lmax) break;//***
+                if ((eq==true) && (Result.size()==1)) break;
 
               }
 
