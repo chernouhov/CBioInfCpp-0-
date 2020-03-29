@@ -474,6 +474,14 @@ Returns their probability and all these n-mers contained in DataS.
 If any data incorrect returns empty DataS and -1.0.
 Parameter d sets precision for doubles comparison.
 ***
+`int MedianString (const int WordLenght, const std::vector <std::string> & DataS, std::vector <std::string> & MedianS, std::string Alph = "ACGT")`
+
+Finds all median strings (having length = WordLenght) upon given array of strings in the vector DataS and given Alphabet set by the string Alph.
+
+Returns distance between found median string(s) annd the pattern (i.e. DataS), all found median strings will contained in the vector MedianS.
+
+If any data incorrect returns empty MedianS and -1.
+***
 `int EditDist (const std::string &s1, const std::string &s2)`
 
 Computes Edit Distance (Levenshtein distance) between two strings (strings may
@@ -1386,3 +1394,11 @@ number of summands).
 
 In this case "0" will be added to the end of the shorter partitions. If n<=0
 returns empty B and "-1"
+***
+`std::string GenerateAlphabet (const std::vector <std::string> &DataS)`
+
+Generates partitions of int n (i.e. representing n as a sum of positive
+integers) in B. Extended version: one may set l>0 as a length of partitions (i.e.
+number of summands).
+
+Generates an alphabet upon the given vector of strings DataS. Symbols will be ordered under ASCII.
