@@ -9510,6 +9510,162 @@ int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vec
 }
 
 
+std::string GenerateAlphabet (const std::vector <std::string> &DataS)
+// Generates an alphabet upon the given vector of strings DataS. Symbols will be ordered under ASCII.
+// Формирует алфавит из символов, входящих в набор строк DataS. Порядок символов в алфавите задается ASCII.
+
+{
+    if (DataS.size()==0) return "";
+    std::string TempS="";
+
+    std::set <char> T;
+    T.clear();
+    for (int q = 0; q< DataS.size();q++)
+        for (int w = 0; w< DataS[q].length();w++)
+            T.insert(DataS[q][w]);
+
+    for (auto it=T.begin(); it!=T.end(); it++)
+        TempS.push_back(*it);
+
+    return TempS;
+}
+
+
+
+int MedianString (const int WordLenght, const std::vector <std::string> & DataS, std::vector <std::string> & MedianS, std::string Alph = "ACGT")
+
+// Finds all median strings (having length = WordLenght) upon given array of strings in the vector DataS and given Alphabet set by the string Alph.
+// Returns distance between found median string(s) annd the pattern (i.e. DataS), all found median strings will contained in the vector MedianS.
+// If any data incorrect returns empty MedianS and -1.
+
+
+// Находит все "медианные" строки заданной длины WordLenght исходя из набора исходных строк в вексторе DataS.
+// Возвращает значение дистанции от найденных медианных строк и набора исходных строк DataS. Сами медианные строки будут в MedianS.
+// Если данные некорректны, возвращает пустой MedianS и -1.
+
+
+{
+
+        MedianS.clear();
+        if (WordLenght<1) return -1;
+        if (DataS.size()==0) return -1;
+        if (Alph.length()<2) return -1;
+
+
+        for (int q = 0; q< DataS.size();q++)
+        {
+
+            if (WordLenght>DataS[q].length()) return -1;
+
+
+
+            for (int y=0; y<DataS[q].length(); y++)
+                if (Alph.find(DataS[q][y])==-1) return -1;
+
+        }
+
+        std::set <char> T; // проверка что нет дублирующихся символов в алфавите
+        T.clear(); // Testing if there are any identical symbols in the Alphabet
+        for  (int y=0; y<Alph.length(); y++)
+        {
+            T.insert(Alph[y]);
+            if ((T.size()-1)!=y)
+                return -1;
+
+        }
+        T.clear();
+
+
+
+        int AlphLenght = Alph.length();
+
+
+        std::string out ="";
+
+       std::string out_terminate ="";
+
+        std::vector <int> l (WordLenght);
+        for (int g=0; g<WordLenght; g++)
+        {l [g] = 0;
+
+
+        out.push_back(Alph [0]);
+        out_terminate.push_back(Alph [Alph.size()-1]);
+
+        }
+
+
+    int t = 0;
+    std::string ts = "";
+
+    int d = 0;
+    int dr = INT_MAX;
+
+
+
+    while (true)
+    {
+        d = 0;
+
+        ts=out;
+
+    for (int q = 0; q< DataS.size();q++)
+    {
+        t = INT_MAX;
+
+        for (int w = 0; w< DataS[q].length()-WordLenght+1;w++)
+        {
+            if (HmDist(ts, DataS[q].substr(w, WordLenght))<t)
+                  t = HmDist(ts, DataS[q].substr(w, WordLenght));
+
+        }
+        d = d+t;
+
+    }
+
+
+
+    if (d==dr)
+    {
+        MedianS.push_back(ts);
+    }
+
+
+    if (d<dr)
+    {
+        dr = d;
+        MedianS.clear();
+        MedianS.push_back(ts);
+    }
+
+
+    if (out==out_terminate) break;
+
+    l [WordLenght-1]++;  //увеличение на 1 кода последней буквы
+
+    if (l [WordLenght-1] == AlphLenght)
+     {
+       int r = WordLenght-1;
+
+       while (r>0)
+         {l [r] = 0;
+          r--;
+          l [r] ++;
+          if (l[r] < AlphLenght) break;
+         }
+     }
+
+
+    for (int t = 0; t<WordLenght; t++)
+          out [t] = Alph [(l[t])];
+
+    }
+
+
+
+        return dr;
+}
+
 
 
 #endif
