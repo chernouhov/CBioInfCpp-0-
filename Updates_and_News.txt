@@ -87,3 +87,7 @@ This function can work with:
 "Inscribed" means here that (1) this subgraph is "glued" to other parts of A only by edges that connected to its vertices that are begin/ end ones of any max-length non-branching path of this subgraph and/ or (2) graph A may have some other connected components.
 I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
 But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.
+
+29.03.2020
+- Добавлены функции поиска медианных строк MedianString и генерации алфавита исходя из заданного набора строк GenerateAlphabet.
+- Added functions MedianString and GenerateAlphabet.
