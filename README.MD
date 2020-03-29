@@ -397,7 +397,7 @@ If s contains 1 or 0 items or strings have not equal length or even the only
 string contains symbol that not belongs to Alphabet or 
 if there are any identical symbols in the Alphabet - returns -1 and empty B.
 ***
-`int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long double>> & B, const std::string &Alph, long double z = 0.0)`
+`int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long double>> & B, const std::string &Alph, long double z = 0.0, long double d = 2.0)`
 
 Generates a position probability matrix (PPM) B upon an array of strings s and given Alphabet (Alphabet is set via string Alph that contains the sequence of its symbols);
 
@@ -405,7 +405,7 @@ Ordering of the rows in B corresponds to sequence of symbols in Alph.
 
 If s contains 0 items or its strings have not equal length or even the only string contains symbol that not belongs to Alphabet or if there are any identical symbols in the Alphabet - returns -1 and empty B. If success returns 0 and generated B.
 
-z is a pseudocount parameter: (Ns+z)/(N+2*z) is used
+z and d are pseudocount parameters: (Ns+z)/(N+d*z) is used
 ***
 `double PDist (const std::string& s1, const std::string& s2)`
 
