@@ -2356,19 +2356,19 @@ int GPFM (std::vector <std::string> &s, std::vector <std::vector <int>> & B, con
 
 
 
-int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long double>> & B, const std::string &Alph, long double z = 0.0)
+int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long double>> & B, const std::string &Alph, long double z = 0.0, long double d = 2.0)
 {
 
 // Генерирует позиционную матрицу вероятностей B по набору исходных строк s и алфавиту Alph (содержит последовательность символов алфавита);
 // Последовательность строк в матрице B соответствует последовательности символов в строке Alph (т.е. последовательности символов алфавита).
 // в случае если в набор пустой или же строки в нем имеют неодинаковую длину или в алфавите менее 2 букв или хоть одна из строк содержит хоть один символ не из алфавита,
 // или же если алфавит содержит дублирующиеся символы - возвращается -1  и пустая матрица B (в случае успеха возвращается 0 и заполненная B).
-    // z - параметр для сглаживания (pseudocount): используется формула (Ns+z)/(N+2*z)
+// z - параметр для сглаживания (pseudocount): используется формула (Ns+z)/(N+d*z)
 
 // Generates a position probability matrix (PPM) B upon an array of strings s and given Alphabet (Alphabet is set via string Alph that contains the sequence of its symbols);
 // Ordering of the rows in B corresponds to sequence of symbols in Alph.
 // If s contains 0 items or its strings have not equal length or even the only string contains symbol that not belongs to Alphabet or if there are any identical symbols in the Alphabet - returns -1 and empty B. If success returns 0 and generated B.
-    // z is a pseudocount parameter: (Ns+z)/(N+2*z) is used
+    // z is a pseudocount parameter: (Ns+z)/(N+d*z) is used
 
 
 
@@ -2399,7 +2399,7 @@ int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long dou
 
 
 
-    MatrixSet (B, Alph.length(), lstring, z);
+    MatrixSet (B, Alph.length(), lstring, z/(s.size()*1.0+d*z));
 
 
 
@@ -2409,7 +2409,7 @@ int GPPM (const std::vector <std::string> &s, std::vector <std::vector <long dou
         for (int j = 0; j<lvector; j++)
         {
             for  (int y=0; y<Alph.length(); y++)
-                if (((s[j])[i]) == Alph[y]) {B[y][i]=B[y][i]+1.0/(s.size()+2*z); goto l1;}
+                if (((s[j])[i]) == Alph[y]) {B[y][i]=B[y][i]+1.0/(s.size()*1.0+d*z); goto l1;}
 
 
 
