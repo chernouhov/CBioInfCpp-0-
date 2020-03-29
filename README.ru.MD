@@ -452,6 +452,14 @@ std::string &QTempS, const int method = 1, const std::string &Alph = "ACGT", con
 
 Параметр d задает точность при расчете вероятностей.
 ***
+`int MedianString (const int WordLenght, const std::vector <std::string> & DataS, std::vector <std::string> & MedianS, std::string Alph = "ACGT")`
+
+Находит все "медианные" строки заданной длины WordLenght исходя из набора исходных строк в вексторе DataS.
+
+Возвращает значение дистанции от найденных медианных строк и набора исходных строк DataS. Сами медианные строки будут в MedianS.
+
+Если данные некорректны, возвращает пустой MedianS и -1.
+***
 `int EditDist (const std::string &s1, const std::string &s2)`
 
 Рассчитывает редакционное расстояние (расстояние Левенштейна) 
@@ -1282,3 +1290,7 @@ l)`
 
 можно задать длину разбиения l. Если l>0, то возвращаются только разбиения длиной l. 
 При этом более короткие разбиения "добиваются справа" нулями. 
+***
+`std::string GenerateAlphabet (const std::vector <std::string> &DataS)`
+
+Формирует алфавит из символов, входящих в набор строк DataS. Порядок символов в алфавите задается ASCII. 
