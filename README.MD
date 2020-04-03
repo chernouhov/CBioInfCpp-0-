@@ -26,7 +26,7 @@ CBioInfCpp.h contains a number of functions that may be used as in bioinformatic
 as well as in other fields related to working with graphs and strings.
 
 All the function are defined in the only file CBioInfCpp.h. Also the libraries
-iostream, fstream, string, vector, set, algorithm, queue, map, cmath, stack, limits.h, float.h are included. 
+iostream, fstream, string, vector, set, algorithm, queue, map, cmath, stack, limits.h, cstdlib, ctime, float.h, unordered_map, unordered_set, utility, functional are included. 
 Yes, this way may be considered as “not the only best”, but it allows to start immediately 
 by writing “include CBioInfCpp.h” at the program beginning.
 
