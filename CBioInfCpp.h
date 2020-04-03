@@ -9048,7 +9048,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
              std::set<std::pair <int, int>> G1ALL3; // Служебный - для исключения из результата взаимотождественных подграфов
              G1ALL3.clear();
 
-
+             std::unordered_set<std::pair <int, int>, PairIntHash> Y;
+             Y.clear();
 
 
               while (true) //***
@@ -9056,7 +9057,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                 if (temp==-1) break;   // если для какого-то пути из B нет аналогов в A
 
-              l [WordLenght-1]++;  //увеличение на 1 номера последнего кодона в соотвествующем белку (букве) векторе
+              l [WordLenght-1]++;  //увеличение на 1 номера последнего разряда
 
               if (l [WordLenght-1] > lmax [WordLenght-1])
                {
@@ -9073,13 +9074,35 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-
                 G1.clear();
                 G1.reserve(G0.size()*2);
 
 
 
                 GS1Hash.clear();
+
+                Y.clear();  // In order not to consider combination of path-candidates if any path-candidate is represented in this combination more than once.
+                                for (int y=0; y<NPaths.size();y++)
+                                {
+                                    c = 3*l[y];
+                                    if (eq == false)
+                                        Y.insert(std::pair <int, int> (NPaths[y][c], NPaths[y][c+1]));
+
+                                    if (eq == true)
+                                        Y.insert(std::pair <int, int> (NPaths[y][c], 0));
+
+                                    if (Y.size()!=(y+1))
+                                    {
+                                        if (l==lmax) goto l3;
+
+                                        for (int x=NPaths.size()-1; x>y;x--)
+                                            l[x]=lmax[x];
+
+                                        goto l3;
+
+                                    }
+
+                                }
 
 
 
