@@ -8,5 +8,5 @@ Results (number of vertices - number of edges : duration)
 250-350  <1 sec           examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
 2500-3500 7 min           examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
 1250-1350 1 min 15 sec    examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
-Graphs in the input files are set as list of their edges (directed, unweighned)
+Graphs in the input files are set as list of their edges (directed, unweighted)
 PC: 4Gb, CPU 3,00 GHz (~ 8 year old)
