@@ -184,6 +184,49 @@ int MatrixSet (std::vector <std::vector <long double>> & B, const int NLines, co
 
 
 
+int MatrixSet (std::vector <std::vector <short int>> & B, const int NLines, const int NColumns, const short int i)
+// Создает матрицу NLines х NColumns и заполняет значением i (short int). Возвращает -1 если число строк или столбцов неположительно
+// Sets (resets) matrix NLines x NColumns filled value "i" (short int). Returns -1 if NLines or NColumns <=0
+
+{
+
+    if ((NLines<=0) || (NColumns<=0)) return -1;
+
+    B.resize (NLines);
+    for (unsigned int row = 0; (row< NLines); row++)
+    {
+        B [row].resize(NColumns);
+        for (unsigned int column = 0; column < NColumns; column++)
+            {
+                B [row] [column] = i;
+            }
+
+    }
+    return 0;
+}
+
+
+int MatrixSet (std::vector <std::vector <bool>> & B, const int NLines, const int NColumns, const bool i)
+// Создает матрицу NLines х NColumns и заполняет значением i (bool). Возвращает -1 если число строк или столбцов неположительно
+// Sets (resets) matrix NLines x NColumns filled value "i" (bool). Returns -1 if NLines or NColumns <=0
+
+{
+
+    if ((NLines<=0) || (NColumns<=0)) return -1;
+
+    B.resize (NLines);
+    for (unsigned int row = 0; (row< NLines); row++)
+    {
+        B [row].resize(NColumns);
+        for (unsigned int column = 0; column < NColumns; column++)
+            {
+                B [row] [column] = i;
+            }
+
+    }
+    return 0;
+}
+
 
 int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
 // Вывод матрицы (int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
@@ -225,6 +268,89 @@ int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
     return 0;
 }
 
+
+
+int MatrixCout (std::vector <std::vector <short int>> & B, char g = ' ')
+// Вывод матрицы (short int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
+// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// "Couts" Matrix (short int) to screen. Returns -1 if the Matrix is empty.
+// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
+
+{
+
+    int NLines, NColumns;
+    NLines = B.size();
+    if (NLines==0) return -1;
+    NColumns = B[0].size();
+
+    for (int i=0;i<NLines; i++)
+        if (B[i].size()>NColumns) NColumns=B[i].size();
+
+    if (NColumns==0) return -1;
+
+
+
+    for (unsigned int row = 0; (row< NLines); row++)
+    {
+
+        //for (unsigned int column = 0; column < NColumns; column++)
+        for (unsigned int column = 0; column < B[row].size(); column++)
+            {
+                std::cout<< B [row] [column]<< " ";
+            }
+
+        for (unsigned int column = B[row].size(); column < NColumns; column++)
+            {
+                std::cout<< g << " ";
+            }
+
+
+        std::cout<< std::endl;
+    }
+    return 0;
+}
+
+
+
+int MatrixCout (std::vector <std::vector <bool>> & B, char g = ' ')
+// Вывод матрицы (bool) на экран через пробелы (в формате 1 или 0). Возвращает -1, если матрица не содержит строк/ столбцов
+// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// "Couts" Matrix (bool) to screen as "1" or "0". Returns -1 if the Matrix is empty.
+// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
+
+{
+
+    int NLines, NColumns;
+    NLines = B.size();
+    if (NLines==0) return -1;
+    NColumns = B[0].size();
+
+    for (int i=0;i<NLines; i++)
+        if (B[i].size()>NColumns) NColumns=B[i].size();
+
+    if (NColumns==0) return -1;
+
+
+
+    for (unsigned int row = 0; (row< NLines); row++)
+    {
+
+        //for (unsigned int column = 0; column < NColumns; column++)
+        for (unsigned int column = 0; column < B[row].size(); column++)
+            {
+                std::cout<< (short int)B [row] [column]<< " ";
+            }
+
+        for (unsigned int column = B[row].size(); column < NColumns; column++)
+            {
+                std::cout<< g << " ";
+            }
+
+
+        std::cout<< std::endl;
+    }
+    return 0;
+}
 
 
 int MatrixCout (std::vector <std::vector <long long int>> & B, char g = ' ')
@@ -611,6 +737,83 @@ int MatrixFout (std::vector <std::vector <int>> & B, std::ofstream & fout, char 
     return 0;
 }
 
+
+int MatrixFout (std::vector <std::vector <short int>> & B, std::ofstream & fout, char g = ' ')
+// Вывод матрицы (short int) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
+// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// "Fouts" Matrix (short int) to file. Returns -1 if the Matrix is empty.
+// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
+{
+
+    int NLines, NColumns;
+    NLines = B.size();
+    if (NLines==0) return -1;
+    NColumns = B[0].size();
+
+    for (int i=0;i<NLines; i++)
+        if (B[i].size()>NColumns) NColumns=B[i].size();
+
+    if (NColumns==0) return -1;
+
+
+    for (unsigned int row = 0; (row< NLines); row++)
+    {
+
+        //for (unsigned int column = 0; column < NColumns; column++)
+        for (unsigned int column = 0; column < B[row].size(); column++)
+            {
+                fout<< B [row] [column]<< " ";
+            }
+
+        for (unsigned int column = B[row].size(); column < NColumns; column++)
+            {
+                fout<< g << " ";
+            }
+
+
+        fout<< std::endl;
+    }
+    return 0;
+}
+
+
+int MatrixFout (std::vector <std::vector <bool>> & B, std::ofstream & fout, char g = ' ')
+// Вывод матрицы (bool) в файл через пробелы (в формате 1 или 0). Возвращает -1, если матрица не содержит строк/ столбцов
+// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
+// "Fouts" Matrix (bool) to file as "1" or "0". Returns -1 if the Matrix is empty.
+// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
+{
+
+    int NLines, NColumns;
+    NLines = B.size();
+    if (NLines==0) return -1;
+    NColumns = B[0].size();
+
+    for (int i=0;i<NLines; i++)
+        if (B[i].size()>NColumns) NColumns=B[i].size();
+
+    if (NColumns==0) return -1;
+
+
+    for (unsigned int row = 0; (row< NLines); row++)
+    {
+
+        //for (unsigned int column = 0; column < NColumns; column++)
+        for (unsigned int column = 0; column < B[row].size(); column++)
+            {
+                fout<< (short int) B [row] [column]<< " ";
+            }
+
+        for (unsigned int column = B[row].size(); column < NColumns; column++)
+            {
+                fout<< g << " ";
+            }
+
+
+        fout<< std::endl;
+    }
+    return 0;
+}
 
 
 int MatrixFout (std::vector <std::vector <long long int>> & B, std::ofstream & fout, char g = ' ')
@@ -2480,11 +2683,51 @@ int EditDist (const std::string &s1, const std::string &s2)
 {
 int n = s1.length()+1;
 int m = s2.length()+1;
-
 if ((n==1)&&(m==1)) return 0;
 
 if (n==1) return (m-1);
 if (m==1) return (n-1);
+
+
+
+if ((n<32000)&&(m<32000))
+
+{
+    std::vector <std::vector <short int>> B (n);  // Generating pre-matrix for computing distance filled by zeros.
+    for (unsigned int row = 0; (row< n); row++)
+    {
+        B [row].resize(m);
+        for (unsigned int column = 0; (column < m); column++)
+        {
+            B [row] [column] = 0;
+
+        }
+
+    }
+
+
+
+    // Filling the matrix
+    short int w=1;
+    for (short int i = 0; (i< n); i++)
+        for (short int j = 0; (j< m); j++)
+            if (j==0) B[i][j] = i;
+            else if (i==0) B[i][j] = j;
+            else
+            {
+                w = 1;
+                if (s1[i-1] == s2[j-1])   // нужны элементы строк i, j по порядку, но т.к. нумеруем с нуля символы строк - поправка на -1
+                //Note that symbols of strings have 0-based indexing. So we have "-1 - correction" here.
+                    w = 0;
+                B[i][j] = std::min (1+B[i-1][j], 1+B[i][j-1]);
+                if ((w+B[i-1][j-1]) < B[i][j]) B[i][j] = (w+B[i-1][j-1]);
+            }
+
+
+    return (int)(B[n-1][m-1]);
+
+}
+
 
 std::vector <std::vector <int>> B (n);  // Generating pre-matrix for computing distance filled by zeros.
 for (unsigned int row = 0; (row< n); row++)
@@ -2538,6 +2781,105 @@ if ((n==1)&&(m==1)) return 0;
 
 if (n==1) return (m-1);
 if (m==1) return (n-1);
+
+
+if ((n<32000)&&(m<32000))
+{
+    std::vector <std::vector <short int>> B (n);  // Generating pre-matrix for computing distance filled by zeros.
+    for (unsigned int row = 0; (row< n); row++)
+    {
+        B [row].resize(m);
+        for (unsigned int column = 0; (column < m); column++)
+        {
+            B [row] [column] = 0;
+
+        }
+
+    }
+
+
+
+    // Filling the matrix
+    short int w=1;
+    for (short int i = 0; (i< n); i++)
+        for (short int j = 0; (j< m); j++)
+            if (j==0) B[i][j] = i;
+            else if (i==0) B[i][j] = j;
+            else
+            {
+                w = 1;
+                if (s1[i-1] == s2[j-1])   // нужны элементы строк i, j по порядку, но т.к. нумеруем с нуля символы строк - поправка на -1
+                //Note that symbols of strings have 0-based indexing. So we have "-1 - correction" here.
+                    w = 0;
+                B[i][j] = std::min (1+B[i-1][j], 1+B[i][j-1]);
+                if ((w+B[i-1][j-1]) < B[i][j]) B[i][j] = (w+B[i-1][j-1]);
+            }
+
+
+
+    // построение результата
+    // let' s construct sr1 and sr2
+
+
+    short int count0 = n-1;
+    short int count1 = m-1;
+
+    short int t, t0, t1,t2;
+
+    while ((count0>0) && (count1>0) )
+    {
+        t = B[count0][count1];
+        t2 = B[count0-1][count1-1];
+        t0 = B[count0-1][count1];
+        t1 = B[count0][count1-1];
+
+        if ((t2<=t1) && (t2<=t0))
+        {
+            sr1 = s1[count0-1] + sr1;
+            sr2 = s2[count1-1] + sr2;
+            count0--;
+            count1--;
+            continue;
+        }
+
+        if ((t1<=t0) && (t1<=t2))
+        {
+            sr1 = "-" + sr1;
+            sr2 = s2[count1-1] + sr2;
+            count1--;
+            continue;
+        }
+
+        if ((t0<=t2) && (t0<=t1))
+        {
+            sr2 = "-" + sr2;
+            sr1 = s1[count0-1] + sr1;
+            count0--;
+            continue;
+        }
+
+    }
+
+    while (count0>0)
+    {
+        sr2 = "-" + sr2;
+        sr1 = s1[count0-1] + sr1;
+        count0--;
+    }
+
+    while (count1>0)
+    {
+        sr1 = "-" + sr1;
+        sr2 = s2[count1-1] + sr2;
+        count1--;
+    }
+
+
+
+    return (int)(B[n-1][m-1]);
+}
+
+
 
 std::vector <std::vector <int>> B (n);  // Generating pre-matrix for computing distance filled by zeros.
 for (unsigned int row = 0; (row< n); row++)
@@ -3988,6 +4330,51 @@ void Num (std::string & Numbers, std::vector <long long int> & A)
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
     long long int r;  //сюда писать само число / a variable to contain a number
+    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    {
+        e = Numbers.find (" ", b)-1;
+        TempS = Numbers.substr(b, e-b+1);
+         r = atoi(TempS.c_str());
+         A.push_back(r);
+
+        b = e+2;
+        TempS.clear();
+    }
+
+    TempS = Numbers.substr(b, Numbers.length()-b);  // еще одна итерация - от последнего пробела до конца строки / the last iteration - up to the string's end
+    r = atoi(TempS.c_str());
+    A.push_back(r);
+    TempS.clear();
+}
+
+
+
+void Num (std::string & Numbers, std::vector <short int> & A)
+{
+    // перегон строки с числами short int в массив (вектор) А
+    // converts string of numbers <short int> (separated by spaces) to a vector of numbers
+
+
+    A.clear();
+
+    int q = 0;  // удаление лишних пробелов / deleting doubled spaces
+    while (Numbers.find ("  ", q) != -1)
+    {
+        q = Numbers.find ("  ", q);
+        Numbers.erase(q, 1);
+    }
+
+    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    {Numbers.erase(0, 1);}
+
+
+    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    {Numbers.erase((Numbers.length()-1), 1);}
+
+    std::string TempS = "";
+    int b=0; //начало каждого числа в строке  / The start position of a number
+    int e=0; // конец числа в строке / the end position
+    short int r;  //сюда писать само число / a variable to contain a number
     while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
     {
         e = Numbers.find (" ", b)-1;
@@ -7655,7 +8042,6 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::
 
      int c=0, f2, f1, f3=0;
 
-     int ba, ea, bb, eb;
 
      int mnb, mb;
 
@@ -7735,9 +8121,9 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
     std::vector <int> VoutB; // Let's count in and out edges for every vertex in order to find branching vertices
 
 
-    std::set <std::pair<int, int>> A1; // an ancillary set
+    std::unordered_set <std::pair<int, int>, PairIntHash> A1; // an ancillary set
 
-    std::set <int> V1;  // an ancillary set
+    std::unordered_set <int> V1;  // an ancillary set
     V1.clear();
 
 
@@ -7880,15 +8266,15 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
    // all circles of NB-paths of A will be multiplied as follows: all vertices should be as the starting in the path
 
 
-
-   VertPathsACircles.clear();
+  VertPathsACircles.clear();
 
   PathsASizeWithNoCircles = PathsA.size();
 
 
   temp= PathsA.size();
 
- {
+  if (!eq)
+  {
 
    for (int j=0; j<PathsASizeWithNoCircles; j++)
    {
@@ -7948,79 +8334,31 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
    for (int j=0; j<PathsB.size(); j++)
        NPaths[j].clear();
 
-   for (int j=0; j<PathsB.size(); j++)   // сбор внутренних путей  //  //considering internal paths of PathsB.
+   if (!eq)
    {
 
 
 
-       if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) continue; //не рассматривать пока концевые
-       if ( (VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1) continue; //не рассматривать пока концевые
-
-       if ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==2) ) continue; // не рассматривать пока простые циклы
-
-
-
-
-
-       for (int i=0; i<PathsASizeWithNoCircles; i++)  // не рассматриваем разрезы простых циклов
+       for (int j=0; j<PathsB.size(); j++)   // сбор внутренних путей  //  //considering internal paths of PathsB.
        {
-           bb = PathsB[j][0]; eb = PathsB[j][PathsB[j].size()-1]; ba = PathsA[i][0]; ea = PathsA[i][PathsA[i].size()-1];
+
+           if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) continue; //не рассматривать пока концевые
+           if ( (VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1) continue; //не рассматривать пока концевые
+
+           if ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==2) ) continue; // не рассматривать пока простые кольца
 
 
-
-            if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
-                if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
-                    {
-                        NPaths[j].push_back(i);  // номер пути
-
-                        NPaths[j].push_back(0); // стартовая позиция в нем
-                        NPaths[j].push_back(PathsA[i].size()); // его длина
-
-
-                        //***
-                        for (int x=1; x<PathsA[i].size(); x++)
-                        {
-                            if (directed)
-                                A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
-
-                            if (!directed)
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
-                        }
-
-
-
-
-                    }
-
-
-
-            if ((!directed) && (PathsB[j][0] != PathsB[j][PathsB[j].size()-1])&& (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]))
-            {
-                E=PathsA[i];
-
-                reverse (E.begin(), E.end());
-                t = std::distance(PathsA.begin(), find (PathsA.begin(), PathsA.end(), E));
-
-
-                {
-
-
-                E=PathsA[i];
-                reverse (PathsA[i].begin(), PathsA[i].end());
-
-
-                bb = PathsB[j][0]; eb = PathsB[j][PathsB[j].size()-1]; ba = PathsA[i][0]; ea = PathsA[i][PathsA[i].size()-1];
+           for (int i=0; i<PathsASizeWithNoCircles; i++)  // не рассматриваем разрезы колец
+           {
 
 
                 if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
                     if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
                         {
-                            reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути
+                            NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
 
-                            NPaths[j].push_back(0); // стартовая позиция в нем
-                            NPaths[j].push_back(PathsB[j].size()); // его длина
+                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsA[i].size()); // его длина  // lenght
 
 
                             //***
@@ -8033,21 +8371,43 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
                             }
 
-
-                       }
-
+                        }
 
 
-                E.clear();
+                if ((!directed) && (PathsB[j][0] != PathsB[j][PathsB[j].size()-1])&& (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]))
+                {
 
-                reverse (PathsA[i].begin(), PathsA[i].end());
+                    E=PathsA[i];
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+
+
+                    if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                        if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+                            {
+                                reverse (E.begin(), E.end());
+                                PathsA.push_back(E);
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                //***
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+
+                           }
+
+                    E.clear();
+
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
                 }
-            }
-
-
+           }
        }
-
-   }
 
 
 
@@ -8065,7 +8425,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-       l1: for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы простых циклов не смотрим
+       l1: for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим
        {
 
 
@@ -8078,12 +8438,10 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                 if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
                 {
-                    bb = PathsB[j][0]; eb = PathsB[j][PathsB[j].size()-1]; ba = PathsA[i][0]; ea = PathsA[i][PathsA[i].size()-1];
 
-
-                    NPaths[j].push_back(i);  // номер пути
-                    NPaths[j].push_back(0); // стартовая позиция в нем
-                    NPaths[j].push_back(PathsB[j].size()); // его длина
+                    NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
 
 
                     //***
@@ -8102,12 +8460,10 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                 if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
                 {
 
-                    bb = PathsB[j][0]; eb = PathsB[j][PathsB[j].size()-1]; ba = PathsA[i][0]; ea = PathsA[i][PathsA[i].size()-1];
 
-
-                    NPaths[j].push_back(i);  // номер пути
-                    NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем
-                    NPaths[j].push_back(PathsB[j].size()); // его длина
+                    NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                    NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
 
                     //***
                     for (int x=1; x<PathsA[i].size(); x++)
@@ -8125,52 +8481,54 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
             }
 
 
-
-
-       if (!directed)
-       {
-           if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][PathsA[i].size()-1])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][0])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][0])]) && (PathsB[j].size()<=PathsA[i].size()) )
+           if (!directed)
            {
-                E=PathsA[i];
-                reverse (E.begin(), E.end());
 
+               E=PathsA[i];
+               reverse (PathsA[i].begin(), PathsA[i].end());
 
-                PathsA.push_back(E);
-
-                NPaths[j].push_back(PathsA.size()-1);  // номер пути
-
-                if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+               if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()<=PathsA[i].size()) )
                 {
 
-                    NPaths[j].push_back(0); // стартовая позиция в нем
+
+                    if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                    {
+                        reverse (E.begin(), E.end());
+                        PathsA.push_back(E);
+
+                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                        NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
 
 
+                        //***
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+                    }
+
+                    if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+                    {
+                        reverse (E.begin(), E.end());
+                        PathsA.push_back(E);
+
+                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                        NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                        //***
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                             A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+
+                     }
                 }
-
-                if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
-                {
-
-                    NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем
-                }
-
-                NPaths[j].push_back(PathsB[j].size()); // его длина
-
-
-                //***
-                for (int x=1; x<PathsA[i].size(); x++)
-                {
-                    if (directed)
-                        A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
-
-                    if (!directed)
-                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
-                }
-
-
+               E.clear();
+               reverse (PathsA[i].begin(), PathsA[i].end());
            }
-
-       }
-
 
       }
 
@@ -8189,19 +8547,18 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
        l11: for (int i=0; i<PathsA.size(); i++)
        {
 
-           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=(PathsA[i].size()-1)) ) // если вписываем в кольцо
+          if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=(PathsA[i].size()-1)) ) // если вписываем в кольцо
 
            {
-
 
                for (int z=0; z<=PathsA[i].size()-1-PathsB[j].size(); z++)
 
                {
-                   NPaths[j].push_back(i);  // номер пути
+                   NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
 
-                   NPaths[j].push_back(z); // стартовая позиция в нем
+                   NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
 
-                   NPaths[j].push_back(PathsB[j].size()); // его длина
+                   NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
 
 
 
@@ -8221,8 +8578,6 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-
-
            if ( (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=PathsA[i].size()) )  // Нашли: не кольцо, не меньшей длины
 
 
@@ -8230,11 +8585,11 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                 for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
 
                 {
-                    NPaths[j].push_back(i);  // номер пути
+                    NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
 
-                    NPaths[j].push_back(z); // стартовая позиция в нем
+                    NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
 
-                    NPaths[j].push_back(PathsB[j].size()); // его длина
+                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
 
 
 
@@ -8254,14 +8609,12 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
        }
 
 
-   }
+    }
 
-
-
-   for (int j=0; j<PathsB.size(); j++)   // сбор простых циклов - в любые циклы // considering  simple cycles of PathsB
+   for (int j=0; j<PathsB.size(); j++)   // сбор простых "колец" - в любые кольца
    {
 
-       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только циклы
+       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
 
 
        if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
@@ -8296,22 +8649,364 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
            }
 
        }
+    }
+
+    }
+
+
+
+   if (eq)
+   {
+
+
+
+       for (int j=0; j<PathsB.size(); j++)   // сбор внутренних путей  //  //considering internal paths of PathsB.
+       {
+
+           if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) continue; //не рассматривать пока концевые
+           if ( (VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1) continue; //не рассматривать пока концевые
+
+           if ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==2) ) continue; // не рассматривать пока простые кольца
+
+
+           for (int i=0; i<PathsASizeWithNoCircles; i++)  // не рассматриваем разрезы колец
+           {
+
+
+                if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                    if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+                        {
+                            NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsA[i].size()); // его длина  // lenght
+
+
+                            //***
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                if (directed)
+                                    A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                                if (!directed)
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+
+                        }
+
+
+                if ((!directed) && (PathsB[j][0] != PathsB[j][PathsB[j].size()-1])&& (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]))
+                {
+
+                    E=PathsA[i];
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+
+
+                    if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                        if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+                            {
+                                reverse (E.begin(), E.end());
+                                PathsA.push_back(E);
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                //***
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+
+                           }
+
+                    E.clear();
+
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+                }
+           }
+       }
+
+
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор концевых путей //considering in/out rays of PathsB
+   {
+
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) continue; //палки не смотрим
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])>1)) goto l1eq;
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])>1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) goto l1eq;
+
+       continue;
+
+
+
+       l1eq: for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим
+       {
+
+
+
+
+
+        //if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+        if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+            {
+
+
+                if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                {
+
+
+                    NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                    //***
+                    for (int x=1; x<PathsA[i].size(); x++)
+                    {
+                        if (directed)
+                            A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                        if (!directed)
+                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                    }
+
+
+                }
+
+                if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+                {
+
+
+                    NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                    NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                    //***
+                    for (int x=1; x<PathsA[i].size(); x++)
+                    {
+                        if (directed)
+                            A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                        if (!directed)
+                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                    }
+
+                 }
+
+
+            }
+
+
+           if (!directed)
+           {
+
+            E=PathsA[i];
+            reverse (PathsA[i].begin(), PathsA[i].end());
+
+            //if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+            if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+                {
+
+
+                    if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                    {
+                        reverse (E.begin(), E.end());
+                        PathsA.push_back(E);
+
+                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                        NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                        //***
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+                    }
+
+                    if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+                    {
+                        reverse (E.begin(), E.end());
+                        PathsA.push_back(E);
+
+                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                        NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                        //***
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                             A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+
+                     }
+                }
+               E.clear();
+               reverse (PathsA[i].begin(), PathsA[i].end());
+           }
+
+
+      }
+
    }
 
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор простых цепей  // considering chains of PathsB
+   {
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) goto l11eq;
+
+
+       continue;
+
+
+       l11eq: for (int i=0; i<PathsA.size(); i++)
+       {
+
+
+       if( ( (VinA[(PathsA[i][0])]+VoutA[PathsA[i][0]])==1) && ((VinA[(PathsA[i][PathsA[i].size()-1])]+VoutA[PathsA[i][PathsA[i].size()-1]])==1))
+          if ( (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) )  // Нашли: не кольцо, равной длины
+
+             {
+                for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+
+                {
+                    NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                    NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+
+                    //***
+                    for (int x=1; x<PathsA[i].size(); x++)
+                    {
+                        if (directed)
+                            A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                        if (!directed)
+                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                    }
+
+                }
+             }
+
+       }
+
+
+    }
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор простых циклов - в любые циклы // considering  simple cycles of PathsB
+   {
+
+       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
+
+
+       if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
+
+
+
+       for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
+       {
+
+
+           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) && ((VinA[(PathsA[i][0])]+VoutA[PathsA[i][0]])==2) ) // если простое нашли кольцо  такой же длины
+           {
+               NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+               NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+               NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+
+
+               //***
+               for (int x=1; x<PathsA[i].size(); x++)
+               {
+                   if (directed)
+                       A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                   if (!directed)
+                       A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+               }
+
+
+           }
+
+       }
+   }
+
+
+    }
+
+
+//   for (int j=0; j<PathsB.size(); j++)   // сбор простых "колец" - в любые кольца
+//   {
+
+//       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
+
+
+//       if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
+
+
+
+//       for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
+//       {
+
+
+//           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) ) // если нашли кольцо  такой же длины
+//           {
+//               NPaths[j].push_back(i);  // номер пути
+
+//               NPaths[j].push_back(0); // стартовая позиция в нем
+//               NPaths[j].push_back(PathsB[j].size()); // его длина
+
+
+
+
+//               //***
+//               for (int x=1; x<PathsA[i].size(); x++)
+//               {
+//                   if (directed)
+//                       A1.insert(pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+//                   if (!directed)
+//                       A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+//               }
+
+
+//           }
+
+//       }
+//   }
 
    for (int i=0; i<NPaths.size(); i++)
    {
 
        if (NPaths[i].size()==0)
        {   // если для какого-то пути из B нет аналогов в A
-        return -1;
+        return 0;
        }
    }
 
 
 // "pre-Thinning of data"
 
-   if ((directed)&&(A1.size()<A.size()/2))
+   //if ((directed)&&(A1.size()<A.size()/2))
+   if (A1.size()<A.size()/2)
    {
 
        A.clear();
@@ -8337,8 +9032,13 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
    temp=A.size();
    if (!directed)
-       for (int i=0; i<temp; i++)
-           A.push_back(A[temp-i-1]);
+   {
+       E=A;
+       std::reverse(E.begin(), E.end());
+       A.reserve(A.size()+E.size());
+       A.insert(A.end(), E.begin(), E.end());
+       E.clear();
+   }
 
 
    for (int i=0; i<=m; i++)
@@ -8350,8 +9050,13 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
    temp=B.size();
    if (!directed)
-       for (int i=0; i<temp; i++)
-           B.push_back(B[temp-i-1]);
+   {
+       E=B;
+       std::reverse(E.begin(), E.end());
+       B.reserve(B.size()+E.size());
+       B.insert(B.end(), E.begin(), E.end());
+       E.clear();
+   }
 
 
    for (int i=0; i<=mb; i++)
@@ -8379,7 +9084,9 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
               {
 
                   if (NPaths[i].size()==0)
-                  {temp=-1;   // если для какого-то пути из B нет аналогов в A
+                  {
+                      return 0;
+                      temp=-1;   // если для какого-то пути из B нет аналогов в A
 
                   }
               }
@@ -8875,7 +9582,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-                if ((directed)&(f2==1)&&(A.size()!=f3)&&(temp!=-1))
+
+                if ((f2==1)&&(A.size()!=f3)&&(temp!=-1))
                 {
                     V1.clear();
 
@@ -8883,9 +9591,15 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                         for (int j=0; j<NPaths[i].size(); j=j+3)
                             V1.insert(NPaths[i][j]);
 
+                    if (PathsA.size()!=V1.size())
+                    {
+
                     PathsA1.clear();
                      for (auto i=V1.begin(); i!=V1.end(); i++)
                          PathsA1.push_back(PathsA[*i]);
+
+
+
 
                      PathsA.clear();
                      PathsA=PathsA1;
@@ -8913,6 +9627,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                      f3=A.size();
 
                      goto lprorez1;
+                     }
                 }
 
 
@@ -8929,6 +9644,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                     if (NPaths[i].size()==0)
                     {temp=-1;   // если для какого-то пути из B нет аналогов в A
+                        return 0;
 
                     }
                 }
@@ -8974,69 +9690,51 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
             G1.clear();  //Выстраиваемый граф в нужном порядке согласно вектору неразветвляющихся путей
             G0.clear(); //Эталонный граф в нужном порядке согласно вектору неразветвляющихся путей
 
-            std::set <std::pair <int, int>>GS0;
-            GS0.clear();
 
 
 
-            std::unordered_set<std::pair <int, int>, PairIntHash> GS0Hash;
-            GS0Hash.clear();
-            std::unordered_set<std::pair <int, int>, PairIntHash> GS1Hash;
-            GS1Hash.clear();
-
-
-
-
-            for (int q1=0; q1<PathsB.size(); q1++)
-                for (int q2=0; q2<PathsB[q1].size()-1; q2++)
-                {
-                    G0.push_back(PathsB[q1][q2]);
-                    G0.push_back(PathsB[q1][q2+1]);
-
-                    GS0.insert(std::pair <int, int> (PathsB[q1][q2], PathsB[q1][q2+1]));
-                    if (!directed) GS0.insert(std::pair <int, int> (PathsB[q1][q2+1], PathsB[q1][q2]));
-
-                    GS0Hash.insert(std::pair <int, int> (PathsB[q1][q2], PathsB[q1][q2+1]));
-                    if (!directed) GS0Hash.insert(std::pair <int, int> (PathsB[q1][q2+1], PathsB[q1][q2]));
-
-                }
 
 
 
             std::vector <int> Scale0;  // Шкала для матрицы смежности 1
             Scale0.clear();
 
-            for (int a=0; a<G0.size();a++)
-                if (FindIn(Scale0, G0[a])==-1) Scale0.push_back(G0[a]);
+
+            std::vector<std::vector <bool>> B1; //заготовки для матриц смежности
 
 
+            MatrixSet(B1, mb+1-mnb, mb+1-mnb, 0);
 
-            std::vector <int> Scale1; // шкала для матрицы смежности 2
-            Scale1.clear();
-
-
-            std::unordered_set <int> Scale1s; // шкала для матрицы смежности 2
-            Scale1s.clear();
+            std::vector <int> IndexPermB;  // Номера вершин графа B в шкале Scale0
+            IndexPermB.clear();
+            IndexPermB.resize(mb+1, -1);
 
 
+            for (int q1=0; q1<PathsB.size(); q1++)
+            {
+                if (IndexPermB[PathsB[q1][0]]==-1)
+                {
+                    Scale0.push_back(PathsB[q1][0]);
+                    IndexPermB[PathsB[q1][0]] = Scale0.size()-1;
+                }
 
-            std::vector<std::vector <int>> B0; //заготовки для матриц смежности
+                for (int q2=0; q2<PathsB[q1].size()-1; q2++)
+                {
+                    G0.push_back(PathsB[q1][q2]);
+                    G0.push_back(PathsB[q1][q2+1]);
 
-            std::vector<std::vector <int>> B00; //заготовки для матриц смежности
-            MatrixSet(B00, Scale0.size(), Scale0.size(), 0);
-
-
-
-
-            for (int x=0; x<Scale0.size(); x++)   // заполнение интегральной матрицы смежности
-                for (int y=0; y<Scale0.size(); y++)
+                    if (IndexPermB[PathsB[q1][q2+1]]==-1)
                     {
-
-
-                    if (GS0Hash.find(std::pair <int, int>(Scale0[x], Scale0[y]))!=GS0Hash.end())
-                       B00[x][y]++;
-
+                        Scale0.push_back(PathsB[q1][q2+1]);
+                        IndexPermB[PathsB[q1][q2+1]] = Scale0.size()-1;
                     }
+
+                    B1  [IndexPermB[PathsB[q1][q2]]] [IndexPermB[PathsB[q1][q2+1]]]=1;
+                    if (!directed) B1 [IndexPermB[PathsB[q1][q2+1]]] [IndexPermB[PathsB[q1][q2]]] = B1  [IndexPermB[PathsB[q1][q2]]] [IndexPermB[PathsB[q1][q2+1]]];
+
+                }
+
+            }
 
 
 
@@ -9050,6 +9748,17 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
              std::unordered_set<std::pair <int, int>, PairIntHash> Y;
              Y.clear();
+
+
+
+
+
+
+             int *IndexPermA = new int[m+1]; // Выделение памяти для массива
+
+
+
+
 
 
               while (true) //***
@@ -9074,12 +9783,6 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-                G1.clear();
-                G1.reserve(G0.size()*2);
-
-
-
-                GS1Hash.clear();
 
                 Y.clear();  // In order not to consider combination of path-candidates if any path-candidate is represented in this combination more than once.
                                 for (int y=0; y<NPaths.size();y++)
@@ -9105,80 +9808,42 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                                 }
 
 
+                  G1.clear();
+                  G1.reserve(G0.size());
 
-                for (int y=0; y<NPaths.size();y++)
-                {
-                    c = 3*l[y];
+                  t=0;
 
-
-
-
-                    for (int x=0; x<NPaths[y][c+2]-1;x++)
-                    {
-                        G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x]);
-
-                        for (int u=0; u<G1.size()-1; u++)
-                            if (!( ((DA[G1[u]][G1[G1.size()-1]]<=DB[G0[u]][G0[G1.size()-1]])))  ) goto l3;
-
-                        G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]);
-
-                        GS1Hash.insert(std::pair <int, int> (PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]));  //******
-                        if (!directed) GS1Hash.insert(std::pair <int, int> (PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1], PathsA[NPaths[y][c]][NPaths[y][c+1]+x]));
+                  for (int i = 0; i <= m; i++)
+                      IndexPermA[i] = -1;
 
 
-
-                    }
-                }
-
-
-
-                if (G1.size()!=G0.size()) goto l3;
-
-                Scale1.clear();
-                Scale1.reserve(Scale0.size());
-
-                Scale1s.clear();
-                Scale1s.insert(G1[0]);
+                 for (int y=0; y<NPaths.size();y++)
+                     {
+                        c = 3*l[y];
+                        if (IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]]]==-1)
+                           {
+                              t++;
+                              IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]]] = t-1;
+                           }
 
 
-                Scale1.push_back(G1[0]);
-
-                for (int a=1; a<G1.size();a++)
-
-
-
-                    if (Scale1s.find (G1[a])==Scale1s.end())
-                        {
-
-                        if (   (( ((DA[Scale1[0]][G1[a]]<=DB[Scale0[0]][Scale0[Scale1.size()]])))  ) )
-                        {
-                            Scale1.push_back(G1[a]);
-                            Scale1s.insert(G1[a]);
-                        }
-                        else goto l3;
-
-                        }
+                        for (int x=0; x<NPaths[y][c+2]-1;x++)
+                            {
+                               G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x]);
+                               G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]);
 
 
+                                if (IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]==-1)
+                                {
+                                     t++;
+                                     IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]] = t-1;
+                                }
 
+                                        if (B1  [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]] [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]]!=1) goto l3;
 
-                if (Scale1.size()!=Scale0.size()) goto l3;   // длины шкал (кол-во вершин в графах) не совпадают - нет изоморфизма
+                             }
 
-
-                B0=B00;  // заготовка интегральной матрицы смежности с учетом уже учтенных там ребер графа G0
-
-
-                for (int x=0; x<Scale0.size(); x++)   // заполнение интегральной матрицы смежности
-                    for (int y=0; y<Scale0.size(); y++)
-                        {
-
-                            if (GS1Hash.find(std::pair <int, int>(Scale1[x], Scale1[y]))!=GS1Hash.end())
-                               B0[x][y]--;
-
-
-                            if (B0[x][y]!=0) goto l3;
-
-                        }
+                       }
 
 
 
@@ -9263,8 +9928,16 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                 Result.insert(G1);
 
 
-                l3: if (l==lmax) break;//***
-                if ((eq==true) && (Result.size()==1)) break;
+                l3: if (l==lmax)
+                {
+                    delete [] IndexPermA; // очистка памяти
+                    break;
+                }
+                if ((eq==true) && (Result.size()==1))
+                {
+                    delete [] IndexPermA; // очистка памяти
+                    break;
+                }
 
               }
 
@@ -9546,6 +10219,26 @@ std::string GenerateAlphabet (const std::vector <std::string> &DataS)
     for (int q = 0; q< DataS.size();q++)
         for (int w = 0; w< DataS[q].length();w++)
             T.insert(DataS[q][w]);
+
+    for (auto it=T.begin(); it!=T.end(); it++)
+        TempS.push_back(*it);
+
+    return TempS;
+}
+
+std::string GenerateAlphabet (const std::string &DataS)
+// Generates an alphabet upon the given string DataS. Symbols will be ordered under ASCII.
+// Формирует алфавит из символов, входящих в строку DataS. Порядок символов в алфавите задается ASCII.
+
+{
+    if (DataS.length()==0) return "";
+    std::string TempS="";
+
+    std::set <char> T;
+    T.clear();
+
+        for (int w = 0; w< DataS.length();w++)
+            T.insert(DataS[w]);
 
     for (auto it=T.begin(); it!=T.end(); it++)
         TempS.push_back(*it);
