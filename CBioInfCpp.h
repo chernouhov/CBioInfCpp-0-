@@ -8038,7 +8038,7 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::
 
     // ancillary vars
 
-     int mn, m, r, temp, t;
+     int mn, m, r, temp, t, t1;
 
      int c=0, f2, f1, f3=0;
 
@@ -8334,6 +8334,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
    for (int j=0; j<PathsB.size(); j++)
        NPaths[j].clear();
 
+   t1 = PathsA.size();
    if (!eq)
    {
 
@@ -8544,7 +8545,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
        continue;
 
 
-       l11: for (int i=0; i<PathsA.size(); i++)
+       l11: for (int i=0; i<t1; i++)
        {
 
           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=(PathsA[i].size()-1)) ) // если вписываем в кольцо
@@ -8574,6 +8575,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                }
 
+               if (!directed)
+               {
+                   E = PathsA[i];
+                   reverse(E.begin(), E.end());
+                   PathsA.push_back(E);
+                   for (int z=0; z<=PathsA[i].size()-1-PathsB[j].size(); z++)
+
+                   {
+                       NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                       NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                       NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+                   }
+
+               }
            }
 
 
@@ -8601,6 +8618,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (!directed)
                             A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                    }
+
+                }
+
+                if (!directed)
+                {
+                    E = PathsA[i];
+                    reverse(E.begin(), E.end());
+                    PathsA.push_back(E);
+                    for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+                    {
+                         NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                         NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                         NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
                     }
 
                 }
