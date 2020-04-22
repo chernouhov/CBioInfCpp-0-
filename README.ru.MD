@@ -1044,7 +1044,25 @@ b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 std::vector <long double> & D, const int b, std::vector <int> & Prev, int V =
 INT_MIN)`
 
-Модификация функции DistanceTS (см. выше) для случая нецелочисленных весов ребер (double). 
+Модификация функции DistanceTS (см. выше) для случая нецелочисленных весов ребер (double).
+***
+`int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::set <int> &Vertices, const bool weighted)`
+
+Функция для выделения подграфа Subgraph из графа A, такого что все вершины искомого подграфа задаются set <int> Vertices.
+Граф A задается вектором смежности A, веса - целочисленны или граф невзвешенный. Параметр weighted задает, является ли граф взвешенным.
+***
+`int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::unordered_set <int> &Vertices, const bool weighted)`
+
+Функция для выделения подграфа Subraph из графа A, такого что все вершины искомого подграфа задаются unordered_set <int> Vertices.
+Граф A задается вектором смежности A, веса - целочисленны или граф невзвешенный. Параметр weighted задает, является ли граф взвешенным.
+***
+ `int MakeSubgraphSetOfVertices (const std::pair < std::vector<int>, std::vector<double>> & A, std::pair < std::vector<int>, std::vector<double>> &Subgraph, const std::set <int> &Vertices)`
+
+Модификация функции MakeSubgraphSetOfVertices (см.выше) для случая нецелочисленных весов ребер.
+***
+ `int MakeSubgraphSetOfVertices (const std::pair < std::vector<int>, std::vector<double>> & A, std::pair < std::vector<int>, std::vector<double>> &Subgraph, const std::unordered_set <int> &Vertices)`
+
+Модификация функции MakeSubgraphSetOfVertices(см. выше) для случая нецелочисленных весов ребер для unordered_set
 ***
 `int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, bool directed = true)`
 
@@ -1293,3 +1311,7 @@ l)`
 `std::string GenerateAlphabet (const std::vector <std::string> &DataS)`
 
 Формирует алфавит из символов, входящих в набор строк DataS. Порядок символов в алфавите задается ASCII. 
+***
+`std::string GenerateAlphabet (const std::string &DataS)`
+
+Формирует алфавит из символов, входящих в строку DataS. Порядок символов в алфавите задается ASCII. 
