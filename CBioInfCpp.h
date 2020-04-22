@@ -1813,7 +1813,16 @@ return 0;
 }
 
 
+struct PairIntHash  // for unordered_set and unordered_map
+{
+    std::size_t operator()(const std::pair<int, int>& obj) const
+    {
+        std::hash<int> hasher;
 
+
+        return hasher(obj.first) ^ hasher(obj.second);
+    }
+};
 
 
 int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)
@@ -5546,6 +5555,122 @@ int GenRandomUWGraph (std::vector <int> &P, int v, int e, int b=0)
 }
 
 
+int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::set <int> &Vertices, const bool weighted)
+// Функция для выделения подграфа Subgraph из графа A, такого что все вершины искомого подграфа задаются set <int> Vertices.
+// Граф A задается вектором смежности A, веса - целочисленны или граф невзвешенный.
+// параметр weighted задает, является ли граф взвешенным.
+
+// The function makes a subgraph Subgraph from the graph A as follows: we take only vertices from the set <int> Vertices.
+// Graph A is set by Adjacency vector A. It may be weighted or no (set by "weighted"), weights may be integers only.
+
+
+{
+    Subgraph.clear();
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+        for (int i=0; i<A.size();i=i+2+weighted)
+        {
+
+            if (Vertices.find(A[i])!=Vertices.end())
+            {
+
+                if (Vertices.find(A[i+1])!=Vertices.end())
+                {
+
+                    Subgraph.push_back(A[i]);
+                    Subgraph.push_back(A[i+1]);
+                    if (weighted)
+                        Subgraph.push_back(A[i+2]);
+                }
+            }
+        }
+
+
+        return 0;
+
+}
+
+
+int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::unordered_set <int> &Vertices, const bool weighted)
+// Функция для выделения подграфа Subraph из графа A, такого что все вершины искомого подграфа задаются unordered_set <int> Vertices.
+// Граф A задается вектором смежности A, веса - целочисленны или граф невзвешенный.
+// параметр weighted задает, является ли граф взвешенным.
+
+// The function makes a subgraph Subgraph from the graph A as follows: we take only vertices from the unordered_set <int> Vertices.
+// Graph A is set by Adjacency vector A. It may be weighted or no (set by "weighted"), weights may be integers only.
+
+{
+    Subgraph.clear();
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+        for (int i=0; i<A.size();i=i+2+weighted)
+        {
+            if (Vertices.find(A[i])!=Vertices.end())
+                if (Vertices.find(A[i+1])!=Vertices.end())
+                {
+                    Subgraph.push_back(A[i]);
+                    Subgraph.push_back(A[i+1]);
+                    if (weighted)
+                        Subgraph.push_back(A[i+2]);
+                }
+
+        }
+
+        return 0;
+
+}
+
+
+
+int MakeSubgraphSetOfVertices (const std::pair < std::vector<int>, std::vector<double>> & A, std::pair < std::vector<int>, std::vector<double>> &Subgraph, const std::set <int> &Vertices)
+// Модификация функции MakeSubgraphSetOfVertices (см.выше) для случая нецелочисленных весов ребер.
+// Modification of the function MakeSubgraphSetOfVertices (see it above) for not-integer (double) weights of edges of a graph.
+{
+   (Subgraph.first).clear();
+   (Subgraph.second).clear();
+
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+    for (int i=0; i<A.first.size();i=i+2)
+    {
+        if (Vertices.find(A.first[i])!=Vertices.end())
+            if (Vertices.find(A.first[i+1])!=Vertices.end())
+            {
+                (Subgraph.first).push_back(A.first[i]);
+                (Subgraph.first).push_back(A.first[i+1]);
+                (Subgraph.second).push_back(A.second[i/2]);
+            }
+
+    }
+     return 0;
+
+}
+
+
+int MakeSubgraphSetOfVertices (const std::pair < std::vector<int>, std::vector<double>> & A, std::pair < std::vector<int>, std::vector<double>> &Subgraph, const std::unordered_set <int> &Vertices)
+// Модификация функции MakeSubgraphSetOfVertices(см. выше) для случая нецелочисленных весов ребер для unordered_set
+// Modification of the function MakeSubgraphSetOfVertices (see it above) for not-integer (double) weights of edges of a graph and unordered_set Vertices.
+{
+   (Subgraph.first).clear();
+   (Subgraph.second).clear();
+
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+    for (int i=0; i<A.first.size();i=i+2)
+    {
+        if (Vertices.find(A.first[i])!=Vertices.end())
+            if (Vertices.find(A.first[i+1])!=Vertices.end())
+            {
+                (Subgraph.first).push_back(A.first[i]);
+                (Subgraph.first).push_back(A.first[i+1]);
+                (Subgraph.second).push_back(A.second[i/2]);
+            }
+
+    }
+     return 0;
+
+}
+
 
 int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, bool directed = true)
 // Counts multiplicity of edges of a graph that is set by Adjacency vector A.
@@ -5627,6 +5752,82 @@ int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<
 // So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 // Returns -1 and empty G2 if input data is not correct. Otherwise returns 0.
 // Модификация AdjVectorEdgesMultiplicity (см. выше) для случая графа с нецелочисленными весами ребер.
+
+{
+    G2.clear();
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+    return AdjVectorEdgesMultiplicity (A.first, G2, false, directed);
+
+}
+
+
+
+int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::unordered_map <std::pair < int, int> , int, PairIntHash> &G2, const bool weighted, bool directed = true)
+// Modification to return result in unordered_map
+// Модификация AdjVectorEdgesMultiplicity (см. выше) для возврата результата в unordered_map.
+
+
+{
+    G2.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    std::pair < int, int> C;
+    std::pair < std::pair < int, int>, int> D;
+
+
+    std::pair < int, int> C1;
+    std::pair < std::pair < int, int>, int> D1;
+
+    if (directed)
+    {
+    for (int i=0; i<A.size(); i=i+2+weighted)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+        D = std::make_pair(C, 1);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+1; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); continue;}
+
+    }
+    }
+
+    if (!directed)
+    {
+    for (int i=0; i<A.size(); i=i+2+weighted)
+    {
+        C = std::make_pair(A[i], A[i+1]);
+        D = std::make_pair(C, 1);
+
+        C1 = std::make_pair(A[i+1], A[i]);
+        D1 = std::make_pair(C1, 1);
+
+        if (G2.find(C)!=G2.end())
+        {G2[C] = G2[C]+1; G2[C1] = G2[C1]+1; continue;}
+
+        if (G2.find(C)==G2.end())
+        {G2.insert(D); G2.insert(D1); continue;}
+
+    }
+    }
+
+
+    return 0;
+
+}
+
+
+
+int AdjVectorEdgesMultiplicity (const std::pair < std::vector<int>, std::vector<double>> & A, std::unordered_map <std::pair < int, int> , int, PairIntHash> &G2, bool directed = true)
+// Modification to return result in unordered_map
+// Модификация AdjVectorEdgesMultiplicity (см. выше) для возврата результата в unordered_map.
 
 {
     G2.clear();
@@ -7985,16 +8186,6 @@ return 0;
 }
 
 
-struct PairIntHash  // for SubGraphsInscribed - see it below
-{
-    std::size_t operator()(const std::pair<int, int>& obj) const
-    {
-        std::hash<int> hasher;
-
-
-        return hasher(obj.first) ^ hasher(obj.second);
-    }
-};
 
 int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, const bool directed = true)
 // The function finds all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
