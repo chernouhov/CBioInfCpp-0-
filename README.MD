@@ -1147,6 +1147,24 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
 ***
+`int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::set <int> &Vertices, const bool weighted)`
+
+The function makes a subgraph Subgraph from the graph A as follows: we take only vertices from the set <int> Vertices.
+Graph A is set by Adjacency vector A. It may be weighted or no (set by "weighted"), weights may be integers only.
+***
+ `int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::unordered_set <int> &Vertices, const bool weighted)`
+
+The function makes a subgraph Subgraph from the graph A as follows: we take only vertices from the unordered_set <int> Vertices.
+Graph A is set by Adjacency vector A. It may be weighted or no (set by "weighted"), weights may be integers only.
+***
+ `int MakeSubgraphSetOfVertices (const std::pair < std::vector<int>, std::vector<double>> & A, std::pair < std::vector<int>, std::vector<double>> &Subgraph, const std::set <int> &Vertices)`
+
+Modification of the function MakeSubgraphSetOfVertices (see it above) for not-integer (double) weights of edges of a graph.
+***
+ `int MakeSubgraphSetOfVertices (const std::pair < std::vector<int>, std::vector<double>> & A, std::pair < std::vector<int>, std::vector<double>> &Subgraph, const std::unordered_set <int> &Vertices)`
+
+Modification of the function MakeSubgraphSetOfVertices (see it above) for not-integer (double) weights of edges of a graph and unordered_set Vertices.
+***
 `int AdjVectorEdgesMultiplicity (const std::vector <int> &A, std::map <std::pair < int, int> , int> &G2, const bool weighted, bool directed = true)`
 
 Counts multiplicity of edges of a graph that is set by Adjacency vector A.
@@ -1397,8 +1415,7 @@ returns empty B and "-1"
 ***
 `std::string GenerateAlphabet (const std::vector <std::string> &DataS)`
 
-Generates partitions of int n (i.e. representing n as a sum of positive
-integers) in B. Extended version: one may set l>0 as a length of partitions (i.e.
-number of summands).
-
 Generates an alphabet upon the given vector of strings DataS. Symbols will be ordered under ASCII.
+***
+`std::string GenerateAlphabet (const std::string &DataS)`
+Generates an alphabet upon the given string DataS. Symbols will be ordered under ASCII.
