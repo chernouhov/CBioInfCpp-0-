@@ -11,7 +11,7 @@ Results (number of vertices - number of edges : duration)
 Graphs in the input files are set as list of their edges (directed, unweighted)
 PC: 4Gb, CPU 3,00 GHz (~ 8 year old)
 
-15.04.2020
+22.04.2020
 
 DIRECTED:
 
