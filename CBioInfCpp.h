@@ -8268,8 +8268,8 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::
 
 
 
-    std::map <std::pair < int, int> , int> MultEdgesA; // для кратности ребер
-    std::map <std::pair < int, int> , int> MultEdgesB;  // to contain multiplicity of edges of the graphs A and B
+    std::unordered_map <std::pair < int, int> , int, PairIntHash> MultEdgesA; // для кратности ребер
+    std::unordered_map <std::pair < int, int> , int, PairIntHash> MultEdgesB; // to contain multiplicity of edges of the graphs A and B
     MultEdgesA.clear();
     MultEdgesB.clear();
 
@@ -9177,45 +9177,6 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
     }
 
 
-//   for (int j=0; j<PathsB.size(); j++)   // сбор простых "колец" - в любые кольца
-//   {
-
-//       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
-
-
-//       if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
-
-
-
-//       for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
-//       {
-
-
-//           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) ) // если нашли кольцо  такой же длины
-//           {
-//               NPaths[j].push_back(i);  // номер пути
-
-//               NPaths[j].push_back(0); // стартовая позиция в нем
-//               NPaths[j].push_back(PathsB[j].size()); // его длина
-
-
-
-
-//               //***
-//               for (int x=1; x<PathsA[i].size(); x++)
-//               {
-//                   if (directed)
-//                       A1.insert(pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
-
-//                   if (!directed)
-//                       A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
-//               }
-
-
-//           }
-
-//       }
-//   }
 
    for (int i=0; i<NPaths.size(); i++)
    {
@@ -10063,14 +10024,46 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                                      IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]] = t-1;
                                 }
 
-                                        if (B1  [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]] [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]]!=1) goto l3;
+                                if (B1  [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]] [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]]!=1)
+                                {
+                                     //goto l3;
+                                     if (l==lmax) goto l3;
+                                     for (int x=NPaths.size()-1; x>y;x--)
+                                         l[x]=lmax[x];
+                                      goto l3;
+                                 }
 
-                             }
+                                if (directed)
+                                    if (MultEdgesA[std::pair <int, int>(G1[G1.size()-2], G1[G1.size()-1]) ] < MultEdgesB[std::pair <int, int>(G0[G1.size()-2], G0[G1.size()-1]) ])
+                                    {
+                                        //goto l3;
+                                        if (l==lmax) goto l3;
+
+                                        for (int x=NPaths.size()-1; x>y;x--)
+                                            l[x]=lmax[x];
+
+                                        goto l3;
+                                    }
+
+
+
+                                if (!directed)
+                                    if (MultEdgesA[std::pair <int, int>(std::min(G1[G1.size()-2], G1[G1.size()-1]), std::max(G1[G1.size()-2], G1[G1.size()-1])) ] < MultEdgesB[std::pair <int, int>(std::min(G0[G1.size()-2], G0[G1.size()-1]), std::max(G0[G1.size()-2], G0[G1.size()-1])) ])
+                                    {
+                                        //goto l3;
+                                        if (l==lmax) goto l3;
+
+                                        for (int x=NPaths.size()-1; x>y;x--)
+                                            l[x]=lmax[x];
+
+                                        goto l3;
+                                    }
+                              }
 
                        }
 
 
-
+                if (G1.size()!=G0.size()) goto l3;
                 G3.clear();
 
 
