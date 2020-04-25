@@ -8331,6 +8331,10 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
    std::vector <std::vector<long long int>> DA; // to contain the shortest paths between verticec in A
    std::vector <std::vector <long long int>> DB;  // to contain the shortests paths between verticec in A
 
+   DA.clear();
+   DB.clear();
+
+   D.clear();
 
 
    std::vector <int> E; // // an ancillary unit
@@ -8464,7 +8468,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
   temp= PathsA.size();
 
-  if (!eq)
+//  if (!eq)
   {
 
    for (int j=0; j<PathsASizeWithNoCircles; j++)
@@ -8764,7 +8768,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
                    }
 
-               }
+
 
                if (!directed)
                {
@@ -8780,6 +8784,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
                    }
+
+               }
 
                }
            }
@@ -8811,7 +8817,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                             A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
                     }
 
-                }
+
 
                 if (!directed)
                 {
@@ -8828,6 +8834,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                     }
 
                 }
+                }
             }
 
        }
@@ -8841,11 +8848,11 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
        if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
 
 
-       if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
+     //  if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
 
 
 
-       for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
+       for (int i=0; i<t1; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
        {
 
 
@@ -8870,6 +8877,17 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                }
 
 
+               if (!directed)
+               {
+                   E = PathsA[i];
+                   reverse(E.begin(), E.end());
+                   PathsA.push_back(E);
+
+                   NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                   NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                   NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+               }
            }
 
        }
@@ -9096,7 +9114,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
        continue;
 
 
-       l11eq: for (int i=0; i<PathsA.size(); i++)
+       l11eq: for (int i=0; i<t1; i++)
        {
 
 
@@ -9125,6 +9143,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                             A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
                     }
 
+                    if (!directed)
+                    {
+                        E = PathsA[i];
+                        reverse(E.begin(), E.end());
+                        PathsA.push_back(E);
+                        for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+                        {
+                             NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                             NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                             NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+                        }
+
+                    }
+
                 }
              }
 
@@ -9143,7 +9177,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-       for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
+       for (int i=0; i<t1; i++)  //
        {
 
 
@@ -9165,6 +9199,18 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                    if (!directed)
                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+               }
+
+               if (!directed)
+               {
+                   E = PathsA[i];
+                   reverse(E.begin(), E.end());
+                   PathsA.push_back(E);
+
+                   NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                   NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                   NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
                }
 
 
@@ -9212,53 +9258,56 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
    D.clear();
-   DA.clear();
-   DB.clear();
+//   DA.clear();
+//   DB.clear();
 
-   temp=A.size();
-   if (!directed)
+   if ((DA.size()==0)||(DB.size()==0))
    {
-       E=A;
-       std::reverse(E.begin(), E.end());
-       A.reserve(A.size()+E.size());
-       A.insert(A.end(), E.begin(), E.end());
-       E.clear();
-   }
+
+       temp=A.size();
+       if (!directed)
+       {
+           E=A;
+           std::reverse(E.begin(), E.end());
+           A.reserve(A.size()+E.size());
+           A.insert(A.end(), E.begin(), E.end());
+           E.clear();
+       }
 
 
-   for (int i=0; i<=m; i++)
-   {
-       DistanceBFA (A, D, i, Prev, false);
-       DA.push_back(D);
-   }
+       for (int i=0; i<=m; i++)
+       {
+           DistanceBFA (A, D, i, Prev, false);
+           DA.push_back(D);
+       }
 
 
-   temp=B.size();
-   if (!directed)
-   {
-       E=B;
-       std::reverse(E.begin(), E.end());
-       B.reserve(B.size()+E.size());
-       B.insert(B.end(), E.begin(), E.end());
-       E.clear();
-   }
+       temp=B.size();
+       if (!directed)
+       {
+           E=B;
+           std::reverse(E.begin(), E.end());
+           B.reserve(B.size()+E.size());
+           B.insert(B.end(), E.begin(), E.end());
+           E.clear();
+       }
 
 
-   for (int i=0; i<=mb; i++)
-   {
-       DistanceBFA (B, D, i, Prev, false);
-       DB.push_back(D);
-   }
+       for (int i=0; i<=mb; i++)
+       {
+           DistanceBFA (B, D, i, Prev, false);
+           DB.push_back(D);
+       }
 
 
 
-   temp=A.size()/2;
-   if (!directed)
-       A.resize(temp);
-   temp=B.size()/2;
-   if (!directed)
-       B.resize(temp);
-
+       temp=A.size()/2;
+       if (!directed)
+           A.resize(temp);
+       temp=B.size()/2;
+       if (!directed)
+           B.resize(temp);
+    }
 
 
             temp=0;
