@@ -1,17 +1,47 @@
+**********************************************************************************************************
 
-03.04.2020
+26.04.2020
 
-Graph isomorphism tests results (A and B are isomorphic): Function "SubGraphsInscribed"
+DIRECTED:
 
-Results (number of vertices - number of edges : duration)
-250-3500 : 40 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
-250-350  <1 sec           examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
-2500-3500 7 min           examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
-1250-1350 1 min 15 sec    examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
-Graphs in the input files are set as list of their edges (directed, unweighted)
+Graphs in the input files are set as list of their edges (directed, unweighted):
+250-350 : <1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
+250-3500 : 12 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
+1250-1350 : 5 sec         examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
+2500-3500 : 17 sec        examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
+
+UNDIRECTED:
+
+Graphs in the input files are set as list of their edges (undirected, unweighted)
+250-350 : <1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
+250-3500 : 34 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
+1250-1350 : 33 sec        examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
+2500-3500 : 55 sec        examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
+
 PC: 4Gb, CPU 3,00 GHz (~ 8 year old)
 
 **********************************************************************************************************
+
+25.04.2020
+
+DIRECTED:
+
+Graphs in the input files are set as list of their edges (directed, unweighted):
+250-350 : <1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
+250-3500 : 15 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
+1250-1350 : 2 sec         examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
+2500-3500 : 1.7 min       examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
+
+UNDIRECTED:
+
+Graphs in the input files are set as list of their edges (undirected, unweighted)
+250-350 : ~1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
+250-3500 : 41 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
+1250-1350 : 1.25 min      examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
+2500-3500 : 10 min        examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
+
+**********************************************************************************************************
+
 
 22.04.2020
 
@@ -31,22 +61,19 @@ Graphs in the input files are set as list of their edges (undirected, unweighted
 1250-1350 : 1.5 min       examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
 2500-3500 : 20 min        examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
 
+
+**********************************************************************************************************
+03.04.2020
+
+Graph isomorphism tests results (A and B are isomorphic): Function "SubGraphsInscribed"
+
+Results (number of vertices - number of edges : duration)
+250-3500 : 40 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
+250-350  <1 sec           examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
+2500-3500 7 min           examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
+1250-1350 1 min 15 sec    examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
+Graphs in the input files are set as list of their edges (directed, unweighted)
+PC: 4Gb, CPU 3,00 GHz (~ 8 year old)
+
 **********************************************************************************************************
 
-25.04.2020
-
-DIRECTED:
-
-Graphs in the input files are set as list of their edges (directed, unweighted):
-250-350 : <1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
-250-3500 : 15 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
-1250-1350 : 2 sec         examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
-2500-3500 : 1.7 min       examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
-
-UNDIRECTED:
-
-Graphs in the input files are set as list of their edges (undirected, unweighted)
-250-350 : ~1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
-250-3500 : 41 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
-1250-1350 : 1.25 min       examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
-2500-3500 : 10 min        examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
