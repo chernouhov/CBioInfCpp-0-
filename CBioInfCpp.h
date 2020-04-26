@@ -9549,10 +9549,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                         if (f1==1)
                         {
                             f2=1;
-                            NPaths[i].erase(NPaths[i].begin()+y);
-                            NPaths[i].erase(NPaths[i].begin()+y);
-                            NPaths[i].erase(NPaths[i].begin()+y);
+
+                            if (y!=NPaths[i].size()-3)
+                            {
+                                SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                            }
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
                             y=y-3;
+
+//                            NPaths[i].erase(NPaths[i].begin()+y);
+//                            NPaths[i].erase(NPaths[i].begin()+y);
+//                            NPaths[i].erase(NPaths[i].begin()+y);
+//                            y=y-3;
 
                         }
 
@@ -9599,10 +9611,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                             if (f1==1)
                             {
                                 f2=1;
-                                NPaths[i].erase(NPaths[i].begin()+y);
-                                NPaths[i].erase(NPaths[i].begin()+y);
-                                NPaths[i].erase(NPaths[i].begin()+y);
+
+                                if (y!=NPaths[i].size()-3)
+                                {
+                                    SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                    SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                    SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                                }
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
                                 y=y-3;
+
+//                                NPaths[i].erase(NPaths[i].begin()+y);
+//                                NPaths[i].erase(NPaths[i].begin()+y);
+//                                NPaths[i].erase(NPaths[i].begin()+y);
+//                                y=y-3;
 
                             }
 
@@ -9636,10 +9660,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         {
                             f2=1;
-                            NPaths[i].erase(NPaths[i].begin()+y);
-                            NPaths[i].erase(NPaths[i].begin()+y);
-                            NPaths[i].erase(NPaths[i].begin()+y);
+
+                            if (y!=NPaths[i].size()-3)
+                            {
+                                SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                            }
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
                             y=y-3;
+
+//                            NPaths[i].erase(NPaths[i].begin()+y);
+//                            NPaths[i].erase(NPaths[i].begin()+y);
+//                            NPaths[i].erase(NPaths[i].begin()+y);
+//                            y=y-3;
 
                         }
 
@@ -9968,10 +10004,22 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                             if (f1==1)
                             {
                                 f2=1;
-                                NPaths[i].erase(NPaths[i].begin()+y);
-                                NPaths[i].erase(NPaths[i].begin()+y);
-                                NPaths[i].erase(NPaths[i].begin()+y);
+
+                                if (y!=NPaths[i].size()-3)
+                                {
+                                    SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                    SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                    SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                                }
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
                                 y=y-3;
+
+//                                NPaths[i].erase(NPaths[i].begin()+y);
+//                                NPaths[i].erase(NPaths[i].begin()+y);
+//                                NPaths[i].erase(NPaths[i].begin()+y);
+//                                y=y-3;
 
                             }
 
