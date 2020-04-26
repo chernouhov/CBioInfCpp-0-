@@ -7206,6 +7206,189 @@ int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::ve
 }
 
 
+
+int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const int b, const bool weighted, int V = INT_MIN)
+{
+    // Модификация функции DistanceBFA (см. выше): нет поиска массива предков и вместо поиска в ширину применен алгоритм Беллмана — Форда.
+    // Рассчитывает расстояния от заданной вершины b до всех прочих в орграфе.
+    // Возвращается 1 в случае успеха (вектор D содержит кратчайшие расстояния от вершины b до вершины i).
+    // По умолчанию вектор D содержит значения LLONG_MAX, а вектор Prev - "-1".
+    // Если в ходе работы обнаружен цикл негативного веса, то функция возвращает -1 и пустой вектор D.
+    // На входе д.б. граф, заданный вектором смежности A (считается, что вершины нумеруются с 0), номер исходной вершины b и флаг, является ли граф взвешенным (const bool weighted). Для невзвешенных считается, что каждое ребро имеет вес = 1.
+    // Также на вход подается номер наибольшей вершины V (если не передан, рассчитывается самостоятельно как номер наибольшей вершины в ребрах)
+    // Функция работает со взвешенными и с невзвешенными графами, причем они могут содержать петли и множественные ребра. Ребра могут иметь как неотрицательный (в т.ч. и нулевой), так и отрицательный вес.
+
+    // Modification of the function DistanceBFA (used Bellman–Ford algorithm instead of Breadth-First Search and here is no search for previous vertices for every vertex in such shortest paths).
+    // The function counts the shortest distances from the vertex b to all vertices in the graph (these distances are to be contained in vector D, i.e. D[i] means the shortest distance from b to I).
+    // By default vector D is filled with LLONG_MAX.
+    // The Bellman–Ford algorithm is used here.
+    // The input graph should be directed, both weighted or unweighted (in case of unweighted graph we consider every edge's weight as "1".) The graph may have loops and multiple edges.
+    // Input data: Adjacency vector A (it is supposed that vertices are numbered starting from 0) and the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A)
+    // The edges may have weight of 0, >0, <0.
+    // In case we found a negative weight cycle as well as input data is incorrect the function returns "-1" and empty D.
+
+
+    D.clear();
+
+    if (A.size()==0) return -1;
+
+    if ((V<0)&&(V != INT_MIN)) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+
+     int mn, mx;
+    RangeVGraph (A, mx, mn, weighted);
+
+
+    if (mn<0)  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+    if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
+    {
+        return -1;
+    }
+
+    D.resize(V+1, LLONG_MAX); // По умолчанию расстояния равны + бесконечность // The default distance values is LLONG_MAX for every vertex
+
+
+
+
+
+   D[b] = 0; //дистанция от первой вершины до себя = 0 // the distance from starting vertex to itself = 0
+
+   int f=0;
+   for (int i=mn; i<=mx; i++)
+   {
+       f=0;
+       for (int j=0; j<A.size(); j=j+2+weighted) // lets look through A
+       {
+           if (D[A[j]]== LLONG_MAX) continue;
+           if (weighted)
+               if ( D[A[j+1]] > D[A[j]] + (long long int)(A[j+2]))
+                {
+                   D[A[j+1]] = D[A[j]] + (long long int)(A[j+2]);
+                   f=1;
+                }
+
+           if (!weighted)
+               if ( D[A[j+1]] > D[A[j]] + (long long int)(1))
+                {
+                   D[A[j+1]] = D[A[j]] + (long long int)(1);
+                   f=1;
+                }
+
+        }
+
+       if (f==0)
+       {break;}
+
+       if (i==mx)
+           {f=-1; break;}
+
+   }
+
+
+
+    if (f==-1)
+    {
+        D.clear();
+        return -1;
+    }
+
+    return 0;
+}
+
+
+
+int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, int V = INT_MIN)
+// Модификация функции DistanceBFA (вместо поиска в ширину применен алгоритм Беллмана — Форда для нецелочисленных весов ребер (double)), массив предков не строится.
+// Modification of the function DistanceBFA (used Bellman–Ford algorithm instead of Breadth-First Search and here is no search for previous vertices for every vertex in such shortest paths) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+{
+    D.clear();
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+
+
+    if ((V<0)&&(V != INT_MIN)) return -1;
+
+
+
+    int mn, mx;
+    RangeVGraph (A.first, mx, mn, false);
+
+
+    if (mn<0)  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+    if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
+    {
+        return -1;
+    }
+
+
+    D.resize(V+1, INFINITY); // По умолчанию расстояния равны + бесконечность // The default distance values is INFINITY for every vertex
+
+
+   D[b] = 0.0; //дистанция от первой вершины до себя = 0 // the distance from starting vertex to itself = 0
+
+
+   int f=0;
+   for (int i=mn; i<=mx; i++)
+   {
+       f=0;
+       for (int j=0; j<A.second.size(); j++) // lets look through A
+       {
+           if (D[A.first[2*j]]== INFINITY) continue;
+
+
+           if ( D[A.first[2*j+1]] > D[A.first[2*j]] + (long double)((A.second)[j]) )
+                {
+                   D[A.first[2*j+1]] = D[A.first[j*2]] + (long double)((A.second)[j]);
+                   f=1;
+                }
+
+       }
+
+
+
+       if (f==0)
+       {break;}
+
+       if (i==mx)
+           {f=-1; break;}
+
+   }
+
+
+
+    if (f==-1)
+    {
+        D.clear();
+        return -1;
+    }
+
+    return 0;
+}
+
+
+
+
 int DFS_for_NBPaths (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path)
 // An auxiliary function for NBPaths (see it below): DFS for finding isolated cycles
 // Вспомогательная функция для NBPaths (см. ниже): обход в глубину графа для поиска изолированных циклов
@@ -9277,7 +9460,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
        for (int i=0; i<=m; i++)
        {
-           DistanceBFA (A, D, i, Prev, false);
+           //DistanceBFA (A, D, i, Prev, false);
+           DistanceBFA (A, D, i, false);
            DA.push_back(D);
        }
 
@@ -9295,7 +9479,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
        for (int i=0; i<=mb; i++)
        {
-           DistanceBFA (B, D, i, Prev, false);
+           //DistanceBFA (B, D, i, Prev, false);
+           DistanceBFA (B, D, i, false);
            DB.push_back(D);
        }
 
