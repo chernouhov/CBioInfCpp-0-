@@ -942,6 +942,31 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
 ***
+`int DistanceBFA (std::vector <int> &A, std::vector <long long int> & D, const int b, const bool weighted, int V = INT_MIN)`
+
+Modification of the function DistanceBFA (used Bellman–Ford algorithm instead of Breadth-First Search and here is no search for previous vertices for every vertex in such shortest paths).
+
+The function counts the shortest distances from the vertex b to all vertices in the graph (these distances are to be contained in vector D, i.e. D[i] means the shortest distance from b to I).
+By default vector D is filled with LLONG_MAX.
+
+The Bellman–Ford algorithm is used here.
+
+The input graph should be directed, both weighted or unweighted (in case of unweighted graph we consider every edge's weight as "1".) The graph may have loops and multiple edges.
+
+Input data: Adjacency vector A (it is supposed that vertices are numbered starting from 0) and the maximum vertex number V (V may be not set, in this case it will be the maximum vertex number of Adjacency vector A)
+
+The edges may have weight of 0, >0, <0.
+
+In case we found a negative weight cycle as well as input data is incorrect the function returns "-1" and empty D.
+***
+`int DistanceBFA (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, int V = INT_MIN)`
+
+Modification of the function DistanceBFA (used Bellman–Ford algorithm instead of Breadth-First Search and here is no search for previous vertices for every vertex in such shortest paths) for not-integer (double) weights of edges of a graph.
+
+Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+
+So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+***
 `int DFSTS (const std::vector <int> & A, const int b, std::vector <int> & Visited,
 std::vector <int> & order, const bool weighted)`
 
