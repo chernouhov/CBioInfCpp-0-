@@ -1,17 +1,21 @@
 **********************************************************************************************************
 27.04.2020
 
-DIRECTED:
+Graph isomorphism tests results (A and B are isomorphic graphs): Function "SubGraphsInscribed"
 
-Graphs in the input files are set as list of their edges (directed, unweighted):
+Results (number of vertices - number of edges : duration):
+
+if we consider A and B as DIRECTED grahps:
+(Graphs in the input files are set as list of their edges (directed, unweighted))
+
 250-350 : <1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
 250-3500 : 12 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
 1250-1350 : 4 sec         examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
 2500-3500 : 15 sec        examples of input graphs: A is in inA-2500-3500.txt, B is in inB-2500-3500.txt
 
-UNDIRECTED:
+if we consider A and B as UNDIRECTED grahps:
+(Graphs in the input files are set as list of their edges (undirected, unweighted))
 
-Graphs in the input files are set as list of their edges (undirected, unweighted)
 250-350 : <1 sec          examples of input graphs: A is in inA-250-350.txt, B is in inB-250-350.txt
 250-3500 : 34 sec         examples of input graphs: A is in inA-250-3500.txt, B is in inB-250-3500.txt
 1250-1350 : 33 sec        examples of input graphs: A is in inA-1250-1350.txt, B is in inB-1250-1350.txt
