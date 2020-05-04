@@ -1408,6 +1408,10 @@ vector's range or vector is empty
 Swaps 2 elements in vector (string). Returns -1 if some index out of vector's
 range or if the vector is empty
 ***
+`int GraphVerticesNumbersCompress (std::vector <int> & P, const bool weighted)`
+
+Renumbering of vertices of the graph P (set by Adjacency vector P) to make the sequence of numbers of vertices as a row of not-negative integers with no blanks. Weighted sets if the graph P is weighted.
+***
 `std::string CIGAR1 (const std::string &S0, const std:: string & S2, int npos = 0)`
 
 Generates CIGAR-string as a result of "fitting" of the string S2 to s0 (starting position == npos). 
