@@ -1903,6 +1903,44 @@ int SwapInVector (std::vector <std::string> & A1, unsigned int f, unsigned int l
 }
 
 
+int GraphVerticesNumbersCompress (std::vector <int> & P, const bool weighted)
+// Renumbering of vertices of the graph P (set by Adjacency vector P) to make the sequence of numbers of vertices as a row of not-negative integers with no blanks.
+// Перенумеровывает вершина графа, заданного вектором смежности P, таким образом, чтобы все номера вершин составляли ряд неотрицательных целых чисел без пропусков.
+// Параметр weighted задает, является ли граф взвешенным.
+
+{
+    if (P.size()==0) return -1; // checking for input data correctness
+    if ( (P.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+    std::set<int> Numbers;
+    Numbers.clear();
+    for (int i=0; i<P.size();i=i+2+weighted)
+    {
+        Numbers.insert(P[i]);
+        Numbers.insert(P[i+1]);
+    }
+
+    std::unordered_map <int, int> V; V.clear();
+    int q=0;
+    for (auto i=Numbers.begin(); i!=Numbers.end();i++)
+    {
+        V.insert(std::pair<int, int>(*i, q));
+        q++;
+    }
+
+
+    for (int i=0; i<P.size();i=i+2+weighted)
+    {
+        P[i] = V[P[i]];
+        P[i+1] = V[P[i+1]];
+    }
+
+    return 0;
+
+}
+
+
+
 int HmDist (const std::string &s1, const std::string &s2)
 {
     // Counts Hamming Distance; returns -1 if any string is empty or they have different length.

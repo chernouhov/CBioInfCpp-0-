@@ -94,7 +94,11 @@ But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3-
 
 
 22.04.2020
-- Добавлены функция генерации алфавита исходя из одной заданной строки GenerateAlphabet.
+- Добавлена функция генерации алфавита исходя из одной заданной строки GenerateAlphabet.
 - Добавлено семейство функций MakeSubgraphSetOfVertices для взятия подграфа из графа, заданного вектором смежности, по заданному набору вершин.
-- Added function GenerateAlphabet for a single string.
+- Modified function GenerateAlphabet for a single string.
 - Added group of function MakeSubgraphSetOfVertices to generate a subgraphs of a given graph (set by Adjacency vector) and a set/ unordered_set of vertices to be chosen.
+
+04.05.2020
+- Добавлена функция GraphVerticesNumbersCompress.
+- Function GraphVerticesNumbersCompress has been added.
