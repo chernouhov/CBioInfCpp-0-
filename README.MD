@@ -301,6 +301,22 @@ Modification of the function GraphCout for mega-map (see it above) for not-integ
 
 Modification of the function GraphFout for mega-map (see it above) for not-integer (double) weights of edges.
 ***
+`int CoutSuffixTree (const std::vector <int> & Tree, const std::string DataS, bool tree=true, bool strings = true)`
+
+"Couts" the suffix tree set by Tree (its format see at SuffixTreeMake' s description). The string itself is set by DataS.
+No checking of input data correctness is here.
+
+If "tree" = true couts every 4 numbers  that set each edge of the tree in line.
+If "strings" = true couts every substring that relevant to each edge in line.
+***
+`int FoutSuffixTree (const std::vector <int> & Tree, const std::string DataS, std::ofstream &fout, bool tree=true, bool strings = true)`
+
+"Fouts" the suffix tree set by Tree (its format see at SuffixTreeMake' s description). The string itself is set by DataS.
+No checking of input data correctness is here.
+
+If "tree" = true couts every 4 numbers  that set each edge of the tree in line.
+If "strings" = true couts every substring that relevant to each edge in line.
+***
 
 # Working with strings
 `int HmDist (const std::string &s1, const std::string &s2)`
@@ -533,6 +549,15 @@ here.
 
 Comparing function for arranging an array (vector) of strings in descending
 length order
+***
+`int SuffixTreeMake (const std::string &DataS, std::vector <int> & Tree, int b=1)`
+
+Suffix Tree constructing upon a string DataS. If DataS is empty returns -1, if success returns 0.
+
+Suffix Tree will be contained in the vector Tree, every edge as quartet of integers:
+number of tne start-vertex of edge, number of end-vertex of edge, starting position of substring in DataS, the length of this substring.
+
+"b" sets the number to start numerating of vertices of suffix tree.
 ***
 `std::string ShortSuperstringGr (std::vector <std::string> DataS)`
 
