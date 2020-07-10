@@ -979,6 +979,23 @@ int VectorCout (const std::vector <int> &P)
     return 0;
 }
 
+
+int VectorCout (const std::vector <unsigned int> &P)
+// Вывод вектора (unsigned int) на экран через пробелы
+// "Couts" vector (unsigned int) to screen. Returns -1 if the vector is empty
+
+{
+
+    if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        std::cout<< P[i]<<" ";
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+
 int VectorFout (const std::vector <int> &P, std::ofstream &fout)
 // Вывод вектора (int) в файл через пробелы. Возвращает -1, если вектор - пустой
 // "Fouts" vector (int) to file. Returns -1 if the vector is empty
@@ -993,6 +1010,106 @@ int VectorFout (const std::vector <int> &P, std::ofstream &fout)
 }
 
 
+int VectorCout (const std::vector <short int> &P)
+// Вывод вектора (short int) на экран через пробелы
+// "Couts" vector (short int) to screen. Returns -1 if the vector is empty
+
+{
+
+    if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        std::cout<< P[i]<<" ";
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+
+int VectorFout (const std::vector <short int> &P, std::ofstream &fout)
+// Вывод вектора (short int) в файл через пробелы. Возвращает -1, если вектор - пустой
+// "Fouts" vector (short int) to file. Returns -1 if the vector is empty
+{
+
+     if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        fout<< P[i]<<" ";
+    fout<< std::endl;
+    return 0;
+}
+
+
+int VectorCout (const std::vector <unsigned short int> &P)
+// Вывод вектора (unsigned short int) на экран через пробелы
+// "Couts" vector (unsigned short int) to screen. Returns -1 if the vector is empty
+
+{
+
+    if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        std::cout<< P[i]<<" ";
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+
+int VectorFout (const std::vector <unsigned short int> &P, std::ofstream &fout)
+// Вывод вектора (unsigned short int) в файл через пробелы. Возвращает -1, если вектор - пустой
+// "Fouts" vector (unsigned short int) to file. Returns -1 if the vector is empty
+{
+
+     if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        fout<< P[i]<<" ";
+    fout<< std::endl;
+    return 0;
+}
+
+int VectorCout (const std::vector <bool> &P)
+// Вывод вектора (bool) на экран через пробелы
+// "Couts" vector (bool) to screen. Returns -1 if the vector is empty
+
+{
+
+    if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        std::cout<< P[i]<<" ";
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+
+int VectorFout (const std::vector <bool> &P, std::ofstream &fout)
+// Вывод вектора (bool) в файл через пробелы. Возвращает -1, если вектор - пустой
+// "Fouts" vector (bool) to file. Returns -1 if the vector is empty
+{
+
+     if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        fout<< P[i]<<" ";
+    fout<< std::endl;
+    return 0;
+}
+
+int VectorFout (const std::vector <unsigned int> &P, std::ofstream &fout)
+// Вывод вектора (unsigned int) в файл через пробелы. Возвращает -1, если вектор - пустой
+// "Fouts" vector (unsigned int) to file. Returns -1 if the vector is empty
+{
+
+     if (P.size()==0) return -1;
+
+    for (int i=0; i<P.size();i++)
+        fout<< P[i]<<" ";
+    fout<< std::endl;
+    return 0;
+}
 
 int VectorCout (const std::vector <long long int> &P)
 // Вывод вектора (long long int) на экран через пробелы
@@ -3904,6 +4021,196 @@ return 0;
 }
 
 
+int SuffixTreeMake (const std::string &DataS, std::vector <int> & Tree, int b=1)
+// Suffix Tree constructing upon a string DataS. If DataS is empty returns -1, if success returns 0.
+// Suffix Tree will be contained in the vector Tree, every edge as quartet of integers:
+// number of tne start-vertex of edge, number of end-vertex of edge, starting position of substring in DataS, the length of this substring.
+// "b" sets the number to start numerating of vertices of suffix tree.
+// Построение сууфиксного дерева Tree по строке DataS. Возвращает -1, если длина строки <1, в случае успеха вернет 0.
+// Суффиксное дерево возвращается в виде вектора Tree, представленного в виде квартетов чисел:
+// номер вершины-начала ребра, номер вершины-конец ребра, стартовая позиция подстроки в строке DataS, ее (подстроки) длина.
+// параметр b задает, с какого номера будут нумероваться вершины в суффиксном дереве.
+
+{
+    Tree.clear(); // Here Suffix Tree will be contained.
+    // Здесь будет само дерево
+
+    if (DataS.length()<1) return -1; // Function works only for non-empty strings.
+
+
+    std::string TempS = DataS;
+
+    Tree.reserve(4*DataS.length());
+
+    Tree.push_back(b);
+    Tree.push_back(b+1);
+    Tree.push_back(0);
+    Tree.push_back(DataS.length());
+
+    int last = b+1; //последняя добавленная вершина
+    int ind=b; //с которого прикладываем
+    int l=0;
+    int count=0;
+    int sink=-1;
+    int f=0;
+
+    for (int i=1; i<DataS.length(); i++)
+    {
+
+        TempS=DataS.substr(i, DataS.length()-i);
+
+        count=0; // сколько символов уже отсчитали по TempS
+        ind=b;
+        l=0; // сколько символов отсчитали от очередного узла ind
+        sink=-1;
+
+
+        l2:;
+        f=0;
+
+        for (int j=0; j<Tree.size(); j=j+4)
+        {
+            l1: ;
+            if (count>=TempS.length())
+                break;
+
+
+            if ((Tree[j]==ind)&&(TempS[count])==DataS[l+Tree[j+2]])
+            {
+                f=1;
+                if(l<Tree[j+3])
+                {
+                    l++;
+                    count++;
+                    sink = Tree[j+1];
+
+                }
+
+                if(l>=Tree[j+3])
+                {
+                    ind = Tree[j+1];
+                    sink=-1;
+                    l=0;
+                    goto l2;
+                }
+
+                goto l1;
+
+            }
+
+            if (f==1) break;
+
+        }
+
+
+        if (count==0)
+        {
+            Tree.push_back(b);
+            Tree.push_back(last+1);
+            last++;
+            Tree.push_back(i);
+            Tree.push_back(TempS.length());
+
+        }
+
+        if ((count>0)&&(count<=TempS.length()))
+        {
+            if (sink==-1)
+            {
+
+                Tree.push_back(ind);
+                Tree.push_back(last+1);
+                last++;
+                Tree.push_back(i+count);
+                Tree.push_back(TempS.length()-count);
+
+            }
+            if (sink!=-1)
+            {
+
+                for (int j=0; j<Tree.size(); j=j+4)
+                     if ((Tree[j]==ind)&& (Tree[j+1]==sink))
+                     {
+                         Tree.push_back(ind);
+                         Tree.push_back(last+1);
+                         last++;
+                         Tree.push_back(Tree[j+2]);
+                         Tree.push_back(l);
+
+                         Tree.push_back(last);
+                         Tree.push_back(sink);
+
+                         Tree.push_back(Tree[j+2]+l);
+                         Tree.push_back(Tree[j+3]-l);
+
+
+                         Tree[j] = last;
+                         Tree[j+1] = last+1;
+                         last++;
+                         Tree[j+2] = i+count;
+                         Tree[3+j] = TempS.length()-count;
+
+                     }
+             }
+
+        }
+
+    }
+
+
+   return 0;
+}
+
+
+
+
+int CoutSuffixTree (const std::vector <int> & Tree, const std::string DataS, bool tree=true, bool strings = true)
+// "Couts" the suffix tree set by Tree (its format see at SuffixTreeMake' s description). The string itself is set by DataS.
+// No checking of input data correctness is here.
+// If "tree" = true couts every 4 numbers  that set each edge of the tree in line.
+// If "strings" = true couts every substring that relevant to each edge in line.
+
+// Выводит на экран суффиксное дерево, заданное вектором числе в порядке, указанном в описании функции SuffixTreeMake. Сама строка задается DataS. Проверка корректности исходных данных не проводится.
+// Если "tree" = true, выводит по каждому ребру квартет чисел, его задающих (каждый квартет - вновой строке).
+// Если "strings" = true, выводит по каждому ребру соотвествующую ему подстроку из строки DataS
+
+{
+    if (Tree.size()%4 != 0) return -1;
+
+    for (int i=0; i<Tree.size(); i=i+4)
+    {
+        if (tree==true)
+            std::cout<<Tree[i]<<" "<<Tree[i+1]<<" "<<Tree[i+2]<<" "<<Tree[i+3]<<std::endl;
+        if (strings==true)
+            std::cout<<DataS.substr(Tree[i+2], Tree[i+3])<<std::endl;
+
+    }
+    return 0;
+}
+
+
+int FoutSuffixTree (const std::vector <int> & Tree, const std::string DataS, std::ofstream &fout, bool tree=true, bool strings = true)
+// "Fouts" the suffix tree set by Tree (its format see at SuffixTreeMake' s description). The string itself is set by DataS.
+// No checking of input data correctness is here.
+// If "tree" = true couts every 4 numbers  that set each edge of the tree in line.
+// If "strings" = true couts every substring that relevant to each edge in line.
+
+// Выводит в файл суффиксное дерево, заданное вектором числе в порядке, указанном в описании функции SuffixTreeMake. Сама строка задается DataS. Проверка корректности исходных данных не проводится.
+// Если "tree" = true, выводит по каждому ребру квартет чисел, его задающих (каждый квартет - вновой строке).
+// Если "strings" = true, выводит по каждому ребру соотвествующую ему подстроку из строки DataS
+
+{
+    if (Tree.size()%4 != 0) return -1;
+
+    for (int i=0; i<Tree.size(); i=i+4)
+    {
+        if (tree==true)
+            fout<<Tree[i]<<" "<<Tree[i+1]<<" "<<Tree[i+2]<<" "<<Tree[i+3]<<std::endl;
+        if (strings==true)
+            fout<<DataS.substr(Tree[i+2], Tree[i+3])<<std::endl;
+    }
+    return 0;
+}
 
 
 int PartitionOfNumber (std::vector <std::vector <int>> &B, int n)
