@@ -1280,7 +1280,7 @@ An auxiliary function for Circles_in_Graph (see it below): DFS for finding cycle
 ***
 `int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
 
-An experimental function to find all cycles in graph that is set by Adjacency vector A. May be too slow or have some mistakes.
+An experimental function to find simple cycles in graph that is set by Adjacency vector A. May be too slow or have some mistakes.
 
 A may be weighted or no (set by w) and directed or no (set be directed).
 
