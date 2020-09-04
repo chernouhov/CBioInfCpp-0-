@@ -8443,8 +8443,8 @@ int AllPathsDGraph (std::vector <int>&A, const int &b, const int &e, const bool 
 
 }
 
-int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)
-// An auxiliary function for Circles_in_Graph (see it below): DFS for finding cycles
+int DFS_for_Cycles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)
+// An auxiliary function for Cycles_in_Graph (see it below): DFS for finding cycles
 // Вспомогательная функция для Circles_in_Graph (см. ниже): обход в глубину графа
 
 
@@ -8480,7 +8480,7 @@ int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, con
            Visited[(A[r+1])] = 1;
 
 
-           DFS_for_Circles (A, w, A[r+1], bconst, Visited, Path, GPath, mn, directed);
+           DFS_for_Cycles (A, w, A[r+1], bconst, Visited, Path, GPath, mn, directed);
            Visited[(A[r+1])] = 0;
            Path.pop_back();
 
@@ -8557,7 +8557,7 @@ int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, con
 
 
 
-           DFS_for_Circles (A, w, A[r+1], bconst, Visited, Path, GPath, mn, directed);
+           DFS_for_Cycles (A, w, A[r+1], bconst, Visited, Path, GPath, mn, directed);
            Visited[(A[r+1])] = 0;
            Path.pop_back();
 
@@ -8574,7 +8574,7 @@ int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, con
 
 
 
-           DFS_for_Circles (A, w, A[r], bconst, Visited, Path, GPath, mn, directed);
+           DFS_for_Cycles (A, w, A[r], bconst, Visited, Path, GPath, mn, directed);
            Visited[(A[r])] = 0;
            Path.pop_back();
 
@@ -8595,15 +8595,15 @@ int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, con
 
 
 
-int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)
+int Cycles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)
 // An experimental function to find simple cycles in graph that is set by Adjacency vector A. May be too slow or have some mistakes.
 // A may be weighted or no (set by w) and directed or no (set be directed).
 // If StartV is not empty, the function searches only for cycles that contain any vertex in StartV.
-// Returns 0 and set of cycles found in Paths, if input data are incorrect returns -1 and empty Paths.
+// Returns the number of cycles found and set of cycles themselves in Paths, if input data are incorrect returns -1 and empty Paths.
 // Экспериментальная функция для поиска простых циклов в графе. Может работать неточно и долго.
 // Если множество StartV непустое, ищет циклы только через эти вершины.
 // Граф задается вектором смежности A. w задает, взвешенный ли он, а directed - ориентированный ли он.
-// Возвращает 0 и найденные циклы в Paths, в случае некорректных исходных данных вернет пустой Paths и -1.
+// Возвращает кол-во найденных циклов и сами найденные циклы в Paths, в случае некорректных исходных данных вернет пустой Paths и -1.
 
 {
     Paths.clear();
@@ -8702,7 +8702,7 @@ int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector
         for (auto it = StartV.begin(); it!=StartV.end(); it++)
         {
             Path.clear();
-            DFS_for_Circles (A, w, *it-mn*(mn<0), *it-mn*(mn<0), Visited, Path, Paths, mn, directed);
+            DFS_for_Cycles (A, w, *it-mn*(mn<0), *it-mn*(mn<0), Visited, Path, Paths, mn, directed);
             Visited [*it-mn*(mn<0)] = 2;
         }
 
@@ -8715,6 +8715,131 @@ int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector
 
 
     }
+
+return Paths.size();
+
+}
+
+
+
+template < typename TMEE>
+int MatrixEraseElement (std::vector <std::vector <TMEE>> & B, const int &j)
+{
+    // Удаление элемента j из матрицы B, матрица может содержать элементы произвольных типов.
+    // Нумерация элементов - с нуля. если матрица пустая или элемент в ней не содержится (задан слишком большой его номер) - выдаст -1, если успех - 0.
+    // Строки матрицы могут быть, в принципе, не равны друг другу по днине
+
+    // Erasing an element #j from matrix B (0-based indexing)
+    // If input data are incorrect return -1. If success returns 1
+    // NB Matrix B may have rows of different lenght.
+
+     if (B.size()<=j) return -1;
+     if (j<0) return -1;
+     for (int w=0;w<B.size();w++)
+     {
+         if (B[w].size()<=j) return -1;
+     }
+
+     B.erase(B.begin()+j)    ;
+     for (int w=0;w<B.size();w++)
+     {
+         B[w].erase(B[w].begin()+j);
+     }
+
+    return 0;
+}
+
+int UWGraphFromWGraph (const std::vector <int> &P1, std::vector <int> &P2)
+// Construct unweighted graph P2 upon weighted graph P1 (only edges without their weights are to be included to P2).
+// P1 and P2 are set by adjacency vector.
+// If success returns 0. If input data incorrect returns -1 and empty P2
+// Конструирует невзвешенный граф Р2 из взвешенного Р2 (копируются ребра без весов). Вектора заданы векторами смежности.
+// Если успех - возвращает 0, если исходные данные некорректны - вернет -1 и пустой Р2.
+{
+P2.clear();
+
+if (P1.size()%3!=0) return -1;
+
+for (int q=0; q<P1.size();q=q+3)
+{
+    P2.push_back(P1[q]);
+    P2.push_back(P1[q+1]);
+}
+
+return 0;
+
+}
+
+
+int WGraphFromUWGraph (const std::vector <int> &P1, std::vector <int> &P2)
+// Construct weighted graph P2 upon unweighted graph P1 (let the weight of every edge is = 1).
+// P1 and P2 are set by adjacency vector.
+// If success returns 0. If input data incorrect returns -1 and empty P2
+// Конструирует взвешенный граф Р2 из невзвешенного Р2 (считается, что вес любого ребра =1). Вектора заданы векторами смежности.
+// Если успех - возвращает 0, если исходные данные некорректны - вернет -1 и пустой Р2.
+{
+P2.clear();
+
+if (P1.size()%2!=0) return -1;
+
+for (int q=0; q<P1.size();q=q+2)
+{
+    P2.push_back(P1[q]);
+    P2.push_back(P1[q+1]);
+    P2.push_back(1);
+}
+
+return 0;
+
+}
+
+
+int PathFromPrev (std::vector <int> &Path, const std::vector <int> &Prev, const int b, const int e, const bool ignoreb = false)
+// Вспомогательная функция. Конструирует путь Path в графе от вершины b до e согласно массиву предков Prev. Prev [i] содержит номер вершины-предка для вершины i, либо -1, если предка нет.
+// Путь собирается "от конца", т.е. от вершины е. Если bool ignoreb = false, то ищется путь строго от b до е. Иначе - началом пути также может быть некоторая вершина, не имеющая предка.
+// Если входные данные некорректны, вернет -1 и пустой Path. В случае успеха вернет 0.
+
+// An auxiliary function. Constructs path Path in some graph from vertex b to vertex e upon an array of Prev.
+// Prev [i] contains the number of the previous vertex of the vertex i in the Path or -1 if vertex i has no previous vertex.
+// Returns -1 and empty Path if input data are incorrect. If success returns 0.
+// If bool ignoreb = false the function looks for path from b to e exactly.
+// Otherwise it may also return a path starting from some vertex with no previous one, if only such path may be constructed to the vertex e (from-end-to begin construction is implemented).
+
+
+
+{
+Path.clear();
+
+if (b<0) return -1;
+if (e<0) return -1;
+
+if (b>=Prev.size()) return -1;
+if (e>=Prev.size()) return -1;
+
+
+if (b==e)
+{
+    Path.push_back(e);
+    return 0;
+}
+
+int x = e;
+while(x>=0)
+{
+
+    Path.push_back(x);
+    x = Prev[x];
+    if (x==b)
+    {
+        Path.push_back(x);
+        break;
+    }
+}
+
+std::reverse(Path.begin(), Path.end());
+if (!ignoreb)
+    if (Path[0]!=b)
+        Path.clear();
 
 return 0;
 

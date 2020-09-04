@@ -108,3 +108,9 @@ But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3-
 - Function SuffixTreeMake (to make a suffix tree upon a string) and CoutSuffixTree & FoutSuffixTree (to out suffix tree to screen or to file) has been added.
 Suffix Tree will be contained in the vector of integers Tree, every edge as quartet of integers:
 number of the start-vertex of edge, number of end-vertex of edge, starting position of substring of the basic string, the length of this substring.
+
+
+04.09.2020
+- Добавлены некоторые вспомогательные функции.
+- Some auxiliary functions have been added.
+
