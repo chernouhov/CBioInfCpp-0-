@@ -1171,11 +1171,11 @@ INT_MIN)`
 
 Возвращает 0 и найденные пути в GPath, в случае некорректных исходных данных вернет пустой GPath и -1.
 ***
-`int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)`
+`int DFS_for_Cycles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)`
 
-Вспомогательная функция для Circles_in_Graph (см. ниже): обход в глубину графа
+Вспомогательная функция для Cycles_in_Graph (см. ниже): обход в глубину графа.
 ***
-`int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
+`int Cycles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
 
 Экспериментальная функция для поиска простых циклов в графе. Может работать неточно и долго.
 
@@ -1183,7 +1183,7 @@ INT_MIN)`
 
 Граф задается вектором смежности A. w задает, взвешенный ли он, а directed - ориентированный ли он.
 
-Возвращает 0 и найденные циклы в Paths, в случае некорректных исходных данных вернет пустой Paths и -1.
+Возвращает кол-во найденных циклов и сами найденные циклы в Paths, в случае некорректных исходных данных вернет пустой Paths и -1.
 ***
 `int SCCGraph_Vertices (std::vector <int> & A, std::vector <std::set <int>> & G, const bool weighted, int mn = 0, int V = INT_MIN)`
 
@@ -1366,3 +1366,30 @@ l)`
 `std::string GenerateAlphabet (const std::string &DataS)`
 
 Формирует алфавит из символов, входящих в строку DataS. Порядок символов в алфавите задается ASCII. 
+***
+`int PathFromPrev (std::vector <int> &Path, const std::vector <int> &Prev, const int b, const int e, const bool ignoreb = false)`
+
+Вспомогательная функция. Конструирует путь Path в графе от вершины b до e согласно массиву предков Prev. Prev [i] содержит номер вершины-предка для вершины i, либо -1, если предка нет.
+
+Путь собирается "от конца", т.е. от вершины е. Если bool ignoreb = false, то ищется путь строго от b до е. Иначе - началом пути также может быть некоторая вершина, не имеющая предка.
+
+Если входные данные некорректны, вернет -1 и пустой Path. В случае успеха вернет 0.
+***
+`int WGraphFromUWGraph (const std::vector <int> &P1, std::vector <int> &P2)`
+
+Конструирует взвешенный граф Р2 из невзвешенного Р2 (считается, что вес любого ребра =1). Вектора заданы векторами смежности.
+Если успех - возвращает 0, если исходные данные некорректны - вернет -1 и пустой Р2.
+***
+`int UWGraphFromWGraph (const std::vector <int> &P1, std::vector <int> &P2)`
+
+Конструирует невзвешенный граф Р2 из взвешенного Р2 (копируются ребра без весов). Вектора заданы векторами смежности.
+Если успех - возвращает 0, если исходные данные некорректны - вернет -1 и пустой Р2.
+***
+`template < typename TMEE>`
+
+`int MatrixEraseElement (std::vector <std::vector <TMEE>> & B, const int &j)`
+
+Удаление элемента j из матрицы B, матрица может содержать элементы произвольных типов.
+Нумерация элементов - с нуля. если матрица пустая или элемент в ней не содержится (задан слишком большой его номер) - выдаст -1, если успех - 0.
+Строки матрицы могут быть, в принципе, не равны друг другу по длине
+***
