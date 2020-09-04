@@ -1274,11 +1274,11 @@ Graph A may be weighted or no (set by weighted).
 
 Returns 0 and set of paths found in GPath, if input data are incorrect returns -1 and empty GPath.
 ***
-`int DFS_for_Circles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)`
+`int DFS_for_Cycles (const std::vector <int> & A, const bool w, const int b, const int bconst, std::vector <int> & Visited, std::vector <int> & Path, std::set <std::vector <int>> &GPath, int &mn, const bool &directed)`
 
-An auxiliary function for Circles_in_Graph (see it below): DFS for finding cycles
+An auxiliary function for Cycles_in_Graph (see it below): DFS for finding cycles
 ***
-`int Circles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
+`int Cycles_in_Graph (std::vector <int> & A, const bool w, std::set <std::vector<int> >&Paths, std::set <int> &StartV, const bool directed = true)`
 
 An experimental function to find simple cycles in graph that is set by Adjacency vector A. May be too slow or have some mistakes.
 
@@ -1286,7 +1286,7 @@ A may be weighted or no (set by w) and directed or no (set be directed).
 
 If StartV is not empty, the function searches only for cycles that contain any vertex in StartV.
 
-Returns 0 and set of cycles found in Paths, if input data are incorrect returns -1 and empty Paths.
+Returns the number of cycles found and set of cycles themselves in Paths, if input data are incorrect returns -1 and empty Paths.
 ***
 `int NeighborJoiningUndirectedGraph (const std::vector <std::vector <double>> B, std::pair < std::vector<int>, std::vector<double>> &A)`
 
@@ -1472,4 +1472,37 @@ returns empty B and "-1"
 Generates an alphabet upon the given vector of strings DataS. Symbols will be ordered under ASCII.
 ***
 `std::string GenerateAlphabet (const std::string &DataS)`
+
 Generates an alphabet upon the given string DataS. Symbols will be ordered under ASCII.
+***
+`int PathFromPrev (std::vector <int> &Path, const std::vector <int> &Prev, const int b, const int e, const bool ignoreb = false)`
+
+An auxiliary function. Constructs path Path in some graph from vertex b to vertex e upon an array of Prev.
+
+Prev [i] contains the number of the previous vertex of the vertex i in the Path or -1 if vertex i has no previous vertex.
+
+Returns -1 and empty Path if input data are incorrect. If success returns 0.
+
+If bool ignoreb = false the function looks for path from b to e exactly.
+Otherwise it may also return a path starting from some vertex with no previous one, if only such path may be constructed to the vertex e (from-end-to begin construction is implemented).
+***
+`int WGraphFromUWGraph (const std::vector <int> &P1, std::vector <int> &P2)`
+
+Constructs weighted graph P2 upon unweighted graph P1 (let the weight of every edge is = 1).
+P1 and P2 are set by adjacency vector.
+If success returns 0. If input data incorrect returns -1 and empty P2.
+***
+`int UWGraphFromWGraph (const std::vector <int> &P1, std::vector <int> &P2)`
+
+Constructs unweighted graph P2 upon weighted graph P1 (only edges without their weights are to be included to P2).
+P1 and P2 are set by adjacency vector.
+If success returns 0. If input data incorrect returns -1 and empty P2.
+***
+`template < typename TMEE>`
+
+`int MatrixEraseElement (std::vector <std::vector <TMEE>> & B, const int &j)`
+
+Erasing an element #j from matrix B (0-based indexing)
+If input data are incorrect return -1. If success returns 1
+Note: Matrix B may have rows of different lenght.
+***
