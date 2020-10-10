@@ -7,6 +7,10 @@ English | [Русский](README.ru.MD)
 [Working with graphs](#working-with-graphs)  
 [Auxiliary functions](#auxiliary-functions)  
 
+***
+**Author will be glad to receive your feedback**
+***
+
 # About 
 
 This document contains general data on CBioInfCpp.h library.
