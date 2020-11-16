@@ -1942,82 +1942,22 @@ struct PairIntHash  // for unordered_set and unordered_map
 };
 
 
-int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)
+template < typename TSW>
+int SwapInVector (std::vector <TSW> & A1, unsigned int f, unsigned int l)
 {
-    // swaps 2 elements in vector (int). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (int), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
+    // swaps 2 elements in vector. Returns -1 if some index out of vector's range or vector is empty
+    // Замена элементов в векторе, возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
 
 
     if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
 
-    int t = A1[f];
+    TSW t = A1[f];
     A1[f] = A1[l];
     A1[l] = t;
     return 0;
 
 }
 
-int SwapInVector (std::vector <long long int> & A1, unsigned int f, unsigned int l)
-{
-    // swaps 2 elements in vector (long long int). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (long long int), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
-
-
-    if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
-
-    long long int t = A1[f];
-    A1[f] = A1[l];
-    A1[l] = t;
-    return 0;
-
-}
-
-int SwapInVector (std::vector <double> & A1, unsigned int f, unsigned int l)
-{
-    // swaps 2 elements in vector (double). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (double), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
-
-
-    if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
-
-    double t = A1[f];
-    A1[f] = A1[l];
-    A1[l] = t;
-    return 0;
-
-}
-
-
-int SwapInVector (std::vector <long double> & A1, unsigned int f, unsigned int l)
-{
-    // swaps 2 elements in vector (long double). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (long double), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
-
-
-    if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
-
-    long double t = A1[f];
-    A1[f] = A1[l];
-    A1[l] = t;
-    return 0;
-
-}
-
-
-int SwapInVector (std::vector <std::string> & A1, unsigned int f, unsigned int l)
-{
-    // swaps 2 elements in vector (string). Returns -1 if some index out of vector's range or vector is empty
-    // Замена элементов в векторе (string), возвращает -1 если хоть один из запрашиваемых индексов выходит за размер вектора либо если вектор пустой
-
-
-    if ((A1.size()==0) || (f>=A1.size()) || (l>=A1.size())) return -1;
-
-    std::string t = A1[f];
-    A1[f] = A1[l];
-    A1[l] = t;
-    return 0;
-
-}
 
 
 int GraphVerticesNumbersCompress (std::vector <int> & P, const bool weighted)
