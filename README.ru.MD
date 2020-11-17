@@ -1301,31 +1301,11 @@ int start = 0)`
 Если переданное значение step <1, то step присваивается значение 1. 
 Если переданное значение start <0, то start присваивается значение 0.
 ***
-`int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)`
+`template < typename TSW>`
+`int SwapInVector (std::vector <TSW> & A1, unsigned int f, unsigned int l)`
 
-Замена элементов в векторе (int), возвращает -1 если хоть один из запрашиваемых 
-индексов выходит за размер вектора либо если вектор пустой.
-***
-`int SwapInVector (std::vector <long long int> & A1, unsigned int f, unsigned int
-l)`
-
-Замена элементов в векторе (long long int), возвращает -1 если хоть один из 
-запрашиваемых индексов выходит за размер вектора либо если вектор пустой. 
-***
-`int SwapInVector (std::vector <double> & A1, unsigned int f, unsigned int l)`
-
-Замена элементов в векторе (double), возвращает -1 если хоть один из запрашиваемых 
-индексов выходит за размер вектора либо если вектор пустой.
-***
-`int SwapInVector (std::vector <long double> & A1, unsigned int f, unsigned int l)`
-
-Замена элементов в векторе (long double), возвращает -1 если хоть один из 
-запрашиваемых индексов выходит за размер вектора либо если вектор пустой.
-***
-`int SwapInVector (std::vector < std::string> & A1, unsigned int f, unsigned int l)`
-
-Замена элементов в векторе (string), возвращает -1 если хоть один из запрашиваемых 
-индексов выходит за размер вектора либо если вектор пустой.
+Замена элементов в векторе A1. Возвращает -1 если хоть один из запрашиваемых индексов 
+выходит за размер вектора либо если вектор пустой.
 ***
 `int GraphVerticesNumbersCompress (std::vector <int> & P, const bool weighted)`
 
