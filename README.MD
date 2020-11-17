@@ -1411,31 +1411,10 @@ Returns index in vector (string) of the first element = a. Search starts from
 index "start" with step = "step". If step<1 step will be set as 1. 
 If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
-`int SwapInVector (std::vector <int> & A1, unsigned int f, unsigned int l)`
+`template < typename TSW>`
+`int SwapInVector (std::vector <TSW> & A1, unsigned int f, unsigned int l)`
 
-Swaps 2 elements in vector (int). Returns -1 if some index out of vector's
-range or vector is empty
-***
-`int SwapInVector (std::vector <long long int> & A1, unsigned int f, unsigned int
-l)`
-
-Swaps 2 elements in vector (long long int). Returns -1 if some index out of
-vector's range or vector is empty
-***
-`int SwapInVector (std::vector <double> & A1, unsigned int f, unsigned int l)`
-
-Swaps 2 elements in vector (double). Returns -1 if some index out of vector's
-range or vector is empty
-***
-`int SwapInVector (std::vector <long double> & A1, unsigned int f, unsigned int l)`
-
-Swaps 2 elements in vector (long double). Returns -1 if some index out of
-vector's range or vector is empty
-***
-`int SwapInVector (std::vector < std::string> & A1, unsigned int f, unsigned int l)`
-
-Swaps 2 elements in vector (string). Returns -1 if some index out of vector's
-range or if the vector is empty
+Swaps 2 elements in vector A1. Returns -1 if some index out of vector's range or vector is empty.
 ***
 `int GraphVerticesNumbersCompress (std::vector <int> & P, const bool weighted)`
 
