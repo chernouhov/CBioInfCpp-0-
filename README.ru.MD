@@ -1302,6 +1302,7 @@ int start = 0)`
 Если переданное значение start <0, то start присваивается значение 0.
 ***
 `template < typename TSW>`
+
 `int SwapInVector (std::vector <TSW> & A1, unsigned int f, unsigned int l)`
 
 Замена элементов в векторе A1. Возвращает -1 если хоть один из запрашиваемых индексов 
