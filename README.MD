@@ -1412,6 +1412,7 @@ index "start" with step = "step". If step<1 step will be set as 1.
 If start<0 start will be set as 0. If no such element found the function returns -1.
 ***
 `template < typename TSW>`
+
 `int SwapInVector (std::vector <TSW> & A1, unsigned int f, unsigned int l)`
 
 Swaps 2 elements in vector A1. Returns -1 if some index out of vector's range or vector is empty.
