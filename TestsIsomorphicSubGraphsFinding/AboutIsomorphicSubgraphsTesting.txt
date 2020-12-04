@@ -1,14 +1,31 @@
 **************************
 
+05/12/2020
+
+B_inA_Directed_All_N2.txt and B_inA_UnDirected_All_N2.txt contains results how the function
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true)
+finds in the graph A ALL subgraphs that are isomorphic to graph B.
+
+First in these files graphs A and B are given (edge list format).
+
+Below one may find how many subgraphs in the A were found: i.e. 8 items for the case we consider A and B as directed and 24 items for the case we consider them as undirected.
+
+Below these subgraphs are given. Every of them is marked with "G1: " as header - don't pay attention for that.
+
+
+**************************
+
 26/04/2020
 
-B_inA_Directed_¹1.txt and B_inA_UnDirected_¹1 contains results how the function SubGraphsInscribed finds in the graph A some subgraphs that are isomorphic to graph B.
+B_inA_UnDirected_InscribedOnly_N1.txt and B_inA_Directed_InscribedOnly_N1.txt contains results how the function 
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, const bool directed = true) 
+finds in the graph A all subgraphs that are isomorphic to graph B and "inscribed" to A.
 
 First in these files graphs A and B are given (edge list format).
 
 Below one may find how many subgraphs in the A were found: i.e. 36 items for the case we consider A and B as directed and 216 items for the case we consider them as undirected.
 
-Bolow these subgraphs are given. Every of them is marked with "G1: " as header - don't pay attention for that.
+Below these subgraphs are given. Every of them is marked with "G1: " as header - don't pay attention for that.
 
 
 ****************************
