@@ -1054,7 +1054,17 @@ std::vector <int> & Visited)`
 A и B д.б. невзвешеными, задаются векторами смежности, могут быть ориентированными (bool directed = true) и нет.
 
 Функция может работать с графами, содержащими несколько несвязных компонент, а также с графами с множественными ребрами.
+***
+`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true)`
 
+Расширенный экспериментальный вариант функции SubGraphsInscribed - позволяет находить все подграфы графа A, изоморфные графу B, а не только "вписанные".
+
+Для этого нужно задать параметр InscribedOnly = 0. Если InscribedOnly == 1, то поиск идет быстрее, но только по "вписанным" подграфам.
+
+Адаптация осуществлена заменой рассмотрения non-branching paths на ребра рассматриваемых графов с сохранением методологии.
+
+Параметр PreThinning определяет, нужно ли производить предварительное "прореживание". Вспомогательный параметр для оптимизации времени работы, 
+т.к. скорость прохождения различных этапов алгоритма, как и самого алгоритма, сильно зависит от исходных данных.
 ***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
