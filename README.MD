@@ -1160,7 +1160,7 @@ A and B may have >=1 connected components; also A and B may have multiply edges.
 ***
 `int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true)`
 
-The extended experimental version of the function SubGraphsInscribed above. 
+The extended experimental version of the function SubGraphsInscribed above. This extention/ modifacation is done by working with all edges of the input graphs instead of working with non-branching paths.
 
 If InscribedOnly == false the function finds all (not only inscribed) subgraphs of unweighted graph A that are isomorphic to unweighted graph B.
 If InscribedOnly == true the function looks for "inscribed" ones only.
