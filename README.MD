@@ -1158,7 +1158,7 @@ The function returns the number of different subgraphs of A that are isomorphi
 
 A and B may have >=1 connected components; also A and B may have multiply edges.
 ***
-`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true)`
+`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
 
 The extended experimental version of the function SubGraphsInscribed above. This extention/ modifacation is done by working with all edges of the input graphs instead of working with non-branching paths.
 
@@ -1167,6 +1167,8 @@ If InscribedOnly == true the function looks for "inscribed" ones only.
 
 PreThinning is an additional parameter that sets should the function skip stage PreThinning of input data or no. 
 As working time both of the function as a whole and its stages is rather depends on input data sometimes one may try to play with this parameter.
+
+HowManySubgraphs sets the upper limit how many subgraphs should be found. If HowManySubgraphs == 0 the function looks for all fitting subgraphs.
 ***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
