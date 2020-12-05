@@ -2,8 +2,40 @@
 
 05/12/2020
 
+B(15-20)_inA(250-350)_Directed_All_N3.txt, B(25-35)_inA(2500-3500)_Directed_All_N4.txt, B(19-26)_inA(500-1350)_Directed_All_N5.txt 
+contains results how the function
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)
+finds in the graph A ALL subgraphs that are isomorphic to graph B.
+
+First in these files graphs A and B are given (edge list format). They are considered as directed (for undirected the function will works much slower).
+
+Below one may find how many subgraphs in the A were found.
+
+Below these subgraphs are given. Every of them is marked with "G1: " as header - don't pay attention for that.
+
+Format of filename
+B(15-20)_inA(250-350)_Directed_All_N3 means:
+Graph B has 15 vertices and 20 edges.
+Graph A has 250 vertices and 350 edges.
+Both are directed.
+It is the 3rd dataset.
+
+Working time:
+B(15-20)_inA(250-350)_Directed_All_N3 ~ 3 sec, 4536 graphs found
+B(25-35)_inA(2500-3500)_Directed_All_N4 ~ 1 min 40 sec, 82546 graphs found
+B(19-26)_inA(500-1350)_Directed_All_N5 ~ 20 sec, 19071 graphs found
+
+
+Note. Working time rather depends on input data. If A and B has much simular segments it will works very-very-very long. 
+But if no - much faster. For example if they have a cycle with one edge having multiplicity = 3, etc.
+
+
+**************************
+
+05/12/2020
+
 B_inA_Directed_All_N2.txt and B_inA_UnDirected_All_N2.txt contains results how the function
-int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true)
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)
 finds in the graph A ALL subgraphs that are isomorphic to graph B.
 
 First in these files graphs A and B are given (edge list format).
@@ -12,6 +44,7 @@ Below one may find how many subgraphs in the A were found: i.e. 8 items for the 
 
 Below these subgraphs are given. Every of them is marked with "G1: " as header - don't pay attention for that.
 
+Workong time - a few seconds
 
 **************************
 
