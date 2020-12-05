@@ -10890,7 +10890,7 @@ struct VectorIntHash  // for unordered_set of vector <int>
     }
 };
 
-int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true)
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)
 
 // The extended experimental version of the function SubGraphsInscribed above.
 // This extention/ modifacation is done by working with all edges of the input graphs instead of working with non-branching paths.
@@ -10898,12 +10898,14 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered
 // If InscribedOnly == true the function looks for "inscribed" ones only.
 // PreThinning is an additional parameter that sets should the function skip stage PreThinning of input data or no.
 // As working time both of the function as a whole and its stages is rather depends on input data sometimes one may try to play with this parameter.
+// HowManySubgraphs sets the upper limit how many subgraphs should be found. If HowManySubgraphs == 0 the function looks for all fitting subgraphs.
 
 // Расширенный экспериментальный вариант функции SubGraphsInscribed - позволяет находить все подграфы графа A, изоморфные графу B, а не только "вписанные".
 // Для этого нужно задать параметр InscribedOnly = 0. Если InscribedOnly == 1, то поиск идет быстрее, но только по "вписанным" подграфам.
 // Адаптация осуществлена заменой рассмотрения non-branching paths на ребра рассматриваемых графов с сохранением методологии.
 // Параметр PreThinning определяет, нужно ли производить предварительное "прореживание". Вспомогательный параметр для оптимизации времени работы,
 // т.к. скорость прохождения различных этапов алгоритма, как и самого алгоритма, сильно зависит от исходных данных.
+// Параметр HowManySubgraphs задает верхний предел кол-ва подграфов, которое нужно найти. Если HowManySubgraphs == 0, то производится поиск всех возможных подграфов.
 
 {
 
@@ -13374,6 +13376,14 @@ if (PreThinning)
                     delete [] IndexPermA; // очистка памяти
                     break;
                 }
+
+                if (HowManySubgraphs>0)
+                    if (Result.size()==HowManySubgraphs)
+                    {
+                        delete [] IndexPermA; // очистка памяти
+                        break;
+                    }
+
 
               }
 
