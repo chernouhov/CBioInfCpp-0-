@@ -119,7 +119,7 @@ number of the start-vertex of edge, number of end-vertex of edge, starting posit
 - Добавлен расширенный экспериментальный вариант функции SubGraphsInscribed, позволяющий находить все подграфы графа A, изоморфные графу B, а не только "вписанные".
 Для этого нужно задать параметр InscribedOnly = 0. Если InscribedOnly == 1, то поиск идет быстрее, но только по "вписанным" подграфам.
 Адаптация осуществлена заменой рассмотрения non-branching paths на ребра рассматриваемых графов с сохранением методологии.
-- he extended experimental version of the function SubGraphsInscribed have been added.
+- The extended experimental version of the function SubGraphsInscribed have been added.
 This extention/ modifacation is done by working with all edges of the input graphs instead of working with non-branching paths.
 If InscribedOnly == false the function finds all (not only inscribed) subgraphs of unweighted graph A that are isomorphic to unweighted graph B.
 If InscribedOnly == true the function looks for "inscribed" ones only.
