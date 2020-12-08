@@ -10913,7 +10913,7 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered
 
      const bool w = false; // we consider only unweighted graps here
 
-    // GraphVerticesNumbersCompress (B, w);
+    GraphVerticesNumbersCompress (B, w);
 
     int b0size=B.size();
 
@@ -13102,6 +13102,8 @@ if (PreThinning)
 
 
              int *IndexPermA = new int[m+1]; // Выделение памяти для массива
+             for (int i = 0; i <= m; i++)
+                 IndexPermA[i] = -1;
 
 
 //             VectorCout(lmax);
@@ -13135,26 +13137,56 @@ if (PreThinning)
                 Y1.clear();
                 Y.clear();  // In order not to consider combination of path-candidates if any path-candidate is represented in this combination more than once.
 
-                if (!((eq == true) || (InscribedOnly == false)))
-                    for (int y=0; y<NPaths.size();y++)
-                                {
-                                    c = 3*l[y];
-                                    Y.insert(std::pair <int, int> (NPaths[y][c], NPaths[y][c+1]));
+//                if (!((eq == true) || (InscribedOnly == false)))
+//                    for (int y=0; y<NPaths.size();y++)
+//                                {
+//                                    c = 3*l[y];
+//                                    Y.insert(std::pair <int, int> (NPaths[y][c], NPaths[y][c+1]));
 
-                                    if (Y.size()!=(y+1))
-                                    {
-                                        if (l==lmax) goto l3;
+//                                    if (Y.size()!=(y+1))
+//                                    {
+//                                        if (l==lmax) goto l3;
 
-                                        for (int x=NPaths.size()-1; x>y;x--)
-                                            l[x]=lmax[x];
+//                                        for (int x=NPaths.size()-1; x>y;x--)
+//                                            l[x]=lmax[x];
 
-                                        goto l3;
+//                                        goto l3;
 
-                                    }
+//                                    }
 
-                                }
+//                                }
 
-                if ((eq == true) || (InscribedOnly == false))
+//                if ((eq == true) || (InscribedOnly == false))
+//                    for (int y=0; y<NPaths.size();y++)
+//                                {
+//                                    c = 3*l[y];
+
+//                                    if ((eq)||(directed))
+//                                        Y1.insert(NPaths[y][c]);
+
+//                                    if ((InscribedOnly == false)&&(!directed))
+//                                    {
+//                                        if (((NPaths[y][c])%2)==0)
+//                                            Y1.insert(NPaths[y][c]);
+//                                        if (((NPaths[y][c])%2)==1)
+//                                            Y1.insert(NPaths[y][c]-1);
+
+//                                    }
+
+//                                    if (Y1.size()!=(y+1))
+//                                    {
+//                                        if (l==lmax) goto l3;
+
+//                                        for (int x=NPaths.size()-1; x>y;x--)
+//                                            l[x]=lmax[x];
+
+//                                        goto l3;
+
+//                                    }
+
+//                                }
+
+                if (eq == true)
                     for (int y=0; y<NPaths.size();y++)
                                 {
                                     c = 3*l[y];
@@ -13184,20 +13216,16 @@ if (PreThinning)
 
                                 }
 
-
-
                 f1=0;
 
                   t=0;
 
                   //G1.clear();
 
-                  for (int i = 0; i <= m; i++)
-                      IndexPermA[i] = -1;
+//                  for (int i = 0; i <= m; i++)
+//                      IndexPermA[i] = -1;
 
 
-
-       //          B1=B10; //
 
                   Y.clear();
 
@@ -13212,7 +13240,6 @@ if (PreThinning)
 
 
 
-                        //for (int x=0; x<NPaths[y][c+2]-1;x++)
                         for (int x=0; x<(PathsB[y].size()-1);x++)
                             {
 
@@ -13225,9 +13252,12 @@ if (PreThinning)
 //                            G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]);
 
                             if (directed)
-                                Y.insert(std::pair <int, int> (PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]));
+                                //Y.insert(std::pair <int, int> (PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]));
+                                Y.insert(std::pair <int, int> (G1[f1-2], G1[f1-1]));
                             if (!directed)
-                                Y.insert(std::pair <int, int> (std::min(PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]), std::max(PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1])));
+                                //Y.insert(std::pair <int, int> (std::min(PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]), std::max(PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1])));
+                                Y.insert(std::pair <int, int> (std::min(G1[f1-2], G1[f1-1]), std::max(G1[f1-2], G1[f1-1])));
+
 
 //                            if (Y.size()!=G1.size()/2)
 //                            {
@@ -13250,13 +13280,13 @@ if (PreThinning)
                             }
 
 
-                                if (IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]==-1)
+                                if (IndexPermA[G1[f1-1]]==-1)
                                 {
                                      t++;
-                                     IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]] = t-1;
+                                     IndexPermA[G1[f1-1]] = t-1;
                                 }
 
-                                if (IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]>=B1.size())
+                                if (IndexPermA[G1[f1-2]]>=B1.size())
                                 {
 
                                     if (l==lmax) goto l3;
@@ -13266,7 +13296,7 @@ if (PreThinning)
 
                                 }
 
-                                if (IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]>=B1.size())
+                                if (IndexPermA[G1[f1-1]]>=B1.size())
                                 {
 
                                     if (l==lmax) goto l3;
@@ -13276,7 +13306,7 @@ if (PreThinning)
 
                                 }
 
-                                if (B1  [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]] [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]]!=1)
+                                if (B1  [IndexPermA[G1[f1-2]]][IndexPermA[G1[f1-1]]]!=1)
                                 {
 
                                     if (l==lmax) goto l3;
@@ -13285,24 +13315,7 @@ if (PreThinning)
                                      goto l3;
                                  }
 
-
-//                                if (B1  [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]] [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]]!=1)
-//                                {
-
-//                                     if (l==lmax) goto l3;
-//                                     for (int x1=NPaths.size()-1; x1>y;x1--)
-//                                         l[x1]=lmax[x1];
-//                                      goto l3;
-//                                 }
-
-//                                B1  [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]] [IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]]=0;
-//                                if (!directed)
-//                                    B1[IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]]][IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]+x]]]=0;
-
-
-
                               }
-
                        }
 
                  if (G0.size()!=f1)
@@ -13383,6 +13396,9 @@ if (PreThinning)
                         delete [] IndexPermA; // очистка памяти
                         break;
                     }
+
+                for (int x1=0; x1<G1.size();x1++)
+                    IndexPermA[G1[x1]]=-1;
 
 
               }
