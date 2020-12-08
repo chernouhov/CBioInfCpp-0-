@@ -13106,9 +13106,12 @@ if (PreThinning)
                  IndexPermA[i] = -1;
 
 
-//             VectorCout(lmax);
-//             system("pause");
+
              G1=G0;
+
+             for (int i = 0; i < G1.size(); i++)
+                 G1[i]=m;
+
              std::vector<std::vector <bool>> B10; //заготовки для матриц смежности
             // B10=B1;
 
@@ -13191,17 +13194,7 @@ if (PreThinning)
                                 {
                                     c = 3*l[y];
 
-                                    if ((eq)||(directed))
-                                        Y1.insert(NPaths[y][c]);
-
-                                    if ((InscribedOnly == false)&&(!directed))
-                                    {
-                                        if (((NPaths[y][c])%2)==0)
-                                            Y1.insert(NPaths[y][c]);
-                                        if (((NPaths[y][c])%2)==1)
-                                            Y1.insert(NPaths[y][c]-1);
-
-                                    }
+                                    Y1.insert(NPaths[y][c]);
 
                                     if (Y1.size()!=(y+1))
                                     {
