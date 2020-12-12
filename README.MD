@@ -1129,20 +1129,17 @@ But weights are set in the second one.
 
 So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 ***
-`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, const bool directed = true)`
+`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
 
-The function finds all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
-"Inscribed" means here that 
-
-(1) this subgraph is "glued" to other parts of A only by edges that connected to its vertices that are begin/ end ones of any max-length non-branching path of this subgraph 
-
-and/ or 
-
-(2) graph A may have some other connected components.
-
-I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
-
+The function initially was intended to find all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
+"Inscribed" means here that
+(1) this subgraph is "glued" to other parts of A only by edges that connected to those vertices of this subgraph that are begin/ end ones of any max-length non-branching path of it,
+or (2) this subgraph is a separate connected component of the graph A.
+i.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
 But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.
+
+Since 12/2020 the function can also be used to find all (not only inscribed) subgraphs of unweighted graph A that are isomorphic to unweighted graph B.
+To do so the function was modified to work with all edges of these graphs as well as with their max-length non-branching paths (that had been implemented before).
 
 Graph A is set by an Adjacency vector.
 
@@ -1152,23 +1149,17 @@ Both A and B are unweighted.
 
 Bool "directed" sets if A and B are directed graphs or no.
 
-Result: a set for containing all subgraphs of A found (set by Adjacency vectors), i.e. this set to contain results.
-
-The function returns the number of different subgraphs of A that are isomorphic to B and subgraphs themselves in Result; if input data are incorrect returns -1 and empty Result.
-
-A and B may have >=1 connected components; also A and B may have multiply edges.
-***
-`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
-
-The extended experimental version of the function SubGraphsInscribed above. This extention/ modifacation is done by working with all edges of the input graphs instead of working with non-branching paths.
-
 If InscribedOnly == false the function finds all (not only inscribed) subgraphs of unweighted graph A that are isomorphic to unweighted graph B.
 If InscribedOnly == true the function looks for "inscribed" ones only.
-
-PreThinning is an additional parameter that sets should the function skip stage PreThinning of input data or no. 
+PreThinning is an additional parameter that sets should the function skip stage PreThinning of input data or no.
 As working time both of the function as a whole and its stages is rather depends on input data sometimes one may try to play with this parameter.
-
 HowManySubgraphs sets the upper limit how many subgraphs should be found. If HowManySubgraphs == 0 the function looks for all fitting subgraphs.
+
+Result: an unordered_set named "Result" that contains all subgraphs of A found (set by Adjacency vectors).
+The function also returnes the number of different subgraphs of A that are isomorphic to B (i.e. the size of "Result");
+if input data are incorrect returns -1 and empty Result.
+A and B may have >=1 connected components; also A and B may have multiply edges.
+
 ***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
