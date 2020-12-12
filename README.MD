@@ -1131,11 +1131,13 @@ So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the firs
 ***
 `int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered_set<std::vector <int>, VectorIntHash> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
 
-The function initially was intended to find all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
+The function was initially intended to find all inscribed subgraphs in unweighted graph A that are isomorphic to unweighted graph B.
 "Inscribed" means here that
 (1) this subgraph is "glued" to other parts of A only by edges that connected to those vertices of this subgraph that are begin/ end ones of any max-length non-branching path of it,
+
 or (2) this subgraph is a separate connected component of the graph A.
-i.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we will find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
+
+I.e. for graph B = {0->2, 10->2, 2->3, 3->4, 4->5, 4->6} we could find only A1 = {0->2, 1->2, 2->3, 3->4, 4->5, 4->6} as inscribed isomorphic subgraph of A = {0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}.
 But if we add edge 3->8 to A (in this case A = {3->8, 0->2, 7->1, 1->2, 2->3, 3->4, 4->5, 4->6}), we couldn't find any inscribed isomorphic to B subgraph of A.
 
 Since 12/2020 the function can also be used to find all (not only inscribed) subgraphs of unweighted graph A that are isomorphic to unweighted graph B.
