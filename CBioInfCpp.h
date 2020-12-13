@@ -11348,6 +11348,2501 @@ if (PreThinning)
 }
 
 
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)
+// The version of the function SubGraphsInscribed: results will be in set Result. It works slower.
+// Версия функции SubGraphsInscribed: результаты будут в set Result. Работает медленнее.
+
+{
+
+     Result.clear(); // здесь будут найденные подграфы
+
+     const bool w = false; // we consider only unweighted graps here
+
+    GraphVerticesNumbersCompress (B, w);
+
+    int b0size=B.size();
+
+
+    // checking of input data correctness
+
+
+    if (A.size()==0) return -1;
+    if (B.size()==0) return -1;
+    if (B.size()>A.size()) return -1;
+    if ((A.size()%2)==1) return -1;
+    if ((B.size()%2)==1) return -1;
+
+
+
+    // ancillary vars
+
+     int mn, m, r, temp, t, t1;
+
+     int c=0, f2, f1, f3=0;
+
+
+     int mnb, mb;
+
+     // end of ancillary vars
+
+
+     RangeVGraph (A, m, mn, w); // all vertices should have non-negative numbers assigned
+     if (mn<0) return -1;
+
+     RangeVGraph (B, mb, mnb, w);  // all vertices should have non-negative numbers assigned
+     if (mnb<0) return -1;
+
+
+
+     std::vector <int> G0; //Эталонный граф в нужном порядке согласно вектору неразветвляющихся путей
+     G0.clear();
+     std::vector <int> G1; //Выстраиваемый граф в нужном порядке согласно вектору неразветвляющихся путей
+     G1.clear();  //Выстраиваемый граф в нужном порядке согласно вектору неразветвляющихся путей
+     G0.clear(); //Эталонный граф в нужном порядке согласно вектору неразветвляющихся путей
+
+     std::vector <int> G3; //
+     G3.clear();  //
+     G3=B;
+
+     std::vector <int> Scale0;  // Шкала для матрицы смежности 1
+     Scale0.clear();
+
+
+
+    // end of checking of input data correctness
+
+     bool eq = false;
+     if (A.size()==B.size()) eq = true;  // in this case we are testing if B is isomorphic to A
+
+     if (eq)
+         InscribedOnly = true;
+
+
+     std::unordered_map <std::pair < int, int> , int, PairIntHash> MultEdgesA; // для кратности ребер
+     std::unordered_map <std::pair < int, int> , int, PairIntHash> MultEdgesB; // to contain multiplicity of edges of the graphs A and B
+     MultEdgesA.clear();
+     MultEdgesB.clear();
+
+
+
+     if (!directed)  // Normalizing an undirected graph: every edge should have their vertices in increasing (non-decreasing) order
+     {
+         for (int i=0; i<A.size(); i=i+2+w)
+         {
+             if (A[i]>A[i+1]) SwapInVector(A, i, i+1);
+         }
+         for (int i=0; i<B.size(); i=i+2+w)
+         {
+             if (B[i]>B[i+1]) SwapInVector(B, i, i+1);
+         }
+     }
+
+
+
+
+
+    AdjVectorEdgesMultiplicity (A, MultEdgesA, w, true);
+    AdjVectorEdgesMultiplicity (B, MultEdgesB, w, true);
+
+
+A.clear();
+B.clear();
+
+for (auto it = MultEdgesA.begin(); it!=MultEdgesA.end(); it++) //  оставляем всем ребрам кратности 1
+{
+
+    {
+        A.push_back((it->first).first);
+        A.push_back((it->first).second);
+    }
+
+}
+
+for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparing of A and B: every edge will be with multiplicity = 1 for some operations
+{
+
+    {
+        B.push_back((it->first).first);
+        B.push_back((it->first).second);
+    }
+
+}
+
+
+    std::vector <int> VinA; //для подсчета входящих и исходящих в вершину, чтобы определить листья и вершины разветвения.
+    std::vector <int> VoutA; // Let's count in and out edges for every vertex in order to find branching vertices
+
+    std::vector <int> VinB; //для подсчета входящих и исходящих в вершину, чтобы определить листья и вершины разветвения.
+    std::vector <int> VoutB; // Let's count in and out edges for every vertex in order to find branching vertices
+
+
+    std::unordered_set <std::pair<int, int>, PairIntHash> A1; // an ancillary set
+
+    std::unordered_set <int> V1;  // an ancillary set
+    V1.clear();
+
+
+    std::vector <std::vector<int> >PathsA; // Here all max-lenght non-branching paths of A will be
+    std::vector <std::vector<int> >PathsA1;  // an ancillary vector
+
+   std::vector <std::vector<int> >PathsB;  //Here all max-lenght non-branching paths of B will be
+
+
+   std::vector <std::vector<int>> NPaths (PathsB.size()); // здесь по каждому путь в PathsB будет набор триплетов: номер соотвествующего пути в PathsA, стартовая позиция в нем и его длина
+
+   std::vector <long long int> D; //an ancillary unit
+   std::vector <int> Prev; //an ancillary unit
+   std::vector <std::vector<long long int>> DA; // to contain the shortest paths between verticec in A
+   std::vector <std::vector <long long int>> DB;  // to contain the shortests paths between verticec in A
+
+   DA.clear();
+   DB.clear();
+
+   D.clear();
+
+
+   std::vector <int> E; // // an ancillary unit
+   E.clear();
+
+
+
+
+
+
+        std::vector <int> lr; // вектор разрядов для некоторых вычислений (см. ниже)
+
+        std::vector <int> lrmax; // вектор порговых значений у разрядов
+
+
+         std::set <int> VertPathsACircles; // Вершины путей из PathsA, которые - кольца - для умножения простых колец
+         int PathsASizeWithNoCircles;
+
+
+    lprorez1:;
+
+
+    RangeVGraph (A, m, mn, w);
+
+
+    VinA.clear();
+    VinA.resize(m+1, 0);
+
+    VoutA.clear();
+    VoutA.resize(m+1, 0);
+
+
+
+
+        A1.clear();
+
+
+    for (int a = 0; a<A.size(); a=(a+2+w))
+    {
+
+        if (directed)
+        {
+        VinA[(A[a+1])]++;
+        VoutA[(A[a])]++;
+        }
+        if (!directed)
+        {
+        VinA[(A[a+1])]++;
+        VinA[(A[a])]++;
+        }
+
+    }
+
+
+
+    PathsA.clear();
+
+    if (InscribedOnly == true)
+        NBPaths (A, w, PathsA, directed); // let's find all max-lenght non-branching paths of A
+
+
+     if (InscribedOnly == false)
+     {
+         for (int a = 0; a<A.size(); a=(a+2+w))
+         {
+             PathsA.push_back({A[a], A[a+1]});
+             if (!directed)
+                 PathsA.push_back({A[a+1],A[a]});
+
+         }
+     }
+
+
+   RangeVGraph (B, mb, mnb, w);
+
+
+    PathsB.clear();
+    if (InscribedOnly == true)
+        NBPaths (B, w, PathsB, directed);  // let's find all max-lenght non-branching paths of B
+
+
+
+
+    if (InscribedOnly == false)
+    {
+        for (int a = 0; a<B.size(); a=(a+2+w))
+        {
+            PathsB.push_back({B[a], B[a+1]});
+        }
+
+    }
+
+   VinB.clear();
+   VinB.resize(mb+1, 0);
+
+
+
+   VoutB.clear();
+   VoutB.resize(mb+1, 0);
+
+
+
+
+   for (int a = 0; a<B.size(); a=(a+2+w))
+   {
+
+       if (directed)
+       {
+       VinB[(B[a+1])]++;
+       VoutB[(B[a])]++;
+       }
+       if (!directed)
+       {
+       VinB[(B[a+1])]++;
+       VinB[(B[a])]++;
+       }
+
+   }
+
+
+
+
+   //***********
+
+
+
+
+   // Умножение колец в А
+
+   // all circles of NB-paths of A will be multiplied as follows: all vertices should be as the starting in the path
+
+
+  VertPathsACircles.clear();
+
+  PathsASizeWithNoCircles = PathsA.size();
+
+
+  temp= PathsA.size();
+
+//  if (!eq)
+  {
+
+   for (int j=0; j<PathsASizeWithNoCircles; j++)
+   {
+
+       if (InscribedOnly == false) break;
+
+       if (PathsA[j].size()<=2) continue;
+
+
+
+  if ( (PathsA[j][0] == PathsA[j][PathsA[j].size()-1]))
+    {
+
+       E=PathsA[j];
+
+        for (int x=1; x<PathsA[j].size()-1; x++)
+        {
+            E.push_back(E[1]);
+            E.erase(E.begin());
+            PathsA.push_back(E);
+         }
+
+          E.clear();
+
+      }
+
+   }
+
+   // Конец Умножение колец в А
+   // end of multiplying of circles
+}
+
+
+
+
+//***************
+
+   temp = PathsA.size();
+
+
+   // start of Stage II "NB-paths matching"
+
+   NPaths.clear();
+   NPaths.resize(PathsB.size()); // здесь по каждому путь в PathsB будет набор триплетов: номер соотвествующего пути в PathsA, стартовая позиция в нем и его длина
+   // NPaths[j]  will contain "probably relevant" NB-paths from A to j-th NB-path of B as 3 numbers: number of NB-path of A in PathsA, starting position in it from the beginning and its lenght.
+
+
+   for (int j=0; j<PathsB.size(); j++)
+       NPaths[j].clear();
+
+   t1 = PathsA.size();
+   if (!eq)
+   {
+
+
+
+       for (int j=0; j<PathsB.size(); j++)   // сбор внутренних путей  //  //considering internal paths of PathsB.
+       {
+
+           if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) continue; //не рассматривать пока концевые
+           if ( (VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1) continue; //не рассматривать пока концевые
+
+           if ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==2) ) continue; // не рассматривать пока простые кольца
+
+
+
+           for (int i=0; i<PathsASizeWithNoCircles; i++)  // не рассматриваем разрезы колец
+           {
+
+
+               if (PathsB[j].size()!=PathsA[i].size())
+                   continue;
+
+
+                if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                    if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+                        {
+                        f2=0;
+                        for (int a=1; a<PathsB[j].size(); a++)
+                        {
+                            if (directed)
+                                if (MultEdgesA[std::pair <int, int>(PathsA[i][a-1], PathsA[i][a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                                 {f2=1; break;}
+
+                            if (!directed)
+                                 if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                  {f2=1; break;}
+
+                        }
+
+                        if (f2==0)
+                           {
+                                NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                            if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    if (directed)
+                                        A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                                    if (!directed)
+                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+                            }
+
+                        }
+
+
+                if ((!directed) && (PathsB[j][0] != PathsB[j][PathsB[j].size()-1])&& (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) &&(InscribedOnly == true))
+                //if ((!directed) && (PathsB[j][0] != PathsB[j][PathsB[j].size()-1])&& (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) )
+                {
+
+                    E=PathsA[i];
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+
+                    if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                        if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+                            {
+
+                            f2=0;
+                            for (int a=1; a<PathsB[j].size(); a++)
+                            {
+                                     if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                     {f2=1; break;}
+                            }
+
+                            if (f2==0)
+                            {
+
+                                reverse (E.begin(), E.end());
+                                PathsA.push_back(E);
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+                            }
+
+                           }
+
+                    E.clear();
+
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+                }
+           }
+       }
+
+
+
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор концевых путей //considering in/out rays of PathsB
+   {
+
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) continue; //палки не смотрим
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])>1)) goto l1;
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])>1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) goto l1;
+
+       continue;
+
+
+
+       l1: for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим
+       {
+
+
+           if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()<=PathsA[i].size()) )
+            {
+
+
+                if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                {
+
+                    f2=0;
+                    for (int a=1; a<PathsB[j].size(); a++)
+                    {
+                        if (directed)
+                            if (MultEdgesA[std::pair <int, int>(PathsA[i][a-1], PathsA[i][a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                             {f2=1; break;}
+
+                        if (!directed)
+                             if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                              {f2=1; break;}
+
+                    }
+
+                    if (f2==0)
+                    {
+
+                        NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                        NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                    if (PreThinning)
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            if (directed)
+                                A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                            if (!directed)
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+                    }
+
+                }
+
+                if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+                {
+                    f2=0;
+                    for (int a=1; a<PathsB[j].size(); a++)
+                    {
+                        if (directed)
+                            if (MultEdgesA[std::pair <int, int>(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                             {f2=1; break;}
+
+                        if (!directed)
+                             if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a]), std::max(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                              {f2=1; break;}
+
+                    }
+
+                    if (f2==0)
+                    {
+
+                        NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                        NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                     if (PreThinning)
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            if (directed)
+                                A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                            if (!directed)
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+
+                    }
+                 }
+
+
+            }
+
+
+           if ((!directed)&&(InscribedOnly == true))
+           //if ((!directed))
+           {
+
+               E=PathsA[i];
+               reverse (PathsA[i].begin(), PathsA[i].end());
+
+               if ( (VinB[(PathsB[j][0])]<= VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]<= VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]<= VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]<= VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()<=PathsA[i].size()) )
+                {
+
+
+                    if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                    {
+                        f2=0;
+                        for (int a=1; a<PathsB[j].size(); a++)
+                        {
+                            if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                  {f2=1; break;}
+
+                        }
+
+                        if (f2==0)
+                        {
+                            reverse (E.begin(), E.end());
+                            PathsA.push_back(E);
+
+                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                         if (PreThinning)
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+                        }
+                    }
+
+                    if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+                    {
+
+                        f2=0;
+                        for (int a=1; a<PathsB[j].size(); a++)
+                        {
+                            if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a]), std::max(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                  {f2=1; break;}
+
+                        }
+
+                        if (f2==0)
+                        {
+
+                            reverse (E.begin(), E.end());
+                            PathsA.push_back(E);
+
+                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                         if (PreThinning)
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+                        }
+
+                     }
+                }
+               E.clear();
+               reverse (PathsA[i].begin(), PathsA[i].end());
+           }
+
+      }
+
+   }
+
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор простых цепей  // considering chains of PathsB
+   {
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) goto l11;
+
+
+       continue;
+
+
+       l11: for (int i=0; i<t1; i++)
+       {
+
+          if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=(PathsA[i].size()-1)) && (InscribedOnly == true)) // если вписываем в кольцо
+            //if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=(PathsA[i].size()-1)) ) // если вписываем в кольцо
+           {
+
+               for (int z=0; z<=PathsA[i].size()-1-PathsB[j].size(); z++)
+
+               {
+                   f2=0;
+                   for (int a=1; a<PathsB[j].size(); a++)
+                   {
+                       if (directed)
+                           if (MultEdgesA[std::pair <int, int>(PathsA[i][z+a-1], PathsA[i][z+a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                            {f2=1; break;}
+
+                       if (!directed)
+                            if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][z+a-1], PathsA[i][z+a]), std::max(PathsA[i][z+a-1], PathsA[i][z+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                             {f2=1; break;}
+
+                   }
+
+                   if (f2==0)
+                  {
+
+                       NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                       NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                       NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+
+                    if (PreThinning)
+                       for (int x=1; x<PathsA[i].size(); x++)
+                       {
+                           if (directed)
+                               A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                           if (!directed)
+                               A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                       }
+                   }
+               }
+
+
+
+               if ((!directed)&&(InscribedOnly == true))
+               //if ((!directed))
+               {
+
+                   E = PathsA[i];
+                   reverse(E.begin(), E.end());
+                   for (int z=0; z<=PathsA[i].size()-1-PathsB[j].size(); z++)
+
+                   {
+                       f2=0;
+                       for (int a=1; a<PathsB[j].size(); a++)
+                       {
+
+                           if (MultEdgesA[std::pair <int, int>( std::min(E[z+a-1], E[z+a]), std::max(E[z+a-1], E[z+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                {f2=1; break;}
+
+                       }
+
+                       if (f2==0)
+                       {
+                           PathsA.push_back(E);
+
+                           NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                           NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                           NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                           if (PreThinning)
+                              for (int x=1; x<PathsA[i].size(); x++)
+                              {
+                                  if (directed)
+                                      A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                                  if (!directed)
+                                      A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                              }
+                       }
+
+                   }
+
+               }
+
+
+           }
+
+
+
+           if ( (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()<=PathsA[i].size()) )  // Нашли: не кольцо, не меньшей длины
+
+
+            {
+                for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+
+                {
+                    f2=0;
+                    for (int a=1; a<PathsB[j].size(); a++)
+                    {
+                        if (directed)
+                            if (MultEdgesA[std::pair <int, int>(PathsA[i][z+a-1], PathsA[i][z+a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                             {f2=1; break;}
+
+                        if (!directed)
+                             if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][z+a-1], PathsA[i][z+a]), std::max(PathsA[i][z+a-1], PathsA[i][z+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                              {f2=1; break;}
+
+                    }
+
+                    if (f2==0)
+                    {
+
+                        NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                        NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+
+                    if (PreThinning)
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            if (directed)
+                                A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                            if (!directed)
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+                    }
+                }
+
+
+                if ((!directed)&&(InscribedOnly == true))
+                //if ((!directed))
+                {
+                    E = PathsA[i];
+                    reverse(E.begin(), E.end());
+                    for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+                    {
+                        f2=0;
+                        for (int a=1; a<PathsB[j].size(); a++)
+                        {
+                             if (MultEdgesA[std::pair <int, int>( std::min(E[z+a-1], E[z+a]), std::max(E[z+a-1], E[z+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                  {f2=1; break;}
+
+                        }
+
+                        if (f2==0)
+                        {
+
+                         PathsA.push_back(E);
+
+
+                         NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                         NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                         NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                         if (PreThinning)
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                if (directed)
+                                    A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                                if (!directed)
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+                        }
+
+
+                    }
+
+                }
+              }
+            }
+
+         }
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор циклов (колец)
+   {
+
+
+       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
+
+
+
+       for (int i=0; i<t1; i++)  // разрезы колец не смотрим, включаем как одно вхождение-совпадение, по 1 разу
+       {
+
+
+           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) ) // если нашли кольцо  такой же длины
+           {
+               f2=0;
+               for (int a=1; a<PathsB[j].size(); a++)
+               {
+                   if (directed)
+                       if (MultEdgesA[std::pair <int, int>(PathsA[i][a-1], PathsA[i][a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                        {f2=1; break;}
+
+                   if (!directed)
+                        if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                         {f2=1; break;}
+
+               }
+
+               if (f2==0)
+               {
+
+                   NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                   NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                   NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+               if (PreThinning)
+                   for (int x=1; x<PathsA[i].size(); x++)
+                   {
+                       if (directed)
+                           A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                       if (!directed)
+                           A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                   }
+               }
+
+
+               //if (!directed)
+               if ((!directed)&&(InscribedOnly == true))
+               {
+                   E = PathsA[i];
+                   reverse(E.begin(), E.end());
+                   f2=0;
+                   for (int a=1; a<PathsB[j].size(); a++)
+                   {
+                            if (MultEdgesA[std::pair <int, int>( std::min(E[a-1], E[a]), std::max(E[a-1], E[a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                             {f2=1; break;}
+
+                   }
+
+                   if (f2==0)
+                   {
+                        PathsA.push_back(E);
+                       NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                       NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                       NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                       if (PreThinning)
+                          for (int x=1; x<PathsA[i].size(); x++)
+                          {
+                              if (directed)
+                                  A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                              if (!directed)
+                                  A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                          }
+                   }
+
+               }
+           }
+
+       }
+    }
+
+    }
+
+
+
+
+
+
+
+
+   if (eq)  //  ========================================
+   {
+
+
+
+       for (int j=0; j<PathsB.size(); j++)   // сбор внутренних путей  //  //considering internal paths of PathsB.
+       {
+
+           if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) continue; //не рассматривать пока концевые
+           if ( (VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1) continue; //не рассматривать пока концевые
+
+           if ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==2) ) continue; // не рассматривать пока простые кольца
+
+
+           for (int i=0; i<PathsASizeWithNoCircles; i++)  // не рассматриваем разрезы колец
+           {
+               if (PathsB[j].size()!=PathsA[i].size())
+                   continue;
+
+                if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                    if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+                    {
+                    f2=0;
+                    for (int a=1; a<PathsB[j].size(); a++)
+                    {
+                        if (directed)
+                            if (MultEdgesA[std::pair <int, int>(PathsA[i][a-1], PathsA[i][a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                             {f2=1; break;}
+
+                        if (!directed)
+                             if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                              {f2=1; break;}
+
+                    }
+
+                    if (f2==0)
+                       {
+                            NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                         if (PreThinning)
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                if (directed)
+                                    A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                                if (!directed)
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+                        }
+
+                    }
+
+
+
+                if ((!directed) && (PathsB[j][0] != PathsB[j][PathsB[j].size()-1])&& (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]))
+                {
+
+                    E=PathsA[i];
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+
+
+                    if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
+                        if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+                        {
+
+                            f2=0;
+                            for (int a=1; a<PathsB[j].size(); a++)
+                            {
+                                     if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                     {f2=1; break;}
+                            }
+
+                            if (f2==0)
+                            {
+
+                                reverse (E.begin(), E.end());
+                                PathsA.push_back(E);
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+                            }
+
+                       }
+
+                    E.clear();
+
+                    reverse (PathsA[i].begin(), PathsA[i].end());
+
+                }
+           }
+       }
+
+
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор концевых путей //considering in/out rays of PathsB
+   {
+
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) continue; //палки не смотрим
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])>1)) goto l1eq;
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])>1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) goto l1eq;
+
+       continue;
+
+
+
+       l1eq: for (int i=0; i<PathsASizeWithNoCircles; i++)  // разрезы колец не смотрим
+       {
+
+           if (PathsB[j].size()!=PathsA[i].size())
+               continue;
+
+
+            if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+            {
+
+
+                if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                {
+
+                    f2=0;
+                    for (int a=1; a<PathsB[j].size(); a++)
+                    {
+                        if (directed)
+                            if (MultEdgesA[std::pair <int, int>(PathsA[i][a-1], PathsA[i][a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                             {f2=1; break;}
+
+                        if (!directed)
+                             if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                              {f2=1; break;}
+
+                    }
+
+                    if (f2==0)
+                    {
+
+                        NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                        NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                     if (PreThinning)
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            if (directed)
+                                A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                            if (!directed)
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+                    }
+
+                }
+
+
+                if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+                {
+                    f2=0;
+                    for (int a=1; a<PathsB[j].size(); a++)
+                    {
+                        if (directed)
+                            if (MultEdgesA[std::pair <int, int>(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                             {f2=1; break;}
+
+                        if (!directed)
+                             if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a]), std::max(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                              {f2=1; break;}
+
+                    }
+
+                    if (f2==0)
+                    {
+
+                        NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+                        NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                        NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                     if (PreThinning)
+                        for (int x=1; x<PathsA[i].size(); x++)
+                        {
+                            if (directed)
+                                A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                            if (!directed)
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                        }
+
+                    }
+                 }
+
+
+            }
+
+
+           if (!directed)
+           {
+
+            E=PathsA[i];
+            reverse (PathsA[i].begin(), PathsA[i].end());
+
+            if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
+
+                {
+
+
+                    if ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)
+                    {
+                        f2=0;
+                        for (int a=1; a<PathsB[j].size(); a++)
+                        {
+                            if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                  {f2=1; break;}
+
+                        }
+
+                        if (f2==0)
+                        {
+                            reverse (E.begin(), E.end());
+                            PathsA.push_back(E);
+
+                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                          if (PreThinning)
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+                        }
+                    }
+
+
+                    if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
+
+                    {
+
+                        f2=0;
+                        for (int a=1; a<PathsB[j].size(); a++)
+                        {
+                            if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a]), std::max(PathsA[i][PathsA[i].size()-PathsB[j].size()+a-1], PathsA[i][PathsA[i].size()-PathsB[j].size()+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                  {f2=1; break;}
+
+                        }
+
+                        if (f2==0)
+                        {
+
+                            reverse (E.begin(), E.end());
+                            PathsA.push_back(E);
+
+                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                         if (PreThinning)
+                            for (int x=1; x<PathsA[i].size(); x++)
+                            {
+                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                            }
+                        }
+
+                     }
+
+
+                }
+               E.clear();
+               reverse (PathsA[i].begin(), PathsA[i].end());
+           }
+
+
+      }
+
+   }
+
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор простых цепей  // considering chains of PathsB
+   {
+
+       if( ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1) && ((VinB[(PathsB[j][PathsB[j].size()-1])]+VoutB[PathsB[j][PathsB[j].size()-1]])==1)) goto l11eq;
+
+
+       continue;
+
+
+       l11eq: for (int i=0; i<t1; i++)
+       {
+
+           if (PathsB[j].size()!=PathsA[i].size())
+               continue;
+
+
+       if( ( (VinA[(PathsA[i][0])]+VoutA[PathsA[i][0]])==1) && ((VinA[(PathsA[i][PathsA[i].size()-1])]+VoutA[PathsA[i][PathsA[i].size()-1]])==1))
+          if ( (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) )  // Нашли: не кольцо, равной длины
+
+          {
+              for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+
+              {
+                  f2=0;
+                  for (int a=1; a<PathsB[j].size(); a++)
+                  {
+                      if (directed)
+                          if (MultEdgesA[std::pair <int, int>(PathsA[i][z+a-1], PathsA[i][z+a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                           {f2=1; break;}
+
+                      if (!directed)
+                           if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][z+a-1], PathsA[i][z+a]), std::max(PathsA[i][z+a-1], PathsA[i][z+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                            {f2=1; break;}
+
+                  }
+
+                  if (f2==0)
+                  {
+
+                      NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                      NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                      NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+
+                   if (PreThinning)
+                      for (int x=1; x<PathsA[i].size(); x++)
+                      {
+                          if (directed)
+                              A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                          if (!directed)
+                              A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                      }
+                  }
+              }
+
+
+              if (!directed)
+              {
+                  E = PathsA[i];
+                  reverse(E.begin(), E.end());
+                  for (int z=0; z<=PathsA[i].size()-PathsB[j].size(); z++)
+                  {
+                      f2=0;
+                      for (int a=1; a<PathsB[j].size(); a++)
+                      {
+                           if (MultEdgesA[std::pair <int, int>( std::min(E[z+a-1], E[z+a]), std::max(E[z+a-1], E[z+a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                                {f2=1; break;}
+
+                      }
+
+                      if (f2==0)
+                      {
+                          PathsA.push_back(E);
+                       NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                       NPaths[j].push_back(z); // стартовая позиция в нем  //statring posiyion in it
+
+                       NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+
+
+                       if (PreThinning)
+                          for (int x=1; x<PathsA[i].size(); x++)
+                          {
+                              if (directed)
+                                  A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                              if (!directed)
+                                  A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                          }
+                      }
+                  }
+              }
+            }
+
+       }
+
+
+    }
+
+   for (int j=0; j<PathsB.size(); j++)   // сбор простых циклов - в любые циклы // considering  simple cycles of PathsB
+   {
+
+       if( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]))    continue;  // смотрим только кольца
+
+
+       if ((VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])!=2) continue; // простые
+
+
+
+       for (int i=0; i<t1; i++)  //
+       {
+           if (PathsB[j].size()!=PathsA[i].size())
+               continue;
+
+
+           if ( (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) && (PathsB[j].size()==PathsA[i].size()) && ((VinA[(PathsA[i][0])]+VoutA[PathsA[i][0]])==2) ) // если простое нашли кольцо  такой же длины
+
+           {
+               f2=0;
+               for (int a=1; a<PathsB[j].size(); a++)
+               {
+                   if (directed)
+                       if (MultEdgesA[std::pair <int, int>(PathsA[i][a-1], PathsA[i][a]) ] < MultEdgesB[std::pair <int, int>(PathsB[j][a-1], PathsB[j][a])])
+                        {f2=1; break;}
+
+                   if (!directed)
+                        if (MultEdgesA[std::pair <int, int>( std::min(PathsA[i][a-1], PathsA[i][a]), std::max(PathsA[i][a-1], PathsA[i][a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                         {f2=1; break;}
+
+               }
+
+               if (f2==0)
+               {
+
+                   NPaths[j].push_back(i);  // номер пути  //  number of path of PathsA
+
+                   NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                   NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                if (PreThinning)
+                   for (int x=1; x<PathsA[i].size(); x++)
+                   {
+                       if (directed)
+                           A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                       if (!directed)
+                           A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                   }
+               }
+
+
+               if (!directed)
+               {
+                   E = PathsA[i];
+                   reverse(E.begin(), E.end());
+                   f2=0;
+                   for (int a=1; a<PathsB[j].size(); a++)
+                   {
+
+                            if (MultEdgesA[std::pair <int, int>( std::min(E[a-1], E[a]), std::max(E[a-1], E[a])) ] < MultEdgesB[std::pair <int, int>( std::min(PathsB[j][a-1], PathsB[j][a]), std::max(PathsB[j][a-1], PathsB[j][a]))])
+                             {f2=1; break;}
+
+                   }
+
+                   if (f2==0)
+                   {
+                        PathsA.push_back(E);
+                       NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                       NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                       NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                       if (PreThinning)
+                          for (int x=1; x<PathsA[i].size(); x++)
+                          {
+                              if (directed)
+                                  A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                              if (!directed)
+                                  A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                          }
+                   }
+
+               }
+           }
+
+
+       }
+   }
+
+
+    }
+
+
+   for (int i=0; i<NPaths.size(); i++)
+   {
+
+       if (NPaths[i].size()==0)
+       {   // если для какого-то пути из B нет аналогов в A
+        return 0;
+       }
+   }
+
+
+
+
+// "pre-Thinning of data"
+
+if (PreThinning)
+{
+  if ((A1.size()<A.size()/2) )
+   {
+
+       A.clear();
+       for (auto it1=A1.begin(); it1!=A1.end(); it1++)
+       {
+           A.push_back((*it1).first);
+           A.push_back((*it1).second);
+       }
+
+
+       A1.clear();
+
+       goto lprorez1;
+   }
+}
+
+// end of "pre-Thinning of data"
+
+
+
+   D.clear();
+
+   if ((DA.size()==0)||(DB.size()==0))
+   {
+
+       temp=A.size();
+       if (!directed)
+       {
+           E=A;
+           std::reverse(E.begin(), E.end());
+           A.reserve(A.size()+E.size());
+           A.insert(A.end(), E.begin(), E.end());
+           E.clear();
+       }
+
+
+       for (int i=0; i<=m; i++)
+       {
+           DistanceBFA (A, D, i, false);
+           DA.push_back(D);
+       }
+
+
+       temp=B.size();
+       if (!directed)
+       {
+           E=B;
+           std::reverse(E.begin(), E.end());
+           B.reserve(B.size()+E.size());
+           B.insert(B.end(), E.begin(), E.end());
+           E.clear();
+       }
+
+
+       for (int i=0; i<=mb; i++)
+       {
+           DistanceBFA (B, D, i, false);
+           DB.push_back(D);
+       }
+
+
+
+       temp=A.size()/2;
+       if (!directed)
+           A.resize(temp);
+       temp=B.size()/2;
+       if (!directed)
+           B.resize(temp);
+    }
+
+
+            temp=0;
+
+
+
+            for (int i=0; i<NPaths.size(); i++)
+              {
+
+                  if (NPaths[i].size()==0)
+                  {
+                      return 0;
+                      temp=-1;   // если для какого-то пути из B нет аналогов в A
+
+                  }
+              }
+
+            // end of Stage II "NB-paths matching"
+
+
+            // start of Stage III "Thinning of data"
+
+             if (temp!=-1)
+
+
+              {
+
+                c=INT_MAX;
+                for (int i=0; i<NPaths.size(); i++)
+                    if (NPaths[i].size()<c)
+                    {c= NPaths[i].size();
+                        t=i;
+                    }
+
+
+                f2=0;
+                for (int i=0; i<NPaths.size(); i++)
+                {
+                    if (i==t) continue;
+
+                    for (int y=0; y<NPaths[i].size(); y=y+3)
+                    {
+                        f1=1;
+                        for (int g=0; g<NPaths[t].size(); g=g+3)
+                        {
+                            if (          ((  (DA[PathsA[NPaths[t][g]][NPaths[t][g+1]]][PathsA[NPaths[i][y]][NPaths[i][y+1]]]  ) <=  DB[PathsB[t][0]][PathsB[i][0]]) && (  (DA[PathsA[NPaths[i][y]][NPaths[i][y+1]]][PathsA[NPaths[t][g]][NPaths[t][g+1]]]  ) <=  DB[PathsB[i][0]][PathsB[t][0]]) )   &&   ((  (DA[PathsA[NPaths[t][g]][NPaths[t][g+1]+PathsB[t].size()-1]][PathsA[NPaths[i][y]][NPaths[i][y+1]+PathsB[i].size()-1]]  ) <=  DB[PathsB[t][PathsB[t].size()-1]][PathsB[i][PathsB[i].size()-1]]) && (  (DA[PathsA[NPaths[i][y]][NPaths[i][y+1]+PathsB[i].size()-1]][PathsA[NPaths[t][g]][NPaths[t][g+1]+PathsB[t].size()-1]]  ) <=  DB[PathsB[i][PathsB[i].size()-1]][PathsB[t][PathsB[t].size()-1]]) )     )
+                            {
+                                f1=0;
+                                break;
+                            }
+
+                        }
+
+                        if (f1==1)
+                        {
+                            f2=1;
+
+                            if (y!=NPaths[i].size()-3)
+                            {
+                                SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                            }
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
+                            y=y-3;
+
+
+                        }
+
+                    }
+
+                  }
+
+                //***
+
+
+                for (int tt=0; tt<NPaths.size(); tt++)
+                {
+
+
+                    if (NPaths[tt].size()==0)
+                    {
+                        temp=-1;
+                        break;
+                    }
+
+                    for (int i=0; i<NPaths.size(); i++)
+                    {
+
+                        if (NPaths[i].size()==0)
+                        {
+                            temp=-1;
+                            break;
+                        }
+                        if (i==tt) continue;
+
+                        for (int y=0; y<NPaths[i].size(); y=y+3)
+                        {
+                            f1=1;
+                            for (int g=0; g<NPaths[tt].size(); g=g+3)
+                            {
+                                if (          ((  (DA[PathsA[NPaths[tt][g]][NPaths[tt][g+1]]][PathsA[NPaths[i][y]][NPaths[i][y+1]]]  ) <=  DB[PathsB[tt][0]][PathsB[i][0]]) && (  (DA[PathsA[NPaths[i][y]][NPaths[i][y+1]]][PathsA[NPaths[tt][g]][NPaths[tt][g+1]]]  ) <=  DB[PathsB[i][0]][PathsB[tt][0]]) )   &&   ((  (DA[PathsA[NPaths[tt][g]][NPaths[tt][g+1]+PathsB[tt].size()-1]][PathsA[NPaths[i][y]][NPaths[i][y+1]+PathsB[i].size()-1]]  ) <=  DB[PathsB[tt][PathsB[tt].size()-1]][PathsB[i][PathsB[i].size()-1]]) && (  (DA[PathsA[NPaths[i][y]][NPaths[i][y+1]+PathsB[i].size()-1]][PathsA[NPaths[tt][g]][NPaths[tt][g+1]+PathsB[tt].size()-1]]  ) <=  DB[PathsB[i][PathsB[i].size()-1]][PathsB[tt][PathsB[tt].size()-1]]) )     )
+                                {
+                                    f1=0;
+                                    break;
+                                }
+
+                            }
+
+                            if (f1==1)
+                            {
+                                f2=1;
+
+                                if (y!=NPaths[i].size()-3)
+                                {
+                                    SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                    SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                    SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                                }
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
+                                y=y-3;
+
+
+                            }
+
+                        }
+
+                        if (NPaths[i].size()==0)
+                        {
+                            temp=-1;
+                            break;
+                        }
+
+                      }
+                    if (temp==-1) break;
+                }
+
+                //***
+
+                for (int i=0; i<NPaths.size(); i++)
+                {
+
+                    if (NPaths[i].size()==0)
+                    {
+                        temp=-1;
+                        break;
+                    }
+
+                    for (int y=0; y<NPaths[i].size(); y=y+3)
+                    {
+
+                        if (  ( (PathsB[i][0]==PathsB[i][PathsB[i].size()-1]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]]!= PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]) ) || ( (PathsB[i][0]!=PathsB[i][PathsB[i].size()-1]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]]== PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]) ) )
+
+                        {
+                            f2=1;
+
+                            if (y!=NPaths[i].size()-3)
+                            {
+                                SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                            }
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
+                            NPaths[i].pop_back();
+                            y=y-3;
+
+
+                        }
+
+                        if (NPaths[i].size()==0)
+                        {
+                            temp=-1;
+                            break;
+                        }
+
+                    }
+
+
+                    if (NPaths[i].size()==0)
+                    {
+                        temp=-1;
+                        break;
+                    }
+
+                  }
+
+
+
+
+
+                for (int tt=0; tt<NPaths.size(); tt++)
+                {
+
+
+                    if (NPaths[tt].size()==0)
+                    {
+                        temp=-1;
+                        break;
+                    }
+
+                    for (int i=0; i<NPaths.size(); i++)
+                    {
+
+                        if (NPaths[i].size()==0)
+                        {
+                            temp=-1;
+                            break;
+                        }
+                        if (i==tt) continue;
+
+
+                        for (int y=0; y<NPaths[i].size(); y=y+3)
+                        {
+                            f1=1;
+
+                            //1
+                            for (int g=0; g<NPaths[tt].size(); g=g+3)
+                            {
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1.1
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.1.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1.2
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+
+                                            //1.2.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1/3
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/3/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1/4
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/4/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+
+
+                                //2
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1.1
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.1.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1.2
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.2.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                     if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1/3
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/3/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+                                if ( (PathsB[i][0]==PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1/4
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/4/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+
+
+
+
+
+
+
+
+                                //3
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1.1
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.1.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1.2
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.2.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1/3
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/3/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]==PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1/4
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/4/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+
+
+
+
+
+                                //4
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1.1
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.1.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]==PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1.2
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1.2.1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                   if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]==PathsB[i][PathsB[i].size()-1]) )  //** 1/3
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/3/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]==PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+                                if ( (PathsB[i][0]!=PathsB[tt][0])&&(PathsB[tt][PathsB[tt].size()-1]!=PathsB[i][PathsB[i].size()-1]) )
+
+                                    if ( (PathsB[i][0]!=PathsB[tt][PathsB[tt].size()-1])&&(PathsB[tt][0]!=PathsB[i][PathsB[i].size()-1]) )  //** 1/4
+
+                                        if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]))
+
+                                            //1/4/1
+                                            if ((PathsA[NPaths[i][y]][NPaths[i][y+1]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]-1+NPaths[tt][g+2]]) && (PathsA[NPaths[i][y]][NPaths[i][y+1]-1+NPaths[i][y+2]]!=PathsA[NPaths[tt][g]][NPaths[tt][g+1]]))  //**
+
+
+                                            {
+                                                f1=0;
+                                                break;
+                                            }
+
+
+
+                            }
+
+                            if (f1==1)
+                            {
+                                f2=1;
+
+                                if (y!=NPaths[i].size()-3)
+                                {
+                                    SwapInVector(NPaths[i], y, NPaths[i].size()-3);
+                                    SwapInVector(NPaths[i], y+1, NPaths[i].size()-2);
+                                    SwapInVector(NPaths[i], y+2, NPaths[i].size()-1);
+                                }
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
+                                NPaths[i].pop_back();
+                                y=y-3;
+
+
+                            }
+
+                        }
+
+                        if (NPaths[i].size()==0)
+                        {
+                            temp=-1;
+                            break;
+                        }
+
+                      }
+                    if (temp==-1) break;
+                }
+
+
+
+
+
+
+
+
+                //***
+
+
+
+
+
+
+        if (PreThinning)
+              {
+                if ((f2==1)&&(A.size()!=f3)&&(temp!=-1))  //&&(InscribedOnly==1)
+                {
+                    V1.clear();
+
+                    for (int i=0; i<NPaths.size(); i++)
+                        for (int j=0; j<NPaths[i].size(); j=j+3)
+                            V1.insert(NPaths[i][j]);
+
+                    if (PathsA.size()!=V1.size())
+                    {
+
+                    PathsA1.clear();
+                     for (auto i=V1.begin(); i!=V1.end(); i++)
+                         PathsA1.push_back(PathsA[*i]);
+
+
+
+
+                     PathsA.clear();
+                     PathsA=PathsA1;
+                     A.clear();
+                     A1.clear();
+
+                     for (int i=0; i<PathsA.size(); i++)
+
+                         for (int x=1; x<PathsA[i].size(); x++)
+                         {
+                             if (directed)
+                                 A1.insert(std::pair<int, int>(PathsA[i][x-1],PathsA[i][x]) );
+
+                             if (!directed)
+                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                         }
+
+
+                     for (auto it1=A1.begin(); it1!=A1.end(); it1++)
+                     {
+                         A.push_back((*it1).first);
+                         A.push_back((*it1).second);
+                     }
+
+                     f3=A.size();
+
+                     goto lprorez1;
+                     }
+                }
+
+             }
+
+
+            }
+
+
+
+
+
+                for (int i=0; i<NPaths.size(); i++)
+                {
+
+                    if (NPaths[i].size()==0)
+                    {temp=-1;   // если для какого-то пути из B нет аналогов в A
+                        return 0;
+
+                    }
+
+//                    cout<<"i="<<i<<" ";
+//                    VectorCout(NPaths[i]);
+
+                }
+
+
+
+// end of Stage III "Thinning of data"
+
+                // start of Stage IV "Finnishing"
+
+
+                c=0;
+
+              int WordLenght= PathsB.size();
+
+                  std::vector <int> l (PathsB.size()); // вектор разрядов
+
+              std::vector <int> lmax (PathsB.size()); // вектор порговых значений у разрядов
+
+              for (int g=0; g<PathsB.size(); g++)
+              {
+                  l [g] = 0;
+
+                  lmax [g] = NPaths[g].size()/3-1;
+
+
+              }
+
+            l[l.size()-1]--;
+
+
+
+            std::vector<std::vector <bool>> B1; //заготовки для матриц смежности
+
+
+            MatrixSet(B1, mb+1-mnb, mb+1-mnb, 0);
+
+
+
+            std::vector <int> IndexPermB;  // Номера вершин графа B в шкале Scale0
+            IndexPermB.clear();
+            IndexPermB.resize(mb+1, -1);
+
+
+            for (int q1=0; q1<PathsB.size(); q1++)
+            {
+                if (IndexPermB[PathsB[q1][0]]==-1)
+                {
+                    Scale0.push_back(PathsB[q1][0]);
+                    IndexPermB[PathsB[q1][0]] = Scale0.size()-1;
+                }
+
+                for (int q2=0; q2<PathsB[q1].size()-1; q2++)
+                {
+                    G0.push_back(PathsB[q1][q2]);
+                    G0.push_back(PathsB[q1][q2+1]);
+
+                    if (IndexPermB[PathsB[q1][q2+1]]==-1)
+                    {
+                        Scale0.push_back(PathsB[q1][q2+1]);
+                        IndexPermB[PathsB[q1][q2+1]] = Scale0.size()-1;
+                    }
+
+                    B1  [IndexPermB[PathsB[q1][q2]]] [IndexPermB[PathsB[q1][q2+1]]]=1;
+                    if (!directed) B1 [IndexPermB[PathsB[q1][q2+1]]] [IndexPermB[PathsB[q1][q2]]] = B1  [IndexPermB[PathsB[q1][q2]]] [IndexPermB[PathsB[q1][q2+1]]];
+
+                }
+
+            }
+
+
+
+
+
+             //std::set<std::pair <int, int>> G1ALL3; // Служебный - для исключения из результата взаимотождественных подграфов
+             std::multiset<std::pair <int, int>> G1ALL3; // Служебный - для исключения из результата взаимотождественных подграфов
+             // std::unordered_set<std::pair <int, int>, PairIntHash> G1ALL3;
+             G1ALL3.clear();
+
+             std::unordered_set<std::pair <int, int>, PairIntHash> Y;
+             Y.clear();
+
+             std::unordered_set<int> Y1;
+             Y1.clear();
+
+
+
+
+             int *IndexPermA = new int[m+1]; // Выделение памяти для массива
+             for (int i = 0; i <= m; i++)
+                 IndexPermA[i] = -1;
+
+
+
+             G1=G0;
+
+             for (int i = 0; i < G1.size(); i++)
+                 G1[i]=m;
+
+             std::vector<std::vector <bool>> B10; //заготовки для матриц смежности
+            // B10=B1;
+
+
+
+              while (true) //***
+              {
+
+                if (temp==-1) break;   // если для какого-то пути из B нет аналогов в A
+
+              l [WordLenght-1]++;  //увеличение на 1 номера последнего разряда
+
+              if (l [WordLenght-1] > lmax [WordLenght-1])
+               {
+                 r = WordLenght-1;
+
+                 while (r>0)
+                   {l [r] = 0;
+                    r--;
+                    l [r] ++;
+                    if (l[r] <= lmax [r]) break;
+                   }
+               }
+
+
+                Y1.clear();
+                Y.clear();  // In order not to consider combination of path-candidates if any path-candidate is represented in this combination more than once.
+
+//                if (!((eq == true) || (InscribedOnly == false)))
+//                    for (int y=0; y<NPaths.size();y++)
+//                                {
+//                                    c = 3*l[y];
+//                                    Y.insert(std::pair <int, int> (NPaths[y][c], NPaths[y][c+1]));
+
+//                                    if (Y.size()!=(y+1))
+//                                    {
+//                                        if (l==lmax) goto l3;
+
+//                                        for (int x=NPaths.size()-1; x>y;x--)
+//                                            l[x]=lmax[x];
+
+//                                        goto l3;
+
+//                                    }
+
+//                                }
+
+//                if ((eq == true) || (InscribedOnly == false))
+//                    for (int y=0; y<NPaths.size();y++)
+//                                {
+//                                    c = 3*l[y];
+
+//                                    if ((eq)||(directed))
+//                                        Y1.insert(NPaths[y][c]);
+
+//                                    if ((InscribedOnly == false)&&(!directed))
+//                                    {
+//                                        if (((NPaths[y][c])%2)==0)
+//                                            Y1.insert(NPaths[y][c]);
+//                                        if (((NPaths[y][c])%2)==1)
+//                                            Y1.insert(NPaths[y][c]-1);
+
+//                                    }
+
+//                                    if (Y1.size()!=(y+1))
+//                                    {
+//                                        if (l==lmax) goto l3;
+
+//                                        for (int x=NPaths.size()-1; x>y;x--)
+//                                            l[x]=lmax[x];
+
+//                                        goto l3;
+
+//                                    }
+
+//                                }
+
+                if (eq == true)
+                    for (int y=0; y<NPaths.size();y++)
+                                {
+                                    c = 3*l[y];
+
+                                    Y1.insert(NPaths[y][c]);
+
+                                    if (Y1.size()!=(y+1))
+                                    {
+                                        if (l==lmax) goto l3;
+
+                                        for (int x=NPaths.size()-1; x>y;x--)
+                                            l[x]=lmax[x];
+
+                                        goto l3;
+
+                                    }
+
+                                }
+
+                f1=0;
+
+                  t=0;
+
+                  //G1.clear();
+
+//                  for (int i = 0; i <= m; i++)
+//                      IndexPermA[i] = -1;
+
+
+
+                  Y.clear();
+
+                 for (int y=0; y<NPaths.size();y++)
+                     {
+                        c = 3*l[y];
+                        if (IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]]]==-1)
+                           {
+                              t++;
+                              IndexPermA[PathsA[NPaths[y][c]][NPaths[y][c+1]]] = t-1;
+                           }
+
+
+
+                        for (int x=0; x<(PathsB[y].size()-1);x++)
+                            {
+
+
+                               G1[f1]=(PathsA[NPaths[y][c]][NPaths[y][c+1]+x]);
+                               G1[f1+1]=(PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]);
+                               f1=f1+2;
+
+//                            G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x]);
+//                            G1.push_back(PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]);
+
+                            if (directed)
+                                //Y.insert(std::pair <int, int> (PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]));
+                                Y.insert(std::pair <int, int> (G1[f1-2], G1[f1-1]));
+                            if (!directed)
+                                //Y.insert(std::pair <int, int> (std::min(PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1]), std::max(PathsA[NPaths[y][c]][NPaths[y][c+1]+x], PathsA[NPaths[y][c]][NPaths[y][c+1]+x+1])));
+                                Y.insert(std::pair <int, int> (std::min(G1[f1-2], G1[f1-1]), std::max(G1[f1-2], G1[f1-1])));
+
+
+//                            if (Y.size()!=G1.size()/2)
+//                            {
+
+//                                if (l==lmax) goto l3;
+//                                for (int x1=NPaths.size()-1; x1>y;x1--)
+//                                    l[x1]=lmax[x1];
+//                                 goto l3;
+
+//                            }
+
+                            if (Y.size()!=f1/2)
+                            {
+
+                                if (l==lmax) goto l3;
+                                for (int x1=NPaths.size()-1; x1>y;x1--)
+                                    l[x1]=lmax[x1];
+                                 goto l3;
+
+                            }
+
+
+                                if (IndexPermA[G1[f1-1]]==-1)
+                                {
+                                     t++;
+                                     IndexPermA[G1[f1-1]] = t-1;
+                                }
+
+                                if (IndexPermA[G1[f1-2]]>=B1.size())
+                                {
+
+                                    if (l==lmax) goto l3;
+                                    for (int x1=NPaths.size()-1; x1>y;x1--)
+                                        l[x1]=lmax[x1];
+                                     goto l3;
+
+                                }
+
+                                if (IndexPermA[G1[f1-1]]>=B1.size())
+                                {
+
+                                    if (l==lmax) goto l3;
+                                    for (int x1=NPaths.size()-1; x1>y;x1--)
+                                        l[x1]=lmax[x1];
+                                     goto l3;
+
+                                }
+
+                                if (B1  [IndexPermA[G1[f1-2]]][IndexPermA[G1[f1-1]]]!=1)
+                                {
+
+                                    if (l==lmax) goto l3;
+                                    for (int x1=NPaths.size()-1; x1>y;x1--)
+                                        l[x1]=lmax[x1];
+                                     goto l3;
+                                 }
+
+                              }
+                       }
+
+                 if (G0.size()!=f1)
+                     goto l3;
+
+//                 if (G0.size()!=G1.size())
+//                     goto l3;
+
+
+                if (!directed)
+                {
+                    for (int i=0; i<G1.size(); i=i+2)
+                    {
+                        if (G1[i]>G1[i+1]) SwapInVector(G1, i, i+1);
+                    }
+
+                }
+
+
+                // we should have no equal graphs in our answer so we should eliminate those that have the same edges in different order (except one of them)
+
+                G1ALL3.clear();
+
+                if (directed)
+                    for (int q=0; q<G0.size(); q=q+2)
+                        for (int a=0; a<MultEdgesB[std::pair <int, int>(G0[q], G0[q+1]) ]; a++)
+                            G1ALL3.insert(std::pair<int, int> (G1[q],G1[q+1]));
+                if (!directed)
+                    for (int q=0; q<G0.size(); q=q+2)
+                        for (int a=0; a<MultEdgesB[std::pair <int, int>(std::min(G0[q], G0[q+1]), std::max(G0[q], G0[q+1])) ]; a++)
+                            G1ALL3.insert(std::pair<int, int> (G1[q],G1[q+1]));
+
+
+                   f3=0;
+                    for (auto it3=G1ALL3.begin(); it3!=G1ALL3.end(); it3++)
+                        {
+                            G3[f3]=(*it3).first;
+                            G3[f3+1]=(*it3).second;
+                            f3=f3+2;
+                        }
+               if (b0size!=f3)
+                   goto l3;
+
+
+
+
+//                    G3.clear();
+//                     for (auto it3=G1ALL3.begin(); it3!=G1ALL3.end(); it3++)
+//                         {
+//                             G3.push_back((*it3).first);
+//                             G3.push_back((*it3).second);
+//                         }
+
+
+
+                if (G3.size()!=b0size)
+                 goto l3;
+
+
+               Result.insert(G3);
+
+
+
+                l3: if (l==lmax)
+                {
+                    delete [] IndexPermA; // очистка памяти
+                    break;
+                }
+                if ((eq==true) && (Result.size()==1))
+                {
+                    delete [] IndexPermA; // очистка памяти
+                    break;
+                }
+
+                if (HowManySubgraphs>0)
+                    if (Result.size()==HowManySubgraphs)
+                    {
+                        delete [] IndexPermA; // очистка памяти
+                        break;
+                    }
+
+                for (int x1=0; x1<G1.size();x1++)
+                    IndexPermA[G1[x1]]=-1;
+
+
+              }
+
+     return Result.size();
+}
 
 
 int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
