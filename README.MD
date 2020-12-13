@@ -1163,6 +1163,10 @@ if input data are incorrect returns -1 and empty Result.
 A and B may have >=1 connected components; also A and B may have multiply edges.
 
 ***
+`int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
+
+The version of the function SubGraphsInscribed: results will be in set Result. It works slower.
+***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 
