@@ -1066,6 +1066,10 @@ std::vector <int> & Visited)`
 т.к. скорость прохождения различных этапов алгоритма, как и самого алгоритма, сильно зависит от исходных данных.
 Параметр HowManySubgraphs задает верхний предел кол-ва подграфов, которое нужно найти. Если HowManySubgraphs == 0, то производится поиск всех возможных подграфов.
 ***
+int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
+
+Версия функции SubGraphsInscribed: результаты будут в set Result. Работает несколько дольше. 
+***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 
