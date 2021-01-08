@@ -3825,36 +3825,37 @@ while (l>=L-D)
 
 
 
-int FindMutatedRepeatsED (std::string &StrShort, std::string &StrLong, int D, std::set <std::pair <int, int>> &Result)
-// Функция находит все подстроки для строки StrLong, редакционное расстояние которых до StrShort не превышает D. При этом принимается, что "штраф" за пропуск и несовпадение символов  = 1.
+int FindMutatedRepeatsED (const std::string &strShort, const std::string &strLong, int D, std::set <std::pair <int, int>> &Result)
+// Функция находит все подстроки для строки StrLong, редакционное расстояние которых до strShort не превышает D. При этом принимается, что "штраф" за пропуск и несовпадение символов  = 1.
 // Результат возвращается в set <std::pair <int, int>> Result, где первое число в паре - номер позиции начала подстроки в StrLong (счет позиций идет с 0), а второе - длина подстроки (пары не отсортированы).
 // Если исходные данные некорректны - возвращается -1 и пустой Result;, в случае успеха возвращается 0.
 // Идея реализованного алгоритма:
-// (1) Найти все начала таких подстрок в StrLong.
-// Для этого обе строки реверсируются, затем StrShort "выравнивается" на StrLong по обычным правилам для нахождения редакционного расстояния, но с тем отличием,
-// что суммарный начальный пропуск по StrLong не "штрафуется" (начать можно с любой позиции в длинной строке без "штрафа"). Найденные начальные позиции нумеруются с 1. Затем строки реверсируются обратно.
+// (1) Найти все начала таких подстрок в strLong.
+// Для этого обе строки реверсируются, затем strShort "выравнивается" на strLong по обычным правилам для нахождения редакционного расстояния, но с тем отличием,
+// что суммарный начальный пропуск по strLong не "штрафуется" (начать можно с любой позиции в длинной строке без "штрафа"). Найденные начальные позиции нумеруются с 1. Затем строки реверсируются обратно.
 // (2) Для каждой позиции вычисляется максимально возможная длина искомой подстроки, которая не может быть более длины StrShort плюс D, и при этом не может выходить за границу StrLong.
-// Пояснение. Длины искомых подстрок не могут отличаться от длины StrShort более чем на D в ту и другую сторону, т.к. редакционное расстояние не превышает D, а цена пропуска = 1.
-// (3) Если такая максимально возможная длина есть и составляет не менее длины StrShort минус D, то для соотвествующей подстроки (обозначим как TempS) и StrShort осуществляем стандартный Edit Distance Alignment с помощью вспомогательной функции EDistForFindMR.
-// И в выстраиваемой для этих целей матрице будут значения Edit Distance не только между StrShort и TempS, но и (!) укороченным с конца подстрокам TempS (для этого берем значения в матрице не только по последней строке (TempS "откладывается" вниз), но и по предшествующим.
+// Пояснение. Длины искомых подстрок не могут отличаться от длины strShort более чем на D в ту и другую сторону, т.к. редакционное расстояние не превышает D, а цена пропуска = 1.
+// (3) Если такая максимально возможная длина есть и составляет не менее длины strShort минус D, то для соотвествующей подстроки (обозначим как TempS) и strShort осуществляем стандартный Edit Distance Alignment с помощью вспомогательной функции EDistForFindMR.
+// И в выстраиваемой для этих целей матрице будут значения Edit Distance не только между strShort и TempS, но и (!) укороченным с конца подстрокам TempS (для этого берем значения в матрице не только по последней строке (TempS "откладывается" вниз), но и по предшествующим.
 // Если для каждого такого префикса строки TempS (при условии, что его длина удовлетворяет пояснению к шагу (2)) значение Edit Distance не превышает D - фиксируем в set Result его начальную позицию (в нумерации от 0) и длину.
-// Функция возвращает 0 и заполненный Result в случае успеха и -1 и пустой Result в случае некорректности исходных данных (любая из строк пуста или StrShort длиннее StrLong или длина StrShort не превосходит D)
+// Функция возвращает 0 и заполненный Result в случае успеха и -1 и пустой Result в случае некорректности исходных данных (любая из строк пуста или strShort длиннее strLong или длина strShort не превосходит D)
 
 
-// The function finds all the substrings of a string StrLong, that have Edit Distance to a string StrShort <= D. Gap and mistmatch penalties are set as "1" here.
-// If dataset is correct returns 0 and set <std::pair <int, int>> Result, that contains pairs of integers: first one is a start position of a required substring in StrLong (0-based indexing)  and the second one is its length.
-// If dataset is not correct (any string is empty of StrShort is longer than StrLong or StrShort's length <= D) returns -1 and empty Result.
+// The function finds all the substrings of a string strLong, that have Edit Distance to a string strShort <= D. Gap and mismatch penalties are set as "1" here.
+// If dataset is correct returns 0 and set <std::pair <int, int>> Result, that contains pairs of integers: first one is a start position of a required substring in strLong (0-based indexing)  and the second one is its length.
+// If dataset is not correct (any string is empty of strShort is longer than strLong or strShort's length <= D) returns -1 and empty Result.
 // The algorithm idea is:
 // (1) to find all start positions of such substrings. To do so we should reverse both strings and then do Edit Distance Alignment but with no gap penalty at the beginning: The required substring may start at every position of the longer string so here are no penalty fo gapping at start.
-// (2) For each start position the maximal possible length for the required substring (<= StrShort.length+D, but within StrLong).
-// Note that the required substrings may have length <= StrShort.length+D and >= StrShort.length-D because gap penalty = 1.
-// (3) If such maximal possible length meets this condition, let a string TempS be a substring of StrLong of this length (TempS starts from relevant start position in StrLong).
-// And then let's do Edit Distance Alignment between TempS and StrShort in order to find prefixes of TempS, that require the statement of problem to be solved here.
+// (2) For each start position the maximal possible length for the required substring (<= StrShort.length+D, but within strLong).
+// Note that the required substrings may have length <= strShort.length+D and >= strShort.length-D because gap penalty = 1.
+// (3) If such maximal possible length meets this condition, let a string TempS be a substring of StrLong of this length (TempS starts from relevant start position in strLong).
+// And then let's do Edit Distance Alignment between TempS and strShort in order to find prefixes of TempS, that require the statement of problem to be solved here.
 
 
 {
     Result.clear();
-
+    std::string StrShort = strShort;
+    std::string StrLong = strLong;
     if (StrShort.length()>StrLong.length()) return -1; // Приверка корректности исходных данных  // checking for input tata correctness
     if ((StrShort.length()==0) || (StrLong.length()==0))return -1; // Приверка корректности исходных данных  // checking for input tata correctness
     if (D<0) return -1; // Приверка корректности исходных данных  // checking for input tata correctness
