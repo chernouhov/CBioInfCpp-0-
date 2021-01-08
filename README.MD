@@ -518,19 +518,19 @@ const int L, int l, int b, std::set <std::pair <int, int>> &Result)`
 An auxiliary function for FindMutatedRepeatsED, see its info for details 
 (below, the following one).
 ***
-`int FindMutatedRepeatsED (std::string &StrShort, std::string &StrLong, int D,
+`int FindMutatedRepeatsED (const std::string &strShort, const std::string &strLong, int D,
 std::set <std::pair <int, int>> &Result)`
 
-The function finds all the substrings of a string StrLong, that have Edit
-Distance to a string StrShort <= D. Gap and mistmatch penalties are set as "1"
+The function finds all the substrings of a string strLong, that have Edit
+Distance to a string strShort <= D. Gap and mistmatch penalties are set as "1"
 here.
 
 If dataset is correct returns 0 and set <std::pair <int, int>> Result, that
 contains pairs of integers: first one is a start position of a required substring
 in StrLong (0-based indexing) and the second one is its length.
 
-If dataset is not correct (any string is empty of StrShort is longer than
-StrLong or StrShort's length <= D) returns -1 and empty Result.
+If dataset is not correct (any string is empty of strShort is longer than
+StrLong or strShort's length <= D) returns -1 and empty Result.
 
 The algorithm idea is:
 1. To find all start positions of such substrings. To do so we should reverse
@@ -538,14 +538,14 @@ both strings and then do Edit Distance Alignment but with no gap penalty at the
 beginning: The required substring may start at every position of the longer string
 so here are no penalty fo gapping at start.
 2. For each start position the maximal possible length for the required
-substring (<= StrShort.length+D, but within StrLong).   
+substring (<= strShort.length+D, but within StrLong).   
 Note that the required substrings may have length <= StrShort.length+D and >=
-StrShort.length-D because gap penalty = 1.
+strShort.length-D because gap penalty = 1.
 3. If such maximal possible length meets this condition, let a string TempS be
-a substring of StrLong of this length (TempS starts from relevant start position
-in StrLong).  
+a substring of strLong of this length (TempS starts from relevant start position
+in strLong).  
 
-And then let's do Edit Distance Alignment between TempS and StrShort in order
+And then let's do Edit Distance Alignment between TempS and strShort in order
 to find prefixes of TempS, that require the statement of problem to be solved
 here.
 ***
