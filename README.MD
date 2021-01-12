@@ -1166,6 +1166,17 @@ A and B may have >=1 connected components; also A and B may have multiply edges.
 `int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0)`
 
 The version of the function SubGraphsInscribed: results will be in set Result. It works slower.
+
+***
+`template < typename Tf>`
+
+`int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0, std::map<int, Tf> Af={}, std::map<int, Tf> Bf={})`
+
+The experimental version of the function SubGraphsInscribed: vertices of graphs may have marks (set by std::map<int, Tf> Af for graph A and by std::map<int, Tf> Bf for graph B).
+
+As isomorphic may be concidered vertices, that (1) have no marks or (2) both have equal marks.
+
+If Af or Bf have a mark for a vertex which number doesn't appears at graph A / graph B, it should be considered as incorrect input data (returns -1).
 ***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
