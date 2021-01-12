@@ -13850,7 +13850,7 @@ if (PreThinning)
 template < typename Tf>
 int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0, std::map<int, Tf> Af={}, std::map<int, Tf> Bf={})
 // The experimental version of the function SubGraphsInscribed: vertices of graphs may have marks (set by std::map<int, Tf> Af for graph A and by std::map<int, Tf> Bf for graph B).
-// As isomorphic may be concidered vertices, that (1) have no marks or (2) both have equal marks.
+// As isomorphic may be considered vertices, that (1) have no marks or (2) both have equal marks.
 // If Af or Bf have a mark for a vertex which number doesn't appears at graph A / graph B, it should be considered as incorrect input data (returns -1).
 
 // Экспериментальная версия функции SubGraphsInscribed: Вершины графов A и B могут иметь метки (заданы в std::map<int, Tf> Af для A и в std::map<int, Tf> Bf для B).
