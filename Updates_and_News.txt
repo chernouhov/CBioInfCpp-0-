@@ -123,3 +123,8 @@ number of the start-vertex of edge, number of end-vertex of edge, starting posit
 This extention/ modifacation is done by working with all edges of the input graphs instead of working with non-branching paths.
 If InscribedOnly == false the function finds all (not only inscribed) subgraphs of unweighted graph A that are isomorphic to unweighted graph B.
 If InscribedOnly == true the function looks for "inscribed" ones only.
+
+12.01.2020
+- Добавлена функция SubGraphsInscribedM - экспериментальная версия функции SubGraphsInscribed. С ее помощью можно искать подграфы в графе по заданному образцу с учетом меток вершин (например, обозначения атомов для поиска по химическим формулам)
+- Function SubGraphsInscribedM - i.e. an experimental version of the function SubGraphsInscribed - has been added. 
+SubGraphsInscribedM can find subgraphs in a given A that are isomorphic to a given template graph B too, but new is that vertices of these graphs may have marks. It may be useful for chemistry as one may associate an atom to some vertex (in case a molecule is set by graph).
