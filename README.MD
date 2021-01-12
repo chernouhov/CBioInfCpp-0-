@@ -1174,7 +1174,7 @@ The version of the function SubGraphsInscribed: results will be in set Result. I
 
 The experimental version of the function SubGraphsInscribed: vertices of graphs may have marks (set by std::map<int, Tf> Af for graph A and by std::map<int, Tf> Bf for graph B).
 
-As isomorphic may be concidered vertices, that (1) have no marks or (2) both have equal marks.
+As isomorphic may be considered vertices, that (1) have no marks or (2) both have equal marks.
 
 If Af or Bf have a mark for a vertex which number doesn't appears at graph A / graph B, it should be considered as incorrect input data (returns -1).
 ***
