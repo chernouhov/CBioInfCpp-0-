@@ -1070,6 +1070,16 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::set<std::
 
 Версия функции SubGraphsInscribed: результаты будут в set Result. Работает несколько дольше. 
 ***
+`template < typename Tf>`
+
+`int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std::vector <int>> & Result, bool directed = true, bool InscribedOnly = true, const bool PreThinning=true, const unsigned int HowManySubgraphs = 0, std::map<int, Tf> Af={}, std::map<int, Tf> Bf={})`
+
+Экспериментальная версия функции SubGraphsInscribed: Вершины графов A и B могут иметь метки (заданы в std::map<int, Tf> Af для A и в std::map<int, Tf> Bf для B).
+
+Вершины будут считаться изоморфными если они либо (1) обе не имеют меток, либо (2) обе имеют метки, причем равные.
+
+Случай наличия в Af либо Bf ключа, не совпадвющего с номером какой-либо вершины в А или В рассматривается как некорректные исходные данные (возвращает -1).
+***
 `int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int
 b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
 
