@@ -1,0 +1,51 @@
+Here is unweighted graph A1: 
+-7 2
+-7 2
+2 3
+3 3
+3 -7
+2 4
+4 4
+4 4
+3 3
+4 -7
+
+Here is weighted graph A2: 
+-7 2 1
+-7 2 2
+2 3 -5
+3 3 -6
+3 -7 2
+2 4 2
+4 4 11
+4 4 12
+3 3 1
+4 -7 0
+
+Here is weighted graph A3: 
+-7 2 0.1000 
+-7 2 0.2000 
+2 3 -0.5000 
+3 3 -0.6000 
+3 -7 -0.2000 
+2 4 0.2000 
+4 4 0.1100 
+4 4 0.1200 
+3 3 0.1000 
+4 -7 0.0000 
+
+1
+Eulerian cycle of graph A1: 
+-7 2 3 3 3 -7 2 4 4 4 -7 
+Isolated vertices of graph A1: 
+-6 -5 -4 -3 -2 -1 0 1 
+1
+Eulerian cycle of graph A2: 
+-7 2 3 3 3 -7 2 4 4 4 -7 
+Isolated vertices of graph A2: 
+-6 -5 -4 -3 -2 -1 0 1 
+1
+Eulerian cycle of graph A3: 
+-7 2 3 3 3 -7 2 4 4 4 -7 
+Isolated vertices of graph A3: 
+-6 -5 -4 -3 -2 -1 0 1 
