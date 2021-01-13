@@ -1,4 +1,4 @@
-// (c) Chernouhic Sergey, 2021 / chernouhov@rambler.ru /
+// (c) Chernouhov Sergey, 2021 / chernouhov@rambler.ru /
 // This Work is distributed under Creative Commons Attribution 4.0 International Public License (CC BY)
 // (hyperlink to the License: https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
