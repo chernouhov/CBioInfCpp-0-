@@ -13861,7 +13861,7 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
      Result.clear(); // здесь будут найденные подграфы
 
-     const bool w = false; // we consider only unweighted graps here
+     const bool w = false; // we consider only unweighted graphs here
 
 
     // checking of input data correctness
@@ -13880,8 +13880,10 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
     bool ff=1;
     if ((Af.size()==0)&&(Bf.size()==0))
-    {
         ff=0;
+
+    if (Bf.size()==0)
+    {
         GraphVerticesNumbersCompress (B, w);
     }
 
