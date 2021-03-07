@@ -20,6 +20,14 @@ https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 Автор CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf – Черноухов Сергей 
 (chernouhov@rambler.ru) 
 
+***
+**Апробирование**
+
+2021: 
+
+Функция SubGraphsInscribed применена после переработки в проекте https://graphonline.ru/ для проверки изоморфности графов и поиска подграфа по образцу.
+***
+
 # Функции CBioInfCpp.h и их предназначение
 
 CBioInfCpp.h содержит ряд функций, которые могут быть полезны как при решении 
