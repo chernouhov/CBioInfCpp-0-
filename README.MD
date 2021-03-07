@@ -10,6 +10,13 @@ English | [Русский](README.ru.MD)
 ***
 **Author will be glad to receive your feedback**
 ***
+***
+**Approbation**
+
+2021: 
+
+Function SubGraphsInscribed is used by https://graphonline.ru/ for (sub)graph isomorphism problem solving.
+***
 
 # About 
 
