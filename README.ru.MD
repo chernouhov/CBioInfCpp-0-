@@ -25,7 +25,7 @@ https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
 2021: 
 
-Функция SubGraphsInscribed применена после переработки в проекте https://graphonline.ru/ для проверки изоморфности графов и поиска подграфа по образцу.
+Функция SubGraphsInscribed применена после переработки в проекте https://graphonline.ru/ (https://github.com/UnickSoft/graphonline) для проверки изоморфности графов и поиска подграфа по образцу.
 ***
 
 # Функции CBioInfCpp.h и их предназначение
