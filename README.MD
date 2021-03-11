@@ -15,7 +15,7 @@ English | [Русский](README.ru.MD)
 
 2021: 
 
-Function SubGraphsInscribed is used by https://graphonline.ru/ (https://github.com/UnickSoft/graphonline) for (sub)graph isomorphism problem solving.
+Function SubGraphsInscribed is used by https://graphonline.ru/ (https://github.com/UnickSoft/GraphOffline, https://github.com/UnickSoft/graphonline) for (sub)graph isomorphism problem solving.
 ***
 
 # About 
