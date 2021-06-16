@@ -60,22 +60,6 @@ std::vector < std::string> & DataS)`
 
 Читает все строки из файла в вектор **DataS**.
 ***
-`int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')`
-
-Вывод матрицы (int) на экран через пробелы. Возвращает -1, если матрица не 
-содержит строк/ столбцов.
-
-Если строки матрицы разной длины, то "остатки" 
-длины до максимальной при выводе заполняются символом **g**.
-***
-`int MatrixCout (std::vector <std::vector <long long int>> & B, char g = ' ')`
-
-Вывод матрицы (long long int) на экран через пробелы. Возвращает -1, если 
-матрица не содержит строк/ столбцов.
-
-Если строки матрицы разной длины, то "остатки" длины до максимальной при 
-выводе заполняются символом **g**.  
-***
 `int MatrixCout (std::vector <std::vector <double>> & B, unsigned int prec = 4,
 char g = ' ', bool scientifique = false)`
 
@@ -128,39 +112,21 @@ unsigned int prec = 4, char g = ' ', bool scientifique = false)`
 
 Если **bool scientifique == true**, вывод производится в экспоненциальной форме.  
 ***
-`int MatrixFout (std::vector < std::vector <int>> & B, std::ofstream & fout, char g
-= ' ')`
+`template < typename TMC>`
 
-Вывод матрицы (int) в файл через пробелы. Возвращает -1, если матрица 
-не содержит строк/ столбцов.
+`int MatrixCout (std::vector <std::vector <TMC>> & B, char g = ' ')`
+ 
+Обобщение функции: ввод матрицы (элементов стандартных типов TMC) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
 
-Если строки матрицы разной длины, то "остатки" длины до максимальной 
-при выводе заполняются символом **g**.
+Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
 ***
-`int MatrixFout (std::vector < std::vector <long long int>> & B, std::ofstream &
-fout, char g = ' ')`
+`template < typename TMF>`
 
-Вывод матрицы (long long int) в файл через пробелы. Возвращает -1, если 
-матрица не содержит строк/ столбцов.
+`int MatrixFout (std::vector <std::vector <TMF>> & B, std::ofstream & fout, char g = ' ')`
 
-Если строки матрицы разной длины, то "остатки" длины до максимальной 
-при выводе заполняются символом **g**.
-***
-`int VectorCout (const std::vector <int> &P)`
+Обобщение функции: ввод матрицы (элементов стандартных типов TMF) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
 
-Вывод вектора (int) на экран через пробелы
-***
-`int VectorFout (const std::vector <int> &P, std::ofstream &fout)`
-
-Вывод вектора (int) в файл через пробелы. Возвращает -1, если вектор - пустой.
-***
-`int VectorCout (const std::vector <long long int> &P)`
-
-Вывод вектора (long long int) на экран через пробелы.
-***
-`int VectorFout (const std::vector <long long int> &P, std::ofstream &fout)`
-
-Вывод вектора (long long int) в файл через пробелы. Возвращает -1, если вектор - пустой.
+Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
 ***
 `int VectorCout (const std::vector <double> &P, unsigned int prec = 4, bool
 scientifique = false)`
@@ -207,6 +173,18 @@ int prec = 4, bool scientifique = false)`
 `int VectorFout (const std::vector <std::string> &P, std::ofstream &fout)`
 
 Вывод вектора (string) через Enter в файл. Возвращает -1, если вектор - пустой.
+***
+`template < typename TVC>`
+
+`int VectorCout (const TVC &P)`
+
+Обобщение функции: вывод вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, на экран через пробелы
+***
+`template < typename TVF>`
+
+`int VectorFout (const TVF &P, std::ofstream &fout)`
+
+Обобщение функции: вывод вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, в файл через пробелы
 ***
 `int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, 
 unsigned int prec = 4, bool scientifique = false)`
@@ -1124,6 +1102,22 @@ std::vector <long double> & D, const int b, std::vector <int> & Prev, int V =
 INT_MIN)`
 
 Модификация функции DistanceTS (см. выше) для случая нецелочисленных весов ребер (double).
+***
+`int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, const bool weighted, int V = INT_MIN)`
+
+Модификация функции DistanceTS (см. выше) - не рассчитывается массив "предков"
+***
+`int DistanceTS (std::vector <int> &A, std::vector <int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
+
+Модификация функции DistanceTS (см. выше) - расстояния в int.
+***
+`int DistanceTS (std::vector <int> &A, std::vector <int> & D, const int b, const bool weighted, int V = INT_MIN)`
+
+Модификация функции DistanceTS (см. выше) - расстояния в int и не рассчитывается массив "предков".
+***
+`int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, int V = INT_MIN)`
+
+Модификация функции DistanceTS (см. выше) для случая нецелочисленных весов ребер (double) и без поиска массива "предков". 
 ***
 `int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::set <int> &Vertices, const bool weighted)`
 
