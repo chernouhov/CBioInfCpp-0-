@@ -27,7 +27,7 @@
 #include <unordered_set>
 #include <utility>
 #include <functional>
-
+#include <list>
 
 
 int FastaRead (std::ifstream & fin, std::vector <std::string> & IndexS, std::vector <std::string> & DataS)
@@ -228,10 +228,11 @@ int MatrixSet (std::vector <std::vector <bool>> & B, const int NLines, const int
 }
 
 
-int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
-// Вывод матрицы (int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
+template < typename TMC>
+int MatrixCout (std::vector <std::vector <TMC>> & B, char g = ' ')
+// Вывод матрицы (элементов стандартных типов TMF) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
 // Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Couts" Matrix (int) to screen. Returns -1 if the Matrix is empty.
+// "Fouts" Matrix of standard type elements to screen. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 
 {
@@ -250,8 +251,6 @@ int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
 
     for (unsigned int row = 0; (row< NLines); row++)
     {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 std::cout<< B [row] [column]<< " ";
@@ -267,132 +266,6 @@ int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')
     }
     return 0;
 }
-
-
-
-int MatrixCout (std::vector <std::vector <short int>> & B, char g = ' ')
-// Вывод матрицы (short int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Couts" Matrix (short int) to screen. Returns -1 if the Matrix is empty.
-// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
-
-{
-
-    int NLines, NColumns;
-    NLines = B.size();
-    if (NLines==0) return -1;
-    NColumns = B[0].size();
-
-    for (int i=0;i<NLines; i++)
-        if (B[i].size()>NColumns) NColumns=B[i].size();
-
-    if (NColumns==0) return -1;
-
-
-
-    for (unsigned int row = 0; (row< NLines); row++)
-    {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
-            {
-                std::cout<< B [row] [column]<< " ";
-            }
-
-        for (unsigned int column = B[row].size(); column < NColumns; column++)
-            {
-                std::cout<< g << " ";
-            }
-
-
-        std::cout<< std::endl;
-    }
-    return 0;
-}
-
-
-
-int MatrixCout (std::vector <std::vector <bool>> & B, char g = ' ')
-// Вывод матрицы (bool) на экран через пробелы (в формате 1 или 0). Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Couts" Matrix (bool) to screen as "1" or "0". Returns -1 if the Matrix is empty.
-// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
-
-{
-
-    int NLines, NColumns;
-    NLines = B.size();
-    if (NLines==0) return -1;
-    NColumns = B[0].size();
-
-    for (int i=0;i<NLines; i++)
-        if (B[i].size()>NColumns) NColumns=B[i].size();
-
-    if (NColumns==0) return -1;
-
-
-
-    for (unsigned int row = 0; (row< NLines); row++)
-    {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
-            {
-                std::cout<< (short int)B [row] [column]<< " ";
-            }
-
-        for (unsigned int column = B[row].size(); column < NColumns; column++)
-            {
-                std::cout<< g << " ";
-            }
-
-
-        std::cout<< std::endl;
-    }
-    return 0;
-}
-
-
-int MatrixCout (std::vector <std::vector <long long int>> & B, char g = ' ')
-// Вывод матрицы (long long int) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Couts" Matrix (long long int) to screen. Returns -1 if the Matrix is empty.
-// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
-
-{
-
-    int NLines, NColumns;
-    NLines = B.size();
-    if (NLines==0) return -1;
-    NColumns = B[0].size();
-
-    for (int i=0;i<NLines; i++)
-        if (B[i].size()>NColumns) NColumns=B[i].size();
-
-    if (NColumns==0) return -1;
-
-
-
-    for (unsigned int row = 0; (row< NLines); row++)
-    {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
-            {
-                std::cout<< B [row] [column]<< " ";
-            }
-
-        for (unsigned int column = B[row].size(); column < NColumns; column++)
-            {
-                std::cout<< g << " ";
-            }
-
-
-        std::cout<< std::endl;
-    }
-    return 0;
-}
-
 
 int MatrixCout (std::vector <std::vector <double>> & B, unsigned int prec = 4, char g = ' ', bool scientifique = false)
 // Вывод матрицы (double) на экран через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
@@ -497,7 +370,6 @@ int MatrixCout (std::vector <std::vector <long double>> & B, unsigned int prec =
     for (unsigned int row = 0; (row< NLines); row++)
     {
 
-        //for (unsigned int column = 0; column < NColumns; column++)
         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 std::cout<< std::fixed<< B [row] [column]<< " ";
@@ -517,12 +389,9 @@ int MatrixCout (std::vector <std::vector <long double>> & B, unsigned int prec =
 
     if (scientifique)
     {
-
-
         for (unsigned int row = 0; (row< NLines); row++)
         {
 
-            //for (unsigned int column = 0; column < NColumns; column++)
             for (unsigned int column = 0; column < B[row].size(); column++)
                 {
                     std::cout<< std::scientific<< B [row] [column]<< " ";
@@ -573,7 +442,6 @@ int MatrixFout (std::vector <std::vector <double>> & B, std::ofstream & fout, un
     for (unsigned int row = 0; (row< NLines); row++)
     {
 
-        //for (unsigned int column = 0; column < NColumns; column++)
         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 fout<< std::fixed<< B [row] [column]<< " ";
@@ -597,8 +465,7 @@ int MatrixFout (std::vector <std::vector <double>> & B, std::ofstream & fout, un
     for (unsigned int row = 0; (row< NLines); row++)
     {
 
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
+         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 fout<< std::scientific<< B [row] [column]<< " ";
             }
@@ -649,7 +516,6 @@ int MatrixFout (std::vector <std::vector <long double>> & B, std::ofstream & fou
     for (unsigned int row = 0; (row< NLines); row++)
     {
 
-        //for (unsigned int column = 0; column < NColumns; column++)
         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 fout<< std::fixed<< B [row] [column]<< " ";
@@ -673,7 +539,6 @@ int MatrixFout (std::vector <std::vector <long double>> & B, std::ofstream & fou
     for (unsigned int row = 0; (row< NLines); row++)
     {
 
-        //for (unsigned int column = 0; column < NColumns; column++)
         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 fout<< std::scientific<< B [row] [column]<< " ";
@@ -697,12 +562,11 @@ int MatrixFout (std::vector <std::vector <long double>> & B, std::ofstream & fou
     return 0;
 }
 
-
-
-int MatrixFout (std::vector <std::vector <int>> & B, std::ofstream & fout, char g = ' ')
-// Вывод матрицы (int) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
+template < typename TMF>
+int MatrixFout (std::vector <std::vector <TMF>> & B, std::ofstream & fout, char g = ' ')
+// Вывод матрицы (элементов стандартных типов TMF) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
 // Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Fouts" Matrix (int) to file. Returns -1 if the Matrix is empty.
+// "Fouts" Matrix of standard type elements to file. Returns -1 if the Matrix is empty.
 // The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 {
 
@@ -719,8 +583,6 @@ int MatrixFout (std::vector <std::vector <int>> & B, std::ofstream & fout, char 
 
     for (unsigned int row = 0; (row< NLines); row++)
     {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
         for (unsigned int column = 0; column < B[row].size(); column++)
             {
                 fout<< B [row] [column]<< " ";
@@ -731,128 +593,12 @@ int MatrixFout (std::vector <std::vector <int>> & B, std::ofstream & fout, char 
                 fout<< g << " ";
             }
 
-
         fout<< std::endl;
     }
     return 0;
 }
 
 
-int MatrixFout (std::vector <std::vector <short int>> & B, std::ofstream & fout, char g = ' ')
-// Вывод матрицы (short int) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Fouts" Matrix (short int) to file. Returns -1 if the Matrix is empty.
-// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
-{
-
-    int NLines, NColumns;
-    NLines = B.size();
-    if (NLines==0) return -1;
-    NColumns = B[0].size();
-
-    for (int i=0;i<NLines; i++)
-        if (B[i].size()>NColumns) NColumns=B[i].size();
-
-    if (NColumns==0) return -1;
-
-
-    for (unsigned int row = 0; (row< NLines); row++)
-    {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
-            {
-                fout<< B [row] [column]<< " ";
-            }
-
-        for (unsigned int column = B[row].size(); column < NColumns; column++)
-            {
-                fout<< g << " ";
-            }
-
-
-        fout<< std::endl;
-    }
-    return 0;
-}
-
-
-int MatrixFout (std::vector <std::vector <bool>> & B, std::ofstream & fout, char g = ' ')
-// Вывод матрицы (bool) в файл через пробелы (в формате 1 или 0). Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Fouts" Matrix (bool) to file as "1" or "0". Returns -1 if the Matrix is empty.
-// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
-{
-
-    int NLines, NColumns;
-    NLines = B.size();
-    if (NLines==0) return -1;
-    NColumns = B[0].size();
-
-    for (int i=0;i<NLines; i++)
-        if (B[i].size()>NColumns) NColumns=B[i].size();
-
-    if (NColumns==0) return -1;
-
-
-    for (unsigned int row = 0; (row< NLines); row++)
-    {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
-            {
-                fout<< (short int) B [row] [column]<< " ";
-            }
-
-        for (unsigned int column = B[row].size(); column < NColumns; column++)
-            {
-                fout<< g << " ";
-            }
-
-
-        fout<< std::endl;
-    }
-    return 0;
-}
-
-
-int MatrixFout (std::vector <std::vector <long long int>> & B, std::ofstream & fout, char g = ' ')
-// Вывод матрицы (long long int) в файл через пробелы. Возвращает -1, если матрица не содержит строк/ столбцов
-// Если строки матрицы разной длины, то "остатки" длины до максимальной при выводе заполняются символом g
-// "Fouts" Matrix (long long int) to file. Returns -1 if the Matrix is empty.
-// The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
-{
-
-    int NLines, NColumns;
-    NLines = B.size();
-    if (NLines==0) return -1;
-    NColumns = B[0].size();
-
-    for (int i=0;i<NLines; i++)
-        if (B[i].size()>NColumns) NColumns=B[i].size();
-
-    if (NColumns==0) return -1;
-
-
-    for (unsigned int row = 0; (row< NLines); row++)
-    {
-
-        //for (unsigned int column = 0; column < NColumns; column++)
-        for (unsigned int column = 0; column < B[row].size(); column++)
-            {
-                fout<< B [row] [column]<< " ";
-            }
-
-        for (unsigned int column = B[row].size(); column < NColumns; column++)
-            {
-                fout<< g << " ";
-            }
-
-
-        fout<< std::endl;
-    }
-    return 0;
-}
 
 
 int FindIn (const std::vector <int> &D, int a, int step = 1, int start = 0)
@@ -964,182 +710,35 @@ int FindIn (const std::vector <std::string> &D, std::string a, int step = 1, int
 }
 
 
-int VectorCout (const std::vector <int> &P)
-// Вывод вектора (int) на экран через пробелы
-// "Couts" vector (int) to screen. Returns -1 if the vector is empty
+template < typename TVC>
+int VectorCout (const TVC &P)
+// Вывод вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, на экран через пробелы
+// "Couts" vecto/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
 
 {
-
     if (P.size()==0) return -1;
 
-    for (int i=0; i<P.size();i++)
-        std::cout<< P[i]<<" ";
+    for (auto i=P.begin(); i!=P.end();i++)
+        std::cout<< *i<<" ";
     std::cout<< std::endl;
 
     return 0;
 }
 
-
-int VectorCout (const std::vector <unsigned int> &P)
-// Вывод вектора (unsigned int) на экран через пробелы
-// "Couts" vector (unsigned int) to screen. Returns -1 if the vector is empty
+template < typename TVF>
+int VectorFout (const TVF &P, std::ofstream &fout)
+// Вывод вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, в файл через пробелы
+// "Fouts" vecto/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
 
 {
-
     if (P.size()==0) return -1;
 
-    for (int i=0; i<P.size();i++)
-        std::cout<< P[i]<<" ";
-    std::cout<< std::endl;
-
-    return 0;
-}
-
-
-int VectorFout (const std::vector <int> &P, std::ofstream &fout)
-// Вывод вектора (int) в файл через пробелы. Возвращает -1, если вектор - пустой
-// "Fouts" vector (int) to file. Returns -1 if the vector is empty
-{
-
-     if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        fout<< P[i]<<" ";
+    for (auto i=P.begin(); i!=P.end();i++)
+        fout<< *i<<" ";
     fout<< std::endl;
-    return 0;
-}
-
-
-int VectorCout (const std::vector <short int> &P)
-// Вывод вектора (short int) на экран через пробелы
-// "Couts" vector (short int) to screen. Returns -1 if the vector is empty
-
-{
-
-    if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        std::cout<< P[i]<<" ";
-    std::cout<< std::endl;
 
     return 0;
 }
-
-
-int VectorFout (const std::vector <short int> &P, std::ofstream &fout)
-// Вывод вектора (short int) в файл через пробелы. Возвращает -1, если вектор - пустой
-// "Fouts" vector (short int) to file. Returns -1 if the vector is empty
-{
-
-     if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        fout<< P[i]<<" ";
-    fout<< std::endl;
-    return 0;
-}
-
-
-int VectorCout (const std::vector <unsigned short int> &P)
-// Вывод вектора (unsigned short int) на экран через пробелы
-// "Couts" vector (unsigned short int) to screen. Returns -1 if the vector is empty
-
-{
-
-    if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        std::cout<< P[i]<<" ";
-    std::cout<< std::endl;
-
-    return 0;
-}
-
-
-int VectorFout (const std::vector <unsigned short int> &P, std::ofstream &fout)
-// Вывод вектора (unsigned short int) в файл через пробелы. Возвращает -1, если вектор - пустой
-// "Fouts" vector (unsigned short int) to file. Returns -1 if the vector is empty
-{
-
-     if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        fout<< P[i]<<" ";
-    fout<< std::endl;
-    return 0;
-}
-
-int VectorCout (const std::vector <bool> &P)
-// Вывод вектора (bool) на экран через пробелы
-// "Couts" vector (bool) to screen. Returns -1 if the vector is empty
-
-{
-
-    if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        std::cout<< P[i]<<" ";
-    std::cout<< std::endl;
-
-    return 0;
-}
-
-
-int VectorFout (const std::vector <bool> &P, std::ofstream &fout)
-// Вывод вектора (bool) в файл через пробелы. Возвращает -1, если вектор - пустой
-// "Fouts" vector (bool) to file. Returns -1 if the vector is empty
-{
-
-     if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        fout<< P[i]<<" ";
-    fout<< std::endl;
-    return 0;
-}
-
-int VectorFout (const std::vector <unsigned int> &P, std::ofstream &fout)
-// Вывод вектора (unsigned int) в файл через пробелы. Возвращает -1, если вектор - пустой
-// "Fouts" vector (unsigned int) to file. Returns -1 if the vector is empty
-{
-
-     if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        fout<< P[i]<<" ";
-    fout<< std::endl;
-    return 0;
-}
-
-int VectorCout (const std::vector <long long int> &P)
-// Вывод вектора (long long int) на экран через пробелы
-// "Couts" vector (long long int) to screen. Returns -1 if the vector is empty
-
-{
-
-    if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        std::cout<< P[i]<<" ";
-    std::cout<< std::endl;
-
-    return 0;
-}
-
-int VectorFout (const std::vector <long long int> &P, std::ofstream &fout)
-// Вывод вектора (long long int) в файл через пробелы. Возвращает -1, если вектор - пустой
-// "Fouts" vector (long long int) to file. Returns -1 if the vector is empty
-{
-
-     if (P.size()==0) return -1;
-
-    for (int i=0; i<P.size();i++)
-        fout<< P[i]<<" ";
-    fout<< std::endl;
-    return 0;
-}
-
-
 
 
 int VectorCout (const std::vector <double> &P, unsigned int prec = 4, bool scientifique = false)
@@ -17423,6 +17022,461 @@ int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vec
 
     return 0;
 }
+
+
+
+int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, const bool weighted, int V = INT_MIN)
+{
+// Модификация функции DistanceTS (см. выше) - не рассчитывается массив "предков"
+// Modification of the function DistanceTS (see it above): no Prev finding
+
+    D.clear();
+
+    if (A.size()==0) return -1;
+
+    if ((V<0)&&(V != INT_MIN)) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+
+
+    int mn, mx;
+    RangeVGraph (A, mx, mn, weighted);
+
+
+    if (mn<0)  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+    if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
+    {
+        return -1;
+    }
+
+    D.resize(V+1, LLONG_MAX); // По умолчанию расстояния равны + бесконечность // The default distance values is LLONG_MAX for every vertex
+
+
+
+    std::vector <int> order; // здесь будет храниться топологическая сортировка вершин
+    order.clear();
+
+    std::vector <int> R; // An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    R.clear();
+
+    std::vector <int> I; //  An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    I.clear();
+
+    int t=TSortHP (A, R, order, I, weighted, true);
+
+
+
+    if (t==-1)  // if there are no topological sorting (i.e. the graph contains cycle except any loops) this function can't work.
+    {
+        D.clear();
+        return -1;
+    }
+
+
+    if (mn!=0) order.insert(order.begin(), 0); // if vertices are numbrered starting not from 0 - let's add 0
+
+    if (V>mx)   //adding to "order" vertices that have number more than maximal in A and <= V
+        for (int ff = (mx+1); ff<=V; ff++)
+             order.insert(order.begin(), ff);
+
+
+    int bb;
+
+    for (int i = 0; i< order.size(); i++)   // поиск нового номера вершины начала поиска
+    {
+
+        if (order[i]==b) {bb = i; break;}
+
+    }
+
+
+    D[order[bb]] = 0; //дистанция от первой вершины до себя = 0
+
+    std::vector <std::vector <int>> B (V+1);
+
+    MatrixSet(B, V+1, V+1, INT_MAX);    // Создание заготовки матирицы B в виде 2-хмерного массива (из векторов)
+
+
+    for (unsigned int x = 0; x<=(A.size()-(2+weighted)); x = x+2+weighted)
+    {
+        if (weighted)
+        {
+            if ( (A[x]!=A[x+1]) && ( B[(A[x])][(A[x+1])] > A[x+2] ) ) B[(A[x])][(A[x+1])] = A[x+2];  // в матрицу смежности вставляем длину кратчайшего ребра
+        }
+
+        if (!weighted)
+        {
+            if (A[x]!=A[x+1]) B[(A[x])][(A[x+1])] = 1;  // в матрицу смежности вставляем длину ребра
+        }
+    }
+
+    // Конец заполнения матрицы смежности
+
+
+
+    for (int b = bb; b<V; b++)              // бежим по матрице смежности от искомой вершины к большим номерам и пересчитываем дистанцию
+        for (int j = b+1; j<=V; j++)
+        {
+
+
+            if (D[order[b]]==LLONG_MAX) continue; //если вершина b недостижима из исходной, нечего от нее расстояния пересчитывать // We should recalculate distances only from vertices that are accessible from vertex b as initial one.
+
+            if ( (B[order[b]][order[j]]!=INT_MAX) && ((D[order[j]]==LLONG_MAX) || (D[order[j]]>(D[order[b]]+(long long int)(B[order[b]][order[j]]) ) ) ) )   {D[order[j]]=(D[order[b]]+ (long long int)(B[order[b]][order[j]]) ); }
+
+        }
+
+
+
+    return 0;
+}
+
+
+int DistanceTS (std::vector <int> &A, std::vector <int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
+{
+    // Модификация функции DistanceTS (см. выше) - расстояния в int.
+    // Modification of the function DistanceTS (see it above): distances will be int, not long long int. Be careful with data.
+
+
+    D.clear();
+    Prev.clear();
+
+    if (A.size()==0) return -1;
+
+    if ((V<0)&&(V != INT_MIN)) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+
+
+    int mn, mx;
+    RangeVGraph (A, mx, mn, weighted);
+
+
+    if (mn<0)  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+    if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
+    {
+        return -1;
+    }
+
+    D.resize(V+1, INT_MAX); // По умолчанию расстояния равны + бесконечность // The default distance values is INT_MAX for every vertex
+
+
+    Prev.resize(V+1, -1); // по умолчанию "предка" нет. // The previous vertices are not set by default (i.e. =-1 for every vertex)
+
+
+
+    std::vector <int> order; // здесь будет храниться топологическая сортировка вершин
+    order.clear();
+
+    std::vector <int> R; // An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    R.clear();
+
+    std::vector <int> I; //  An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    I.clear();
+
+    int t=TSortHP (A, R, order, I, weighted, true);
+
+
+
+    if (t==-1)  // if there are no topological sorting (i.e. the graph contains cycle except any loops) this function can't work.
+    {
+        D.clear();
+        Prev.clear();
+        return -1;
+    }
+
+
+    if (mn!=0) order.insert(order.begin(), 0); // if vertices are numbrered starting not from 0 - let's add 0
+
+    if (V>mx)   //adding to "order" vertices that have number more than maximal in A and <= V
+        for (int ff = (mx+1); ff<=V; ff++)
+             order.insert(order.begin(), ff);
+
+
+    int bb;
+
+    for (int i = 0; i< order.size(); i++)   // поиск нового номера вершины начала поиска
+    {
+
+        if (order[i]==b) {bb = i; break;}
+
+    }
+
+
+    D[order[bb]] = 0; //дистанция от первой вершины до себя = 0
+
+    std::vector <std::vector <int>> B (V+1);
+
+    MatrixSet(B, V+1, V+1, INT_MAX);    // Создание заготовки матирицы B в виде 2-хмерного массива (из векторов)
+
+
+    for (unsigned int x = 0; x<=(A.size()-(2+weighted)); x = x+2+weighted)
+    {
+        if (weighted)
+        {
+            if ( (A[x]!=A[x+1]) && ( B[(A[x])][(A[x+1])] > A[x+2] ) ) B[(A[x])][(A[x+1])] = A[x+2];  // в матрицу смежности вставляем длину кратчайшего ребра
+        }
+
+        if (!weighted)
+        {
+            if (A[x]!=A[x+1]) B[(A[x])][(A[x+1])] = 1;  // в матрицу смежности вставляем длину ребра
+        }
+    }
+
+    // Конец заполнения матрицы смежности
+
+
+
+    for (int b = bb; b<V; b++)              // бежим по матрице смежности от искомой вершины к большим номерам и пересчитываем дистанцию
+        for (int j = b+1; j<=V; j++)
+        {
+
+
+            if (D[order[b]]==INT_MAX) continue; //если вершина b недостижима из исходной, нечего от нее расстояния пересчитывать // We should recalculate distances only from vertices that are accessible from vertex b as initial one.
+
+            if ( (B[order[b]][order[j]]!=INT_MAX) && ((D[order[j]]==INT_MAX) || (D[order[j]]>(D[order[b]]+(long long int)(B[order[b]][order[j]]) ) ) ) )   {D[order[j]]=(D[order[b]]+ (long long int)(B[order[b]][order[j]]) ); Prev[order[j]]= order[b];}
+
+        }
+
+
+
+    return 0;
+}
+
+
+int DistanceTS (std::vector <int> &A, std::vector <int> & D, const int b, const bool weighted, int V = INT_MIN)
+{
+
+    // Модификация функции DistanceTS (см. выше) - расстояния в int и не рассчитывается массив "предков".
+    // Modification of the function DistanceTS (see it above): distances will be int, not long long int. Be careful with data. No Prev finding too.
+
+    D.clear();
+
+    if (A.size()==0) return -1;
+
+    if ((V<0)&&(V != INT_MIN)) return -1;
+    if ( (A.size())%(2+weighted)!=0 ) return -1; // checking for input data correctness
+
+
+
+    int mn, mx;
+    RangeVGraph (A, mx, mn, weighted);
+
+
+    if (mn<0)  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+    if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
+    {
+        return -1;
+    }
+
+    D.resize(V+1, INT_MAX); // По умолчанию расстояния равны + бесконечность // The default distance values is INT_MAX for every vertex
+
+
+
+    std::vector <int> order; // здесь будет храниться топологическая сортировка вершин
+    order.clear();
+
+    std::vector <int> R; // An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    R.clear();
+
+    std::vector <int> I; //  An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    I.clear();
+
+    int t=TSortHP (A, R, order, I, weighted, true);
+
+
+
+    if (t==-1)  // if there are no topological sorting (i.e. the graph contains cycle except any loops) this function can't work.
+    {
+        D.clear();
+        return -1;
+    }
+
+
+    if (mn!=0) order.insert(order.begin(), 0); // if vertices are numbrered starting not from 0 - let's add 0
+
+    if (V>mx)   //adding to "order" vertices that have number more than maximal in A and <= V
+        for (int ff = (mx+1); ff<=V; ff++)
+             order.insert(order.begin(), ff);
+
+
+    int bb;
+
+    for (int i = 0; i< order.size(); i++)   // поиск нового номера вершины начала поиска
+    {
+
+        if (order[i]==b) {bb = i; break;}
+
+    }
+
+
+    D[order[bb]] = 0; //дистанция от первой вершины до себя = 0
+
+    std::vector <std::vector <int>> B (V+1);
+
+    MatrixSet(B, V+1, V+1, INT_MAX);    // Создание заготовки матирицы B в виде 2-хмерного массива (из векторов)
+
+
+    for (unsigned int x = 0; x<=(A.size()-(2+weighted)); x = x+2+weighted)
+    {
+        if (weighted)
+        {
+            if ( (A[x]!=A[x+1]) && ( B[(A[x])][(A[x+1])] > A[x+2] ) ) B[(A[x])][(A[x+1])] = A[x+2];  // в матрицу смежности вставляем длину кратчайшего ребра
+        }
+
+        if (!weighted)
+        {
+            if (A[x]!=A[x+1]) B[(A[x])][(A[x+1])] = 1;  // в матрицу смежности вставляем длину ребра
+        }
+    }
+
+    // Конец заполнения матрицы смежности
+
+
+
+    for (int b = bb; b<V; b++)              // бежим по матрице смежности от искомой вершины к большим номерам и пересчитываем дистанцию
+        for (int j = b+1; j<=V; j++)
+        {
+
+
+            if (D[order[b]]==INT_MAX) continue; //если вершина b недостижима из исходной, нечего от нее расстояния пересчитывать // We should recalculate distances only from vertices that are accessible from vertex b as initial one.
+
+            if ( (B[order[b]][order[j]]!=INT_MAX) && ((D[order[j]]==INT_MAX) || (D[order[j]]>(D[order[b]]+(long long int)(B[order[b]][order[j]]) ) ) ) )   {D[order[j]]=(D[order[b]]+ (long long int)(B[order[b]][order[j]]) ); }
+
+        }
+
+    return 0;
+}
+
+int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, int V = INT_MIN)
+// Модификация функции DistanceTS (см. выше) для случая нецелочисленных весов ребер (double) и без поиска массива "предков".
+// Modification of the function DistanceTS (see it above) for not-integer (double) weights of edges of a graph. No Prevs finding too.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+
+{
+    D.clear();
+
+    if ((A.first).size()==0) return -1;
+    if ((A.second).size()==0) return -1;
+    if (  (A.first).size()!=((A.second).size())*2 ) return -1;
+
+    if ((V<0)&&(V != INT_MIN)) return -1;
+
+
+
+    int mn, mx;
+   RangeVGraph (A.first, mx, mn, false);
+
+
+    if (mn<0)  // // checking for input data correctness.
+    {
+        return -1;
+    }
+
+
+    if (mx>V) V = mx; // здесь будет максимальный номер вершины // the max number of assigned to vertices
+
+    if ((b<0) || (b>V))  // // checking for input data correctness: number of the vertex b must be in range [0, V].
+    {
+        return -1;
+    }
+
+    D.resize(V+1, INFINITY); // По умолчанию расстояния равны + бесконечность // The default distance values is INFINITY for every vertex
+
+
+    std::vector <int> order; // здесь будет храниться топологическая сортировка вершин
+    order.clear();
+
+    std::vector <int> R; // An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    R.clear();
+
+    std::vector <int> I; //  An auxiliary vector for the function TSortHP as such parameter is required, the vector should stay empty
+    I.clear();
+
+    int t=TSortHP (A.first, R, order, I, false, true);
+
+
+
+    if (t==-1)  // if there are no topological sorting (i.e. the graph contains cycle except any loops) this function can't work.
+    {
+        D.clear();
+        return -1;
+    }
+
+
+    if (mn!=0) order.insert(order.begin(), 0); // if vertices are numbrered starting not from 0 - let's add 0
+
+    if (V>mx)   //adding to "order" vertices that have number more than maximal in A and <= V
+        for (int ff = (mx+1); ff<=V; ff++)
+             order.insert(order.begin(), ff);
+
+
+    int bb;
+
+    for (int i = 0; i< order.size(); i++)   // поиск нового номера вершины начала поиска
+    {
+
+        if (order[i]==b) {bb = i; break;}
+
+    }
+
+
+    D[order[bb]] = 0.0; //дистанция от первой вершины до себя = 0
+
+    std::vector <std::vector <double>> B (V+1);
+
+    MatrixSet(B, V+1, V+1, INFINITY);    // Создание заготовки матирицы B в виде 2-хмерного массива (из векторов)
+
+
+    for (unsigned int x = 0; x<=((A.first).size()-(2)); x = x+2)
+    {
+
+            if ( ((A.first)[x]!=(A.first)[x+1]) && ( B[((A.first)[x])][((A.first)[x+1])] > (A.second)[x/2] ) ) B[(A.first)[x]][(A.first)[x+1]] = (A.second)[x/2];  // в матрицу смежности вставляем длину кратчайшего ребра
+   }
+
+    // Конец заполнения матрицы смежности
+
+
+
+    for (int b = bb; b<V; b++)              // бежим по матрице смежности от искомой вершины к большим номерам и пересчитываем дистанцию
+        for (int j = b+1; j<=V; j++)
+        {
+
+
+            if (D[order[b]]==INFINITY) continue; //We should recalculate distances only from vertices that are accessible from vertex b as initial one.
+
+            if ( (B[order[b]][order[j]]!=INFINITY) && ((D[order[j]]==INFINITY) || (D[order[j]]>(D[order[b]]+(long double)(B[order[b]][order[j]]) ) ) ) )   {D[order[j]]=(D[order[b]]+ (long double)(B[order[b]][order[j]]) ); }
+
+        }
+
+
+    return 0;
+}
+
+
 
 
 std::string GenerateAlphabet (const std::vector <std::string> &DataS)
