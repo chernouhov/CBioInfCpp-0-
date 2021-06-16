@@ -62,22 +62,8 @@ Otherwise returns -1.
 
 Reads all strings from file to vector **DataS**
 ***
-`int MatrixCout (std::vector <std::vector <int>> & B, char g = ' ')`
-
-"Couts" Matrix (int) to screen. Returns -1 if the Matrix is empty.
-
-The Matrix may have lines of different length. In this case the "missing"
-values to the end for the "shorter lines" are filled with the char **g**.
-***
-`int MatrixCout (std::vector <std::vector <long long int>> & B, char g = ' ')`
-
-"Couts" Matrix (long long int) to screen. Returns -1 if the Matrix is empty.
-
-The Matrix may have lines of different length. In this case the "missing"
-values to the end for the "shorter lines" are filled with the char **g**.
-***
-`int MatrixCout (std::vector <std::vector <double>> & B, unsigned int prec = 4,
-char g = ' ', bool scientifique = false)`
+`int MatrixCout (std::vector <std::vector <double>> & B, unsigned int prec =
+4, char g = ' ', bool scientifique = false)`
 
 "Couts" Matrix (double) to screen. Returns -1 if the Matrix is empty.
 
@@ -99,6 +85,22 @@ values to the end for the "shorter lines" are filled with the char **g**.
 If **bool scientifique == false**, the precision will be set as prec; 
 
 if **bool scientifique == true**, scientific notation will be applied.
+***
+`template < typename TMC>`
+
+`int MatrixCout (std::vector <std::vector <TMC>> & B, char g = ' ')`
+
+"Couts" Matrix of standard type elements to screen. Returns -1 if the Matrix is empty.
+
+The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
+***
+`template < typename TMF>`
+
+`int MatrixFout (std::vector <std::vector <TMF>> & B, std::ofstream & fout, char g = ' ')`
+
+"Fouts" Matrix of standard type elements to file. Returns -1 if the Matrix is empty.
+
+The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 ***
 `int MatrixFout (std::vector <std::vector <double>> & B, std::ofstream & fout,
 unsigned int prec = 4, char g = ' ', bool scientifique = false)`
@@ -123,38 +125,6 @@ values to the end for the "shorter lines" are filled with the char **g**.
 If **bool scientifique == false**, the precision will be set as prec; 
 
 if **bool scientifique == true**, scientific notation will be applied.
-***
-`int MatrixFout (std::vector < std::vector <int>> & B, std::ofstream & fout, char g
-= ' ')`
-
-"Fouts" Matrix (int) to file. Returns -1 if the Matrix is empty.
-
-The Matrix may have lines of different length. In this case the "missing"
-values to the end for the "shorter lines" are filled with the char **g**.
-***
-`int MatrixFout (std::vector < std::vector <long long int>> & B, std::ofstream &
-fout, char g = ' ')`
-
-"Fouts" Matrix (long long int) to file. Returns -1 if the Matrix is empty.
-
-The Matrix may have lines of different length. In this case the "missing"
-values to the end for the "shorter lines" are filled with the char **g**.
-***
-`int VectorCout (const std::vector <int> &P)`
-
-"Couts" vector (int) to screen. Returns -1 if the vector is empty
-***
-`int VectorFout (const std::vector <int> &P, std::ofstream &fout)`
-
-"Fouts" vector (int) to file. Returns -1 if the vector is empty
-***
-`int VectorCout (const std::vector <long long int> &P)`
-
-"Couts" vector (long long int) to screen. Returns -1 if the vector is empty
-***
-`int VectorFout (const std::vector <long long int> &P, std::ofstream &fout)`
-
-"Fouts" vector (long long int) to file. Returns -1 if the vector is empty
 ***
 `int VectorCout (const std::vector <double> &P, unsigned int prec = 4, bool
 scientifique = false)`
@@ -198,6 +168,20 @@ if **bool scientifique == true**, scientific notation will be applied.
 `int VectorFout (const std::vector <std::string> &P, std::ofstream &fout)`
 
 "Fouts" vector (string) to file. Returns -1 if the vector is empty
+***
+
+`template < typename TVC>`
+
+`int VectorCout (const TVC &P)`
+
+"Couts" vector/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
+***
+
+`template < typename TVF>`
+
+`int VectorFout (const TVF &P, std::ofstream &fout)`
+
+"Fouts" vector/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
 ***
 `int PairVectorCout (const std::pair < std::vector<int>, std::vector<double>> & P, 
 unsigned int prec = 4, bool scientifique = false)`
@@ -1227,6 +1211,24 @@ Graph is represented here as a pair of 2 vectors. The first one is an
 
 So an edge that is set by the pair of vertices indexed as 2\*i, 2\*i+1 in the
 first vector has its weight set as i-th element in the second one.
+***
+`int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, const bool weighted, int V = INT_MIN)`
+ 
+Modification of the function DistanceTS (see it above): no Prev finding
+***
+`int DistanceTS (std::vector <int> &A, std::vector <int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)`
+
+Modification of the function DistanceTS (see it above): distances will be int, not long long int. Be careful with data.
+***
+`int DistanceTS (std::vector <int> &A, std::vector <int> & D, const int b, const bool weighted, int V = INT_MIN)`
+
+ Modification of the function DistanceTS (see it above): distances will be int, not long long int. Be careful with data. No Prev finding too.
+***
+`int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vector <long double> & D, const int b, int V = INT_MIN)`
+ 
+Modification of the function DistanceTS (see it above) for not-integer (double) weights of edges of a graph. No Prevs finding too.
+Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
 ***
 `int MakeSubgraphSetOfVertices (const std::vector <int>&A, std::vector <int>&Subgraph, const std::set <int> &Vertices, const bool weighted)`
 
