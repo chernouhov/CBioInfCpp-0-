@@ -1499,11 +1499,36 @@ Returns -1 and empty Path if input data are incorrect. If success returns 0.
 If bool ignoreb = false the function looks for path from b to e exactly.
 Otherwise it may also return a path starting from some vertex with no previous one, if only such path may be constructed to the vertex e (from-end-to begin construction is implemented).
 ***
+`void UWGraphFromPrev (std::vector<int>&B, const std::vector<int>&Prev)`
+
+Generates unweighted graph B (as Adjacency vector) upon "massive of parent vertices" that is set by Prev
+
+Prev [i] set the "parent" vertex for i (if -1 - no "parent" vertex).
+***
+`int PrevFromGraph (const std::vector<int>&A, const bool w, std::vector<int>&Prev)`
+
+Generates "massive of parent vertices" Prev upon directed graph A (it is set by Adjacency vector A).
+"w" sets is A weighted (==1) or no (==0).
+
+If input data incorrect returns -1 and empty Prev. -1 in Prev means no "parent vertex".
+
+The i-th  element of Prev means number of "parent vertex" for the vertex number i; -1 means "no parent vertex".
+
+Note. Here is no check if every vertex of A has only 1 "parent vertex". If so, only one of them will be in Prev.
+*** 
 `int WGraphFromUWGraph (const std::vector <int> &P1, std::vector <int> &P2)`
 
 Constructs weighted graph P2 upon unweighted graph P1 (let the weight of every edge is = 1).
 P1 and P2 are set by adjacency vector.
 If success returns 0. If input data incorrect returns -1 and empty P2.
+*** 
+`int DegreesVerticesOfGraph (const std::vector<int>&A, const bool w, const bool directed, std::vector<int>&VinA, std::vector<int>&VoutA)`
+
+Generates degrees arrays (VinA to contain degrees of in-edges of vertices, VoutA - degrees of out-edges) upon graph A (set by adjacency vector A, w sets if A is weighted, directed - if it is directed).
+
+For undirected graph degree array will be in VinA only.
+
+If input data incorrect returns -1 and empty VinA and VoutA.
 ***
 `int UWGraphFromWGraph (const std::vector <int> &P1, std::vector <int> &P2)`
 
