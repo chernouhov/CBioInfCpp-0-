@@ -8386,6 +8386,103 @@ return 0;
 }
 
 
+void UWGraphFromPrev (std::vector<int>&B, const std::vector<int>&Prev)
+// Generates unweighted graph B (as Adjacency vector) upon "massive of parent vertices" that is set by Prev
+// Prev [i] set the "parent" vertex for i (if -1 - no "parent" vertex).
+// Генерирует граф В в виде вектора смежности по массиву "предков" Prev.
+// В Prev на позиции i стоит номер вершины-предка для вершины i.
+{
+    B.clear();
+    for (int i=0; i<Prev.size(); i++)
+    {
+        if (Prev[i]>0)
+        {
+            B.push_back(Prev[i]);
+            B.push_back(i);
+        }
+    }
+}
+
+
+int PrevFromGraph (const std::vector<int>&A, const bool w, std::vector<int>&Prev)
+// Generates "massive of parent vertices" Prev upon directed graph A (it is set by Adjacency vector A).
+// "w" sets is A weighted (==1) or no (==0).
+// If input data incorrect returns -1 and empty Prev. -1 in Prev means no "parent vertex".
+// The i-th  element of Prev means number of "parent vertex" for the vertex number i; -1 means "no parent vertex".
+// Note. Here is no check if every vertex of A has only 1 "parent vertex". If so, only one of them will be in Prev.
+
+// Генерирует "массив предков" Prev по графу, заданному вектором смежности А. w задает, является ли он взвешенным.
+// Если данные некорректны, вернет -1 и пустой Prev.
+// В Prev на позиции i стоит номер вершины-предка для вершины i.
+// Прим. Проверки, имеется ли у каждой вершины только 1 "предок", не производится. Если несколько - в Prev будет только одна из них.
+
+{
+    Prev.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+w)!=0 ) return -1; // checking for input data correctness
+
+    int mn, mx;
+    RangeVGraph(A, mx, mn, w);
+    if (mn<0) return -1;
+
+    Prev.resize(mx+1, -1);
+
+    for (int i=1; i<A.size(); i=i+2+w)
+    {
+        Prev[A[i]]=A[i-1];
+    }
+}
+
+
+
+int DegreesVerticesOfGraph (const std::vector<int>&A, const bool w, const bool directed, std::vector<int>&VinA, std::vector<int>&VoutA)
+// Генерирует - по графу А (задан вектором смежности, w задает, является ли он взвешенным) - массивы степеней вершин:
+// по входящим VinA и исходящим VoutA из них ребрам.
+// Если данные некорректны, вернет -1 и пустые VinA и VoutA.
+// directed задает, является ли граф ориентированным.
+// По неориентированным графам степени считаются в VinA.
+
+// Generates degrees arrays upon graph A (set by adjacency vector A, w sets if A is weighted, directed - if it is directed).
+// For undirected graph degree array will be in VinA only.
+// If input data incorrect returns -1 and empty VinA and VoutA..
+
+{
+    VinA.clear();
+    VoutA.clear();
+    if (A.size()==0) return -1;
+    if ( (A.size())%(2+w)!=0 ) return -1; // checking for input data correctness
+
+    int mn, m;
+    RangeVGraph(A, m, mn, w);
+    if (mn<0) return -1;
+
+    VinA.clear();
+    VinA.resize(m+1, 0);
+
+    VoutA.clear();
+    VoutA.resize(m+1, 0);
+
+
+    for (int a = 0; a<A.size(); a=(a+2+w))
+    {
+
+        if (directed)
+        {
+        VinA[(A[a+1])]++;
+        VoutA[(A[a])]++;
+        }
+        if (!directed)
+        {
+        VinA[(A[a+1])]++;
+        VinA[(A[a])]++;
+        }
+
+    }
+    return 0;
+}
+
+
+
 
 struct VectorIntHash  // for unordered_set of vector <int>
 {

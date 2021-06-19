@@ -138,3 +138,7 @@ SubGraphsInscribedM can find subgraphs in a given A that are isomorphic to a giv
 - Group of functions DistanceTS is expanded.
 - Обобщено семейтсво функций VectorCout и MatrixCout  - теперь работают с различными итерируемыми контейнерами элементов стандартных типов.
 - Расширено семейтсво DistanceTS - теперь можно вычислять расстояния без вычисления массива "предков" и получать результат не только в long double.
+
+19.06.2021
+- Функции UWGraphFromPrev, PrevFromGraph, DegreesVerticesOfGraph добавлены.
+- Функции UWGraphFromPrev, PrevFromGraph, DegreesVerticesOfGraph have been added.
