@@ -1474,7 +1474,7 @@ If start<0 start will be set as 0. If no such element found the function returns
 ***
 `template <typename Tia>`
  
-`int IndexesInSortedArray (const std::vector <Tia> &Q, std::vector <int> &Qi, const bool increasing = true)
+`int IndexesInSortedArray (const std::vector <Tia> &Q, std::vector <int> &Qi, const bool increasing = true)`
 Generating upon vector Q vector Qi so that Qi[j] equals the value of index (0-based indexing) in the vector Q for j-th element of Q if been sorted.
 bool increasing sets if sorting means increasing (true) or decreasing (false).
 ***
