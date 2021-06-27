@@ -1745,6 +1745,118 @@ int GraphFout (const std::pair < std::vector<int>, std::vector<double>> & P, std
 
 
 
+int GraphCout (const std::vector<int> &A, const std::vector<double> & B, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphCout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+// Modification of the function GraphCout (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+{
+
+    std::pair < std::vector<int>, std::vector<double> > P;
+
+    P = std::make_pair(A, B);
+
+    if ((P.first).size()==0) return -1;
+    if ((P.second).size()==0) return -1;
+    if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+    if (!scientifique)
+    {
+    std::cout.precision(prec);
+
+    for (int i=0; i<(P.second).size();i++)
+    {
+        std::cout<< (P.first)[2*i]<<" ";
+        std::cout<< (P.first)[2*i+1]<<" ";
+        std::cout<< std::fixed<<(P.second)[i]<<" ";
+        std::cout<< std::endl;
+    }
+    std::cout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (int i=0; i<(P.second).size();i++)
+                {
+                    std::cout<< (P.first)[2*i]<<" ";
+                    std::cout<< (P.first)[2*i+1]<<" ";
+                    std::cout<< std::scientific<<(P.second)[i]<<" ";
+                    std::cout.unsetf(std::ios::scientific);
+                    std::cout<< std::endl;
+                }
+
+
+                std::cout<< std::endl;
+
+
+        }
+
+
+
+    return 0;
+}
+
+
+int GraphFout (const std::vector<int> &A, const std::vector<double> & B, std::ofstream &fout, unsigned int prec = 4, bool scientifique = false)
+// Модификация функции GraphFout (см. выше) для взвешенных графов с нецелочисленными весами ребер.
+// Modification of the function GraphFout (see it above) for not-integer (double) weights of edges of a graph.
+// Graph is represented here as a pair of 2 vectors. The first one is an "Adjacency vector" without weights. But weights are set in the second one.
+// So an edge that is set by the pair of vertices indexed as 2*i, 2*i+1 in the first vector has its weight set as i-th element in the second one.
+
+
+{
+    std::pair < std::vector<int>, std::vector<double> > P;
+
+    P = std::make_pair(A, B);
+
+    if ((P.first).size()==0) return -1;
+    if ((P.second).size()==0) return -1;
+    if (  (P.first).size()!=((P.second).size())*2 ) return -1;
+
+    if (!scientifique)
+    {
+    fout.precision(prec);
+
+    for (int i=0; i<(P.second).size();i++)
+    {
+        fout<< (P.first)[2*i]<<" ";
+        fout<< (P.first)[2*i+1]<<" ";
+        fout<< std::fixed<<(P.second)[i]<<" ";
+        fout<< std::endl;
+    }
+    fout<< std::endl;
+
+    }
+
+    if (scientifique)
+        {
+
+                for (int i=0; i<(P.second).size();i++)
+                {
+                    fout<< (P.first)[2*i]<<" ";
+                    fout<< (P.first)[2*i+1]<<" ";
+                    fout<< std::scientific<<(P.second)[i]<<" ";
+                    fout.unsetf(std::ios::scientific);
+                    fout<< std::endl;
+                }
+
+
+                fout<< std::endl;
+
+
+        }
+
+
+
+    return 0;
+}
+
+
+
 int GraphCout (const std::map <std::pair < int, int> , int> &P)
 // Вывод графа, заданного ассоциативным массивом смежности, на экран: каждое ребро выводится в новой строке. Веса ребер целочисленны.
 // "Couts" a graph that is set by Adjacency map P to screen: one edge in one line.
@@ -4744,13 +4856,23 @@ void Num (std::string & Numbers, std::vector <long double> & A)
     TempS.clear();
 }
 
-void Num (std::string & Numbers, std::vector <int> & A)
+void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
 {
     // перегон строки с числами int в массив (вектор) А
     // converts string of numbers <int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
+
+    if (strong)
+    {
+        for (int y=0; y<Numbers.size(); y++)
+        {
+            if (!(isdigit(Numbers[y])))
+                Numbers[y]=' ';
+
+        }
+    }
 
     int q = 0;  // удаление лишних пробелов / deleting doubled spaces
     while (Numbers.find ("  ", q) != -1)
@@ -4789,13 +4911,23 @@ void Num (std::string & Numbers, std::vector <int> & A)
 
 
 
-void Num (std::string & Numbers, std::vector <long long int> & A)
+void Num (std::string & Numbers, std::vector <long long int> & A, const bool & strong = 0)
 {
     // перегон строки с числами long long int в массив (вектор) А
     // converts string of numbers <long long int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
+
+    if (strong)
+    {
+        for (int y=0; y<Numbers.size(); y++)
+        {
+            if (!(isdigit(Numbers[y])))
+                Numbers[y]=' ';
+
+        }
+    }
 
     int q = 0;  // удаление лишних пробелов / deleting doubled spaces
     while (Numbers.find ("  ", q) != -1)
@@ -4834,13 +4966,23 @@ void Num (std::string & Numbers, std::vector <long long int> & A)
 
 
 
-void Num (std::string & Numbers, std::vector <short int> & A)
+void Num (std::string & Numbers, std::vector <short int> & A, const bool & strong = 0)
 {
     // перегон строки с числами short int в массив (вектор) А
     // converts string of numbers <short int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
+
+    if (strong)
+    {
+        for (int y=0; y<Numbers.size(); y++)
+        {
+            if (!(isdigit(Numbers[y])))
+                Numbers[y]=' ';
+
+        }
+    }
 
     int q = 0;  // удаление лишних пробелов / deleting doubled spaces
     while (Numbers.find ("  ", q) != -1)
