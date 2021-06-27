@@ -713,10 +713,14 @@ int FindIn (const std::vector <std::string> &D, std::string a, int step = 1, int
 template < typename TVC>
 int VectorCout (const TVC &P)
 // Вывод вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, на экран через пробелы
-// "Couts" vecto/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
+// "Couts" vector/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
 
 {
-    if (P.size()==0) return -1;
+    if (P.size()==0)
+    {
+        std::cout<< std::endl;
+        return -1;
+    }
 
     for (auto i=P.begin(); i!=P.end();i++)
         std::cout<< *i<<" ";
@@ -728,16 +732,603 @@ int VectorCout (const TVC &P)
 template < typename TVF>
 int VectorFout (const TVF &P, std::ofstream &fout)
 // Вывод вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, в файл через пробелы
-// "Fouts" vecto/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
+// "Fouts" vector/ list/ etc container of standard type elements to file. Returns -1 if the container is empty
 
 {
-    if (P.size()==0) return -1;
+    if (P.size()==0)
+    {
+        fout<< std::endl;
+        return -1;
+    }
 
     for (auto i=P.begin(); i!=P.end();i++)
         fout<< *i<<" ";
     fout<< std::endl;
 
     return 0;
+}
+
+template < typename TMC1>
+int MatrixCout (const TMC1 &P)
+// Вывод "матрицы" на базе вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, на экран через пробелы
+// "Couts" "matrix" based upon vector/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
+
+{
+    if (P.size()==0) return -1;
+
+    for (auto i=P.begin(); i!=P.end();i++)
+        VectorCout(*P);
+    std::cout<< std::endl;
+
+    return 0;
+}
+
+template < typename TMF1>
+int MatrixFout (const TMF1 &P, std::ofstream &fout)
+// Вывод "матрицы" на базе вектора/ списка/ и др. итерируемых контейнеров, содержащих элементы стандартных типов, в файл через пробелы
+// "Fouts" "matrix" based upon vector/ list/ etc container of standard type elements to file. Returns -1 if the container is empty
+
+{
+    if (P.size()==0) return -1;
+
+    for (auto i=P.begin(); i!=P.end();i++)
+        VectorFout(*P, fout);
+    fout<< std::endl;
+    return 0;
+}
+
+std::string BWTransform (const std::string &s, const char h = '$')
+// Constructs BWTransform of string s; the last symbol set as h.
+// If input data is incorrest (empty s, h is in s) returns empty string.
+
+// Генерирует BWTransform по строке s, символ h задает последний символ.
+// Если s пустая или h есть в s, возвращает пустую строку.
+
+{
+    std::string TempS="";
+    if (s=="")
+    {
+        return (TempS);
+    }
+
+    if (s.find(h)!=-1)
+        return TempS;
+
+    TempS = s+ h;
+
+    std::map <std::string, char> R;
+    R.clear();
+
+    R.insert(std::pair<std::string, char> (TempS, TempS[TempS.length()-1])) ;
+
+    for (int i=1; i<TempS.length();i++)
+    {
+        TempS = TempS[TempS.length()-1] + TempS;
+        TempS.pop_back();
+        R.insert(std::pair<std::string, char> (TempS, TempS[TempS.length()-1])) ;
+    }
+
+    TempS.clear();
+
+    for (auto it = R.begin(); it!=R.end();it++)
+        TempS.push_back(it->second);
+
+   return TempS;
+}
+
+std::string GenerateAlphabet (const std::vector <std::string> &DataS)
+// Generates an alphabet upon the given vector of strings DataS. Symbols will be ordered under ASCII.
+// Формирует алфавит из символов, входящих в набор строк DataS. Порядок символов в алфавите задается ASCII.
+
+{
+    if (DataS.size()==0) return "";
+    std::string TempS="";
+
+    std::set <char> T;
+    T.clear();
+    for (int q = 0; q< DataS.size();q++)
+        for (int w = 0; w< DataS[q].length();w++)
+            T.insert(DataS[q][w]);
+
+    for (auto it=T.begin(); it!=T.end(); it++)
+        TempS.push_back(*it);
+
+    return TempS;
+}
+
+std::string GenerateAlphabet (const std::string &DataS)
+// Generates an alphabet upon the given string DataS. Symbols will be ordered under ASCII.
+// Формирует алфавит из символов, входящих в строку DataS. Порядок символов в алфавите задается ASCII.
+
+{
+    if (DataS.length()==0) return "";
+    std::string TempS="";
+
+    std::set <char> T;
+    T.clear();
+
+        for (int w = 0; w< DataS.length();w++)
+            T.insert(DataS[w]);
+
+    for (auto it=T.begin(); it!=T.end(); it++)
+        TempS.push_back(*it);
+
+    return TempS;
+}
+
+int BW_SubstringsCount (const std::string &S, std::unordered_map<std::string, int>&DataS)
+// Counts how many times strings contained in DataS appears at string S (using BWT transform).
+// Подсчитывает по полю значение в DataS, сколько раз строка-ключ входит в строку S.
+
+{
+   if (DataS.size()==0) return 0;
+    for (auto it = DataS.begin(); it!=DataS.end(); it++)
+       it->second=0;
+
+    if (S.length()==0) return 0;
+    std::string TempS=S+"$";
+
+    std::map <std::string, char> R;
+    R.clear();
+
+    R.insert(std::pair<std::string, char> (TempS, TempS[TempS.length()-1])) ;
+
+    for (int i=1; i<TempS.length();i++)
+    {
+        TempS = TempS[TempS.length()-1] + TempS;
+        TempS.pop_back();
+        R.insert(std::pair<std::string, char> (TempS, TempS[TempS.length()-1])) ;
+    }
+
+    TempS.clear();
+
+    for (auto it = R.begin(); it!=R.end();it++)
+    {
+        TempS.push_back(it->second);
+    }
+
+    std::string s0 = TempS;
+
+    std::sort (s0.begin(), s0.end());
+
+    std::map <char, int> FirstOccurrence;
+    FirstOccurrence.clear();
+
+    std::string Alph=GenerateAlphabet(TempS);
+    for (int q=0; q<Alph.length(); q++)
+        FirstOccurrence.insert(std::pair <char, int> ((char)(Alph[q]), s0.find((char)(Alph[q]))));
+
+    std::string TempS0=TempS;
+    sort (TempS0.begin(), TempS0.end());
+
+    int top, bottom, tindex, bindex;
+    char h;
+    int f=-1;
+    std::string NS;
+    for (auto it = DataS.begin(); it!=DataS.end(); it++)
+    {
+        NS = it->first;
+        top = 0;
+        bottom = TempS.length()-1;
+
+        while (top<=bottom)
+        {
+            if (NS.length()==0)
+                {it->second=(bottom-top+1);goto l1;}
+
+            if (NS.length()>0)
+            {
+                h = NS[NS.length()-1];
+                NS.pop_back();
+
+                tindex=0;
+                bindex =0;
+
+                for (int i = 0; i<top; i++)
+                {
+                    if (TempS[i] == h)
+                    {
+                        tindex++;
+                    }
+                }
+
+                for (int i = 0; i<=bottom; i++)
+                {
+                    if (TempS[i] == h)
+                    {
+                        bindex++;
+                    }
+                }
+
+                f=-1;
+
+                for (int i = top; i<=bottom; i++)
+                {
+                    if (TempS[i] == h)
+                    {
+                        f=1;
+                        break;
+                    }
+                }
+
+                if (f<0)
+                {it->second=(0);goto l1;}
+
+                top = FirstOccurrence[h]+tindex;
+                bottom = FirstOccurrence[h]+bindex-1;
+            }
+        }
+
+        l1: ;
+    }
+
+
+return 0;
+}
+
+template <typename Tia>
+int IndexesInSortedArray (const std::vector <Tia> &Q, std::vector <int> &Qi, const bool increasing = true)
+// Generating upon vector Q vector Qi so that Qi[j] equals the value of index (0-based indexing) in the vector Q for j-th element of Q if been sorted.
+// bool increasing sets if sorting means increasing (true) or decreasing (false).
+// Формирует на основании вектора Q вектор Qi, содержащий на j-й позиции номер индекса в Q, который бы приобрел элемент гипотетически отсортированного вектора Q,
+// стоящий в отсортированном Q на позиции j. increasing задает, является ли такая гипотетическая сортировка по возрастанию, или по убыванию.
+{
+    Qi.clear();
+    if (Q.size()==0) return -1;
+
+    std::vector <Tia> A=Q;
+    Qi.resize(Q.size());
+
+    if (increasing)
+        sort (A.begin(), A.end());
+
+    if (!increasing)
+        sort (A.rbegin(), A.rend());
+
+    Qi[0]=FindIn(Q, A[0]);
+
+    for (unsigned int z=1; z<Q.size(); z++)
+    {
+      if (A[z]==A[z-1])
+      {
+          Qi[z] = FindIn(Q, A[z], 1, Qi[z-1]+1);
+          continue;
+      }
+        Qi[z]=FindIn(Q, A[z]);
+    }
+    return 0;
+}
+
+unsigned long long int Perm(const short unsigned int n, std::vector<std::vector <int> > &DataS, const bool to_DataS, std::ofstream &fout, const bool to_file, long long int HowManyP = 0)
+// Генерирует все перестановки до числа n. Т.к. их может быть очень много для памяти, может их как запоминать в DataS (если to_DataS = true),
+// так и в файл (по fout, если to_file = true). Если HowManyP>0, сгенерирует только HowManyP перестановок. Возвращает количество найденных перестановок.
+// Если n <1 вернет 0 и пустой DataS.
+
+// Generates all Permutations of length n. The result may be as in DataS (if to_DataS = true) as in file (via fout, if to_file = true).
+// It may be useful as for big n we have no RAM enough.
+// If n<1 returns 0 and empty DataS.
+// Also one may set HowMany >=1 (in this case only first HowMany permutations will be found).
+
+{
+   DataS.clear();
+   if (n<1) return 0;
+   std::vector<int> p ((n), 0);
+   for (int i=0; i<n; i++)
+    p[i] = i+1;
+
+   if (to_file)
+       VectorFout(p, fout);
+
+   if (to_DataS)
+       DataS.push_back(p);
+
+   int t, l, r, j;
+   bool f = true;
+
+   unsigned long long int count=1;
+    if (count==HowManyP) return count;
+
+
+  while (f)
+   {
+
+  loopP:   f = false;
+  j = n-2;
+
+   while (j>=0)
+   {
+       if (p[j+1]>p[j])
+       {
+           f= true;
+           for (int w=(n-1); w>j; w--)
+           if (p[w]>p[j])
+               {
+               t = p[j];
+               p[j] = p[w];
+               p[w] = t;
+               goto l2;
+               }
+
+               l2: l = (j+1);
+               r= (n-1);
+               while (l<r)
+                  {
+                   t = p[l];
+                   p[l] = p[r];
+                   p[r] = t;
+                   l++;
+                   r--;
+                  }
+
+               if (to_file)
+                   VectorFout(p, fout);
+
+               if (to_DataS)
+                   DataS.push_back(p);
+
+               count++;
+                if (count==HowManyP) return count;
+           goto loopP;
+
+
+       }
+      j--;
+   }
+
+   }
+
+    return count;
+}
+
+
+template <typename Ts>
+int FindInSorted (const std::vector<Ts> &A, Ts a, bool increasing = 1, int PosLeft=0, int PosRight=-1, Ts d=0)
+// Finds the position of the first element a in the sorted vector A (A should be sorted before, bool increasing tells the function should it regard A as increasing (==1) or no).
+// Note that the function rerurns the first found position (not the one with less index if the element repeats), 0-based indexing. Finding is as "artillery shooting"
+// One may set max possible deviation as d, starting left and right borders as PosLeft and PosRight (if incorrect they will be changed to borders of A)/
+// If input data is incorrect or element can not be find returns -1.
+
+// Поиск элемента а в отсортированном вектора А (д.б. отсортирован заранее по возрастанию (задать increasing как 1) или убыванию (как 0).
+// Можно задать предельное отклонение d.
+// Прим. Находит первое найденное, но не "са мое левое" значение индекса искомого элемента.
+// Можно задать границы поиска 9если некорректны, будут исправлены на границы А) как PosLeft и PosRight.
+// Если элемент не удается найти или данные некорректы, вернет -1.
+
+{
+    if (A.size()==0) return -1;
+    if ((A.size()==1) &&(A[0]==a)) return 0;
+    if ((A.size()==1) &&(A[0]!=a)) return -1;
+
+    if ((PosRight<0)||(PosRight>(A.size()-1)))
+            PosRight=A.size()-1;
+
+    if ((PosLeft<0)||(PosLeft>PosRight))
+        PosLeft=0;
+
+
+    int npos;
+
+    while (true)
+    {
+        npos=(PosRight-PosLeft)/2+PosLeft;
+        if (npos==PosLeft)
+        {
+            if (abs(A[npos]-a)<=d)
+                return npos;
+            if (abs(A[PosRight]-a)<=d)
+                return PosRight;
+            return -1;
+        }
+
+        if (abs(A[npos]-a)<=d) return npos;
+
+        if (( (A[npos]-a) >0)&&(increasing))
+        {
+            PosRight=npos;
+        }
+        if (( (A[npos]-a) >0)&&(!increasing))
+        {
+            PosLeft=npos;
+        }
+        if (( (A[npos]-a) <0)&&(increasing))
+        {
+            PosLeft=npos;
+        }
+        if ( ((A[npos]-a) <0)&&(!increasing))
+        {
+            PosRight=npos;
+        }
+    }
+}
+
+
+
+std::string GLCS2 (const std::string & s1, const std::string &s2)
+//Generates the longest common subsequence of 2 strings (returns one of the possible solutions).
+// Генерирует наибольшую общую подпоследовательность для 2х строк (возвращает один из возможных вариантов)
+{
+    int n = s1.length()+1;
+    int m = s2.length()+1;
+
+    std::vector <std::vector <int>> B;
+
+   MatrixSet(B, n, m, 0); // generating matrix LSC filled with 0.
+
+
+    // Заполнение матрицы LCS // filling the matrix LSC
+
+    for (unsigned int i = 1; (i< n); i++)
+        for (unsigned int j = 1; (j< m); j++)
+            if (s1[i-1] == s2[j-1])
+                B[i][j] = B[i-1][j-1] + 1;
+            else B[i][j] = std::max (B[i-1][j], B[i][j-1]);
+
+    // построение результата // building the result string s
+
+    int ii = n-1;
+    int jj = m-1;
+    std::string s = "";
+
+
+    while ((ii>0)&&(jj>0))
+    {
+        if ((B[ii][jj] == B[ii-1][jj-1]+1) && (B[ii-1][jj-1] == B[ii][jj-1]) && (B[ii-1][jj-1] == B[ii-1][jj]))
+        {
+            s = s1[ii-1] + s;
+            ii--;
+            jj--;
+        }
+        else if (B[ii][jj-1] >= B[ii-1][jj])
+
+        {
+           jj--;
+
+        }
+        else
+        {
+            ii--;
+
+        }
+
+    }
+
+    return s;
+}
+
+
+
+
+std::string GSCS2 (const std::string & s1, const std::string &s2)
+//Generates shortest common supersequence of 2 strings (returns one of the possible solutions).
+// The algorithm is (1) to generate longest common subsequence and then (2) pushing not-included symbols of both s1 and s2 to result string between relevant common symbols (for the begining - before the first one, for end - after the last one and up to the end)
+
+// Генерирует наименьшую общую надпоследовательность для 2х строк (возвращает один из возможных вариантов)
+// Смысл в том, чтобы сформировать сначала наименьшую общую подпоследовательность, а потом "распихать" в нее невошедшие символы между соотвествующими вошедшими (для начала же - перед первым общим, а для конца строки - после последнего общего и до конца)
+
+
+{
+    std::vector <unsigned int> In1 (s1.length(), 0); // вошел или не вошел в формируемую строку символ под данным индексом
+    std::vector <unsigned int> In2 (s2.length(), 0); // vector of flags if the i-th symbol of the string s1/ s2 included (==1) in generating result string or not included (==0)
+
+    std::vector <int> InIndex1 (s1.length(), -1); // под каким индексом входит в формируемую строку символ под данным индексом
+    std::vector <int> InIndex2 (s2.length(), -1); // index in generating result string of included i-th symbol of the string s1/ s2 (if not included - "-1")
+
+    std::vector <std::string> r;
+    r.clear();
+
+    //формирование наибольшей общей подпоследовательности (s) / Generating longest common subsequence (s)
+
+    //заготовка матрицы LCS
+    int n = s1.length()+1;
+    int m = s2.length()+1;
+
+    std::vector <std::vector <int>> B;
+    MatrixSet(B, n, m, 0); // generating matrix LSC filled with 0.
+
+
+     // Заполнение матрицы LCS // filling the matrix LSC
+
+     for (unsigned int i = 1; (i< n); i++)
+         for (unsigned int j = 1; (j< m); j++)
+             if (s1[i-1] == s2[j-1])
+                 B[i][j] = B[i-1][j-1] + 1;
+             else B[i][j] = std::max (B[i-1][j], B[i][j-1]);
+
+     // наибольшей общей подпоследовательности (s) // building longest common subsequence (s)
+
+     int ii = n-1;
+     int jj = m-1;
+     std::string s = "";
+
+
+    while ((ii>0)&&(jj>0))
+    {
+        if ((B[ii][jj] == B[ii-1][jj-1]+1) && (B[ii-1][jj-1] == B[ii][jj-1]) && (B[ii-1][jj-1] == B[ii-1][jj]))
+        {
+            s = s1[ii-1] + s;
+            In1[ii-1] = 1; // Запоминаем, что ii-1 символ включен по строке s1 // lets remember that (ii-1)-th symbol of s1 included
+            In2[jj-1] = 1; // Запоминаем, что jj-1 символ включен по строке s2 // lets remember that (jj-1)-th symbol of s2 included
+
+
+            for (unsigned int l = 0; (l< s1.length()); l++) // for all included symbols lets increase their index in resulting string (every new symbol iss added to the beginning of the resulting string
+                if (In1 [l] == 1) InIndex1 [l] ++;    // по всем включенным в формируемую строку увеличиваем индекс вхождения в нее, т.к. новый символ добавляется слева.
+
+            for (unsigned int g = 0; (g< s2.length()); g++)
+                if (In1 [g] == 1) InIndex2 [g] ++;    // по всем включенным в формируемую строку увеличиваем индекс вхождения в нее, т.к. новый символ добавляется слева.
+
+
+            ii--;
+            jj--;
+        }
+        else if (B[ii][jj-1] >= B[ii-1][jj])
+
+        {
+           jj--;
+
+        }
+        else
+        {
+            ii--;
+
+        }
+
+    }
+
+    //конец формирования наибольшей общей подпоследовательности (s) // end of LSC building
+
+
+    for (unsigned int c = 0; c<s.length(); c++) // Формируем массив строк, пока что состоящий из первых вошедших в LCS символов (затем будем наращивать за счет невошедших)
+        r.push_back(s.substr(c, 1)); // forming vector of strings containing the first sybbols of LCS, late we will grow them by adding not-included
+
+    std::string s01 = "";  // generating prefix string for result string from s1 symbols from the s1's start and up to the first included to LCS symbol
+    for (int i = 0; i<s1.length(); i++)
+        if (In1 [i] == 1) break;
+        else s01.push_back(s1[i]);
+
+    std::string s02 = "";  // Формируем префикс-строку для результирующей из строки s2: включаем все не вошедшие в LCS символы до тех пор, пока не наткнемся на первый вошедший
+    for (unsigned int i = 0; i<s2.length(); i++)
+        if (In2 [i] == 1) break;
+        else s02.push_back(s2[i]);
+
+
+    int f;
+    f= 0;
+    int j;
+    for (unsigned int i = 0; i<s1.length(); i++)
+        if ((In1[i] == 1) && (i!=(s1.length()-1))  )
+        {
+          j = i+1;
+          while ((In1[j]!=1)&&(j<=(s1.length()-1)))
+          {
+              r[f].push_back(s1[j]);
+              j++;
+          }
+          f++;
+
+        }
+
+
+    f= 0;
+    for (unsigned int i = 0; i<s2.length(); i++)
+        if ((In2[i] == 1) && (i!=(s2.length()-1))  )
+        {
+          j = i+1;
+          while ((In2[j]!=1)&&(j<=(s2.length()-1)))
+          {
+              r[f].push_back(s2[j]);
+              j++;
+          }
+          f++;
+
+        }
+
+    std::string result = "" + s01 + s02; // сборка результирующей строки
+    for (unsigned int z = 0; z<r.size(); z++) // assemling of resulting string
+        result = result + r[z];
+
+ return result;
+
+
 }
 
 
@@ -17576,45 +18167,6 @@ int DistanceTS (std::pair < std::vector<int>, std::vector<double>> & A, std::vec
 
 
 
-std::string GenerateAlphabet (const std::vector <std::string> &DataS)
-// Generates an alphabet upon the given vector of strings DataS. Symbols will be ordered under ASCII.
-// Формирует алфавит из символов, входящих в набор строк DataS. Порядок символов в алфавите задается ASCII.
-
-{
-    if (DataS.size()==0) return "";
-    std::string TempS="";
-
-    std::set <char> T;
-    T.clear();
-    for (int q = 0; q< DataS.size();q++)
-        for (int w = 0; w< DataS[q].length();w++)
-            T.insert(DataS[q][w]);
-
-    for (auto it=T.begin(); it!=T.end(); it++)
-        TempS.push_back(*it);
-
-    return TempS;
-}
-
-std::string GenerateAlphabet (const std::string &DataS)
-// Generates an alphabet upon the given string DataS. Symbols will be ordered under ASCII.
-// Формирует алфавит из символов, входящих в строку DataS. Порядок символов в алфавите задается ASCII.
-
-{
-    if (DataS.length()==0) return "";
-    std::string TempS="";
-
-    std::set <char> T;
-    T.clear();
-
-        for (int w = 0; w< DataS.length();w++)
-            T.insert(DataS[w]);
-
-    for (auto it=T.begin(); it!=T.end(); it++)
-        TempS.push_back(*it);
-
-    return TempS;
-}
 
 
 

@@ -142,3 +142,8 @@ SubGraphsInscribedM can find subgraphs in a given A that are isomorphic to a giv
 19.06.2021
 - Функции UWGraphFromPrev, PrevFromGraph, DegreesVerticesOfGraph добавлены.
 - Функции UWGraphFromPrev, PrevFromGraph, DegreesVerticesOfGraph have been added.
+
+
+27.06.2021
+- Новые функции добавлены.
+- Some functions have been added.
