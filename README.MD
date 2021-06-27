@@ -102,6 +102,18 @@ The Matrix may have lines of different length. In this case the "missing" values
 
 The Matrix may have lines of different length. In this case the "missing" values to the end for the "shorter lines" are filled with the char g.
 ***
+`template < typename TMC1>`
+
+`int MatrixCout (const TMC1 &P)`
+
+Couts" "matrix" based upon vector/ list/ etc container of standard type elements to screen. Returns -1 if the container is empty
+***
+`template < typename TMF1>`
+
+`int MatrixFout (const TMF1 &P, std::ofstream &fout)`
+
+"Fouts" "matrix" based upon vector/ list/ etc container of standard type elements to file. Returns -1 if the container is empty
+***
 `int MatrixFout (std::vector <std::vector <double>> & B, std::ofstream & fout,
 unsigned int prec = 4, char g = ' ', bool scientifique = false)`
 
@@ -572,6 +584,26 @@ Trie: Here the Trie will be contained as a number of triplets of integers (a =
 Trie [3i], b = Trie [3i+1], c = Trie [3i+2], i = 0, 1, ...). Each triplet means an
 edge a->b marked with symbol (char) c. Vertices in the Tree are numerated starting
 with "1".
+***
+`std::string BWTransform (const std::string &s, const char h = '$')`
+
+Constructs BWTransform of string s; the last symbol set as h.
+If input data is incorrest (empty s, h is in s) returns empty string.
+
+***
+`int BW_SubstringsCount (const std::string &S, std::unordered_map<std::string, int>&DataS)`
+
+Counts how many times strings contained in DataS appears at string S (using BWT transform).
+***
+`std::string GLCS2 (const std::string & s1, const std::string &s2)`
+
+Generates the longest common subsequence of 2 strings (returns one of the possible solutions).
+***
+`std::string GSCS2 (const std::string & s1, const std::string &s2)`
+
+Generates shortest common supersequence of 2 strings (returns one of the possible solutions).
+
+The algorithm is (1) to generate longest common subsequence and then (2) pushing not-included symbols of both s1 and s2 to result string between relevant common symbols (for the begining - before the first one, for end - after the last one and up to the end)
 ***
 `void Num (std::string & Numbers, std::vector <double> & A)`
 
@@ -1439,6 +1471,31 @@ int start = 0)`
 Returns index in vector (string) of the first element = a. Search starts from
 index "start" with step = "step". If step<1 step will be set as 1. 
 If start<0 start will be set as 0. If no such element found the function returns -1.
+***
+`template <typename Tia>`
+ 
+`int IndexesInSortedArray (const std::vector <Tia> &Q, std::vector <int> &Qi, const bool increasing = true)
+Generating upon vector Q vector Qi so that Qi[j] equals the value of index (0-based indexing) in the vector Q for j-th element of Q if been sorted.
+bool increasing sets if sorting means increasing (true) or decreasing (false).
+***
+`unsigned long long int Perm (const short unsigned int n, std::vector<std::vector <int> > &DataS, const bool to_DataS, std::ofstream &fout, const bool to_file, long long int HowManyP = 0)`
+
+Generates all Permutations of length n. The result may be as in DataS (if to_DataS = true) as in file (via fout, if to_file = true).
+It may be useful as for big n we have no RAM enough.
+If n<1 returns 0 and empty DataS.
+Also one may set HowMany >=1 (in this case only first HowMany permutations will be found).
+***
+`template <typename Ts>`
+
+`int FindInSorted (const std::vector<Ts> &A, Ts a, bool increasing = 1, int PosLeft=0, int PosRight=-1, Ts d=0)`
+
+Finds the position of the first element a in the sorted vector A (A should be sorted before, bool increasing tells the function should it regard A as increasing (==1) or no).
+
+Note that the function rerurns the first found position (not the one with less index if the element repeats), 0-based indexing. Finding is as "artillery shooting"
+
+One may set max possible deviation as d, starting left and right borders as PosLeft and PosRight (if incorrect they will be changed to borders of A)/
+If input data is incorrect or element can not be find returns -1.
+
 ***
 `template < typename TSW>`
 
