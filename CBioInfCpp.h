@@ -4869,8 +4869,32 @@ void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
         for (int y=0; y<Numbers.size(); y++)
         {
             if (!(isdigit(Numbers[y])))
+            {
                 if (Numbers[y]!='-')
                     Numbers[y]=' ';
+            }
+
+            if (Numbers[y]=='-')
+            {
+                if (y<(Numbers.size()-1))
+                {
+                    if (!(isdigit(Numbers[y+1])))
+                        Numbers[y]=' ';
+
+                    if ((y>0)&&(isdigit(Numbers[y+1]))&&(isdigit(Numbers[y-1])))
+                    {
+                        Numbers[y]=' ';
+                    }
+
+
+                }
+                if (y==(Numbers.size()-1))
+                {
+                        Numbers[y]=' ';
+                }
+
+            }
+
         }
     }
 
@@ -4924,8 +4948,32 @@ void Num (std::string & Numbers, std::vector <long long int> & A, const bool & s
         for (int y=0; y<Numbers.size(); y++)
         {
             if (!(isdigit(Numbers[y])))
+            {
                 if (Numbers[y]!='-')
                     Numbers[y]=' ';
+            }
+
+            if (Numbers[y]=='-')
+            {
+                if (y<(Numbers.size()-1))
+                {
+                    if (!(isdigit(Numbers[y+1])))
+                        Numbers[y]=' ';
+
+                    if ((y>0)&&(isdigit(Numbers[y+1]))&&(isdigit(Numbers[y-1])))
+                    {
+                        Numbers[y]=' ';
+                    }
+
+
+                }
+                if (y==(Numbers.size()-1))
+                {
+                        Numbers[y]=' ';
+                }
+
+            }
+
         }
     }
 
@@ -4979,8 +5027,32 @@ void Num (std::string & Numbers, std::vector <short int> & A, const bool & stron
         for (int y=0; y<Numbers.size(); y++)
         {
             if (!(isdigit(Numbers[y])))
+            {
                 if (Numbers[y]!='-')
                     Numbers[y]=' ';
+            }
+
+            if (Numbers[y]=='-')
+            {
+                if (y<(Numbers.size()-1))
+                {
+                    if (!(isdigit(Numbers[y+1])))
+                        Numbers[y]=' ';
+
+                    if ((y>0)&&(isdigit(Numbers[y+1]))&&(isdigit(Numbers[y-1])))
+                    {
+                        Numbers[y]=' ';
+                    }
+
+
+                }
+                if (y==(Numbers.size()-1))
+                {
+                        Numbers[y]=' ';
+                }
+
+            }
+
         }
     }
 
