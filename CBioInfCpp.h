@@ -19,6 +19,7 @@
 #include <map>
 #include <cmath>
 #include <stack>
+#include <limits>
 #include <limits.h>
 #include <float.h>
 #include <cstdlib>
