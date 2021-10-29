@@ -9,7 +9,8 @@ Reverse complement of ShortestSuperstring: CCCCTGTTA
 GC-content of Reverse complement of ShortestSuperstring: 0.555556
 RNAofShortestSuperstring: UAACAGGGG
 Hamming Distance between ShortestSuperstring and RNAofShortestSuperstring: 1
-Edit Distance between ShortestSuperstring and RNAofShortestSuperstring: 3
+RNAofShortestSuperstringafter cutting of the 2 last symbols: UAACAGG
+Edit Distance between ShortestSuperstring and RNAofShortestSuperstring after cutting of the 2 last symbols: 3
 Edit Distance Alignment: 
 TAACAGGGG
 UAACAGG--

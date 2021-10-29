@@ -6,15 +6,16 @@
 // Распространияется свободно на условиях лицензии  Creative Commons Attribution 4.0 International Public License (CC BY)
 // (https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
-
-#include <CBioInfCpp.h>
+#include <E://CBioInfCppDirectory//CBioInfCpp.h>    // It is for Windows, For Linux use single "/" (not "//") in path setting string
 // Including CBioInfCpp
 // Подключаем библиотеку CBioInfCpp
+
 
 using namespace std;
 
 int main()
 {
+    cout<<"Press Enter to start"<<endl; cin.ignore();  // For Win one may use system("pause");
 
     //Упражнение 1. Строки
     // Скачиваем строки из файла, находим наименьшую надстроку "жадным" алгоритмом.
@@ -62,9 +63,11 @@ int main()
 
     RNAofShortestSuperstring.pop_back(); // Deleting the last symbol from RNAofShortestSuperstring
     RNAofShortestSuperstring.pop_back(); // Another time
+    cout<<"RNAofShortestSuperstring after cutting of the 2 last symbols: "<<RNAofShortestSuperstring<<endl;
+    fout1<<"RNAofShortestSuperstringafter cutting of the 2 last symbols: "<<RNAofShortestSuperstring<<endl;
     string sr1, sr2; // These strings will contain results of Alignment (minimizing Edit Distance)
-    cout<<"Edit Distance between ShortestSuperstring and RNAofShortestSuperstring: "<<EditDistA(ShortestSuperstring, RNAofShortestSuperstring, sr1, sr2)<<endl;
-    fout1<<"Edit Distance between ShortestSuperstring and RNAofShortestSuperstring: "<<EditDistA(ShortestSuperstring, RNAofShortestSuperstring, sr1, sr2)<<endl;
+    cout<<"Edit Distance between ShortestSuperstring and RNAofShortestSuperstring after cutting of the 2 last symbols: "<<EditDistA(ShortestSuperstring, RNAofShortestSuperstring, sr1, sr2)<<endl;
+    fout1<<"Edit Distance between ShortestSuperstring and RNAofShortestSuperstring after cutting of the 2 last symbols: "<<EditDistA(ShortestSuperstring, RNAofShortestSuperstring, sr1, sr2)<<endl;
     cout<<"Edit Distance Alignment: "<<endl<<sr1<<endl<<sr2<<endl;
     fout1<<"Edit Distance Alignment: "<<endl<<sr1<<endl<<sr2<<endl;
 
@@ -84,6 +87,8 @@ int main()
 
     fin1.close();
     fout1.close();
+
+    cout<<"Press Enter to continue"<<endl; cin.ignore();  // For Win one may use system("pause");
 
     //Упражнение 2. Считывание графов из файла, вывод на экран и в файл, нахождение Эйлерового пути
     //Exercise 2. Reading graphs from file, outing graphs to screen and to file, finding Eulerian Cycle
@@ -162,6 +167,8 @@ int main()
     fin2_2.close();
     fin2_3.close();
 
+    cout<<"Press Enter to continue"<<endl; cin.ignore();  // For Win one may use system("pause");
+
     //Упражнение 3. Проверка изоморфности двух графов; нахождение в графе всех подграфов, изоморфных данному образцу
     //Exercise 3. Checking if 2 graphs are isomorphic; finding all subgraphs that are isomorphic to given template graph.
 
@@ -189,6 +196,8 @@ int main()
 
     set<vector <int>> SubGraphs; // Here will be subgraphs found
 
+    cout<<"Press Enter to continue"<<endl; cin.ignore();  // For Win one may use system("pause");
+
     bool directed = true; //lets consider both graphs as directed ones
     cout<<SubGraphsInscribed (B1, B2, SubGraphs, directed, 0, 1, 0)<<endl; //trying to find in B1 all subgraphs that are isomorphic to B2
     fout3<<SubGraphsInscribed (B1, B2, SubGraphs, directed, 0, 1, 0)<<endl; // it should be 1 as they are isomorphic themselves
@@ -201,6 +210,8 @@ int main()
         fout3<<"isomorphic (sub)graph found: (directed graph case)"<<" "<<(*(it)).size()/2<<" edges"<<endl; // to file
         GraphFout(*(it),false, fout3);
     }
+
+    cout<<"Press Enter to continue"<<endl; cin.ignore();  // For Win one may use system("pause");
 
     directed = 0; //lets consider both graphs as undirected ones
     cout<<SubGraphsInscribed (B1, B2, SubGraphs, directed, 0, 1, 0)<<endl;
@@ -263,6 +274,11 @@ int main()
     }
     cout<<SubGraphs.size()<<" subraphs of A that are isomorphic to B1 is found"<<endl;
     fout3<<SubGraphs.size()<<"subraphs of A that are isomorphic to B1 is found"<<endl;
+
+    cout<<endl<<"success"<<endl;
+    fout3<<endl<<"success"<<endl;
+
+    cout<<"Press Enter to continue"<<endl; cin.ignore();  // For Win one may use system("pause");
 
     fin3_A.close();
     fin3_B.close();
