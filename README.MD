@@ -29,7 +29,7 @@ Attribution 4.0 International Public License (CC BY) (hyperlink to the License:
 https://creativecommons.org/licenses/by/4.0/legalcode.ru).
 
 CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf are written by Sergey
-Chernouhov (chernouhov@rambler.ru).
+Chernouhov (chernouhov@gmail.com).
 
 # Functions and their possible use
 
