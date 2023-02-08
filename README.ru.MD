@@ -18,7 +18,7 @@ Public License (сокращенно - CC BY, гиперссылка на тек
 https://creativecommons.org/licenses/by/4.0/legalcode.ru). 
 
 Автор CBioInfCpp.h, About_CBioInfCpp.rtf, About_CBioInfCpp.pdf – Черноухов Сергей 
-(chernouhov@rambler.ru) 
+(chernouhov@gmail.com) 
 
 ***
 **Апробирование**
