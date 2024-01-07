@@ -4770,35 +4770,42 @@ int TrieMake (std::vector <std::string> &DataS, std::vector <int> & Trie)
 
 
 
-void Num (std::string & Numbers, std::vector <double> & A)
+
+
+void Num (std::string & Numbers, std::vector <double> & A, const char &sep = ' ')
 {
     // перегон строки с числами <double> в массив (вектор) А
     // converts string of numbers <double> (separated by spaces) to a vector of numbers
 
     A.clear();
+    std::string TempS = "";
+    TempS.push_back(sep);
+    TempS.push_back(sep);
 
-    int q = 0;  // удаление лишних пробелов если есть / deletind doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
 
-    std::string TempS = "";
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
     double r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    while (Numbers.find (TS, b) != -1)  //число - до следующего пробела
     {
-        e = Numbers.find (" ", b)-1;
+        e = Numbers.find (TS, b)-1;
         TempS = Numbers.substr(b, e-b+1);
          r = atof(TempS.c_str());
          A.push_back(r);
@@ -4814,35 +4821,40 @@ void Num (std::string & Numbers, std::vector <double> & A)
 }
 
 
-void Num (std::string & Numbers, std::vector <long double> & A)
+void Num (std::string & Numbers, std::vector <long double> & A, const char &sep = ' ')
 {
     // перегон строки с числами <long double> в массив (вектор) А
     // converts string of numbers <long double> (separated by spaces) to a vector of numbers
 
     A.clear();
+    std::string TempS = "";
+    TempS.push_back(sep);
+    TempS.push_back(sep);
 
-    int q = 0;  // удаление лишних пробелов если есть / deletind doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
 
-    std::string TempS = "";
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
     long double r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    while (Numbers.find (TS, b) != -1)  //число - до следующего пробела
     {
-        e = Numbers.find (" ", b)-1;
+        e = Numbers.find (TS, b)-1;
         TempS = Numbers.substr(b, e-b+1);
          r = atof(TempS.c_str());
          A.push_back(r);
@@ -4857,13 +4869,14 @@ void Num (std::string & Numbers, std::vector <long double> & A)
     TempS.clear();
 }
 
-void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
+void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0, const char &sep = ' ')
 {
     // перегон строки с числами int в массив (вектор) А
     // converts string of numbers <int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
+    std::string TempS = "";
 
     if (strong)
     {
@@ -4872,7 +4885,7 @@ void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
             if (!(isdigit(Numbers[y])))
             {
                 if (Numbers[y]!='-')
-                    Numbers[y]=' ';
+                    Numbers[y]=sep;
             }
 
             if (Numbers[y]=='-')
@@ -4880,18 +4893,18 @@ void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
                 if (y<(Numbers.size()-1))
                 {
                     if (!(isdigit(Numbers[y+1])))
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
 
                     if ((y>0)&&(isdigit(Numbers[y+1]))&&(isdigit(Numbers[y-1])))
                     {
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
                     }
 
 
                 }
                 if (y==(Numbers.size()-1))
                 {
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
                 }
 
             }
@@ -4899,27 +4912,33 @@ void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
         }
     }
 
-    int q = 0;  // удаление лишних пробелов / deleting doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    TempS.push_back(sep);
+    TempS.push_back(sep);
+
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
-    std::string TempS = "";
+
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
     int r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    while (Numbers.find (TS, b) != -1)  //число - до следующего пробела
     {
-        e = Numbers.find (" ", b)-1;
+        e = Numbers.find (TS, b)-1;
         TempS = Numbers.substr(b, e-b+1);
          r = atoi(TempS.c_str());
          A.push_back(r);
@@ -4936,13 +4955,14 @@ void Num (std::string & Numbers, std::vector <int> & A, const bool & strong = 0)
 
 
 
-void Num (std::string & Numbers, std::vector <long long int> & A, const bool & strong = 0)
+void Num (std::string & Numbers, std::vector <long long int> & A, const bool & strong = 0, const char &sep = ' ')
 {
     // перегон строки с числами long long int в массив (вектор) А
     // converts string of numbers <long long int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
+    std::string TempS = "";
 
     if (strong)
     {
@@ -4951,7 +4971,7 @@ void Num (std::string & Numbers, std::vector <long long int> & A, const bool & s
             if (!(isdigit(Numbers[y])))
             {
                 if (Numbers[y]!='-')
-                    Numbers[y]=' ';
+                    Numbers[y]=sep;
             }
 
             if (Numbers[y]=='-')
@@ -4959,18 +4979,18 @@ void Num (std::string & Numbers, std::vector <long long int> & A, const bool & s
                 if (y<(Numbers.size()-1))
                 {
                     if (!(isdigit(Numbers[y+1])))
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
 
                     if ((y>0)&&(isdigit(Numbers[y+1]))&&(isdigit(Numbers[y-1])))
                     {
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
                     }
 
 
                 }
                 if (y==(Numbers.size()-1))
                 {
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
                 }
 
             }
@@ -4978,27 +4998,33 @@ void Num (std::string & Numbers, std::vector <long long int> & A, const bool & s
         }
     }
 
-    int q = 0;  // удаление лишних пробелов / deleting doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    TempS.push_back(sep);
+    TempS.push_back(sep);
+
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
-    std::string TempS = "";
+
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
     long long int r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    while (Numbers.find (TS, b) != -1)  //число - до следующего пробела
     {
-        e = Numbers.find (" ", b)-1;
+        e = Numbers.find (TS, b)-1;
         TempS = Numbers.substr(b, e-b+1);
          r = atoi(TempS.c_str());
          A.push_back(r);
@@ -5015,13 +5041,14 @@ void Num (std::string & Numbers, std::vector <long long int> & A, const bool & s
 
 
 
-void Num (std::string & Numbers, std::vector <short int> & A, const bool & strong = 0)
+void Num (std::string & Numbers, std::vector <short int> & A, const bool & strong = 0, const char &sep = ' ')
 {
     // перегон строки с числами short int в массив (вектор) А
     // converts string of numbers <short int> (separated by spaces) to a vector of numbers
 
 
     A.clear();
+    std::string TempS = "";
 
     if (strong)
     {
@@ -5030,7 +5057,7 @@ void Num (std::string & Numbers, std::vector <short int> & A, const bool & stron
             if (!(isdigit(Numbers[y])))
             {
                 if (Numbers[y]!='-')
-                    Numbers[y]=' ';
+                    Numbers[y]=sep;
             }
 
             if (Numbers[y]=='-')
@@ -5038,18 +5065,18 @@ void Num (std::string & Numbers, std::vector <short int> & A, const bool & stron
                 if (y<(Numbers.size()-1))
                 {
                     if (!(isdigit(Numbers[y+1])))
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
 
                     if ((y>0)&&(isdigit(Numbers[y+1]))&&(isdigit(Numbers[y-1])))
                     {
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
                     }
 
 
                 }
                 if (y==(Numbers.size()-1))
                 {
-                        Numbers[y]=' ';
+                        Numbers[y]=sep;
                 }
 
             }
@@ -5057,27 +5084,33 @@ void Num (std::string & Numbers, std::vector <short int> & A, const bool & stron
         }
     }
 
-    int q = 0;  // удаление лишних пробелов / deleting doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    TempS.push_back(sep);
+    TempS.push_back(sep);
+
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
-    std::string TempS = "";
+
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
     short int r;  //сюда писать само число / a variable to contain a number
-    while (Numbers.find (" ", b) != -1)  //число - до следующего пробела
+    while (Numbers.find (TS, b) != -1)  //число - до следующего пробела
     {
-        e = Numbers.find (" ", b)-1;
+        e = Numbers.find (TS, b)-1;
         TempS = Numbers.substr(b, e-b+1);
          r = atoi(TempS.c_str());
          A.push_back(r);
@@ -5093,7 +5126,7 @@ void Num (std::string & Numbers, std::vector <short int> & A, const bool & stron
 }
 
 
-int Num (std::string & Numbers, int &a1,int &a2, double &a3)
+int Num (std::string & Numbers, int &a1,int &a2, double &a3, const char &sep = ' ')
 // Вспомогательная функция: перегон строки, содержащей 3 числа, разделенных пробелами (пара целых, задающих вершины ребра и одного double) соответственно в int a1,int a2, double a3. Числа должны быть разделены пробелами, а более ничего строка содержать не должна.
 // Возвращает -1 если выявлена ошибка исходных данных (нет 3х "кандидатов в числа").
 // При этом проверка на то, что конвертируемая в число подстрока содержит лишь цифры и десятичный разделитель, в данной версии функции НЕ проводится.
@@ -5103,27 +5136,32 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 
 
 {
+    std::string TempS = "";
+    TempS.push_back(sep);
+    TempS.push_back(sep);
 
-    int q = 0;  // удаление лишних пробелов если есть / deletind doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning (string must start from a number)
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
 
-    std::string TempS = "";
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; //начало каждого числа в строке  / The start position of a number
     int e=0; // конец числа в строке / the end position
 
-    e = Numbers.find (" ", b)-1; //reading the first int - i.e. the first vertex of an edge
+    e = Numbers.find (TS, b)-1; //reading the first int - i.e. the first vertex of an edge
     if (e<0) return -1;
     TempS = Numbers.substr(b, e-b+1);
 
@@ -5131,7 +5169,7 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
     b = e+2;TempS.clear();
 
 
-    e = Numbers.find (" ", b)-1; //reading the second int - i.e. the second vertex of an edge
+    e = Numbers.find (TS, b)-1; //reading the second int - i.e. the second vertex of an edge
     if (e<0) return -1;
     TempS = Numbers.substr(b, e-b+1);
 
@@ -5141,7 +5179,7 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 
     if (b>=Numbers.length()) return -1; // in this case string does not contain the 3th number
 
-    e = Numbers.find (" ", b)-1;
+    e = Numbers.find (TS, b)-1;
 
     if (e<0) //There are no more " "
     {
@@ -5154,7 +5192,7 @@ int Num (std::string & Numbers, int &a1,int &a2, double &a3)
 }
 
 
-void Num (std::string & Numbers, std::vector <std::string> & A)
+void Num (std::string & Numbers, std::vector <std::string> & A, const char &sep = ' ')
 {
 // Modification of "Num"-functions (see them above) for strings.
 // Converts string that consists of some strings (separated by spaces) to a vector of strings
@@ -5162,28 +5200,34 @@ void Num (std::string & Numbers, std::vector <std::string> & A)
 
 
     A.clear();
+    std::string TempS = "";
+    TempS.push_back(sep);
+    TempS.push_back(sep);
 
-    int q = 0;  // deleting doubled spaces
-    while (Numbers.find ("  ", q) != -1)
+    int q = 0;  // удаление лишних разделителей если есть / deletind doubled sep-symbols
+    while (Numbers.find (TempS, q) != -1)
     {
-        q = Numbers.find ("  ", q);
+        q = Numbers.find (TempS, q);
         Numbers.erase(q, 1);
     }
 
-    while (Numbers[0] == ' ')  // deleting spaces from the very beginning
+    while (Numbers[0] == sep)  // deleting sep-symbols from the very beginning (string must start from a number)
     {Numbers.erase(0, 1);}
 
 
-    while (Numbers[Numbers.length()-1] == ' ')  // deleting spaces from the end
+    while (Numbers[Numbers.length()-1] == sep)  // deleting sep-symbols from the end
     {Numbers.erase((Numbers.length()-1), 1);}
 
-    std::string TempS = "";
+
+    std::string TS = TempS;
+    TS.pop_back();
+    TempS = "";
     int b=0; // The start position of a string
     int e=0; // the end position
 
-    while (Numbers.find (" ", b) != -1)  //строка - до следующего пробела
+    while (Numbers.find (TS, b) != -1)  //строка - до следующего пробела
     {
-        e = Numbers.find (" ", b)-1;
+        e = Numbers.find (TS, b)-1;
         TempS = Numbers.substr(b, e-b+1);
 
          A.push_back(TempS);
@@ -5197,6 +5241,8 @@ void Num (std::string & Numbers, std::vector <std::string> & A)
     A.push_back(TempS);
     TempS.clear();
 }
+
+
 
 
 int ScoreStringMatrix (const std::vector <std::string> &s)
@@ -9410,7 +9456,7 @@ int SubGraphsInscribed (std::vector <int> A, std::vector <int> B, std::unordered
      G3.clear();  //
      G3=B;
 
-     std::vector <int> Scale0;  // Шкала для матрицы смежности 1
+     std::vector <int> Scale0;  // Шкала для матрицы смежности
      Scale0.clear();
 
 
@@ -9578,6 +9624,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
      }
 
 
+
+
    RangeVGraph (B, mb, mnb, w);
 
 
@@ -9680,7 +9728,6 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
 
 
-
 //***************
 
    temp = PathsA.size();
@@ -9779,21 +9826,26 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                             if (f2==0)
                             {
-
                                 reverse (E.begin(), E.end());
-                                PathsA.push_back(E);
-                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                             if (PreThinning)
-                                for (int x=1; x<PathsA[i].size(); x++)
+                                reverse (PathsA[i].begin(), PathsA[i].end());
+                                if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                                 {
-                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    PathsA.push_back(E);
+                                    NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                 if (PreThinning)
+                                    for (int x=1; x<PathsA[i].size(); x++)
+                                    {
+                                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    }
                                 }
+                             reverse (PathsA[i].begin(), PathsA[i].end());
                             }
+
 
                            }
 
@@ -9928,21 +9980,28 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (f2==0)
                         {
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                         reverse (PathsA[i].begin(), PathsA[i].end());
                         }
+
+
                     }
 
                     if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
@@ -9958,20 +10017,27 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (f2==0)
                         {
-
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
+
+
+
 
                      }
                 }
@@ -10059,7 +10125,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                        }
 
-                       if (f2==0)
+                       if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                        {
                            PathsA.push_back(E);
 
@@ -10149,7 +10215,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         }
 
-                        if (f2==0)
+                        if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                         {
 
                          PathsA.push_back(E);
@@ -10243,7 +10309,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                    }
 
-                   if (f2==0)
+                   if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                    {
                         PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -10342,7 +10408,6 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                     reverse (PathsA[i].begin(), PathsA[i].end());
 
 
-
                     if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
                         if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
                         {
@@ -10358,18 +10423,25 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                             {
 
                                 reverse (E.begin(), E.end());
-                                PathsA.push_back(E);
-                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                reverse (PathsA[i].begin(), PathsA[i].end());
 
-                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                             if (PreThinning)
-                                for (int x=1; x<PathsA[i].size(); x++)
+                                if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                                 {
-                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    PathsA.push_back(E);
+                                    NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                 if (PreThinning)
+                                    for (int x=1; x<PathsA[i].size(); x++)
+                                    {
+                                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    }
+
                                 }
+                                reverse (PathsA[i].begin(), PathsA[i].end());
                             }
 
                        }
@@ -10510,19 +10582,24 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                         if (f2==0)
                         {
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                          if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                              if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
                     }
 
@@ -10541,19 +10618,25 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (f2==0)
                         {
-
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+
                             }
+
+                         reverse (PathsA[i].begin(), PathsA[i].end());
                         }
 
                      }
@@ -10644,7 +10727,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                       }
 
-                      if (f2==0)
+                      if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                       {
                           PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -10667,6 +10750,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                           }
                       }
                   }
+
+
               }
             }
 
@@ -10741,7 +10826,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                    }
 
-                   if (f2==0)
+                   if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                    {
                         PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -11451,9 +11536,6 @@ if (PreThinning)
             }
 
 
-
-
-
                 for (int i=0; i<NPaths.size(); i++)
                 {
 
@@ -11462,17 +11544,12 @@ if (PreThinning)
                         return 0;
 
                     }
-
-//                    cout<<"i="<<i<<" ";
-//                    VectorCout(NPaths[i]);
-
                 }
-
 
 
 // end of Stage III "Thinning of data"
 
-                // start of Stage IV "Finnishing"
+                // start of Stage IV "Finishing"
 
 
                 c=0;
@@ -12276,21 +12353,26 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                             if (f2==0)
                             {
-
                                 reverse (E.begin(), E.end());
-                                PathsA.push_back(E);
-                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                             if (PreThinning)
-                                for (int x=1; x<PathsA[i].size(); x++)
+                                reverse (PathsA[i].begin(), PathsA[i].end());
+                                if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                                 {
-                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    PathsA.push_back(E);
+                                    NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                 if (PreThinning)
+                                    for (int x=1; x<PathsA[i].size(); x++)
+                                    {
+                                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    }
                                 }
+                             reverse (PathsA[i].begin(), PathsA[i].end());
                             }
+
 
                            }
 
@@ -12425,21 +12507,28 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (f2==0)
                         {
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                         reverse (PathsA[i].begin(), PathsA[i].end());
                         }
+
+
                     }
 
                     if ( (VinB[(PathsB[j][0])]+VoutB[PathsB[j][0]])==1)
@@ -12455,20 +12544,27 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (f2==0)
                         {
-
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
+
+
+
 
                      }
                 }
@@ -12556,7 +12652,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                        }
 
-                       if (f2==0)
+                       if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                        {
                            PathsA.push_back(E);
 
@@ -12646,7 +12742,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         }
 
-                        if (f2==0)
+                        if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                         {
 
                          PathsA.push_back(E);
@@ -12740,7 +12836,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                    }
 
-                   if (f2==0)
+                   if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                    {
                         PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -12839,7 +12935,6 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                     reverse (PathsA[i].begin(), PathsA[i].end());
 
 
-
                     if (  ( (PathsB[j][0] == PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] == PathsA[i][PathsA[i].size()-1]) ) || ( (PathsB[j][0] != PathsB[j][PathsB[j].size()-1]) && (PathsA[i][0] != PathsA[i][PathsA[i].size()-1]) ))
                         if ( (VinB[(PathsB[j][0])]== VinA[(PathsA[i][0])]) && (VinB[(PathsB[j][PathsB[j].size()-1])]== VinA[(PathsA[i][PathsA[i].size()-1])])&& (VoutB[(PathsB[j][0])]== VoutA[(PathsA[i][0])]) && (VoutB[(PathsB[j][PathsB[j].size()-1])]== VoutA[(PathsA[i][PathsA[i].size()-1])]) && (PathsB[j].size()==PathsA[i].size()) )
                         {
@@ -12855,18 +12950,25 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                             {
 
                                 reverse (E.begin(), E.end());
-                                PathsA.push_back(E);
-                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                reverse (PathsA[i].begin(), PathsA[i].end());
 
-                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                             if (PreThinning)
-                                for (int x=1; x<PathsA[i].size(); x++)
+                                if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                                 {
-                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    PathsA.push_back(E);
+                                    NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                 if (PreThinning)
+                                    for (int x=1; x<PathsA[i].size(); x++)
+                                    {
+                                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    }
+
                                 }
+                                reverse (PathsA[i].begin(), PathsA[i].end());
                             }
 
                        }
@@ -13007,19 +13109,24 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                         if (f2==0)
                         {
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                          if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                              if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
                     }
 
@@ -13038,19 +13145,25 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                         if (f2==0)
                         {
-
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())   //
                             {
-                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
+
                             }
+
+                         reverse (PathsA[i].begin(), PathsA[i].end());
                         }
 
                      }
@@ -13141,7 +13254,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                       }
 
-                      if (f2==0)
+                      if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                       {
                           PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -13164,6 +13277,8 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
                           }
                       }
                   }
+
+
               }
             }
 
@@ -13238,7 +13353,7 @@ for (auto it = MultEdgesB.begin(); it!=MultEdgesB.end(); it++)  // some preparin
 
                    }
 
-                   if (f2==0)
+                   if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )   //
                    {
                         PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -13948,9 +14063,6 @@ if (PreThinning)
             }
 
 
-
-
-
                 for (int i=0; i<NPaths.size(); i++)
                 {
 
@@ -13959,17 +14071,12 @@ if (PreThinning)
                         return 0;
 
                     }
-
-//                    cout<<"i="<<i<<" ";
-//                    VectorCout(NPaths[i]);
-
                 }
-
 
 
 // end of Stage III "Thinning of data"
 
-                // start of Stage IV "Finnishing"
+                // start of Stage IV "Finishing"
 
 
                 c=0;
@@ -14346,7 +14453,6 @@ if (PreThinning)
 
      return Result.size();
 }
-
 
 
 template < typename Tf>
@@ -14879,28 +14985,30 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                             if (f2==0)
                             {
-
                                 reverse (E.begin(), E.end());
-                                PathsA.push_back(E);
-                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                             if (PreThinning)
-                                for (int x=1; x<PathsA[i].size(); x++)
+                                reverse (PathsA[i].begin(), PathsA[i].end());
+                                if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())
                                 {
-                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    PathsA.push_back(E);
+                                    NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                 if (PreThinning)
+                                    for (int x=1; x<PathsA[i].size(); x++)
+                                    {
+                                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    }
                                 }
+                                reverse (PathsA[i].begin(), PathsA[i].end());
                             }
 
                            }
 
                     E.clear();
-
                     reverse (PathsA[i].begin(), PathsA[i].end());
-
                 }
            }
        }
@@ -15136,19 +15244,23 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
                         if (f2==0)
                         {
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())
                             {
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
                     }
 
@@ -15201,19 +15313,22 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                         if (f2==0)
                         {
-
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())
                             {
-                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
 
                      }
@@ -15370,7 +15485,7 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                        }
 
-                       if (f2==0)
+                       if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )
                        {
                            PathsA.push_back(E);
 
@@ -15529,7 +15644,7 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                         }
 
-                        if (f2==0)
+                        if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )
                         {
 
                          PathsA.push_back(E);
@@ -15693,7 +15808,8 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                    }
 
-                   if (f2==0)
+
+                   if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )
                    {
                        PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -15878,28 +15994,30 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                             if (f2==0)
                             {
-
                                 reverse (E.begin(), E.end());
-                                PathsA.push_back(E);
-                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                             if (PreThinning)
-                                for (int x=1; x<PathsA[i].size(); x++)
+                                reverse (PathsA[i].begin(), PathsA[i].end());
+                                if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())
                                 {
-                                        A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    PathsA.push_back(E);
+                                    NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                    NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                    NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                                 if (PreThinning)
+                                    for (int x=1; x<PathsA[i].size(); x++)
+                                    {
+                                            A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                    }
                                 }
+                                reverse (PathsA[i].begin(), PathsA[i].end());
                             }
 
                        }
 
                     E.clear();
-
                     reverse (PathsA[i].begin(), PathsA[i].end());
-
                 }
            }
        }
@@ -16140,19 +16258,24 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
                         if (f2==0)
                         {
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-
-                            NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-
-                          if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())
                             {
-                                A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+
+                                NPaths[j].push_back(0); // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+
+                              if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                    A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
                     }
 
@@ -16206,30 +16329,29 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                         if (f2==0)
                         {
-
                             reverse (E.begin(), E.end());
-                            PathsA.push_back(E);
-
-                            NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
-                            NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
-                            NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
-
-                         if (PreThinning)
-                            for (int x=1; x<PathsA[i].size(); x++)
+                            reverse (PathsA[i].begin(), PathsA[i].end());
+                            if (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end())
                             {
-                                 A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                PathsA.push_back(E);
+
+                                NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
+                                NPaths[j].push_back(PathsA[i].size()-PathsB[j].size());  // стартовая позиция в нем  //statring posiyion in it
+                                NPaths[j].push_back(PathsB[j].size()); // его длина  // lenght
+
+                             if (PreThinning)
+                                for (int x=1; x<PathsA[i].size(); x++)
+                                {
+                                     A1.insert(std::pair<int, int>(std::min(PathsA[i][x-1],PathsA[i][x]), std::max(PathsA[i][x-1],PathsA[i][x])));
+                                }
                             }
+                            reverse (PathsA[i].begin(), PathsA[i].end());
                         }
-
                      }
-
-
                 }
                E.clear();
                reverse (PathsA[i].begin(), PathsA[i].end());
            }
-
-
       }
 
    }
@@ -16379,7 +16501,7 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                       }
 
-                      if (f2==0)
+                      if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )
                       {
                        PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -16547,7 +16669,7 @@ int SubGraphsInscribedM (std::vector <int> A, std::vector <int> B, std::set<std:
 
                    }
 
-                   if (f2==0)
+                   if ((f2==0) && (std::find(PathsA.begin(), PathsA.end(), E) == PathsA.end()) )
                    {
                        PathsA.push_back(E);
                        NPaths[j].push_back(PathsA.size()-1);  // номер пути  //  number of path of PathsA
@@ -17276,7 +17398,45 @@ if (PreThinning)
             }
 
 
+//             VectorCout(A);
+//             VectorCout(B);
+//             system("pause");
 
+//             std::cout<<"PathsA:"<<std::endl;
+
+//             for (int i=0; i<PathsA.size(); i++)
+//             {
+
+//                 std::cout<<"i="<<i<<" ";
+//                 VectorCout(PathsA[i]);
+
+//             }
+//    system ("pause");
+
+//             std::cout<<"PathsB:"<<std::endl;
+
+//             for (int i=0; i<PathsB.size(); i++)
+//             {
+
+//                 std::cout<<"i="<<i<<" ";
+//                 VectorCout(PathsB[i]);
+
+//             }
+//                 std::cout<<"NPaths:"<<NPaths.size()<<std::endl;
+//                system ("pause");
+
+
+
+//                for (int i=0; i<NPaths.size(); i++)
+//                {
+//                    std::cout<<"i="<<i<<" ";
+//                    VectorCout(NPaths[i]);
+
+//                    if (NPaths[i].size()==0)
+//                    {temp=-1;   // если для какого-то пути из B нет аналогов в A
+//                        return 0;
+//                    }
+//                }
 
 
                 for (int i=0; i<NPaths.size(); i++)
@@ -17291,10 +17451,9 @@ if (PreThinning)
                 }
 
 
-
 // end of Stage III "Thinning of data"
 
-                // start of Stage IV "Finnishing"
+                // start of Stage IV "Finishing"
 
 
                 c=0;
@@ -17671,7 +17830,6 @@ if (PreThinning)
 
      return Result.size();
 }
-
 
 
 int DistanceTS (std::vector <int> &A, std::vector <long long int> & D, const int b, std::vector <int> & Prev, const bool weighted, int V = INT_MIN)
